@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const connector = 'mongodb://botAdmin:r527jf66@botdev-shard-00-00-pblka.mongodb.net:27017,botdev-shard-00-01-pblka.mongodb.net:27017,botdev-shard-00-02-pblka.mongodb.net:27017/test?replicaSet=BotDev-shard-0&ssl=true&authSource=admin'
+const connector = `mongodb://botAdmin:${process.env.MONGODB}@botdev-shard-00-00-pblka.mongodb.net:27017,botdev-shard-00-01-pblka.mongodb.net:27017,botdev-shard-00-02-pblka.mongodb.net:27017/test?replicaSet=BotDev-shard-0&ssl=true&authSource=admin`
 
 module.exports = {
   init:() => {
