@@ -1,7 +1,7 @@
 const MAL = require('mal-scraper')
 const {RichEmbed} = require('discord.js')
 const settings = require('./../../botconfig.json')
-const utility = require('./../../utils/majutils.js')
+const utility = require('./../../utils/majUtils.js')
 
 module.exports.run = (bot,message,args) => {
 
