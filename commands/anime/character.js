@@ -1,6 +1,6 @@
 const settings = require('./../../botconfig.json')
 const {RichEmbed} = require('discord.js')
-const utility = require('./../../utils/majutils.js')
+const utility = require('./../../utils/majUtils.js')
 const fetch = require('node-fetch')
 const langflags = [{lang:'Japanese',flag:'🇯🇵'},{lang:'French',flag:'🇫🇷'},{lang:'Russian',flag:'🇷🇺'},{lang:'German',flag:'🇩🇪'},{lang:'English',flag:'🇺🇸'},{lang:'Italian',flag:'🇮🇹'},{lang:'Spanish',flag:'🇪🇸'},{lang:'Korean',flag:'🇰🇷'},{lang:'Chinese',flag:'🇨🇳'},{lang:'Brazilian',flag:'🇧🇷'}]
 
