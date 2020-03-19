@@ -35,7 +35,7 @@ module.exports = async bot => {
   },20000)
 
 
-  setTimeout(()=>{AniSchedule.ready(bot)},30000)
+  setTimeout(()=>{AniSchedule.ready(bot)},120000)
 
 //--------------------Anime Airing Schedule Notifier. Courtesy of TeHNut. Support TeHNut on github -------------------/
 
