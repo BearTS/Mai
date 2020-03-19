@@ -1,6 +1,6 @@
 const settings = require('./../../botconfig.json')
 const {RichEmbed} = require('discord.js')
-const utils = require('./../../utils/majutils.js')
+const utils = require('./../../utils/majUtils.js')
 const fetch = require('node-fetch')
 
 module.exports.run = (bot,message,args) => {
