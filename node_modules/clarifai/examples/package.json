@@ -1,0 +1,9 @@
+{
+  "name": "clarifai-examples",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "clarifai": "^2.9.0"
+  }
+}

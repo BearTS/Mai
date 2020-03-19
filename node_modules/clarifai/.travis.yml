@@ -1,0 +1,78 @@
+language: node_js
+
+node_js:
+  - '8'
+  - '10'
+# At the time of this writing, Travis replaces the 'node' version with the Node version 12, which is not compatible
+# anymore with gulp <4.0.0.
+#  - 'node'
+
+branches:
+  only:
+    - master
+    - /^\d+\.\d+\.\d+$/
+
+cache:
+  directories:
+    - node_modules
+
+before_script:
+  - npm list --depth=0  # Prints the installed dependency versions.
+  - export PYTHONPATH=.
+  - export CLARIFAI_APP_ID="$(python scripts/app_and_key_for_tests.py --create-app javascript-travis)"
+  - export CLARIFAI_API_KEY="$(python scripts/app_and_key_for_tests.py --create-key ${CLARIFAI_APP_ID})"
+
+script:
+  - npm run test
+  - npm run build
+
+after_script:
+  - export PYTHONPATH=.
+  - python scripts/app_and_key_for_tests.py --delete-app $CLARIFAI_APP_ID
+
+deploy:
+  - provider: s3
+    access_key_id: ${AWS_ACCESS_KEY_ID}
+    secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+    bucket: ${AWS_BUCKET}
+    skip_cleanup: true
+    acl: public_read
+    upload-dir: js
+    cache_control: "max-age=21600, no-transform, public"
+    local_dir: sdk
+    on:
+      node_js: 10
+      tags: true
+      repo: Clarifai/clarifai-javascript
+  - provider: s3
+    access_key_id: ${AWS_ACCESS_KEY_ID}
+    secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+    bucket: ${AWS_BUCKET}
+    skip_cleanup: true
+    acl: public_read
+    upload-dir: js
+    cache_control: "max-age=21600, no-transform, public"
+    local_dir: docs
+    on:
+      node_js: 10
+      tags: true
+      repo: Clarifai/clarifai-javascript
+  - provider: npm
+    email: eng+npm@clarifai.com
+    api_key: ${NPM_TOKEN}
+    skip_cleanup: true
+    on:
+      node_js: 10
+      tags: true
+      repo: Clarifai/clarifai-javascript
+  - provider: releases
+    skip_cleanup: true
+    api_key: ${GITHUB_TOKEN}
+    file_glob: true
+    file: sdk/*
+    on:
+      node_js: 10
+      tags: true
+      repo: Clarifai/clarifai-javascript
+
+after_deploy: cd examples && npm i clarifai@latest && CLARIFAI_API_KEY=${API_KEY} node index && cd ..

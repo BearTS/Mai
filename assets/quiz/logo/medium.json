@@ -1,0 +1,17 @@
+{
+  "data":[
+    {
+      "category": "Logo",
+      "difficulty": "Medium",
+      "time": 30000,
+      "hasImageURL": false,
+      "isVerified": false,
+      "isMultipleChoice": false,
+      "question": "Question Here",
+      "choices": null,
+      "correctAnswer": ["Correct Answers Here"],
+      "createdBy": "Creator Here",
+      "imageURL": ""
+    }
+  ]
+}

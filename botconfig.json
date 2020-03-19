@@ -1,0 +1,16 @@
+{
+  "prefix":"?",
+  "token": "NjE4Mjc4MTg2NzY1MTIzNTg0.XhdWjw.Z6SyVZyzLbdChWoJ9pz3ym4Q7XM",
+  "colors": {
+    "embedDefault":"0x2f3136"
+  },
+  "APIKeys":{
+    "NASA": "MeMeDRZ2mFWPHj8FIT852JcS1i9uAZZj3yj3xUaW",
+    "IPstack":"7fb22a87f442ef3cb25253924f50941c",
+    "RandomORG":"e5dcd6a4-d95b-4dcc-8da6-f302d2edf00d",
+    "RapidAPI":"7f7caf14f6mshf0ebca44452852cp1cebb2jsn8995da01c2db",
+    "nsfai":"4387bb3d865e4be7b55700594835d629",
+    "botcolors":"778bd98965d1dc523174393409ec0a48f3181"
+  },
+  "PERMISSION_TYPE": "CHANNEL_MANAGER"
+}

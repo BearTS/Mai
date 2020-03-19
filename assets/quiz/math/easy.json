@@ -1,0 +1,17 @@
+{
+  "data":[
+    {
+      "category": "Math",
+      "difficulty": "Easy",
+      "time": 30000,
+      "hasImageURL": false,
+      "isVerified": false,
+      "isMultipleChoice": true,
+      "question": "Question Here",
+      "choices": ["Choices Here"],
+      "correctAnswer": ["Correct Answers Here"],
+      "createdBy": "Creator Here",
+      "imageURL": ""
+    }
+  ]
+}
