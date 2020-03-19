@@ -1,6 +1,6 @@
 const {RichEmbed} = require('discord.js')
 const settings = require('./../../botconfig.json')
-const utility = require('./../../utils/majutils.js')
+const utility = require('./../../utils/majUtils.js')
 const fetch = require('node-fetch')
 const subreddits = [
     "Animemes",
