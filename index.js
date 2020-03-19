@@ -149,4 +149,4 @@ process.on('unhandledRejection', err => {
 });
 
 bot.mongoose.init();
-bot.login(bot_settings.token)
+bot.login(process.env.BOT_TOKEN)
