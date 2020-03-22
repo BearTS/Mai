@@ -92,11 +92,11 @@ guildColorDB.findOne({
     })
 
     collector.on('end', async(collected,reason)=>{
-      interactiveMessage.clearReactions()
+      await msg.clearReactions()
       if (reason==='timeout'){
-        return resolve(interactiveMessage.edit(`Timed-out! Can no longer switch between pages.`))
+        return resolve(msg.edit(`Timed-out! Can no longer switch between pages.`))
       } else if (reason==='terminated') {
-        return resolve(interactiveMessage.edit(`Terminated! Can no longer switch between pages.`))
+        return resolve(msg.edit(`Terminated! Can no longer switch between pages.`))
         }
       })
 
