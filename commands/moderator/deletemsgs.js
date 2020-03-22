@@ -4,6 +4,8 @@ const ImageRegex = /(?:([^:/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:png|jpe?g|gif
 
 module.exports.run = (bot,message,args) => {
 
+	if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply(`Sorry, you don't have the permission to delete messages!`)
+	
   let firstArg = args[0]
   let type = args.slice(1)
 
