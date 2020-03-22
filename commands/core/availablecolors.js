@@ -57,7 +57,7 @@ guildColorDB.findOne({
   }
 
   return message.channel.send(embedder(page)).then(async msg=>{
-    if (pages=1) return
+    if (pages===1) return
 
     let collector = await msg.createReactionCollector((reaction,user)=>{(!user.bot) && (user.id===message.author.id)})
     let reactions = ['◀', '▶', '❌'];
