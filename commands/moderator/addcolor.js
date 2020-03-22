@@ -30,6 +30,7 @@ module.exports.run = (bot,message,args) => {
           colors: []
         })
           registered.save().catch(console.error)
+	  return message.react('👎')
         }
       if (guild.colors.includes(color.hex)) return message.react('👎')
       guild.colors.push(color.hex)
