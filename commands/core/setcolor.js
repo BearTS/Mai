@@ -15,8 +15,9 @@ module.exports.run = (bot,message,args) =>{
     if (!guild.colors.includes(color.hex)) return message.react('👎')
     let guildColorRoles = []
     for (let i = 0; i<guild.colors.length;i++) guildColorRoles.push(colors.colors.find(r=>guild.colors[i]===r.hex).name)
-    if (message.member.guild.roles.find(r=>guildColorRoles.includes(r.name))) {
-      message.member.removeRole(message.member.roles.find(r=>guildColorRoles.includes(r.name)))
+    let role = message.member.roles.find(r=>guildColorRoles.includes(r.name))
+    if (role) {
+      message.member.removeRole(role)
     }
     let roleToAdd = message.guild.roles.find(r=>r.name===color.name)
     message.member.addRole(roleToAdd).then(()=>{return message.react('👍')}).catch(()=>{return message.react('👎')})
