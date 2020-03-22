@@ -22,6 +22,7 @@ guildColorDB.findOne({
     }
   }
 
+
   if (roles.length<1){
     return message.channel.send(`❌ There are no color roles found in this server.`)
   }
@@ -40,11 +41,12 @@ guildColorDB.findOne({
   arrayedRoleNames = []
     for (let x = 0; x < 10; x++){
       arrayedRoles.push(roles[n])
-      arrayedRoleNames.push(roleNames[n])
       n++
     }
   arrayedRoles = arrayedRoles.filter((el)=>{return el != undefined})
-  arrayedRoleNames = arrayedRoleNames.filter((el)=>{return el != undefined})
+  arrayedRoles.forEach(role => {
+    arrayedRoleNames.push(role.name)
+  })
   page.push({page:i+1,roles:arrayedRoles,roleNames:arrayedRoleNames})
   }
   n = 0
@@ -59,56 +61,56 @@ guildColorDB.findOne({
   return message.channel.send(embedder(page)).then(async msg=>{
     if (pages===1) return
 
-    let collector = await msg.createReactionCollector((reaction,user)=>{(!user.bot) && (user.id===message.author.id)})
-    let reactions = ['◀', '▶', '❌'];
-    for (let i = 0; i < reactions.length; i++) await msg.react(reactions[i]);
+      const collector = await msg.createReactionCollector((reaction,user)=>!user.bot)
+      let reactions = ['◀', '▶', '❌'];
+      for (let i = 0; i < reactions.length; i++) await msg.react(reactions[i]);
 
-    let timeout = setTimeout(function() {
-        return collector.stop('timeout');
-    }, 120000);
+      let timeout = setTimeout(function() {
+          return collector.stop('timeout');
+      }, 120000);
 
-    collector.on('collect', async(r)=>{
-      if (r.emoji.name === '◀') {
-          if (!(n<1)){
-            clearTimeout(timeout)
-            n--;
-            await msg.edit(embedder(page))
-        }
-      } else if (r.emoji.name === "▶"){
-        if (n<(page.length-1)){
+      collector.on('collect',async (r) => {
+        if (r.emoji.name === '◀') {
+            if (n<1){
+              n = page.length
+          }
+          clearTimeout(timeout)
+          n--;
+          await msg.edit(embedder(page))
+        } else if (r.emoji.name === "▶"){
+          if (n===page.length-1){
+            n = -1
+          }
           clearTimeout(timeout)
           n++;
           await msg.edit(embedder(page))
+        } else if (r.emoji.name === "❌"){
+          collector.stop('terminated')
         }
-      }  else if (r.emoji.name === "❌"){
-        collector.stop('terminated')
-      }
 
-      await r.remove(message.author.id); //Delete user reaction
-      timeout = setTimeout(function() {
-          collector.stop('timeout');
-      }, 120000);
+        await r.remove(message.author.id); //Delete user reaction
+        timeout = setTimeout(function() {
+            collector.stop('timeout');
+        }, 120000);
 
-    })
-
-    collector.on('end', async(collected,reason)=>{
-      await msg.clearReactions()
-      if (reason==='timeout'){
-        return resolve(msg.edit(`Timed-out! Can no longer switch between pages.`))
-      } else if (reason==='terminated') {
-        return resolve(msg.edit(`Terminated! Can no longer switch between pages.`))
-        }
       })
 
+      collector.on('end', async(collected,reason)=>{
+        await msg.clearReactions()
+        if (reason==='timeout'){
+          return msg.edit(`Timed-out! Can no longer switch between pages.`)
+        } else if (reason==='terminated') {
+          return msg.edit(`Terminated! Can no longer switch between pages.`)
+          }
+        })
 
-  }).catch()
+  }).catch(console.error)
 })
 
 if (message) {
   message.delete()
 }
 
-return;
 }
 
 
