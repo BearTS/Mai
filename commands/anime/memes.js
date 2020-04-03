@@ -4,8 +4,8 @@ const utility = require('./../../utils/majUtils.js')
 const fetch = require('node-fetch')
 const subreddits = [
     "Animemes",
-    "MemesOfAnime",
-    "AnimeFunny"
+    "Animemes",
+    "Animemes"
 ]
 
 module.exports.run = (bot,message,args) => {
