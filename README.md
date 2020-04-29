@@ -32,8 +32,6 @@ Name | Description
 <p>
   <img src="https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_oryou__b2e7634047942a5a367dde6b5ed18622.png" height="500" title="Best Girl" align="left">
 </p>
-<p align= "right">
-
 
 ### Action <br><br><br>
 * `m!baka <@member>` Send a Baka Gif / Image. <br><br>
@@ -46,6 +44,9 @@ Name | Description
 * `m!tickle <@member>` Send a Tickle Gif / Image.<br><br><br>
 
 ###### [Back to ToC](#Contents)
+<p>
+   <img src = "https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_envyvanity__9754996d5fa61aa824a555c751a76a87.png" height="500" align="right">
+</p>
 
 ### Anime
 * `m!anime [Anime Title]` Search for an anime via MyAnimeList.net
