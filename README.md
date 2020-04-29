@@ -33,7 +33,8 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_oryou__b2e7634047942a5a367dde6b5ed18622.png" height="500" title="Best Girl" align="left">
 </p>
 
-### Action <br>
+### Action 
+<br>
 * `m!baka <@member>` Send a Baka Gif / Image. <br><br>
 * `m!hug  <@member>` Send a Hug Gif / Image. <br><br>
 * `m!kiss <@member>` Send a Kiss Gif / Image. <br><br>
@@ -64,7 +65,8 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_huijin_zhi_ling__sample-355e85ddea98b2e14dda4d711cc1bd03.jpg" height="500" align="left">
 </p>
 
-### Bot <br><br><br><br>
+### Bot 
+<br><br><br><br>
 * `m!feedback [Message]` Send a feedback to Sakurajimai#6742 (my Dev) <br><br><br><br>
 * `m!ping` Send the current ping of the bot in ms. <br><br><br><br>
 * `m!stats` Send the stauts of the bot. <br><br><br><br><br>
@@ -74,7 +76,8 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_tousang__sample-40425a146441efacd1a2a2ace669d21c.jpg" height="500" align="right">
 </p>
 
-### Core <br><br>
+### Core 
+<br><br>
 * `m!cmd` Send all my available commands list. <br><br>
 * `m!help [command name]` Sends full information on a specific command. <br><br>
 * `m!invite` Sends my invite link. <br><br>
@@ -88,7 +91,8 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_hizuki_higure__sample-1bf3c0cd9d9ec41fd6ea1d6220148a4a.jpg" height="500" align="left">
 </p>
 
-### Fun <br><br>
+### Fun 
+<br><br>
 * `m!advice` Send a random useless advice.
 * `m!birdfact` Send a random useless fact about birds.
 * `m!catfact` Send a random useless fact about cats.
@@ -109,7 +113,8 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_daye_bie_qia_lian__sample-ccc7906a0edf45a51b2e2272b4d07910.jpg" height="500" align="right">
 </p>
 
-### Moderation <br><br>
+### Moderation 
+<br><br>
 * `m!ban [@member]` Bans mentioned member. <br><br>
 * `m!clear <category> [Quantity]` Bulk Delete messages from a channel.  <br>
 * `m!kick [@member]` Kicks mentioned member.  <br><br>
@@ -138,7 +143,8 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_ale_nqki__sample-ae1a510d3c4360c062f607c4153de0fc.jpg" height="500" align="right">
 </p>
 
-### Owner <br><br><br><br>
+### Owner 
+<br><br><br><br>
 * `m!backdoor [Guild ID]` Send a server invite to the specified server. <br><br><br>
 * `m!eval [code]` Evaluates JS code. <br><br><br>
 * `m!execute [event]` Force Execute a d.js event. <br><br><br>
