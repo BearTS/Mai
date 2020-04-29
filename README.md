@@ -34,7 +34,6 @@ Name | Description
 </p>
 
 ### Action 
-<br>
 * `m!baka <@member>` Send a Baka Gif / Image. <br><br>
 * `m!hug  <@member>` Send a Hug Gif / Image. <br><br>
 * `m!kiss <@member>` Send a Kiss Gif / Image. <br><br>
