@@ -109,18 +109,29 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_daye_bie_qia_lian__sample-ccc7906a0edf45a51b2e2272b4d07910.jpg" height="500" align="right">
 </p>
 
-### Moderation <br>
-* `m!ban [@member]` Bans mentioned member. <br><br>
-* `m!clear <category> [Quantity]` Bulk Delete messages from a channel. <br><br>
-* `m!kick [@member]` Kicks mentioned member. <br><br>
-* `m!lockdown` Mute / unmute @everyone role in the channel this command is used in. <br><br>
-* `m!mute <minutes> [@member] <scope>` Mutes mentioned user for a given amount of minutes. Mutes indefinitely, if no duration is specified. <br><br>
-* `m!respond [message ID]` Respond to a suggestion in `#suggestions` <br><br>
-* `m!unmute [@member] <scope>`Unmutes mentioned user. 
+### Moderation <br><br><br>
+* `m!ban [@member]` Bans mentioned member.
+* `m!clear <category> [Quantity]` Bulk Delete messages from a channel. 
+* `m!kick [@member]` Kicks mentioned member. 
+* `m!lockdown` Mute / unmute @everyone role in the channel this command is used in. 
+* `m!mute <minutes> [@member] <scope>` Mutes mentioned user for a given amount of minutes. Mutes indefinitely, if no duration is specified. 
+* `m!respond [message ID]` Respond to a suggestion in `#suggestions` 
+* `m!unmute [@member] <scope>`Unmutes mentioned user. <br>
 
 ###### [Back to ToC](#Contents)
+<p>
+  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_moorina__sample-0da0faf5f26ef2dec91601b72e9eb5a8.jpg" height="500" align="left">
+</p>
 
-##### Music
+##### Music <br><br>
+* `m!nowPlaying` Display the currently playing music. <br><br>
+* `m!pause` Kicks mentioned member. <br><br>
+* `m!play [search query or youtube URL]` Play music using the query provided, or add to queue if there is already one playing. <br><br>
+* `m!queue` Display the queued music. <br><br>
+* `m!resume` Resumes the music if paused. <br><br>
+* `m!skip` Skips the currently playing music. <br><br>
+* `m!stop` Stops the music. <br><br>
+* `m!volume <volume level>` Set the volume of the music, or display the current volume, if level is not provided.<br><br>
 
 ###### [Back to ToC](#Contents)
 
