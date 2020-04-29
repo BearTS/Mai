@@ -44,7 +44,7 @@ Name | Description
 * `m!smug` Send a Smug Gif / Image.<br><br>
 * `m!tickle <@member>` Send a Tickle Gif / Image.<br><br>
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 <p>
    <img src = "https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_envyvanity__9754996d5fa61aa824a555c751a76a87.png" height="500" align="right">
 </p>
@@ -60,7 +60,7 @@ Name | Description
 * `m!nsfw [Category]` Send a random anime nsfw image depending on the supplied category.
 * `m!schedule <day>` Send list of currently airing anime using the supplied day, or return this day's if none is supplied.
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 <p>
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_huijin_zhi_ling__sample-355e85ddea98b2e14dda4d711cc1bd03.jpg" height="500" align="left">
 </p>
@@ -71,7 +71,7 @@ Name | Description
 * `m!ping` Send the current ping of the bot in ms. <br><br><br><br>
 * `m!stats` Send the stauts of the bot. <br><br><br><br><br>
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 <p>
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_tousang__sample-40425a146441efacd1a2a2ace669d21c.jpg" height="500" align="right">
 </p>
@@ -86,7 +86,7 @@ Name | Description
 * `m!rank <@user>` Send the xp information of the mentioned user, or own if no mention is supplied. <br><br>
 * `m!suggest [Suggestion Content]` Suggest something for the server. <br><br>
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 <p>
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_hizuki_higure__sample-1bf3c0cd9d9ec41fd6ea1d6220148a4a.jpg" height="500" align="left">
 </p>
@@ -108,7 +108,7 @@ Name | Description
 * `m!pokemon [Pokemon name]` Search for a pokemon on the pokedex.
 * `m!respect` Press F to pay respect. <br>
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 <p>
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_daye_bie_qia_lian__sample-ccc7906a0edf45a51b2e2272b4d07910.jpg" height="500" align="right">
 </p>
@@ -123,7 +123,7 @@ Name | Description
 * `m!respond [message ID]` Respond to a suggestion in `#suggestions`  <br><br>
 * `m!unmute [@member] <scope>`Unmutes mentioned user. <br><br><br><br>
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 <p>
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_moorina__sample-0da0faf5f26ef2dec91601b72e9eb5a8.jpg" height="500" align="left">
 </p>
@@ -138,7 +138,7 @@ Name | Description
 * `m!stop` Stops the music. <br><br>
 * `m!volume <volume level>` Set the volume of the music, or display the current volume, if level is not provided.<br>
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 <p>
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_ale_nqki__sample-ae1a510d3c4360c062f607c4153de0fc.jpg" height="500" align="right">
 </p>
@@ -150,7 +150,7 @@ Name | Description
 * `m!execute [event]` Force Execute a d.js event. <br><br><br>
 * `m!fleave [guild ID]` Force leave a guild. <br><br><br><br>
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 
 ### Setup
 * `m!anischedule [subcommand]` Set up anime scheduling in your server.
@@ -176,7 +176,7 @@ Name | Description
   * `m!pointsystem xpexcempt [channel]` Excempt xp system on mentioned channel(s), if enabled.
   * `m!pointsystem xptoggle` Toggle the xp system on/off for this server
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 <p>
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_otono_fei__sample-0e8aff25cb5033d101f097f2dbf36ef1.jpg" height="500" align="right">
 </p>
@@ -191,7 +191,7 @@ Name | Description
 * `m!urban [word / phrase]` Get the urban definition of the supplied word / phrase.
 * `m!whois [user ID]` Get discord user information using the supplied ID
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 
 ***
 ### Libraries and frameworks used
@@ -208,9 +208,9 @@ Name | Description
 * [wanakana ^4.0.2](https://github.com)
 * [ytdl-core](https://github.com) and [ffmpeg-static](https://github.com)
 
-###### [Back to ToC](#Contents)
+###### [Back to Contents](#Contents)
 ___
 ![Add Me!](https://files.catbox.moe/j4uzj2.png)
 
-<h5><p align = 'center'> What are you waiting for? <a href = "https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303"> Add me </a> to your server now! <br><br> <img align="center" src="https://files.catbox.moe/lha6ok.png" height="75"> <br> Created by: Sakurajimai#6742 </p> </h5> 
+<h5><p align = 'center'> What are you waiting for? <a href = "https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303"> Add me </a> to your server now! <br><br><br><br> <img align="center" src="https://files.catbox.moe/lha6ok.png" height="75"> <br> Created by: Sakurajimai#6742 </p> </h5> 
 
