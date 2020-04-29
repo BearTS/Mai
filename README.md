@@ -7,8 +7,7 @@
 <h1> Mai <a href = 'https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303'>
   <img src="https://files.catbox.moe/lha6ok.png" height="25">
 </a></h1>
-***
-***
+
 #### A simple, multi-functional Discord bot by best girl written in discord.js 12.0.2 - Focuses more in anime..
 ##### [Click here to add Mai to your server](https://github.com/maisans-maid/MaiSakurajima) or [visit my website!](https://github.com/maisans-maid/MaiSakurajima)
 ***
