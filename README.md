@@ -1,15 +1,14 @@
 <html>
   <header>
-    <a href = 'https://discordapp.com/oauth2/authorize?client_id=365907645795794946&scope=bot&permissions=1043721303'>
+    <a href = 'https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303'>
       <img align="right" src="https://files.catbox.moe/lha6ok.png" height="400">
     </a>
 
-<h1> Komugari <a href = 'https://discordapp.com/oauth2/authorize?client_id=365907645795794946&scope=bot&permissions=1043721303'>
+<h1> Mai <a href = 'https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303'>
   <img src="https://files.catbox.moe/lha6ok.png" height="25">
 </a></h1>
-![](https://files.catbox.moe/j4uzj2.png)
 ***
-# Mai 
+***
 #### A simple, multi-functional Discord bot by best girl written in discord.js 12.0.2 - Focuses more in anime..
 ##### [Click here to add Mai to your server](https://github.com/maisans-maid/MaiSakurajima) or [visit my website!](https://github.com/maisans-maid/MaiSakurajima)
 ***
