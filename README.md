@@ -203,7 +203,8 @@ Name | Description
 * [ytdl-core](https://github.com) and [ffmpeg-static](https://github.com)
 
 ###### [Back to ToC](#Contents)
-***
+___
 ![Add Me!](https://files.catbox.moe/j4uzj2.png)
-***
-##### What are you waiting for? [Add me](https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303) to your server now!
+
+<h5><p align = 'center'> What are you waiting for? <a href = "https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303"> Add me </a> to your server now! <br><br> <img align="center" src="https://files.catbox.moe/lha6ok.png" height="75"> <br> Created by: Sakurajimai#6742 </p> </h5> 
+
