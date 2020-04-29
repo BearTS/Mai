@@ -171,6 +171,9 @@ Name | Description
   * `m!pointsystem xptoggle` Toggle the xp system on/off for this server
 
 ###### [Back to ToC](#Contents)
+<p>
+  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_otono_fei__sample-0e8aff25cb5033d101f097f2dbf36ef1.jpg" height="500" align="right">
+</p>
 
 ### Utility
 * `m!avatar <@user>` Send the Avatar of the mentioned user, or your own if none is mentioned.
