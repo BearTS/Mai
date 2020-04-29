@@ -33,7 +33,7 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_oryou__b2e7634047942a5a367dde6b5ed18622.png" height="500" title="Best Girl" align="left">
 </p>
 
-### Action <br><br><br>
+### Action <br>
 * `m!baka <@member>` Send a Baka Gif / Image. <br><br>
 * `m!hug  <@member>` Send a Hug Gif / Image. <br><br>
 * `m!kiss <@member>` Send a Kiss Gif / Image. <br><br>
@@ -41,7 +41,7 @@ Name | Description
 * `m!poke <@member>` Send a Poke Gif / Image. <br><br>
 * `m!slap <@member>` Send a Slap Gif / Image. <br><br>
 * `m!smug` Send a Smug Gif / Image.<br><br>
-* `m!tickle <@member>` Send a Tickle Gif / Image.<br><br><br>
+* `m!tickle <@member>` Send a Tickle Gif / Image.<br><br>
 
 ###### [Back to ToC](#Contents)
 <p>
@@ -60,11 +60,14 @@ Name | Description
 * `m!schedule <day>` Send list of currently airing anime using the supplied day, or return this day's if none is supplied.
 
 ###### [Back to ToC](#Contents)
+<p>
+  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_huijin_zhi_ling__sample-355e85ddea98b2e14dda4d711cc1bd03.jpg" height="500" align="left">
+</p>
 
-##### Bot
-* `m!feedback [Message]` Send a feedback to Sakurajimai#6742 (my Dev)
-* `m!ping` Send the current ping of the bot in ms.
-* `m!stats` Send the stauts of the bot.
+### Bot <br><br><br><br>
+* `m!feedback [Message]` Send a feedback to Sakurajimai#6742 (my Dev) <br><br><br><br>
+* `m!ping` Send the current ping of the bot in ms. <br><br><br><br>
+* `m!stats` Send the stauts of the bot. <br><br><br><br><br>
 
 ###### [Back to ToC](#Contents)
 
