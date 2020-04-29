@@ -102,7 +102,7 @@ Name | Description
 * `m!meme` Send a meme from selected subreddits.
 * `m!pandafact` Send a random useless fact about pandas.
 * `m!pokemon [Pokemon name]` Search for a pokemon on the pokedex.
-* `m!respect` Press F to pay respect. <br>
+* `m!respect` Press F to pay respect. <br><br><br>
 
 ###### [Back to ToC](#Contents)
 <p>
@@ -123,7 +123,7 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_moorina__sample-0da0faf5f26ef2dec91601b72e9eb5a8.jpg" height="500" align="left">
 </p>
 
-### Music <br><br>
+### Music <br>
 * `m!nowPlaying` Display the currently playing music. <br><br>
 * `m!pause` Kicks mentioned member. <br><br>
 * `m!play [search query or youtube URL]` Play music using the query provided, or add to queue if there is already one playing. <br>
