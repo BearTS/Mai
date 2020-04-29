@@ -8,7 +8,7 @@
   "channel": {
   },
   "commanddir": ["action","anime","bot","core","fun","moderation","music","owner","setup","utility"],
-  "website" : null,
+  "website" : "https://maisans-maid.github.io/mai.moe/",
   "repo" : "https://github.com/maisans-maid/Mai#readme",
   "prodtoken" : "NzAyMDc0NDUyMzE3MzA3MDYx.Xp6vzw.rgClpe3TyiWywp19okyF6-tl9sU"
 }
