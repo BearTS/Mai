@@ -102,7 +102,7 @@ Name | Description
 * `m!meme` Send a meme from selected subreddits.
 * `m!pandafact` Send a random useless fact about pandas.
 * `m!pokemon [Pokemon name]` Search for a pokemon on the pokedex.
-* `m!respect` Press F to pay respect. <br><br>
+* `m!respect` Press F to pay respect. <br>
 
 ###### [Back to ToC](#Contents)
 <p>
