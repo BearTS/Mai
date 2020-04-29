@@ -168,3 +168,7 @@ Name | Description
 * [ytdl-core](https://github.com) and [ffmpeg-static](https://github.com)
 
 ###### [Back to ToC](#Contents)
+***
+![Add Me!](https://files.catbox.moe/j4uzj2.png)
+***
+# What are you waiting for? [Add me](https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303) to your server now!
