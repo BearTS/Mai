@@ -1,5 +1,6 @@
 ![](https://files.catbox.moe/j4uzj2.png)
-#Mai 
+***
+#Mai
 #### A simple, multi-functional Discord bot by best girl written in discord.js 12.0.2 - Focuses more in anime..
 ##### [Click here to add Mai to your server](https://github.com/maisans-maid/MaiSakurajima) or [visit my website!](https://github.com/maisans-maid/MaiSakurajima)
 ***
