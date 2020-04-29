@@ -109,7 +109,7 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_daye_bie_qia_lian__sample-ccc7906a0edf45a51b2e2272b4d07910.jpg" height="500" align="right">
 </p>
 
-### Moderation <br>
+### Moderation <br><br>
 * `m!ban [@member]` Bans mentioned member. <br><br>
 * `m!clear <category> [Quantity]` Bulk Delete messages from a channel.  <br>
 * `m!kick [@member]` Kicks mentioned member.  <br><br>
@@ -126,12 +126,12 @@ Name | Description
 ##### Music <br><br>
 * `m!nowPlaying` Display the currently playing music. <br><br>
 * `m!pause` Kicks mentioned member. <br><br>
-* `m!play [search query or youtube URL]` Play music using the query provided, or add to queue if there is already one playing. <br><br>
+* `m!play [search query or youtube URL]` Play music using the query provided, or add to queue if there is already one playing. <br>
 * `m!queue` Display the queued music. <br><br>
 * `m!resume` Resumes the music if paused. <br><br>
 * `m!skip` Skips the currently playing music. <br><br>
 * `m!stop` Stops the music. <br><br>
-* `m!volume <volume level>` Set the volume of the music, or display the current volume, if level is not provided.<br><br>
+* `m!volume <volume level>` Set the volume of the music, or display the current volume, if level is not provided.<br>
 
 ###### [Back to ToC](#Contents)
 
