@@ -1,120 +1,88 @@
-const settings = require('./../../botconfig.json')
-const {RichEmbed} = require('discord.js')
-const utility = require('./../../utils/majUtils.js')
+const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
-const langflags = [{lang:'Japanese',flag:'🇯🇵'},{lang:'French',flag:'🇫🇷'},{lang:'Russian',flag:'🇷🇺'},{lang:'German',flag:'🇩🇪'},{lang:'English',flag:'🇺🇸'},{lang:'Italian',flag:'🇮🇹'},{lang:'Spanish',flag:'🇪🇸'},{lang:'Korean',flag:'🇰🇷'},{lang:'Chinese',flag:'🇨🇳'},{lang:'Brazilian',flag:'🇧🇷'}]
+const { textTrunctuate } = require('../../helper.js')
 
-module.exports.run = (bot,message,args) => {
+module.exports.run = async ( client, message, args ) => {
 
-if (args.length<1) return message.react('👎').then(()=>message.reply(`Please include the name of the character to search`)).catch(console.error)
+if (!args.length) args = ['mai','sakurajima']
 
-getcharacter(args.join(' ')).then(res => {
-  if (res.err) return message.react('👎').then(()=>message.reply(res.err)).catch(console.error)
+const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for character named **${args.join(' ')}** on MAL.\n\u200B`))
 
-  getData(res.id).then(data => {
-    if (data.err) return message.react('👎').then(()=>message.reply(data.err)).catch(console.error)
+const data = await fetch(`https://api.jikan.moe/v3/search/character?q=${encodeURI(args.join(' '))}&page=1`).then( res => res.json()).catch(()=>{})
 
-    embedAllData(res,data).then(embed => {
-      return new Promise( async (resolve, reject) => {
-        const sent = await message.channel.send(embed)
-        let reactions = ['👍', '👎', '😂', '😮', '😡', '❌'];
-        for (let i = 0; i < reactions.length; i++) await sent.react(reactions[i]);
-        })
-      })
-    })
-  })
+if (!data) return msg.edit(error(`Couldn't find **${args.join(' ')}** on MAL's Character List`))
+
+if (data.error) return msg.edit(error(data.error))
+
+const { results : [ { mal_id }] } = data
+
+const res = await fetch(`https://api.jikan.moe/v3/character/${mal_id}`).then( res => res.json()).catch(()=>{})
+
+if (!res) return msg.edit(error(`Couldn't find **${args.join(' ')}** on MAL's Character List`))
+
+if (res.error) return msg.edit(error(data.error))
+
+const { url, name, name_kanji, about, image_url, animeography, mangaography, voice_actors } = res
+
+const elapsed = new Date() - msg.createdAt
+const anime = hyperlink(animeography)
+const manga = hyperlink(mangaography)
+const seiyuu = seiyuify(voice_actors)
+
+const embed = new MessageEmbed()
+  .setAuthor(`${name} • ${name_kanji}`, null, url)
+  .setThumbnail(image_url)
+  .setColor('GREY')
+  .setDescription(textTrunctuate(about.replace(/\\n/g,''),500,`... [Read More](${url})`))
+  .addField('Anime Appearances',anime.length < 4 ? anime.join('\n') : `${anime.slice(0,3).join('\n')}\n...and ${anime.length - 3} more!`)
+  .addField('Manga Appearances', manga.length < 4 ? manga.join('\n') : `${manga.slice(0,3).join('\n')}\n...and ${manga.length - 3} more!`)
+  .addField(`Seiyuu`, seiyuu.length < 4 ? seiyuu.join('\n') : seiyuu.slice(0,3).join('\n'), true)
+if (seiyuu.length > 3) embed.addField(`\u200B`, seiyuu.length < 7 ? seiyuu.slice(3).join('\n') : seiyuu.slice(3,6).join('\n'), true)
+if (seiyuu.length > 6) embed.addField(`\u200B`, seiyuu.length < 10 ? seiyuu.slice(6).join('\n') : `${seiyuu.slice(6,8).join('\n')}\n...and ${seiyuu.length - 8} more!`,true)
+  .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
+
+msg.edit(embed)
+
 }
 
-
-module.exports.help = {
-  name: 'character',
+module.exports.config = {
+  name: "character",
   aliases: ['anichar','char','c'],
+  cooldown: {
+    time: 10,
+    msg: 'Oops! You\'re going too fast!'
+  },
+  guildOnly: true,
 	group: 'anime',
-	description: 'Searches for a character in MyAnimeList.net',
+	description: 'Searches for a character in MyAnimeList.net.',
 	examples: ['character mai sakurajima','anichar Mai Sakurajima','char Mai-san','c mai'],
 	parameters: ['search query']
 }
 
-function getcharacter(query){
-  return new Promise((resolve,reject)=>{
-    fetch(`https://api.jikan.moe/v3/search/character?q=${encodeURI(query)}&page=1`).then(res => res.json()).then(json => {
-      if (json.error){
-        resolve({err:`Couldn't find ${query} on Anime Character List!`})
-      } else if (json.results.length<1) {
-        resolve({err:`Couldn't find ${query} on Anime Character List!`})
-      }else resolve({id:json.results[0].mal_id,name:json.results[0].name,altNames:json.results[0].alternative_names})
-    });
-  })
+function error(err){
+  return new MessageEmbed()
+  .setColor('RED')
+  .setDescription(`\u200B\n${err}\n\u200B`)
 }
 
-function getData(id){
-  return new Promise((resolve,reject)=>{
-    fetch(`https://api.jikan.moe/v3/character/${id}`).then(res => res.json()).then(json => {
-    if (json.error) resolve({err:`The server replied with a bad response.`})
-    resolve({
-      characterURL: json.url,
-      name_kanji: json.name_kanji,
-      description: json.about,
-      imageURL: json.image_url,
-      anime: json.animeography,
-      manga: json.mangaography,
-      va: json.voice_actors
-    })
+function hyperlink(data){
+
+  if (!data) return [`None`]
+
+  if (!data.length) return [`None`]
+  let res = []
+  data.forEach( piece => {
+    res.push(`• [${piece.name}](${piece.url}) as ${piece.role}`)
   })
-})
+  return res
 }
 
-function embedAllData(res,data){
-return new Promise((resolve,reject)=>{
-hyperlink(data.anime).then(anime => {
-  hyperlink(data.manga).then(manga => {
-    linkSeiyuu(data.va).then(seiyuu => {
-      const embed = new RichEmbed()
-      .setTitle(`${res.name}  •  ${data.name_kanji}`)
-      .setURL(data.characterURL)
-      .setThumbnail(data.imageURL)
-      .addField(`Description`,utility.textTrunctuate(data.description.replace(/\\n/g,''),600))
-      .addField(`Anime Appearance`, utility.textTrunctuate(anime,600))
-      .addField(`Manga Appearance`, utility.textTrunctuate(manga,600))
-      .addField(`Seiyuu`,utility.textTrunctuate(seiyuu,600))
-      .setTimestamp()
-      .setColor(settings.colors.embedDefault)
-      if (res.altNames.length>1){
-      embed.setDescription(`Also known as *${res.altNames.join(', ')}*.`)
-        }
-      resolve(embed)
-        })
-      })
-    })
+function seiyuify(data){
+  const langflags = [{lang:'Hungarian',flag:'🇭🇺'},{lang:'Japanese',flag:'🇯🇵'},{lang:'French',flag:'🇫🇷'},{lang:'Russian',flag:'🇷🇺'},{lang:'German',flag:'🇩🇪'},{lang:'English',flag:'🇺🇸'},{lang:'Italian',flag:'🇮🇹'},{lang:'Spanish',flag:'🇪🇸'},{lang:'Korean',flag:'🇰🇷'},{lang:'Chinese',flag:'🇨🇳'},{lang:'Brazilian',flag:'🇧🇷'}]
+  if (!data.length) return ['none']
+  let res = []
+  data.forEach( seiyuu => {
+    res.push(`${langflags.find( m => m.lang === seiyuu.language) ? langflags.find( m => m.lang === seiyuu.language).flag : seiyuu.language } - [${seiyuu.name}](${seiyuu.url})`)
   })
-}
-
-function hyperlink(animeography){
-return new Promise((resolve,reject)=>{
-  if (animeography.length<1) resolve('None')
-  let data = []
-  animeography.forEach(anime => {
-    data.push(`[${anime.name}](${anime.url}) as ${anime.role}`)
-  })
-  let output = ''
-  data.forEach(dataset => {
-    output += `• ${dataset}\n`
-  })
-    resolve(output)
-  })
-}
-
-function linkSeiyuu(seiyuu){
-  return new Promise((resolve,reject)=>{
-    if (seiyuu.length<1) resolve('None')
-    let data = []
-    seiyuu.forEach(seiyuus => {
-      data.push(`${langflags.find(m => m.lang === seiyuus.language) ? langflags.find(m => m.lang === seiyuus.language).flag : ''} - [${seiyuus.name}](${seiyuus.url}) *(${seiyuus.language})*`)
-    })
-    let output = ''
-    data.forEach(dataset => {
-      output += `• ${dataset}\n`
-    })
-    resolve(output)
-  })
+  return res
 }

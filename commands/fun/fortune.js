@@ -254,28 +254,25 @@ const fortunes = [
     "Accept your independence and use it wisely.",
     "May the warm winds of heaven blow softly upon your sprint."
 ]
-const Discord = require("discord.js");
-const settings = require('./../../botconfig.json');
+const { MessageEmbed } = require("discord.js")
 
-module.exports.run = (bot,message,args) => {
-  const embed = new Discord.RichEmbed()
-      .setAuthor(`${message.author.username}'s fortune`, message.author.displayAvatarURL)
-      .setDescription(fortunes[Math.round(Math.random() * (fortunes.length - 1))])
-      .setColor(settings.colors.embedDefault);
-      return new Promise(async(resolve,reject)=>{
-        var hook = await message.channel.createWebhook(`Mikoto Aiura`,`https://i.imgur.com/PvDeHks.gif`)
-        await hook.send(embed).catch(console.error);
-        setTimeout(async function() {
-            await hook.delete()
-        }, 1000);
-      })
+module.exports.run = ( client, message) => {
+  message.channel.send(new MessageEmbed()
+  .setColor('GREY')
+  .setDescription(fortunes[Math.floor(Math.random()* (fortunes.length - 1))])
+  .setAuthor(`${message.member.displayName}'s fortune.`, message.author.displayAvatarURL())
+  )
 }
 
-module.exports.help = {
+module.exports.config = {
   name: "fortune",
   aliases: ['ft','fortunecookies'],
-	group: 'fun',
-	description: 'Generate a random fortune',
-	examples: ['fortune','ft'],
-	parameters: []
+  cooldown:{
+    time: 0,
+    msg: ""
+  },
+  group: "fun",
+  description: "Generate a random fortune" ,
+  examples: ['fortune','ft'],
+  parameters: []
 }

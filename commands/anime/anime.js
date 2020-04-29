@@ -1,106 +1,74 @@
-const MAL = require('mal-scraper')
-const {RichEmbed} = require('discord.js')
-const settings = require('./../../botconfig.json')
-const utility = require('./../../utils/majUtils.js')
+const { getInfoFromName } = require('mal-scraper')
+const { MessageEmbed } = require('discord.js')
+const { textTrunctuate } = require('../../helper.js')
 
+module.exports.run = async ( client, message, args ) => {
 
-module.exports.run = (bot,message,args) => {
+  if (!args.length) args = ['seishun','buta','yarou']
 
-  if (args.length === 0) return message.channel.send('Error: Please include a query to search with.').then(message => {setTimeout(()=>{if (!message.deleted) return message.delete()},10000)})
+  const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for anime titled **${args.join(' ')}** on MAL.\n\u200B`))
 
-  let query = args.join(' ')
-  MAL.getInfoFromName(query).then(data => {
-    if (!data) return message.channel.send(`No anime found for **${query}**`).then(message => {setTimeout(()=>{if (!message.deleted) return message.delete()},10000)})
-    let genres;
-    let producers;
-    let studios;
-    if (!data.genres) {
-      genres = "No Information"
-    } else {
-        genres = []
-      for (var i=0;i<data.genres.length;i++){
-        genres.push(data.genres[i])
-      }
-      genres = genres.join(", ") + "."
-    }
-    if (!data.producers){
-      producers = "No Information"
-    } else {
-      producers = []
-      for (var i=0;i<data.producers.length;i++){
-        producers.push(data.producers[i])
-      }
-      producers = producers.join(", ") + "."
-    }
-    if (!data.studios) {
-      studios = "No Information"
-    } else {
-      studios = []
-      for (var i=0;i<data.studios.length;i++){
-        studios.push(data.studios[i])
-      }
-      studios = studios.join(', ') + "."
-    }
-    const title = (data.title) ? data.title : "No Information"
-    const url = (data.url) ? data.url : false
-    const desc = (data.englishTitle) ? data.englishTitle : "No Information";
-    const image = (data.picture) ? data.picture : false;
-    const syn = (data.synopsis) ? data.synopsis : "No Information";
-    const type = (data.type.length > 0) ? data.type : "No Information";
-    const aired = (data.aired.length > 0) ? data.aired : "No Information";
-    const status = (data.status.length > 0) ? data.status : "No Information";
-    const episodes = (data.episodes.length > 0) ? data.episodes : "No Information";
-    const premiered = (data.premiered.length > 0) ? data.premiered : "No Information";
-    const source = (data.source.length > 0) ? data.source : "No Information";
-    const rating = (data.rating.length > 0) ? data.rating : "No Information";
-    const scoring = data.score + " " + data.scoreStats;
-    const score = ((data.score.length > 0) && (data.scoreStats.length > 0)) ? scoring : "No Information";
+  const data = await getInfoFromName(args.join(' '))
 
-    const embed = new RichEmbed()
-    .setColor(settings.colors.embedDefault)
-    .setAuthor(`Top Match for ${query}`)
-    .setTitle(title)
-    .setDescription(desc)
-    .addField("Synopsis", utility.textTrunctuate(syn,1000))
-    .addField("Type",type,true)
-    .addField("Aired",aired,true)
-    .addField("Status",status,true)
-    .addField("Episodes",episodes,true)
-    .addField("Premiered",premiered,true)
-    .addField("Rating",rating,true)
-    .addField("Producers",producers,true)
-    .addField("Studios",studios,true)
-    .addField("Source",source,true)
-    .addField("Genre",genres,true)
-    .addField("Score",scoring,true)
-    .setTimestamp()
+  if (!data) return msg.edit( new MessageEmbed().setColor('RED').setDescription(`\u200B\nError: No anime found for **${args.join(' ')}**\u200B\n`))
 
+  const elapsed = new Date() - msg.createdAt
 
-    if (image) {
-      embed.setImage(image)
-    } else {
-      embed.addField("Notes", "No Image found for this Anime")
-    }
+  let genres = data.genres && data.genres.length ? joinArray(data.genres) : '\u200B'
+  let producers = data.producers && data.producers.length ? joinArray(data.producers) : '\u200B'
+  let studios = data.studios && data.producers.length ? joinArray(data.studios) : '\u200B'
 
-    if (url) {
-      embed.setURL(url)
-    }
+  const title = data.title ? data.title : 'Untitled'
+  const url = data.url ? data.url : null
+  const desc = data.englishTitle ? data.englishTitle : title
+  const image = data.picture ? data.picture : null
+  const syn = data.synopsis ? data.synopsis: 'N/A'
+  const type = data.type.length ? data.type : "showType Unavailable."
+  const aired = data.aired.length ? data.aired : "N/A"
+  const status = data.status.length ? data.status : "N/A"
+  const episodes = data.episodes.length ? data.episodes : "N/A"
+  const source = data.source.length ? data.source : "N/A"
+  const rating = data.rating.length  ? data.rating : "N/A"
+  const score = data.score
+  const rank = data.ranked && Number(data.ranked.split('#').slice(1)) < 150 ? data.ranked : null
+  const popularity = data.popularity && rank ? data.popularity : null
 
-    return new Promise( async (resolve, reject) => {
-      const sent = await message.channel.send(embed)
-      let reactions = ['👍', '👎', '😂', '😮', '😡', '❌'];
-      for (let i = 0; i < reactions.length; i++) await sent.react(reactions[i]);
-    })
+  const embed = new MessageEmbed()
+    .setColor('GREY')
+    .setAuthor(`${desc} | ${type}`, image ? image : 'https://myanimelist.net/images/icon.svg', url)
+    .setDescription(`Score: ${score} ${rank ? '| Ranked '+rank : ''} ${popularity ? '| Popularity : '+popularity:''}\n\n${textTrunctuate(syn,1000,`... [Read More](${url})`)}`)
+    .addField(`Information`, `•\u2000\**Japanese Name:** [${title}](${url})\n\•\u2000\**Age Rating:** ${rating}\n•\u2000\**Source:** ${source}`,true)
+    .addField(`\u200B`,`•\u2000\**Genres:** ${genres}\n•\u2000\**Producers:** ${producers}\n•\u2000\**Studios:** ${studios}`,true)
+    .addField(`Status`,`•\u2000\**Episodes:** ${episodes}\n•\u2000\**Start Date:** ${aired}\n\•\u2000\**Status:** ${status}`)
+    .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
+    if (image) embed.setThumbnail(image)
 
-  })
-
+    msg.edit(embed)
 }
 
-module.exports.help = {
+module.exports.config = {
   name: "anime",
   aliases: ['ani','as'],
+  cooldown: {
+    time: 10,
+    msg: 'Oops! You\'re going too fast!'
+  },
+  guildOnly: true,
 	group: 'anime',
 	description: 'Searches for a specific anime in MyAnimeList.net',
 	examples: ['anime aobuta','ani seishun buta yarou','as bunnygirl senpai'],
 	parameters: ['search query']
+}
+
+function joinArray(array){
+
+  if (!array.length) return `${array.toString()}.`
+
+  if (array.length < 3) return `${array.join(' and ')}.`
+
+  const last = array.pop()
+
+  const res = `${array.join(', ')}, and ${last}.`
+
+  return res
 }

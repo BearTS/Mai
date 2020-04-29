@@ -1,32 +1,34 @@
-const {RichEmbed} = require("discord.js");
-const settings = require('./../../botconfig.json');
-const fetch = require('node-fetch');
+const { MessageEmbed } = require("discord.js")
+const fetch = require('node-fetch')
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async ( client, message) => {
 
-fetch("http://history.muffinlabs.com/date")
-    .then(res => res.json())
-    .then(json => {
-      var i = Math.floor(Math.random() * (json.data.Events.length - 1));
-      const embed = new RichEmbed()
-      .setDescription(`[${(json.date) ? json.date : `Today`}](${json.url ? json.url : `https://placeholder.com`})\n\nYear:**${json.data.Events[i].year}**\n\n${json.data.Events[i].text}`)
-      .setImage(json.url)
-      .setColor(settings.colors.embedDefault)
-      .setFooter(`History Today`);
-      return message.channel.send({embed}).catch(console.error);
-    })
-    .catch(()=>{
-      message.channel.send(`Sorry, historyAPI is currently not working!`)
-    })
-  }
+  const res = await fetch("http://history.muffinlabs.com/date").then(res=> res.json()).catch(()=>{})
 
+  if (!res) return message.channel.send(error(`Oops! History API is currently down`))
 
+  const { date, url, data: { Events } } = res
 
-  module.exports.help = {
-    name: "today",
-    aliases: ["history","historynow","historytoday","hist"],
-  	group: 'fun',
-  	description: 'Generate a random history on this particular day',
-  	examples: ['today','historynow'],
-  	parameters: []
-  }
+  const { year, text } = Events[Math.floor(Math.random() * (Events.length - 1))]
+
+  message.channel.send( new MessageEmbed()
+  .setColor('GREY')
+  .setAuthor(date ? date : 'Today',null,url)
+  .setDescription(`Year: **${year}**\n\n${text}`)
+  .setFooter('History Today')
+)
+
+}
+
+module.exports.config = {
+  name: "history",
+  aliases: ['today','historynow'],
+  cooldown:{
+    time: 0,
+    msg: ""
+  },
+  group: "fun",
+  description: "Fetch a random historical event on this particular day'" ,
+  examples: ['history'],
+  parameters: []
+}

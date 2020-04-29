@@ -1,42 +1,55 @@
-const {RichEmbed} = require("discord.js");
-const settings = require('./../../botconfig.json');
-const mongoose = require('mongoose')
-const util = require('./../../utils/majUtils.js')
+const { connection } = require('mongoose')
+const { MessageEmbed } = require('discord.js')
+const { commatize, ordinalize } = require('../../helper.js')
 
-module.exports.run = async (bot, message, args) => {
-  mongoose.connection.db.collection("xperiencepoints", function(err, collection){
-        collection.find({}).toArray(function(err, leaderBoard){
-          leaderBoard = leaderBoard.filter(m=>m.guildID===message.guild.id.toString())
-          leaderBoard.sort(function(a,b) {
-              return ((b.xp) - (a.xp));
-          });
-          var x;
-          var name = '';
-          var xp = '';
-          const length = (leaderBoard.length < 10) ?  leaderBoard.length : 9;
-          for (x=0;x<length;x++){
-          name +=  `${(x===0) ? '🥇 - ' : (x===1) ? '🥈 - ' : (x===2) ? '🥉 - ' : '#'+(x+1)+" - "} <@${leaderBoard[x].userID}>\n\n`
-          xp += "**"+ util.commatize(leaderBoard[x].xp) + "**XP\n\n"
-          }
-          const userRank = leaderBoard.findIndex(item => item.userID === message.author.id)
-            const lb = new RichEmbed()
-            .setAuthor(`🏆 ${message.guild.name} Leaderboard`)
-            .setDescription(`<@${leaderBoard[0].userID}> ranked the highest with **${util.commatize(leaderBoard[0].xp)+"**XP!\n\n"}`)
-            .setColor(settings.colors.embedDefault)
-            .addField(`User`,name,true)
-            .addField(`XP`,xp,true)
-            .setFooter(`You ranked ${util.ordinalize(userRank+1)} overall!`);
-          return message.channel.send(lb).catch(console.error)
-          }
-        )}
+module.exports.run = (client, message, args ) => {
+
+  if (!client.guildsettings.get(message.guild.id) || !client.guildsettings.get(message.guild.id).isxpActive) {
+    return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`XP is currently disabled in this server.`))
+  }
+
+  const { xpExceptions } = client.guildsettings.get(message.guild.id)
+
+  if (xpExceptions.includes(message.channel.id)) return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`XP is currently disabled in this channel.`))
+
+  connection.db.collection("xperiencepoints", (err, collection) => {
+
+    if (err) return message.channel.send( new MessageEmbed().setColor('RED').setDescription(`An unexpected error occured!`))
+    collection.find({}).toArray( (err, leaderboard) => {
+
+      if (err) return message.channel.send( new MessageEmbed().setColor('RED').setDescription(`An unexpected error occured!`))
+      leaderboard = leaderboard.filter(m => m.guildID === message.guild.id)
+      leaderboard.sort( (a,b) => b.xp - a.xp)
+
+      let field = []
+
+      for (let x = 0; x < ((leaderboard.length < 11) ? (leaderboard.length) : 10); x++) {
+
+        field.push({name:`\u200B`, value: `${(x===0) ? '🥇 - ' : (x===1) ? '🥈 - ' : (x===2) ? '🥉 - ' : '#'+(x+1)+" - "} **${commatize(leaderboard[x].points)}**XP (Level ${leaderboard[x].level})  <@${leaderboard[x].userID}>`, inline: false })
+      }
+
+      console.log(field)
+      message.channel.send( new MessageEmbed()
+        .setAuthor(`🏆 ${message.guild.name} Leaderboard`)
+        .setDescription(`<@${leaderboard[0].userID}> ranked the highest with **${commatize(leaderboard[0].points)+"**XP!\n\n"}`)
+        .setColor('RANDOM')
+        .addFields(field)
+        .setFooter(`You (${message.member.displayName}) ranked ${ordinalize(leaderboard.findIndex(item => item.userID === message.author.id) + 1)} in this server!`)
       )
-    }
+    })
+  })
+}
 
-module.exports.help = {
-	name: "leaderboard",
-  aliases:["lb","top"],
-	group: 'core',
-	description: 'Shows the top xp earners for this server',
-	examples: ['leaderboard','lb','top'],
+module.exports.config = {
+  name: "leaderboard",
+  aliases: ['lb','top'],
+  cooldown:{
+    time: 60,
+    msg: "Please limit the usage of this command."
+  },
+  group: "core",
+  guildOnly: true,
+  description: "Shows the top xp earners for this server",
+  examples: [],
 	parameters: []
 }

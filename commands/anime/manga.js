@@ -1,112 +1,99 @@
-const settings = require('./../../botconfig.json')
-const {RichEmbed} = require('discord.js')
-const utils = require('./../../utils/majUtils.js')
+const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
+const { commatize, timeZoneConvert } = require('../../helper.js')
 
-module.exports.run = (bot,message,args) => {
-  if (args.length<1) return message.react('👎').then(()=>message.reply(`Please include the name of the character to search`)).catch(console.error)
+module.exports.run = async ( client, message, args ) => {
 
-  getManga(args.join(' ')).then(res=>{
-    if (res.err) return message.react('👎').then(()=>message.reply(res.err)).catch(console.error)
+if (!args.length) args = ['seishun', 'buta', 'yarou']
 
-    storeResultsToEmbed(res).then(embeds =>{
+const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(args.join(' '))}&page=1`).then( res => res.json()).catch(()=>{})
 
-      message.channel.send(embeds[0]).then(async (msg) => {
-        const collector = await msg.createReactionCollector((reaction, user) => user.id === message.author.id)
-        let reactions = ['◀', '▶', '❌'];
-        for (let i = 0; i < reactions.length; i++) await msg.react(reactions[i]);
+if (!data) return message.channel.send(error(`Couldn't find **${args.join(' ')}** on MAL's Manga List`))
 
-        let timeout = setTimeout(function() {
-            return collector.stop('timeout');
-        }, 120000);
+if (data.error) return message.channel.send(error(`Couldn't find **${args.join(' ')}** on MAL's Manga List`))
 
-        let n = 0;
+const { results } = data
 
-        collector.on('collect', async(r)=>{
-          if (r.emoji.name === '◀') {
-              if (n<1){
-                n = ((embeds.length > 10) ? 10 : embeds.length)
-              }
-            clearTimeout(timeout)
-            n--;
-            await msg.edit(embeds[n])
-          } else if (r.emoji.name === "▶"){
-            if (n>((embeds.length > 10) ? 8 : (embeds.length-2))) {
-              n = -1
-            }
-            clearTimeout(timeout)
-            n++;
-            await msg.edit(embeds[n])
-          } else if (r.emoji.name === "❌"){
-            collector.stop('terminated')
-          }
+const manga = []
 
-          await r.remove(message.author.id); //Delete user reaction
+results.slice(0,10).forEach( res => {
 
-          timeout = setTimeout(function() {
-              collector.stop('timeout');
-          }, 120000);
+  if (res === undefined) return
 
-        })
+  manga.push( new MessageEmbed()
+  .setAuthor(res.title, res.image_url, res.url)
+  .setColor('GREY')
+  .setDescription(res.synopsis)
+  .setThumbnail(res.image_url)
+  .addField('Type', res.type, true)
+  .addField('Status', res.publishing ? 'Publishing' : 'Finished', true)
+  .addField('Chapters', res.chapters, true)
+  .addField('Members', commatize(res.members), true)
+  .addField('Score', res.score, true)
+  .addField('Volumes', res.volumes, true)
+  .addField('Start Date', timeZoneConvert(res.start_date), true)
+  .addField('End Date', res.end_date ? timeZoneConvert(res.end_date) : 'Unknown', true)
+  .addField('\u200B','\u200B',true)
+  )
+})
 
-        collector.on('end', async(collected,reason)=>{
-          msg.clearReactions()
-          if (reason==='timeout'){
-            return
-          } else if (reason==='terminated') {
-            return
-          }
-        })
-      })
-    })
-  })
+const msg = await message.channel.send(manga[0].setFooter(`Page 1 of ${manga.length}`))
+const collector = msg.createReactionCollector( (reaction, user) => user.id === message.author.id)
+const navigators = ['◀', '▶', '❌']
+
+for (let i = 0; i < navigators.length; i++) await msg.react(navigators[i])
+
+let timeout = setTimeout(()=> collector.stop('timeout'), 90000)
+let n = 0
+
+collector.on('collect', async ( { emoji : { name } , users } ) => {
+
+  switch(name){
+    case '◀':
+      if (n < 1) n = manga.length
+      clearTimeout(timeout)
+      n--
+      await msg.edit(manga[n].setFooter(`Page ${n+1} of ${manga.length}`))
+    break;
+    case '▶':
+      if (n === manga.length - 1) n = -1
+      clearTimeout(timeout)
+      n++
+      await msg.edit(manga[n].setFooter(`Page ${n+1} of ${manga.length}`))
+    break;
+    case '❌':
+      collector.stop('terminated')
+    break;
+  }
+
+  await users.remove(message.author.id)
+
+  timeout = setTimeout(() => collector.stop('timeout'), 90000)
+
+})
+
+collector.on('end', () => {
+  msg.reactions.removeAll()
+})
+
 }
 
-module.exports.help = {
-  name: 'manga',
-  aliases: ["animanga",'searchmanga'],
+module.exports.config = {
+  name: "manga",
+  aliases: ['comic','manhwa','manhua'],
+  cooldown: {
+    time: 10,
+    msg: 'Oops! You\'re going too fast!'
+  },
+  guildOnly:true,
 	group: 'anime',
-	description: 'Searches for a Manga in MyAnimeList.net. Returns a maximum of 10 results',
-	examples: ['manga gotoubun no hanayome','animanga quintissential quintuplets','searchmanga gotoubun'],
+	description: 'Searches for a Manga / Manhwa / Manhua in MyAnimeList.net. Returns a maximum of 10 results',
+	examples: ['anime aobuta','ani seishun buta yarou','as bunnygirl senpai'],
 	parameters: ['search query']
 }
 
-function getManga(query){
-  return new Promise((resolve,reject)=>{
-    fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(query)}&page=1`).then(res => res.json()).then(json => {
-      if (json.error){
-        resolve({err:`Couldn't find ${query} on Manga List!`})
-      } else if (json.results.length<1) {
-        resolve({err:`Couldn't find ${query} on Manga List!`})
-      }else resolve(json.results)
-    })
-  })
-}
-
-
-function storeResultsToEmbed(data){
-  return new Promise((resolve,reject)=>{
-    embeds = []
-    data.forEach(obj=>{
-      let n = new RichEmbed()
-      .setTitle(obj.title)
-      .setURL(obj.url)
-      .setColor(settings.colors.embedDefault)
-      .setImage(obj.image_url)
-      .setDescription(obj.synopsis)
-      .addField('Type',obj.type,true)
-      .addField('Status',(obj.publishing) ? 'Publishing' : 'Finished',true)
-      .addField('Chapters',obj.chapters,true)
-      .addField('Members',utils.commatize(obj.members),true)
-      .addField('Score',obj.score,true)
-      .addField('Volumes',obj.volumes,true)
-      .addField('Start Date',utils.timeZoneConvert(obj.start_date),true)
-      .addField('End Date',utils.timeZoneConvert(obj.end_date),true)
-      embeds.push(n)
-    })
-    for(let x=0;x<(embeds.length-1);x++){
-      embeds[x].setFooter(`Page ${x+1} of ${(embeds.length > 10) ? 10 : embeds.length}`)
-    }
-    resolve(embeds)
-  })
+function error(err){
+  return new MessageEmbed()
+  .setColor('RED')
+  .setDescription(`\u200B\n${err}\n\u200B`)
 }

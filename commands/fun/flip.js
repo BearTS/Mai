@@ -1,85 +1,52 @@
-const Discord = require("discord.js");
-const settings = require('./../../botconfig.json');
+const { MessageEmbed } = require('discord.js')
 
+module.exports.run = async ( client, message, [choice, mention] ) => {
 
-module.exports.run = async (bot, message, args) => {
-let mentioned = message.mentions.members.first();
-let choice = (mentioned) ? args.join('').replace(`<@!${mentioned.id}>`,'').replace(' ','').toUpperCase() : args.join('').toUpperCase()
-const head = ["HEAD! ", "TAIL! "];
-const tail = ["TAIL! ", "HEAD! "];
+  if (!choice) return message.channel.send(error(`Please specify if head or tail.`))
 
-if (!(choice === 'HEAD'|| choice === 'TAIL')) return message.channel.send(`Please select only head or tail.`)
+  if (!['head','heads','h','tail','tails','t'].includes(choice.toLowerCase())) return message.channel.send(error(`Please specify if head or tail.`))
 
-const colorflip = ["0x28e927", "0xeb1a1a"];
-var flip_rand = Math.floor(Math.random()*100)%2
-const mention_result = ["Lost.", "Won."];
-const author_result = [ "Won.", "Lost."];
+  let win = Math.floor(Math.random()*100) > 50
 
-if (!mentioned){
-				if (choice==='HEAD'){
-					message.channel.send(message.author + " has flipped a coin.").then(msg => {
-            setTimeout(function(){
-              const flipEmbed = new Discord.RichEmbed()
-              .setColor(colorflip[flip_rand])
-              .setDescription(message.member + ": " + author_result[flip_rand])
-              .setTitle("Flip Coin result: " + head[flip_rand])
-              .setFooter(`${bot.user.username} vs ${message.member.displayName} `);
-              if (!msg.deleted) {
-                msg.edit(flipEmbed)
-              } else message.channel.send(flipEmbed)
-            }, 3000);
-          });
-				}else if (choice==='TAIL'){
-					message.channel.send(message.author + " has flipped a coin.").then(msg=>{
-            setTimeout(function(){
-  						const flipEmbed = new Discord.RichEmbed()
-  						.setColor(colorflip[flip_rand])
-  						.setDescription(message.author + ": " + author_result[flip_rand])
-  						.setTitle("Flip Coin result: " + tail[flip_rand])
-  						.setFooter(`${bot.user.username} vs ${message.member.displayName}`);
-              if (!msg.deleted) {
-                msg.edit(flipEmbed)
-              } else message.channel.send(flipEmbed)
-  					}, 3000);
-          })
-        }
-			}
-else if(mentioned){
-				if (choice==='HEAD'){
-					message.channel.send(message.author + " has flipped a coin.\n" + message.author + ": Head.\n" + mentioned + ": Tail.").then(msg=>{
-            setTimeout(function(){
-              const flipEmbed = new Discord.RichEmbed()
-              .setColor(colorflip[flip_rand])
-              .setDescription(message.author + ": " + author_result[flip_rand] + "\n" + mentioned + ": " + mention_result[flip_rand])
-              .setTitle("Flip Coin result: " + head[flip_rand])
-              .setFooter(`${mentioned.displayName} vs ${message.member.displayName}`);
-              if (!msg.deleted) {
-                msg.edit(flipEmbed)
-              } else message.channel.send(flipEmbed)
-            }, 3000);
-          });
-				}else if (choice==='TAIL'){
-					message.channel.send(message.author + " has flipped a coin.\n" + message.author + ": Tail.\n" + mentioned + ": Head.").then(msg=>{
-            setTimeout(function(){
-              const flipEmbed = new Discord.RichEmbed()
-              .setColor(colorflip[flip_rand])
-              .setDescription(message.author + ": " + author_result[flip_rand] + "\n" + mentioned + ": " + mention_result[flip_rand])
-              .setTitle("Flip Coin result: " + tail[flip_rand])
-              .setFooter(`${mentioned.displayName} vs ${message.member.displayName}`);
-              if (!msg.deleted) {
-                msg.edit(flipEmbed)
-              } else message.channel.send(flipEmbed)
-            }, 3000);
-          });
-				}
-			}
+  const match = mention ? mention.match(/\d{18}/) : undefined
+
+  mention = mention && match ? (message.guild.members.cache.get(match[0]) || await message.guild.members.fetch(match[0])) : undefined
+
+  if (mention && (mention.id === client.user.id || message.member.id === mention.id)) mention = undefined
+
+  const prompt = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`${message.author} has flipped a coin${mention ? ` vs ${mention}` : ''}!`)).catch(()=>{})
+
+  setTimeout(()=>{
+
+    const embed = new MessageEmbed()
+      .setAuthor(`Flip coin result: ${win ? 'WON!' : 'LOST'}`)
+      .setColor(win ? 'GREEN' : 'RED')
+      .setDescription(`Your choice: ${[{a:'h',b:'head',c:'heads',d:'Heads'},{a:'t',b:'tail',c:'tails',d:'Tails'}].find(m=> m.a === choice.toLowerCase() || m.b === choice.toLowerCase() || m.c === choice.toLowerCase()).d}\n\n`)
+      .addField(`\u200B`,`You ${win ? 'won' : 'lost'} a flip match against ${mention ? mention : 'me'}!`)
+      if (prompt.deleted) return message.channel.send(embed)
+
+      return prompt.edit(embed)
+  },5000)
+
 }
 
-module.exports.help = {
+
+
+module.exports.config = {
   name: "flip",
-  aliases: ["coinflip","coin","tosscoin",'tc'],
-	group: 'fun',
-	description: 'Win or Lose, Flip a Coin',
-	examples: ['flip','tc @Sakurajimai'],
-	parameters: ['user mention']
+  aliases: ['coinflip','coin','tosscoin','tc'],
+  cooldown:{
+    time: 5,
+    msg: "You still have a pending tosscoin."
+  },
+  group: "fun",
+  description: "Win or Lose, Flip a Coin [Head or Tails]" ,
+  examples: ['flip head','tc tails @user'],
+  parameters: []
+}
+
+function error(err){
+  return new MessageEmbed()
+  .setColor('RED')
+  .setDescription(`\u200B\n${err}\n\u200B`)
 }

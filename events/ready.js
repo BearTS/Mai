@@ -1,42 +1,36 @@
-const AniSchedule = require('./../utils/anischedule/main.js')
+const { yellow, green } = require('chalk')
+const allowedNames = ['sakurajima mai','mai sakurajima','mai-san','mai-san\'s maid','mai-senpai','mai']
+const { ready } = require('../utils/anischedule/main.js')
+const { user : { owner } } = require('../settings.json')
+const { loadguilddata } = require('../utils/pointsystem/main.js')
 
+module.exports = client => {
 
-module.exports = async bot => {
-  console.log(`'${bot.user.username}' is online on ${bot.guilds.size} servers!`);
-  const status = [
-    "SeishunButaBots.org"
-  ]
-  const types = [
-    "PLAYING", "WATCHING", "LISTENING"
-  ]
-  let activeStatus;
-  let activeType;
+  console.log(`\n${green(client.user.username)} is now online!`)
 
-  const randomizer = async () => {
-    activeType = types[Math.floor(Math.random()*(types.length-1))]
-    activeStatus = status[Math.floor(Math.random()*(status.length-1))]
+  if (!allowedNames.includes(client.user.username.toLowerCase())) {
 
-    if (activeType === "LISTENING"){
-      activeStatus = "to " + activeStatus
-    }
+    console.log(`\n${yellow('[Mai-WARN]')} : You are not using Mai-san's name in your bot. This could hinder some of the commands of this bot.`)
 
-    return stats = {
-      activeStatus: activeStatus,
-      activeType: activeType
-    }
   }
 
-  setInterval(()=>{
-    randomizer().then(stats => {
-      bot.user.setActivity(stats.activeStatus,{
-        type: stats.activeType
-      })
-    })
-  },20000)
+  client.user.setActivity('Seishun Buta Yarou',{
 
+    type: 'STREAMING',
+    url: 'https://twitch.tv/sby'
 
-  setTimeout(()=>{AniSchedule.ready(bot)},30000)
+  })
 
-//--------------------Anime Airing Schedule Notifier. Courtesy of TeHNut. Support TeHNut on github -------------------/
+//-------------------------------Points System-------------------------------//
 
+  loadguilddata( client )
+
+//--------------------------------AniSchedule--------------------------------//
+
+   ready( client )
+
+//------------------------------cache the owner-------------------------------//
+
+  client.users.fetch(owner)
+  
 }

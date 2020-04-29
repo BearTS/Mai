@@ -1,36 +1,34 @@
-const {RichEmbed} = require("discord.js");
-const settings = require('./../../botconfig.json');
-const fetch = require('node-fetch');
+const { MessageEmbed } = require('discord.js')
+const fetch = require('node-fetch')
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (client, message) => {
 
-fetch("https://api.adviceslip.com/advice")
-    .then(res => res.json())
-    .then(json => {
-        const embed = new RichEmbed()
-        .setDescription(json.slip.advice)
-        .setColor(settings.colors.embedDefault);
-        return message.channel.send({embed}).catch(console.error);
-    }).catch(err => {
-      const embed = new RichEmbed()
-      .setDescription("OOPS! Sorry, seems like my API is not working")
-      .setColor(settings.colors.embedDefault);
-      return new Promise(async(resolve,reject)=>{
-        var hook = await message.channel.createWebhook(`Mr. Advisor`,`https://i.imgur.com/vI2zfBA.png`)
-        await hook.send(embed).catch(console.error);
-        setTimeout(async function() {
-            await hook.delete()
-        }, 1000);
-      })
-    });
+  const data = await fetch("https://api.adviceslip.com/advice").then(res => res.json()).catch(()=>{})
+
+  if (!data) return message.channel.send(error(`Oops! Advice API is currently down`))
+
+  const { slip : { advice } } = data
+
+  message.channel.send( new MessageEmbed().setColor('GREY').setDescription(`\u200B\n${advice}\n\u200B`))
 
 }
 
-module.exports.help = {
+
+module.exports.config = {
   name: "advice",
-  aliases: ["tips","advise"],
-	group: 'fun',
-	description: 'Generate a random useless advice',
-	examples: ['advice','tips'],
-	parameters: []
-  }
+  aliases: ['tips','advise'],
+  cooldown:{
+    time: 0,
+    msg: ""
+  },
+  group: "fun",
+  description: "Generate a random useless advice",
+  examples: [],
+  parameters: []
+}
+
+function error(err){
+  return new MessageEmbed()
+  .setColor('RED')
+  .setDescription(`\u200B\n${err}\n\u200B`)
+}

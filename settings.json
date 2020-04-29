@@ -1,0 +1,14 @@
+{
+  "default": {
+    "prefix": "m!"
+  },
+  "user": {
+    "owner": "545427431662682112"
+  },
+  "channel": {
+  },
+  "commanddir": ["action","anime","bot","core","fun","moderation","music","owner","setup","utility"],
+  "website" : null,
+  "url" : null,
+  "prodtoken" : "NzAyMDc0NDUyMzE3MzA3MDYx.Xp6vzw.rgClpe3TyiWywp19okyF6-tl9sU"
+}

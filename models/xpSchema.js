@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
 const xp = mongoose.Schema({
+
   guildID: String,
   userID: String,
-  xp: Number,
-  level: Number
+  points: Number,
+  level: Number,
+  bg: String
+
 },{
+
   bufferCommands: false,
   autoCreate:false
 
