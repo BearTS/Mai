@@ -70,19 +70,25 @@ Name | Description
 * `m!stats` Send the stauts of the bot. <br><br><br><br><br>
 
 ###### [Back to ToC](#Contents)
+<p>
+  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_tousang__sample-40425a146441efacd1a2a2ace669d21c.jpg" height="500" align="right">
+</p>
 
-##### Core
-* `m!cmd` Send all my available commands list.
-* `m!help [command name]` Sends full information on a specific command.
-* `m!invite` Sends my invite link.
-* `m!leaderboard` Send this guild's xp leaderboard (Server XP must be enabled).
-* `m!mai` Sends the image of the best girl.
-* `m!rank <@user>` Send the xp information of the mentioned user, or own if no mention is supplied.
-* `m!suggest [Suggestion Content]` Suggest something for the server.
+### Core <br><br>
+* `m!cmd` Send all my available commands list. <br><br>
+* `m!help [command name]` Sends full information on a specific command. <br><br>
+* `m!invite` Sends my invite link. <br><br>
+* `m!leaderboard` Send this guild's xp leaderboard (Server XP must be enabled). <br><br>
+* `m!mai` Sends the image of the best girl. <br><br>
+* `m!rank <@user>` Send the xp information of the mentioned user, or own if no mention is supplied. <br><br>
+* `m!suggest [Suggestion Content]` Suggest something for the server. <br><br>
 
 ###### [Back to ToC](#Contents)
+<p>
+  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_hizuki_higure__sample-1bf3c0cd9d9ec41fd6ea1d6220148a4a.jpg" height="500" align="left">
+</p>
 
-##### Fun
+### Fun <br><br>
 * `m!advice` Send a random useless advice.
 * `m!birdfact` Send a random useless fact about birds.
 * `m!catfact` Send a random useless fact about cats.
@@ -96,18 +102,21 @@ Name | Description
 * `m!meme` Send a meme from selected subreddits.
 * `m!pandafact` Send a random useless fact about pandas.
 * `m!pokemon [Pokemon name]` Search for a pokemon on the pokedex.
-* `m!respect` Press F to pay respect.
+* `m!respect` Press F to pay respect. <br>
 
 ###### [Back to ToC](#Contents)
+<p>
+  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_daye_bie_qia_lian__sample-ccc7906a0edf45a51b2e2272b4d07910.jpg" height="500" align="right">
+</p>
 
-##### Moderation
-* `m!ban [@member]` Bans mentioned member.
-* `m!clear <category> [Quantity]` Bulk Delete messages from a channel.
-* `m!kick [@member]` Kicks mentioned member.
-* `m!lockdown` Mute / unmute @everyone role in the channel this command is used in.
-* `m!mute <minutes> [@member] <scope>` Mutes mentioned user for a given amount of minutes. Mutes indefinitely, if no duration is specified.
-* `m!respond [message ID]` Respond to a suggestion in `#suggestions`
-* `m!unmute [@member] <scope>`Unmutes mentioned user.
+### Moderation <br>
+* `m!ban [@member]` Bans mentioned member. <br><br>
+* `m!clear <category> [Quantity]` Bulk Delete messages from a channel. <br><br>
+* `m!kick [@member]` Kicks mentioned member. <br><br>
+* `m!lockdown` Mute / unmute @everyone role in the channel this command is used in. <br><br>
+* `m!mute <minutes> [@member] <scope>` Mutes mentioned user for a given amount of minutes. Mutes indefinitely, if no duration is specified. <br><br>
+* `m!respond [message ID]` Respond to a suggestion in `#suggestions` <br><br>
+* `m!unmute [@member] <scope>`Unmutes mentioned user. 
 
 ###### [Back to ToC](#Contents)
 
