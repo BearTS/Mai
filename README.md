@@ -1,13 +1,10 @@
-# Mai
-***
 ![](https://files.catbox.moe/j4uzj2.png)
-
-### A simple, multi-functional Discord bot by best girl written in discord.js 12.0.2 - Focuses more in anime..
+<p align="center"> # Mai </p>
 ***
-#### [Click here to add Mai to your server](https://github.com/maisans-maid/MaiSakurajima) or [visit my website!](https://github.com/maisans-maid/MaiSakurajima)
+#### A simple, multi-functional Discord bot by best girl written in discord.js 12.0.2 - Focuses more in anime..
+##### [Click here to add Mai to your server](https://github.com/maisans-maid/MaiSakurajima) or [visit my website!](https://github.com/maisans-maid/MaiSakurajima)
 ***
 # Contents
-***
 - [Action](#Action)
 - [Anime](#Anime)
 - [Bot](#Bot)
@@ -56,7 +53,7 @@ Name | Description
     * `m!ping` Send the current ping of the bot in ms.
     * `m!stats` Send the stauts of the bot.
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 *   ##### Core
     * `m!cmd` Send all my available commands list.
@@ -67,7 +64,7 @@ Name | Description
     * `m!rank <@user>` Send the xp information of the mentioned user, or own if no mention is supplied.
     * `m!suggest [Suggestion Content]` Suggest something for the server.
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 *   ##### Fun
     * `m!advice` Send a random useless advice.
@@ -85,7 +82,7 @@ Name | Description
     * `m!pokemon [Pokemon name]` Search for a pokemon on the pokedex.
     * `m!respect` Press F to pay respect.
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 *   ##### Moderation
     * `m!ban [@member]` Bans mentioned member.
@@ -96,11 +93,11 @@ Name | Description
     * `m!respond [message ID]` Respond to a suggestion in `#suggestions`
     * `m!unmute [@member] <scope>`Unmutes mentioned user.
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 *   ##### Music
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 *   ##### Owner
     * `m!backdoor [Guild ID]` Send a server invite to the specified server.
@@ -108,7 +105,7 @@ Name | Description
     * `m!execute [event]` Force Execute a d.js event
     * `m!fleave [guild ID]` Force leave a guild.
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 *   ##### Setup
     * `m!anischedule [subcommand]` Set up anime scheduling in your server.
@@ -134,7 +131,7 @@ Name | Description
       * `m!pointsystem xpexcempt [channel]` Excempt xp system on mentioned channel(s), if enabled.
       * `m!pointsystem xptoggle` Toggle the xp system on/off for this server
 
-      ###### [Back to ToC](#contents)
+      ###### [Back to ToC](#Contents)
 
 *   ##### Utility
     * `m!avatar <@user>` Send the Avatar of the mentioned user, or your own if none is mentioned.
@@ -146,7 +143,7 @@ Name | Description
     * `m!urban [word / phrase]` Get the urban definition of the supplied word / phrase.
     * `m!whois [user ID]` Get discord user information using the supplied ID
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 ***
 ### Libraries and frameworks used
@@ -163,4 +160,4 @@ Name | Description
 * [wanakana ^4.0.2](https://github.com)
 * [ytdl-core](https://github.com) and [ffmpeg-static](https://github.com)
 
-###### [Back to ToC](#contents)
+###### [Back to ToC](#Contents)
