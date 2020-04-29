@@ -6,7 +6,7 @@
 ***
 #### [Click here to add Mai to your server](https://github.com/maisans-maid/MaiSakurajima) or [visit my website!](https://github.com/maisans-maid/MaiSakurajima)
 ***
-# Index
+# Contents
 ***
 - [Action](#Action)
 - [Anime](#Anime)
@@ -36,7 +36,7 @@ Name | Description
     * `m!smug` Send a Smug Gif / Image.
     * `m!tickle <@member>` Send a Tickle Gif / Image.
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 *   ##### Anime
     * `m!anime [Anime Title]` Search for an anime via MyAnimeList.net
@@ -49,7 +49,7 @@ Name | Description
     * `m!nsfw [Category]` Send a random anime nsfw image depending on the supplied category.
     * `m!schedule <day>` Send list of currently airing anime using the supplied day, or return this day's if none is supplied.
 
-    ###### [Back to ToC](#contents)
+    ###### [Back to ToC](#Contents)
 
 *   ##### Bot
     * `m!feedback [Message]` Send a feedback to Sakurajimai#6742 (my Dev)
