@@ -138,11 +138,11 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_ale_nqki__sample-ae1a510d3c4360c062f607c4153de0fc.jpg" height="500" align="right">
 </p>
 
-### Owner <br><br><br>
+### Owner <br><br><br><br>
 * `m!backdoor [Guild ID]` Send a server invite to the specified server. <br><br><br>
 * `m!eval [code]` Evaluates JS code. <br><br><br>
 * `m!execute [event]` Force Execute a d.js event. <br><br><br>
-* `m!fleave [guild ID]` Force leave a guild. <br><br>
+* `m!fleave [guild ID]` Force leave a guild. <br><br><br>
 
 ###### [Back to ToC](#Contents)
 
