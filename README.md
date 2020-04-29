@@ -123,7 +123,7 @@ Name | Description
   <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_moorina__sample-0da0faf5f26ef2dec91601b72e9eb5a8.jpg" height="500" align="left">
 </p>
 
-##### Music <br><br>
+### Music <br><br>
 * `m!nowPlaying` Display the currently playing music. <br><br>
 * `m!pause` Kicks mentioned member. <br><br>
 * `m!play [search query or youtube URL]` Play music using the query provided, or add to queue if there is already one playing. <br>
@@ -134,16 +134,19 @@ Name | Description
 * `m!volume <volume level>` Set the volume of the music, or display the current volume, if level is not provided.<br>
 
 ###### [Back to ToC](#Contents)
+<p>
+  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_ale_nqki__sample-ae1a510d3c4360c062f607c4153de0fc.jpg" height="500" align="right">
+</p>
 
-##### Owner
-* `m!backdoor [Guild ID]` Send a server invite to the specified server.
-* `m!eval [code]` Evaluates JS code.
-* `m!execute [event]` Force Execute a d.js event
-* `m!fleave [guild ID]` Force leave a guild.
+### Owner <br><br><br>
+* `m!backdoor [Guild ID]` Send a server invite to the specified server. <br><br><br>
+* `m!eval [code]` Evaluates JS code. <br><br><br>
+* `m!execute [event]` Force Execute a d.js event. <br><br><br>
+* `m!fleave [guild ID]` Force leave a guild. <br><br>
 
 ###### [Back to ToC](#Contents)
 
-##### Setup
+### Setup
 * `m!anischedule [subcommand]` Set up anime scheduling in your server.
   * `m!anischedule add [MAL / AniList Link]` Adds new anime to watch new episodes of.
   * `m!anischedule channel` Send the currently selected anime announcement channel.
@@ -169,7 +172,7 @@ Name | Description
 
 ###### [Back to ToC](#Contents)
 
-##### Utility
+### Utility
 * `m!avatar <@user>` Send the Avatar of the mentioned user, or your own if none is mentioned.
 * `m!color <hex code>` Send the color of the supplied hex, or random if none.
 * `m!jisho [word]` Searches jisho for an accurate translation of the supplied japanese word.
