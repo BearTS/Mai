@@ -34,6 +34,8 @@ Name | Description
 <p>
   <img src="https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_oryou__b2e7634047942a5a367dde6b5ed18622.png" height="500" title="Best Girl" align="left">
 </p>
+<p align= "right">
+
 
 ### Action
 * `m!baka <@member>` Send a Baka Gif / Image.
