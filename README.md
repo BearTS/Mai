@@ -194,18 +194,18 @@ Name | Description
 
 ***
 ### Libraries and frameworks used
-* [canvas ^2.6.1](https://github.com)
-* [danbooru ^3.1.0](https://github.com)
-* [discord.js ^12.2.0](https://github.com/discordjs/discord.js/) and [@discordjs/opus ^0.1.0](https://github.com/discordjs/discord.js/)
-* [moment ^2.24.0](https://github.com/moment/moment/) and [moment-duration-format ^2.3.2](https://github.com/jsmreese/moment-duration-format)
-* [mongoose ^5.9.10](https://github.com)
-* [nekos-image-api ^1.3.3](https://github.com) and [nekos.life ^2.0.6](https://github.com)
-* [node-fetch ^2.6.0](https://github.com/node-fetch/node-fetch)
-* [node-kitsu ^1.1.1](https://github.com)
-* [os ^0.1.1](https://github.com)
-* [relevant-urban ^2.0.0](https://github.com)
-* [wanakana ^4.0.2](https://github.com)
-* [ytdl-core](https://github.com) and [ffmpeg-static](https://github.com)
+* [canvas](https://github.com/Automattic/node-canvas)
+* [danbooru](https://github.com/stawberri/danbooru-node)
+* [discord.js](https://github.com/discordjs/discord.js/) and [@discordjs/opus](https://www.npmjs.com/package/@discordjs/opus)
+* [moment](https://github.com/moment/moment/) and [moment-duration-format](https://github.com/jsmreese/moment-duration-format)
+* [mongoose](https://github.com/Automattic/mongoose)
+* [nekos-image-api](https://www.npmjs.com/package/nekos-image-api) and [nekos.life](https://github.com/Nekos-life/nekos-dot-life)
+* [node-fetch](https://github.com/node-fetch/node-fetch)
+* [node-kitsu](https://github.com/the-conceptionist/node-kitsu)
+* [os](https://github.com/DiegoRBaquero/node-os)
+* [relevant-urban](https://github.com/SnekLab/relevant-urban)
+* [wanakana](http://www.wanakana.com/)
+* [ytdl-core](https://github.com/fent/node-ytdl-core) and [ffmpeg-static](https://github.com/eugeneware/ffmpeg-static)
 
 ###### [Back to Contents](#Contents)
 ___
