@@ -29,23 +29,21 @@ Name | Description
 `<>` | Indicates an optional argument, you do not need to provide this for the command to work
 ***
 ## Command list
-***
-
 <p>
   <img src="https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_oryou__b2e7634047942a5a367dde6b5ed18622.png" height="500" title="Best Girl" align="left">
 </p>
 <p align= "right">
 
 
-### Action
-* `m!baka <@member>` Send a Baka Gif / Image.
-* `m!hug  <@member>` Send a Hug Gif / Image.
-* `m!kiss <@member>` Send a Kiss Gif / Image.
-* `m!pat <@member>` Send a Pat Gif / Image.
-* `m!poke <@member>` Send a Poke Gif / Image.
-* `m!slap <@member>` Send a Slap Gif / Image.
-* `m!smug` Send a Smug Gif / Image.
-* `m!tickle <@member>` Send a Tickle Gif / Image.
+### Action <br><br><br>
+* `m!baka <@member>` Send a Baka Gif / Image. <br><br>
+* `m!hug  <@member>` Send a Hug Gif / Image. <br><br>
+* `m!kiss <@member>` Send a Kiss Gif / Image. <br><br>
+* `m!pat <@member>` Send a Pat Gif / Image. <br><br>
+* `m!poke <@member>` Send a Poke Gif / Image. <br><br>
+* `m!slap <@member>` Send a Slap Gif / Image. <br><br>
+* `m!smug` Send a Smug Gif / Image.<br><br>
+* `m!tickle <@member>` Send a Tickle Gif / Image.<br><br><br>
 
 ###### [Back to ToC](#Contents)
 
