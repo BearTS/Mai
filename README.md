@@ -129,7 +129,7 @@ Name | Description
 
 ### Music <br>
 * `m!nowPlaying` Display the currently playing music. <br><br>
-* `m!pause` Kicks mentioned member. <br><br>
+* `m!pause` Pauses the currently playing music. <br><br>
 * `m!play [search query or youtube URL]` Play music using the query provided, or add to queue if there is already one playing. <br>
 * `m!queue` Display the queued music. <br><br>
 * `m!resume` Resumes the music if paused. <br><br>
