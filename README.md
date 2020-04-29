@@ -102,7 +102,7 @@ Name | Description
 * `m!meme` Send a meme from selected subreddits.
 * `m!pandafact` Send a random useless fact about pandas.
 * `m!pokemon [Pokemon name]` Search for a pokemon on the pokedex.
-* `m!respect` Press F to pay respect. <br><br><br>
+* `m!respect` Press F to pay respect. <br><br>
 
 ###### [Back to ToC](#Contents)
 <p>
@@ -116,7 +116,7 @@ Name | Description
 * `m!lockdown` Mute / unmute @everyone role in the channel this command is used in.  <br>
 * `m!mute <minutes> [@member] <scope>` Mutes mentioned user for a given amount of minutes. Mutes indefinitely, if no duration is specified.  <br>
 * `m!respond [message ID]` Respond to a suggestion in `#suggestions`  <br><br>
-* `m!unmute [@member] <scope>`Unmutes mentioned user. <br><br>
+* `m!unmute [@member] <scope>`Unmutes mentioned user. <br><br><br><br>
 
 ###### [Back to ToC](#Contents)
 <p>
