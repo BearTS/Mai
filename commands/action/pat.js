@@ -32,7 +32,7 @@ if (message.mentions.members.size && message.mentions.members.first().id === cli
 
 module.exports.config = {
   name: "pat",
-  aliases: [''],
+  aliases: [],
   cooldown: {
     time: 0,
     msg: ''

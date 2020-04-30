@@ -90,11 +90,11 @@ try {
   await message.channel.send(error(`Failed to notice **${member.displayName}** for the ban! (DM Failed)`))
 }
 
- await member.ban({ days: 7, reason: `Sakuraji-BANS: ${message.author.tag}: ${reason}`}).catch(()=>{})
+ const done = await member.ban({ days: 7, reason: `Sakuraji-BANS: ${message.author.tag}: ${reason}`}).catch(()=>{})
 
- message.channel.send(success(`Successfully banned **${member.displayName}**`))
+ if (done) return message.channel.send(success(`Successfully banned **${member.displayName}**`))
 
-
+ return message.channel.send(error(`Failed to ban **${member.displayName}**`))
 }
 
 module.exports.config = {
@@ -105,6 +105,7 @@ module.exports.config = {
     msg: ""
   },
 	group: 'moderation',
+  modOnly: true,
   guildOnly: true,
   permissions: ['BAN_MEMBERS'],
   clientPermissions: ['BAN_MEMBERS'],

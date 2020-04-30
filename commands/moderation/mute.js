@@ -106,6 +106,7 @@ module.exports.config = {
   },
 	group: 'moderation',
   guildOnly: true,
+  modOnly: true,
   permissions: ['BAN_MEMBERS','KICK_MEMBERS'],
   clientPermissions: ['MANAGE_ROLES','MANAGE_CHANNELS','MANAGE_GUILD'],
 	description: 'Prevent a user from sending a message in the server or in a specific channel.',

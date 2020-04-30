@@ -9,14 +9,20 @@ module.exports.run = async ( client, message, args ) => {
    } else {
        q = `query ($search: String, $status: MediaStatus) { Media(type:ANIME status:$status search:$search) { title { romaji english native } nextAiringEpisode { episode timeUntilAiring } id siteUrl coverImage { large color } studios(isMain: true) { edges { isMain node { name } } } } }`
   }
+
+  let msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nFetching Air date information from [Anilist](https://anilist.co)\n\u200B`).setThumbnail('https://files.catbox.moe/op2978.gif'))
+
   let { data } = await query( q , args.length < 1 ? null : { search : args.join(' '), status: 'RELEASING' }).catch(()=>{})
 
   if (data.Page) {
     data = getAnime(data.Page.media)
   }
 
-  message.channel.send(embed(data))
-
+  try {
+    return msg.edit(embed(data))
+  } catch (err) {
+    return  message.channel.send(embed(data))
+  }
 
 }
 

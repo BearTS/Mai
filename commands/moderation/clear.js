@@ -64,6 +64,7 @@ module.exports.config = {
   },
 	group: 'moderation',
   guildOnly: true,
+  modOnly: true,
   permissions: ['MANAGE_MESSAGES'],
   clientPermissions: ['MANAGE_MESSAGES'],
 	description: 'Delete messages from this channel. Will not delete messages older than two (2) weeks.',

@@ -13,9 +13,15 @@ if (isNaN(Number(rank)) || Number(rank) < 1 || Number(rank) > 50 ) rank = Math.f
 
 if (!sub || !validTypes.includes(sub)) sub = ''
 
+const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for Top Ranking Anime on MAL.\n\u200B`).setThumbnail('https://files.catbox.moe/op2978.gif'))
+
 const res = await fetch(`https://api.jikan.moe/v3/top/anime/1/${sub}`).then(res => res.json()).catch(()=>{})
 
-if (!res) return message.channel.send(error(`Fetching data failed.`))
+if (!res) try {
+  return msg.edit(error(`Fetching data failed.`))
+} catch (err) {
+  return message.channel.send(error(`Fetching data failed.`))
+}
 
 const { top } = res
 
@@ -24,11 +30,16 @@ const { mal_id } = top[rank-1]
 
 const data = await fetch(`https://api.jikan.moe/v3/anime/${mal_id}`).then(res => res.json()).catch(()=>{})
 
-if (!data) return message.channel.send(error(`Fetching data failed.`))
+const elapsed = new Date() - msg.createdAt
 
+if (!data) try {
+  return msg.edit(error(`Fetching data failed.`))
+} catch (err) {
+  return message.channel.send(error(`Fetching data failed.`))
+}
 const { url, image_url, title, title_japanese, type, source, episodes, status, airing, aired, duration, rating, score, scored_by, synopsis, producers, licensors, studios, genres } = data
 
-message.channel.send(new MessageEmbed()
+const embed = new MessageEmbed()
   .setAuthor(`#${ordinalize(rank)}. ${title} • ${title_japanese}`, null, url)
   .setThumbnail(image_url)
   .setColor('GREY')
@@ -39,8 +50,14 @@ message.channel.send(new MessageEmbed()
   .addField('Producers',hyperlink(producers),true)
   .addField('Studios',hyperlink(studios),true)
   .addField('Licensors',hyperlink(licensors),true)
-  .setFooter(score ? `Scored ${score} by ${scored_by ? commatize(scored_by) : 'Unknown number of'} users.` : `Not yet Scored`)
-)
+  .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
+
+  try {
+    msg.edit(embed)
+  } catch (err) {
+    message.channel.send(embed)
+  }
+
 }
 
 module.exports.config = {
@@ -52,7 +69,7 @@ module.exports.config = {
   },
   guildOnly: true,
 	group: 'anime',
-	description: 'Searches for a top anime in MyAnimeList.net, or return a random one. Supports type. Valid types are `' + validTypes.join('`, `') + "`.",
+	description: 'Searches for a top anime in [MyAnimeList.net](https://myanimelist.net), or return a random one. Supports type. Valid types are `' + validTypes.join('`, `') + "`.",
 	examples: ['anitop [rank] [type]','topanime 5','bestanime 50 upcoming', 'anitop manhwa'],
 	parameters: ['search query']
 }

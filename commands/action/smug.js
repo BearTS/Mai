@@ -18,7 +18,7 @@ message.channel.send( new MessageEmbed()
 
 module.exports.config = {
   name: "smug",
-  aliases: [''],
+  aliases: [],
   cooldown: {
     time: 0,
     msg: ''

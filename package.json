@@ -42,6 +42,7 @@
     "relevant-urban": "^2.0.0",
     "require-text": "0.0.1",
     "utf-8-validate": "^5.0.2",
-    "wanakana": "^4.0.2"
+    "wanakana": "^4.0.2",
+    "xml2js": "^0.4.23"
   }
 }

@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args) => {
     .addField(`Reading`,`• **Kana**: ${jisho.japanese[0].reading ? jisho.japanese[0].reading : 'N/A'}\n• **Romaji**: ${toRomaji(jisho.japanese[0].reading)}`)
     .setFooter(`${jisho.senses[0].see_also[0] ? `See Also: ${jisho.senses[0].see_also[0]}` : '' }`)
     .setThumbnail('https://jisho.org/images/logo_static.png')
-    .setColor('RANDOM')
+    .setColor('GREY')
   )
 }
 

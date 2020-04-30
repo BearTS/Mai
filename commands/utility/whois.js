@@ -27,7 +27,7 @@ message.channel.send(new MessageEmbed()
   .addField(`Activity`, user.presence.activities.length ? `${user.presence.activities[0].type} ${user.presence.activities[0].name}` : `Not Playing Anything`, true)
   .addField(`Currently active on`, user.presence.clientStatus && user.presence.clientStatus.web ? 'Web Browser' : user.presence.clientStatus && user.presence.clientStatus.mobile ? 'Mobile Phone' : user.presence.clientStatus && user.presence.clientStatus.desktop ? 'Desktop App' : 'Offline', true)
   .addField(`Current Status`, user.presence.status, true)
-  .addField(`Membership Status`, member ? `This user is member of this server`: `This user is not a member of this server`)
+  .addField(`Membership Status`, member ? `This user is member of this server since ${timeZoneConvert(member.joinedAt)}`: `This user is not a member of this server`)
   .setFooter(`Activity, currently active, and current status will not show real status unless in a member in this server.`)
 )
 
@@ -44,7 +44,7 @@ module.exports.config = {
 	group: 'utility',
 	description: 'Searches for user across Discord.',
 	examples: ['whois 637485960713736491'],
-	parameters: ['search query']
+	parameters: ['User ID']
 }
 
 

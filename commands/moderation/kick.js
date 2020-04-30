@@ -90,11 +90,11 @@ try {
   await message.channel.send(error(`Failed to notice **${member.displayName}** for the ban! (DM Failed)`))
 }
 
- await member.kick({ reason: `Sakuraji-KICK: ${message.author.tag}: ${reason}`}).catch(()=>{})
+ const done = await member.kick({ reason: `Sakuraji-KICK: ${message.author.tag}: ${reason}`}).catch(()=>{})
 
- message.channel.send(success(`Successfully banned **${member.displayName}**`))
+ if (done) return message.channel.send(success(`Successfully banned **${member.displayName}**`))
 
-
+ return message.channel.send(error(`Failed to kick **${member.displayName}**`))
 }
 
 module.exports.config = {
@@ -106,6 +106,7 @@ module.exports.config = {
   },
 	group: 'moderation',
   guildOnly: true,
+  modOnly: true,
   permissions: ['KICK_MEMBERS'],
   clientPermissions: ['KICK_MEMBERS'],
 	description: 'kick mentioned user from this server.',

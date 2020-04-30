@@ -6,7 +6,7 @@ module.exports.run = async ( client, message, args ) => {
 
 if (!args.length) args = ['mai','sakurajima']
 
-const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for character named **${args.join(' ')}** on MAL.\n\u200B`))
+const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for character named **${args.join(' ')}** on MAL.\n\u200B`).setThumbnail('https://files.catbox.moe/op2978.gif'))
 
 const data = await fetch(`https://api.jikan.moe/v3/search/character?q=${encodeURI(args.join(' '))}&page=1`).then( res => res.json()).catch(()=>{})
 
@@ -37,9 +37,10 @@ const embed = new MessageEmbed()
   .addField('Anime Appearances',anime.length < 4 ? anime.join('\n') : `${anime.slice(0,3).join('\n')}\n...and ${anime.length - 3} more!`)
   .addField('Manga Appearances', manga.length < 4 ? manga.join('\n') : `${manga.slice(0,3).join('\n')}\n...and ${manga.length - 3} more!`)
   .addField(`Seiyuu`, seiyuu.length < 4 ? seiyuu.join('\n') : seiyuu.slice(0,3).join('\n'), true)
+  .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
 if (seiyuu.length > 3) embed.addField(`\u200B`, seiyuu.length < 7 ? seiyuu.slice(3).join('\n') : seiyuu.slice(3,6).join('\n'), true)
 if (seiyuu.length > 6) embed.addField(`\u200B`, seiyuu.length < 10 ? seiyuu.slice(6).join('\n') : `${seiyuu.slice(6,8).join('\n')}\n...and ${seiyuu.length - 8} more!`,true)
-  .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
+
 
 msg.edit(embed)
 
@@ -54,7 +55,7 @@ module.exports.config = {
   },
   guildOnly: true,
 	group: 'anime',
-	description: 'Searches for a character in MyAnimeList.net.',
+	description: 'Searches for a character in [MyAnimeList.net](https://myanimelist.net).',
 	examples: ['character mai sakurajima','anichar Mai Sakurajima','char Mai-san','c mai'],
 	parameters: ['search query']
 }

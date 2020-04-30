@@ -34,7 +34,7 @@ if (message.mentions.members.size && message.mentions.members.first().id === cli
 
 module.exports.config = {
   name: "baka",
-  aliases: [''],
+  aliases: [],
   cooldown: {
     time: 0,
     msg: ''

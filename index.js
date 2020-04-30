@@ -17,6 +17,14 @@
 *
 */
 
+/* I have created a website lmao
+*
+* The website for this repository is located at https://maisans-maid.github.io/mai.moe. Well
+* I didn't really create a website from scratch, I just downloaded a template and edited it a
+* bit. So. Yea, at least she has a website now. mehehe.
+*
+*/
+
 //-----------------------Require Package for logging-------------------------//
 
 const { green, yellow, red, magenta, cyan } = require('chalk')
@@ -50,6 +58,7 @@ mai.cooldowns = new Collection()
 mai.guildsettings = new Collection()
 mai.xp = new Collection()
 mai.memes = new Collection()
+mai.news = new Collection()
 
 //--------------------------Load Commands to Client--------------------------//
 

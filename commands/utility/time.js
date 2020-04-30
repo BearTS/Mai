@@ -26,7 +26,7 @@ try {
     .addField(`Day Length`,daylength,true)
     .addField(`Solar Noon`,hour12Format(solarnoon),true)
     .setFooter(`${info}time.`)
-    .setColor(message.member.displayColor ? message.member.displayColor : 'RANDOM')
+    .setColor('GREY')
   )
 } catch (err) {
 
@@ -47,7 +47,7 @@ module.exports.config = {
   group: "utility",
   guildOnly: true,
   description: "Shows the time for the given location!",
-  examples: ["time [city/country]"],
+  examples: ["time [city]"],
   parameters: []
 }
 

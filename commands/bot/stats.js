@@ -1,17 +1,18 @@
 const { MessageEmbed } = require('discord.js');
 const { version, author} = require('../../package.json');
 const { heapUsed, heapTotal } = process.memoryUsage()
-const moment = require('moment');
+const { duration } = require('moment');
 const momentDurationFormatSetup = require('moment-duration-format');
-const os = require('os');
+const { release, cpus } = require('os');
+const { timeZoneConvert, commatize, fromNow, roundTo, addBlankSpace } = require('../../helper.js')
 
 module.exports.run = (client, message, args) => {
 
-  let recieved = 0
+  let received = 0
   client.guilds.cache.each( guild => {
     guild.channels.cache.each( channel => {
       if (channel.type !== 'text') return
-      recieved += channel.messages.cache.filter(m => m.author.id !== client.user.id).size
+      received += channel.messages.cache.filter(m => m.author.id !== client.user.id).size
     })
   })
 
@@ -23,23 +24,16 @@ module.exports.run = (client, message, args) => {
     })
   })
 
-  return message.channel.send(new MessageEmbed()
-  .setAuthor(`${client.user.username} version Bunny[Pyon-Pyon]-${version} by ${author}`,client.user.displayAvatarURL({format:'png',dynamic:true}))
-  .setColor(message.guild.me.displayColor !== 0 ? message.guild.me.displayColor : '#a9a9a9')
-  .addField(`❯\u2000Received Msg`,recieved, true)
-  .addField(`❯\u2000Sent Msg`, sent, true)
-  .addField(`❯\u2000Commands`, client.commands.size, true)
-  .addField(`❯\u2000Server`,client.guilds.cache.size, true)
-  .addField(`❯\u2000Channels`, client.channels.cache.size, true)
-  .addField(`❯\u2000Users`, client.users.cache.size, true)
-  .addField(`❯\u2000OS`, process.platform, true)
-  .addField(`❯\u2000Version`, os.release(), true)
-  .addField(`❯\u2000Node`, process.version, true)
-  .addField(`❯\u2000Uptime`, moment.duration(client.uptime, 'milliseconds').format('D [days] H [hours] m [minutes] s [seconds]'), true)
-  .addField('❯\u2000Memory', `${heapUsed / 1000 < 999 ? roundTo(heapUsed,2)+'KiB' : roundTo(heapUsed / 1000000,2) + 'MiB'} [${roundTo(heapUsed / heapTotal * 100,2)}%]`, true)
-  .addField('❯\u2000\Links', `•\u2000\[Website](https://maisans-maid.github.io/MaiSakurajima/)\n\•\u2000\[GitHub](https://github.com/maisans-maid/MaiSakurajima/)`,true)
-)
-
+  message.channel.send( new MessageEmbed()
+    .setAuthor(`Mai v${version}`, client.user.displayAvatarURL({format:'png',dynamic:true}),`https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=1043721303`)
+    .setColor('GREY')
+    .setThumbnail(client.user.displayAvatarURL({format:'png',dynamic:true}))
+    .setFooter('Made with ❤ by Sakurajimai#6742')
+    .addField(`${addBlankSpace(2)}\Discord API`,`•\u2000\**Message Received**: ${addBlankSpace(1)}${commatize(received)}${addBlankSpace(4)}\n•\u2000\**Message Sent**:${addBlankSpace(1)}${commatize(sent)}\n•\u2000\**Server Count**:${addBlankSpace(1)}${commatize(client.guilds.cache.size)}\n•\u2000\**Channel Count**:${addBlankSpace(1)}${commatize(client.channels.cache.size)}\n•\u2000\**User Count**:${addBlankSpace(1)}${commatize(client.users.cache.size)}`, true)
+    .addField(`${addBlankSpace(2)}System`,`•\u2000\**OS**: ${addBlankSpace(1)}${process.platform}\n•\u2000\**Version**: ${release()}\n•\u2000\**Uptime**: ${addBlankSpace(1)}${duration(client.uptime, 'milliseconds').format('D [days] H [hours] m [minutes] s [seconds]')}\n•\u2000\**Node**: ${addBlankSpace(1)}${process.version}\n•\u2000\**Memory**:${addBlankSpace(1)}${heapUsed / 1000 < 999 ? roundTo(heapUsed,2)+'KiB' : roundTo(heapUsed / 1000000,2) + 'MiB'} [${roundTo(heapUsed / heapTotal * 100,2)}%]\n•\u2000\**CPU**:${addBlankSpace(1)}${(cpus()[0].speed / 1000).toFixed(2)} GHz`,true)
+    .addField(`${addBlankSpace(2)}Miscellaneous`,`•\u2000\**Created**: ${timeZoneConvert(client.user.createdAt)}, ${fromNow(client.user.createdAt)}\n•\u2000\**Commands**: ${client.commands.size}`)
+    .addField(`\u200B`,`[Github Repository](https://github.com/maisans-maid/Mai) | [Website](https://maisans-maid.github.io/mai.moe)`)
+    )
 }
 
 module.exports.config = {
@@ -53,22 +47,4 @@ module.exports.config = {
   description: "Returns bot stats",
   examples: [],
   parameters: []
-}
-
-function roundTo(n, digits) {
-    var negative = false;
-    if (digits === undefined) {
-        digits = 0;
-    }
-        if( n < 0) {
-        negative = true;
-      n = n * -1;
-    }
-    var multiplicator = Math.pow(10, digits);
-    n = parseFloat((n * multiplicator).toFixed(11));
-    n = (Math.round(n) / multiplicator).toFixed(2);
-    if( negative ) {
-        n = (n * -1).toFixed(2);
-    }
-    return n;
 }

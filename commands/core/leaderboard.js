@@ -28,7 +28,6 @@ module.exports.run = (client, message, args ) => {
         field.push({name:`\u200B`, value: `${(x===0) ? '🥇 - ' : (x===1) ? '🥈 - ' : (x===2) ? '🥉 - ' : '#'+(x+1)+" - "} **${commatize(leaderboard[x].points)}**XP (Level ${leaderboard[x].level})  <@${leaderboard[x].userID}>`, inline: false })
       }
 
-      console.log(field)
       message.channel.send( new MessageEmbed()
         .setAuthor(`🏆 ${message.guild.name} Leaderboard`)
         .setDescription(`<@${leaderboard[0].userID}> ranked the highest with **${commatize(leaderboard[0].points)+"**XP!\n\n"}`)

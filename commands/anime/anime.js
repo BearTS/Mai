@@ -6,7 +6,7 @@ module.exports.run = async ( client, message, args ) => {
 
   if (!args.length) args = ['seishun','buta','yarou']
 
-  const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for anime titled **${args.join(' ')}** on MAL.\n\u200B`))
+  const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for anime titled **${args.join(' ')}** on MAL.\n\u200B`).setThumbnail('https://files.catbox.moe/op2978.gif'))
 
   const data = await getInfoFromName(args.join(' '))
 
@@ -43,7 +43,11 @@ module.exports.run = async ( client, message, args ) => {
     .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
     if (image) embed.setThumbnail(image)
 
+  try {
     msg.edit(embed)
+  } catch (err) {
+    message.channel.send(embed)
+  }
 }
 
 module.exports.config = {
@@ -55,7 +59,7 @@ module.exports.config = {
   },
   guildOnly: true,
 	group: 'anime',
-	description: 'Searches for a specific anime in MyAnimeList.net',
+	description: 'Searches for a specific anime in [MyAnimeList.net](https://myanimelist.net)',
 	examples: ['anime aobuta','ani seishun buta yarou','as bunnygirl senpai'],
 	parameters: ['search query']
 }

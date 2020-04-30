@@ -77,6 +77,7 @@
    },
  	group: 'moderation',
   guildOnly: true,
+  modOnly: true,
   permissions: ['MANAGE_MESSAGES','MANAGE_CHANNELS'],
   clientPermissions: ['MANAGE_CHANNELS'],
  	description: '[Prevent/Allow] users from messageing in the current channel.',
