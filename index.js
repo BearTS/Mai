@@ -130,7 +130,7 @@ process.on('unhandledRejection', err => {
 
 mai.mongoose.init();
 
-mai.login(prodtoken).catch( (err) => {
+mai.login(process.env.MAI_TOKEN).catch( (err) => {
 
   if (err.name === 'Error [TOKEN_INVALID]') console.log(`${red('[Mai-FAIL]')} : The token you provided is not valid! Please get valid token @ https://discordapp.com/developers/applications ~ <3`)
 
