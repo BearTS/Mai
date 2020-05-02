@@ -23,7 +23,7 @@ try {
     .setURL(`https://time.is/${encodeURI(city)}`)
     .setDescription(`in **${city}, ${country}**\n*${week}, ${month} ${day}, ${year}*\nCoordinates: [lat: ${latitude}, long: ${longitude}]*\n\n`)
     .addField(`Sunrise`,hour12Format(sunrise),true)
-    .addField(`Sunset`,hour12Format(sunset),true)
+    .addField(`Sunset`,hour12Format(sunset).replace('AM','PM'),true)
     .addField(`Day Length`,daylength,true)
     .addField(`Solar Noon`,hour12Format(solarnoon),true)
     .setFooter(`${info}time.`)
