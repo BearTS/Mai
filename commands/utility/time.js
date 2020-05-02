@@ -13,6 +13,7 @@ try {
   let time = res.split('<time id="clock"')[1].split('<')[0].replace('>','')
   let {latitude, longitude, city, country} = filterLocale(locale)
   let [week, month_day, year] = res.split('title="Click for calendar">')[1].split('</span>')[0].split(',')
+  year = year.split('<')[0]
   let [, month, day] = month_day.split(' ')
   let [sunrise, sunset, daylength, solarnoon, info] = res.split('<li>Sunrise:')[1].split('time.</li>')[0].replace('Sunset:','').replace('Day length:','').replace('Solar noon:','').split('</li><li>')
 
@@ -60,7 +61,8 @@ function filterLocale(locale){
 
 function hour12Format(time){
   let [hh,mm,ss] = time.split(':')
-
+  
+  mm = mm.split('AM')[0].split('PM')[0]
   if (!ss) ss = '00'
 
   if (hh == 00) return `12:${mm}:${ss} AM`
