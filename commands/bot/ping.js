@@ -14,7 +14,7 @@ module.exports.run = (client, message, args) => {
 
   message.channel.send('Pinging...').then( m => {
     return m.edit("pong!", new MessageEmbed().setDescription(`⏳ ${roundTo(client.ws.ping,2)} ms\n\n📤 ${roundTo(m.createdAt - message.createdAt)} ms\n\n💓 ${roundTo(heartbeat / client.ws.shards.size)} ms`)
-    .setColor(message.member.displayColor !== 0 ? message.member.displayColor : embedDefault)
+    .setColor("GREY")
     .setThumbnail('https://i.imgur.com/D7RcVKM.gif'))
   })
 }
