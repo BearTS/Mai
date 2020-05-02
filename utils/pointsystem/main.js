@@ -9,7 +9,7 @@ module.exports.loadguilddata = async (client) => {
   if (!res.length) return
 
   res.forEach( guildData => {
-    client.guildsettings.set(guildData.id, guildData)
+    client.guildsettings.set(guildData.guildID, guildData)
   })
 
 }
