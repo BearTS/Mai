@@ -1,6 +1,6 @@
 const { green, yellow, red, magenta, cyan } = require('chalk')
 const mongoose = require('mongoose');
-const connector = `mongodb://botAdmin:${process.env.MAIDB}@botdev-shard-00-00-pblka.mongodb.net:27017,botdev-shard-00-01-pblka.mongodb.net:27017,botdev-shard-00-02-pblka.mongodb.net:27017/MaiDocs?replicaSet=BotDev-shard-0&ssl=true&authSource=admin`
+const connector = `mongodb://botAdmin:${mai.env.MAIDB}@botdev-shard-00-00-pblka.mongodb.net:27017,botdev-shard-00-01-pblka.mongodb.net:27017,botdev-shard-00-02-pblka.mongodb.net:27017/MaiDocs?replicaSet=BotDev-shard-0&ssl=true&authSource=admin`
 
 module.exports = {
   init:() => {
@@ -36,6 +36,5 @@ module.exports = {
     mongoose.connection.on('reconnected', () => {
       console.log(`${green('[Mai-SUCCESS]')} : Mongoose connection to MongoDB server reconnected.`)
     });
-
   }
 };

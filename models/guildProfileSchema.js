@@ -10,11 +10,6 @@ const profile = mongoose.Schema({
   xpExceptions: { type: Array, default: []},
   iseconomyActive: {type: Boolean, default: false},
   muterole: {type: String, default: null}
-},{
-
-  bufferCommands: false,
-  autoCreate:false
-
 });
 
 module.exports = mongoose.model("Guildprofile",profile);

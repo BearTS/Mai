@@ -10,5 +10,6 @@
   "commanddir": ["action","anime","bot","core","fun","economy","moderation","music","owner","setup","utility"],
   "website" : "https://maisans-maid.github.io/mai.moe/",
   "repo" : "https://github.com/maisans-maid/Mai#readme",
-  "prodtoken" : "___"
+  "prodtoken" : "-",
+  "supportmail": "maimaimaimaimai.123123123@gmail.com"
 }
