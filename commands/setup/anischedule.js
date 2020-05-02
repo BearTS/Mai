@@ -153,7 +153,7 @@ watchlist.findOne({guildID: message.guild.id}, async (err, data) => {
 //=============================================================================
     case 'setchannel':
       if (!message.mentions.channels.size) return message.reply(`Please mention a channel.`)
-
+      if (!message.mentions.channels.first().permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.reply(`I can't send messages on that channel!`)
       data.channelID = message.mentions.channels.first().id
       data.save().then(()=>{ message.react('👍') }).catch(()=>{ message.react("👎") })
 

@@ -1,15 +1,15 @@
 const { connection } = require('mongoose')
+const gp = require('../../models/guildProfileSchema.js')
 
 
-module.exports.loadguilddata = (client) => {
+module.exports.loadguilddata = async (client) => {
 
-  connection.db.collection('guildprofiles', (err, document) => {
-    if (err) return console.log(`Unexpected Error Occured`)
-    document.find({}).toArray( (e , res) => {
-      if (e) return console.log(`Unexpected Error Occured (2)`)
-      res.forEach( guildData => {
-        client.guildsettings.set(guildData.guildID, guildData)
-      })
-    })
+  const res = await gp.find({})
+
+  if (!res.length) return
+
+  res.forEach( guildData => {
+    client.guildsettings.set(guildData.id, guildData)
   })
+
 }

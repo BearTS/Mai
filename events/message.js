@@ -21,6 +21,8 @@ try {
 
     if (message.content.startsWith(prefix)){
 
+    if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
+
     if (message.author.bot) return;
 
     let [ cmd, ...args ] = message.content.split(/ +/)
@@ -29,7 +31,7 @@ try {
 
     if (!commandfile) return
 
-    const { config : { name, guildOnly, ownerOnly, adminOnly, permissions, clientPermissions, cooldown }, run } = commandfile
+    const { config : { name, guildOnly, ownerOnly, adminOnly, permissions, clientPermissions, cooldown, econocommand, rankcommand }, run } = commandfile
 
     if (guildOnly && message.channel.type === 'dm') return message.channel.send(error(`Sorry! This command is valid on guild channels only!`))
 
@@ -40,6 +42,10 @@ try {
     if (permissions && !message.member.hasPermission(permissions)) return message.channel.send(error(`You have no permissions to use this command!`))
 
     if (clientPermissions && !message.guild.me.hasPermission(clientPermissions)) return message.channel.send(error(`Sorry, I need the following permissions to execute this command\n\n\`${clientPermissions.join('`, `')}\``))
+
+    if (econocommand && (!client.guildsettings.get(message.guild.id) || !client.guildsettings.get(message.guild.id).iseconomyActive)) return message.channel.send(error(`Economy is currently disabled in this server`))
+
+    if (rankcommand && (!client.guildsettings.get(message.guild.id) || !client.guildsettings.get(message.guild.id).isxpActive)) return message.channel.send(error(`XP is currently disabled in this server`))
 
     if (!cooldown || !cooldown.time || cooldown.time === 0) return run(client, message, args)
 

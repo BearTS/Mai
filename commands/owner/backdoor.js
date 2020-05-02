@@ -10,7 +10,7 @@ module.exports.run = async ( client, message, args ) => {
 
       if (cd.length > 1500) return
 
-      cd += `Join ${guild.name} with id: ${guild.id}`
+      cd += `Join ${guild.name} with id: ${guild.id}\n`
     })
 
     return message.channel.send(`\`\`\`xl\n${cd}\n\`\`\``)

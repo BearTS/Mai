@@ -2,7 +2,6 @@ const requireText = require("require-text");
 const { getAnnouncementEmbed, getFromNextDays, query } = require("./utils.js");
 const watchListData = require('../../models/guildWatchlistSchema.js')
 const { cyan, magenta } = require('chalk')
-const mongoose = require('mongoose')
 let queuedNotifications = [];
 let bot;
 
@@ -41,42 +40,50 @@ async function handleSchedules(time,page){
 }
 
 function getAllWatched(){
-  return new Promise((resolve,reject)=>{
+  return new Promise( async (resolve,reject)=>{
     const watched = [];
-     mongoose.connection.db.collection('watchlists', function(err,collection){
-       if (err) return console.log(`${red('[Mai-FAIL]')} : Could not get watchlist data (Anisched feature).`)
-       collection.find({}).toArray( function(err,watchlist){
-         if (err) return console.log(`${red('[Mai-FAIL]')} : Could not get watchlist data (Anisched feature).`)
-         watchlist.forEach(guild => {
-            guild.data.forEach(s => {
-              if (!watched.includes(s))
-              watched.push(s)
-            })
-          })
-          resolve(watched);
-        })
+
+    const watchlist = await watchListData.find({})
+    if (!watchlist) return console.log(`${red('[Mai-FAIL]')} : Could not get watchlist data (Anisched feature).`)
+
+    watchlist.forEach( guild => {
+
+      guild.data.forEach( s => {
+
+        if (!watched.includes(s)) watched.push(s)
+
       })
+    })
+
+  resolve(watched);
+
   })
 }
 
-function makeAnnouncement(entry,date,upNext = false){
+async function makeAnnouncement(entry,date,upNext = false){
   queuedNotifications = queuedNotifications.filter(q => q !== entry.id)
   const embed = getAnnouncementEmbed(entry,date,upNext);
 
-  mongoose.connection.db.collection('watchlists', function(err,collection){
-    collection.find({}).toArray(function(err,watchlist){
-      watchlist.forEach(g => {
-        if (!g || !g.data || !g.data.length)
-        return;
+  const watchlist = await watchListData.find({})
+  if (!watchlist) return console.log(`${red('[Mai-FAIL]')} : Could not get watchlist data (Anisched feature).`)
 
-        if (g.data.includes(entry.media.id)){
-          const channel = bot.channels.cache.find(v => v.id === g.channelID)
-          if (channel) {
-            console.log(`${cyan('[Mai-ALERT]')}: Announcing episode ${entry.media.title.romaji} to ${channel.guild.name}@${channel.id}`)
-            channel.send(embed)
-          }
-        }
-      })
-    })
+  watchlist.forEach( g => {
+
+    if (!g || !g.data || !g.data.length || !g.data.includes(entry.media.id)) return
+
+    const channel = bot.channels.cache.find(v => v.id === g.channelID)
+
+    if (!channel) return
+
+    if (!channel.permissionsFor(channel.guild.me).has('SEND_MESSAGES')) return
+
+    console.log(`${cyan('[Mai-ALERT]')}: Announcing episode ${entry.media.title.romaji} to ${channel.guild.name} @ ${channel.id}`)
+
+    try {
+      channel.send(embed)
+    } catch (err) {
+      console.log(`${cyan('[Mai-ALERT]')}: Failed to announce episode ${entry.media.title.romaji} to ${channel.guild.name} @ ${channel.id}\nMissing Channel Permissions!`)
+    }
+
   })
 }

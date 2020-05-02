@@ -58,7 +58,8 @@ mai.cooldowns = new Collection()
 mai.guildsettings = new Collection()
 mai.xp = new Collection()
 mai.memes = new Collection()
-mai.news = new Collection()
+mai.economy = new Collection()
+
 
 //--------------------------Load Commands to Client--------------------------//
 

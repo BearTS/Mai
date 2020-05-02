@@ -45,7 +45,7 @@ module.exports.config = {
   aliases: ['lewd'],
   cooldown: {
     time: 10,
-    msg: 'Oops! You\'re going too fast!'
+    msg: 'Oops! Aren\'t you a bit hawny?!'
   },
   guildOnly: true,
 	group: 'anime',

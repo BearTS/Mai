@@ -169,11 +169,14 @@ Name | Description
   * `m!automsg welcomemsg` Set the welcome message being sent by the bot.
   * `m!pointsystem [subcommands]` Set up the point system for this server.
   * `m!pointsystem economytoggle` Toggle economy system on/off for this server.
-* `m!pointsystem excemptedchannels` Display which channels have their xp disabled.
+* `m!automsg [subcommand]` Set up the point system for this server
+  * `m!pointsystem excemptedchannels` Display which channels have their xp disabled.
   * `m!pointsystem help` Print out all available sub-commands with a short description.
   * `m!pointsystem xpallow [channel]` Allow xp system on mentioned channel(s), if disabled.
   * `m!pointsystem xpexcempt [channel]` Excempt xp system on mentioned channel(s), if enabled.
   * `m!pointsystem xptoggle` Toggle the xp system on/off for this server
+  * `m!pointsystem xpreset` Reset the xp of all members in the server (Limited to Server Owner)
+  * `m!pointsystem economyreset` Reset the economy of all members in the server (Limited to Server Owner)
 
 ###### [Back to Contents](#Contents)
 <p>

@@ -23,13 +23,14 @@
   "author": "Sakurajimai#6742",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.1.0",
+    "@discordjs/opus": "^0.2.1",
     "animequotes": "^1.1.2",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
     "chalk": "^4.0.0",
     "danbooru": "^3.1.0",
     "discord.js": "^12.2.0",
+    "ffmpeg-static": "^4.2.0",
     "mal-scraper": "^2.6.8",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
@@ -41,8 +42,10 @@
     "os": "^0.1.1",
     "relevant-urban": "^2.0.0",
     "require-text": "0.0.1",
+    "sodium": "^3.0.2",
     "utf-8-validate": "^5.0.2",
     "wanakana": "^4.0.2",
-    "xml2js": "^0.4.23"
+    "yt-search": "^1.1.2",
+    "ytdl-core": "^2.1.1"
   }
 }

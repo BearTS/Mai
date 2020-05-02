@@ -1,7 +1,9 @@
 const { MessageEmbed } = require('discord.js')
 const gprofile = require('../../models/guildProfileSchema.js')
 const { default : { prefix } } = require('../../settings.json')
-const allowedResponses = ['xptoggle','economytoggle','xpexcempt','xpallow','excemptedchannels']
+const allowedResponses = ['xptoggle','economytoggle','xpexcempt','xpallow','excemptedchannels','xpreset','economyreset']
+const experience = require('../../models/xpSchema.js')
+const econschema = require('../../models/bankSchema.js')
 
 module.exports.run = (client, message, args) => {
 
@@ -117,6 +119,21 @@ gprofile.findOne({guildID: message.guild.id}, async (err, data) => {
       if (!data.xpExceptions.length) return message.reply(`The xp system is active on all channels.`)
       message.reply(`The xp system is disabled on <#${data.xpExceptions.join('>, <#')}>`)
     break;
+//=============================================================================
+    case 'xpreset':
+    if (message.guild.ownerID !== message.author.id) return message.reply(`XP reset can only be toggled by server owner.`)
+    experience.deleteMany({ guildID: message.guild.id}, (err,del) => {
+      message.reply(`**The XP has been reset!**`)
+    })
+    break;
+//=============================================================================
+    case 'economyreset':
+    if (message.guild.ownerID !== message.author.id) return message.reply(`Economy reset can only be toggled by server owner.`)
+    econschema.deleteMany({ guildID: message.guild.id}, (err,del) => {
+      message.reply(`**The economy has been reset!**`)
+    })
+    break;
+//=============================================================================
     default:
     }
   })
@@ -145,7 +162,9 @@ function help(message){
     {name:'help',value:'Prints out all available sub-commands with a short description.'},
     {name:'xpallow',value:'Allow xp system on mentioned channel(s) if disabled.'},
     {name:'xpexcempt',value:'Excempt xp system on mentiond channel(s) if enabled.'},
-    {name:'xptoggle',value:'Toggle the xp system on/off for the server.'}
+    {name:'xptoggle',value:'Toggle the xp system on/off for the server.'},
+    {name:'xpreset',value:'Reset the xp of everyone in this server (Only server owner can execute this command).'},
+    {name:'economyreset',value:'Reset the economy of everyone in this server (Only server owner can execute this command).'}
     )
   )
 }

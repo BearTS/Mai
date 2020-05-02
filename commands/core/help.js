@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const { default: { prefix } } = require('../../settings.json')
+const { default: { prefix }, website, repo } = require('../../settings.json')
 
 module.exports.run = (client, message, [ query ]) => {
 
@@ -10,7 +10,7 @@ module.exports.run = (client, message, [ query ]) => {
   .setFooter(`Created with ❤ by Sakurajimai#6742`)
   .setDescription(`Hi! I'm **${client.user.username}** and I am a bot based\n\around anime <Specially Aobuta>\n\All my commands start with the prefix \`${prefix}\`!`)
   .addField('\u200B', `Use \`${ prefix }cmd\` to see a list of my commands.\nYou can also use \`${ prefix }help [command]\` to get help on a specific command.`)
-  .addField('\u200B', `Mai [Github Repository](https://github.com/maisans-maid/Mai#readme) | [Website](https://maisans-maid.github.io/mai.moe)`)
+  .addField('\u200B', `Mai [Github Repository](${repo}) | [Website](${website})`)
 
 ).catch( () => message.react("👎") )
 
@@ -29,7 +29,7 @@ module.exports.run = (client, message, [ query ]) => {
   .addField('Aliases', aliases && aliases.length ? aliases.join('\n') : 'None', true)
   .addField('Restriction', `${ownerOnly ? `Only my owner has the permission to use this command!` : adminOnly ? `Only server admins are allowed to use this command!` : modOnly ? `Only server Moderators can use this command!`: `Everyone can use this command!`}\n${guildOnly ? 'This can only be used inside server' : 'This can also be used in bot DMs.'}`,true)
   .addField(`Examples`, examples && examples.length ? `\`${prefix}${examples.join(`\`\n\`${prefix}`)}\`` : `None`, true)
-  .addField(`Valid Parameters`, `${parameters && parameters.length ? parameters.join(', '): "None"}\n\nMai [Github Repository](https://github.com/maisans-maid/Mai#readme) | [Website](https://maisans-maid.github.io/mai.moe)`,true)
+  .addField(`Valid Parameters`, `${parameters && parameters.length ? parameters.join(', '): "None"}\n\nMai [Github Repository](${repo}) | [Website](${website})`,true)
   .addField(`Cooldown`,cooldown && cooldown.time && cooldown.time !== 0 ? `${cooldown.time} seconds` : `None`,true)
   )
 }

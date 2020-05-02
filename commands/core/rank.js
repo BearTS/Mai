@@ -7,10 +7,6 @@ const { constructImage } = require('../../utils/pointsystem/xpImage.js')
 
 module.exports.run = (client, message, args ) => {
 
-  if (!client.guildsettings.get(message.guild.id) || !client.guildsettings.get(message.guild.id).isxpActive) {
-    return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`XP is currently disabled in this server.`))
-  }
-
   const { xpExceptions } = client.guildsettings.get(message.guild.id)
 
   if (xpExceptions.includes(message.channel.id)) return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`XP is currently disabled in this channel.`))
@@ -37,42 +33,34 @@ module.exports.run = (client, message, args ) => {
 
     let percentage = Math.round((curXPThisLevel / maxXPThisLevel) * 100)
 
+    let xpdoc = await xpSchema.find({ guildID: message.guild.id }).catch()
 
+    xpdoc.sort( (a,b) => b.points - a.points )
 
-    connection.db.collection('xperiencepoints', (err, collection) => {
+    const rank = ordinalize(xpdoc.findIndex(item => item.userID === message.author.id) + 1)
+    const wreaths = ['https://i.imgur.com/xsZHQcW.png','https://i.imgur.com/NmpP8oU.png','https://i.imgur.com/bzhoYpa.png','https://i.imgur.com/NSEbnek.png']
+    const indexer = xpdoc.findIndex(item => item.userID === message.author.id)
+    let wreath = wreaths[indexer]
 
-      if (err) return message.channel.send( new MessageEmbed().setColor('RED').setDescription(`An unexpected error occured!`))
-      collection.find({}).toArray( async (err, rankings) => {
+    if (!wreath && (indexer > 3 && indexer < 10)) wreath = wreaths[3]
 
-        if (err) return message.channel.send( new MessageEmbed().setColor('RED').setDescription(`An unexpected error occured!`))
+    const image = await constructImage(member,{ curXPThisLevel: curXPThisLevel, maxXPThisLevel: maxXPThisLevel, level: level, rank: rank, percentage: percentage, wreath: wreath },xp.bg)
 
-        rankings = rankings.filter(m => m.guildID === message.guild.id)
-        rankings.sort( (a,b) => b.points - a.points)
+    message.channel.send(image)
 
-        const rank = ordinalize(rankings.findIndex(item => item.userID === message.author.id) + 1)
-        const wreaths = ['https://i.imgur.com/xsZHQcW.png','https://i.imgur.com/NmpP8oU.png','https://i.imgur.com/bzhoYpa.png','https://i.imgur.com/NSEbnek.png']
-        const indexer = rankings.findIndex(item => item.userID === message.author.id)
-        let wreath = wreaths[indexer]
-
-        if (!wreath && (indexer > 3 && indexer < 10)) wreath = wreaths[3]
-
-        const image = await constructImage(member,{ curXPThisLevel: curXPThisLevel, maxXPThisLevel: maxXPThisLevel, level: level, rank: rank, percentage: percentage, wreath: wreath },xp.bg)
-
-        message.channel.send(image)
-
-      })
     })
-  })
 }
+
 
 module.exports.config = {
   name: "rank",
   aliases: ['lvl','xp'],
   cooldown:{
-    time: 30,
-    msg: "Please limit the usage of this command."
+    time: 0,
+    msg: ""
   },
   group: "core",
+  rankcommand: true,
   guildOnly: true,
   description: "Shows the current xp, level, and rank of a user from the server if mentioned, or returns the data of the sender when none is mentioned.",
   examples: [],
