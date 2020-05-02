@@ -67,7 +67,7 @@ module.exports.config = {
     time: 0,
     msg: ""
   },
-	group: 'anime',
+	group: 'utility',
   guildOnly: true,
 	description: 'Fetch a random image from the supplied subreddit',
 	examples: ['reddit anime'],
