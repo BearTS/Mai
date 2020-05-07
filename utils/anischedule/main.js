@@ -1,6 +1,7 @@
 const requireText = require("require-text");
 const { getAnnouncementEmbed, getFromNextDays, query } = require("./utils.js");
 const watchListData = require('../../models/guildWatchlistSchema.js')
+const moment = require('moment')
 const { cyan, magenta } = require('chalk')
 let queuedNotifications = [];
 let bot;
@@ -23,13 +24,14 @@ async function handleSchedules(time,page){
     }
 
     res.data.Page.airingSchedules.forEach(e => {
+
       const date = new Date(e.airingAt * 1000)
       if (queuedNotifications.includes(e.id))
         return;
 
-      console.log(`${cyan('[Mai-ALERT]')} : Scheduling announcement for ${e.media.title.romaji} on ${date}`);
+      console.log(`${cyan('[Mai-ALERT]')} : Scheduling announcement for ${e.media.title.romaji} in ${cyan(moment.duration(e.timeUntilAiring,"seconds").format('D [days] H [hours] m [minutes] s [seconds]'))}`);
       queuedNotifications.push(e.id);
-      setTimeout(()=> makeAnnouncement(e,date),e.timeUntilAiring * 1000)
+      setTimeout(()=> makeAnnouncement(e,date), e.timeUntilAiring * 1000)
 
     })
 
@@ -73,9 +75,9 @@ async function makeAnnouncement(entry,date,upNext = false){
 
     const channel = bot.channels.cache.find(v => v.id === g.channelID)
 
-    if (!channel) return
+    if (!channel) return console.log(`${magenta('[Mai-PROMISE ERROR]')}: Announcement for ${entry.media.title.romaji} failed in ${g.channelID} because such channel doesnt exist!`)
 
-    if (!channel.permissionsFor(channel.guild.me).has('SEND_MESSAGES')) return
+    if (!channel.permissionsFor(channel.guild.me).has('SEND_MESSAGES')) return console.log(`${magenta('[Mai-PROMISE ERROR]')}: Announcement for ${entry.media.title.romaji} failed in ${channel.guild.name} because of missing 'SEND_MESSAGES' permission!`)
 
     console.log(`${cyan('[Mai-ALERT]')}: Announcing episode ${entry.media.title.romaji} to ${channel.guild.name} @ ${channel.id}`)
 

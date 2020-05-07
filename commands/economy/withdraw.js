@@ -47,7 +47,7 @@ module.exports.run = ( client, message, [ amount ] ) => {
 
 module.exports.config = {
   name: "withdraw",
-  aliases: [""],
+  aliases: [],
   cooldown:{
     time: 0,
     msg: ""
