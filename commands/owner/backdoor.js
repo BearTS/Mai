@@ -1,45 +1,51 @@
 const { MessageEmbed } = require('discord.js')
 
-module.exports.run = async ( client, message, args ) => {
+module.exports = {
+  config: {
+    name: "backdoor",
+    aliases: ['getinvite','getinv','forceinv','bd'],
+    guildOnly: false,
+    ownerOnly: true,
+    adminOnly: false,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: 'owner',
+    description: 'Sends a server invite to the specified server. Only the developer can use this!',
+    examples: ['backdoor [server ID]','bd'],
+    parameters: ['server ID'],
+  },
+  run: async ( client, message, args ) => {
 
-  if (!args.length) {
+    if (!args.length) {
 
-    let cd = ''
+      let cd = ''
 
-    client.guilds.cache.each( guild => {
+      client.guilds.cache.each( guild => {
 
-      if (cd.length > 1500) return
+        if (cd.length > 1500) return
 
-      cd += `Join ${guild.name} with id: ${guild.id}\n`
-    })
+        cd += `Join ${guild.name} with id: ${guild.id}\n`
+      })
 
-    return message.channel.send(`\`\`\`xl\n${cd}\n\`\`\``)
+      return message.channel.send(`\`\`\`xl\n${cd}\n\`\`\``)
 
-  } else {
+    } else {
 
-    let errors = []
-    let invites = []
+      let errors = []
+      let invites = []
 
-    let action = args.map( arg => getInvite(client, arg, errors, invites))
+      let action = args.map( arg => getInvite(client, arg, errors, invites))
 
-    await Promise.all(action)
+      await Promise.all(action)
 
-    if (!invites.length && errors.length > 0) return message.channel.send( new MessageEmbed().setColor('RED').setDescription(errors.join('\n\n')))
+      if (!invites.length && errors.length > 0) return message.channel.send( new MessageEmbed().setColor('RED').setDescription(errors.join('\n\n')))
 
-    if (invites.length > 1 && errors.length > 0) return message.author.send( new MessageEmbed().setColor('GREEN').setDescription(invites.join('\n\n'))).then(()=> message.channel.send( new MessageEmbed().setColor('RED').setDescription(`**${invites.length} ${invites.length > 1 ? 'invites' : 'invite'}** were created with the following Errors:\n\n${errors.join('\n')}\n\nPlease Check your DM`))).catch(()=> message.channel.send( new MessageEmbed().setColor('RED').setDescription('Could not send Invite Link. Please open your DM channel.')))
+      if (invites.length > 1 && errors.length > 0) return message.author.send( new MessageEmbed().setColor('GREEN').setDescription(invites.join('\n\n'))).then(()=> message.channel.send( new MessageEmbed().setColor('RED').setDescription(`**${invites.length} ${invites.length > 1 ? 'invites' : 'invite'}** were created with the following Errors:\n\n${errors.join('\n')}\n\nPlease Check your DM`))).catch(()=> message.channel.send( new MessageEmbed().setColor('RED').setDescription('Could not send Invite Link. Please open your DM channel.')))
 
-    message.author.send( new MessageEmbed().setColor('GREEN').setDescription(invites.join('\n\n'))).then(()=> message.channel.send(new MessageEmbed().setColor('GREEN').setDescription(`Created **${invites.length}** invite ${invites.length > 1 ? 'links' : 'link'}! Please check your DM!`))).catch(()=> message.channel.send( new MessageEmbed().setColor('RED').setDescription('Could not send Invite Link. Please open your DM channel.')))
+      message.author.send( new MessageEmbed().setColor('GREEN').setDescription(invites.join('\n\n'))).then(()=> message.channel.send(new MessageEmbed().setColor('GREEN').setDescription(`Created **${invites.length}** invite ${invites.length > 1 ? 'links' : 'link'}! Please check your DM!`))).catch(()=> message.channel.send( new MessageEmbed().setColor('RED').setDescription('Could not send Invite Link. Please open your DM channel.')))
+    }
   }
-}
-
-module.exports.config = {
-  name: "backdoor",
-  aliases: ['getinvite','getinv','forceinv','bd'],
-  group: 'owner',
-  description: 'Sends a server invite to the specified server. Only the developer can use this!',
-  examples: ['backdoor [server ID]','bd'],
-  parameters: ['server ID'],
-  ownerOnly: true
 }
 
 function getInvite(client , id, errors, invites ){

@@ -1,8 +1,21 @@
 const { MessageEmbed } = require('discord.js')
 
-module.exports.run = (client, message, args) => {
-
-  if (message.guild){
+module.exports = {
+  config:{
+    name: "avatar",
+    aliases: ['av','pfp'],
+    guildOnly: true,
+    ownerOnly: false,
+    adminOnly: false,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: "utility",
+    description: "Shows avatar of a given user",
+    examples: ["avatar @user","avatar 521598384003395222"],
+    parameters: ['user mention','user id']
+  },
+  run: (client, message, args) => {
 
     const match = message.content.match(/\d{18}/);
 
@@ -11,33 +24,12 @@ module.exports.run = (client, message, args) => {
     if (!member) member = message.member
 
     return message.channel.send(new MessageEmbed()
-      .setDescription(`[${message.author.id === member.id ? `Your` : member.id === client.user.id ? 'Oh? Here\'s my' :`${member}'s`} avatar](${member.user.displayAvatarURL({format:'png',dynamic:true,size:1024})})`)
-      .setColor(member.displayColor === 0 ? 'GREY' : member.displayColor)
-      .setImage(member.user.displayAvatarURL({format:'png',dynamic:true,size:1024})))
-
-  } else {
-
-    return message.channel.send(new MessageEmbed()
-      .setDescription('Your avatar')
-      .setColor('GREY')
-      .setImage(message.author.displayAvatarURL({format:'png',dynamic:true,size:1024})))
+    .setDescription(`[${message.author.id === member.id ? `Your` : member.id === client.user.id ? 'Oh? Here\'s my' :`${member}'s`} avatar](${member.user.displayAvatarURL({format:'png',dynamic:true,size:1024})})`)
+    .setColor(member.displayColor === 0 ? 'GREY' : member.displayColor)
+    .setImage(member.user.displayAvatarURL({format:'png',dynamic:true,size:1024}))
+    )
   }
-
 }
-
-module.exports.config = {
-  name: "avatar",
-  aliases: ['av','pfp'],
-  cooldown:{
-    time: 0,
-    msg: ""
-  },
-  group: "utility",
-  description: "Shows avatar of a given user",
-  examples: ["avatar @user","avatar 521598384003395222"],
-  parameters: ['user mention','user id']
-}
-
 
 function error(err){
   return new MessageEmbed()

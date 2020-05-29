@@ -2,54 +2,55 @@ const { MessageEmbed, Collection } = require('discord.js')
 const fetch = require('node-fetch')
 const { commatize } = require('../../helper.js')
 
-module.exports.run = async (client, message, [ parameter ]) => {
-
-if (!client.memes.get(message.guild.id)){
-  client.memes.set(message.guild.id, new Collection())
-}
-
-const memes = client.memes.get(message.guild.id)
-
-if (!memes.size) await reloadMeme(memes, message)
-
-if (parameter === 'reload') {
-
-  await reloadMeme(memes, message)
-  if (!memes.size) return message.channel.send( new MessageEmbed().setColor('RED').setDescription('Could not fetch memes from reddit! Please report this to the bot owner. The API might be down or there might be changes on the API itself.'))
-  const data = memes.first()
-  memes.delete(data.title)
-  return message.channel.send(embedMeme(data))
-
-} else if (parameter && (parameter.toLowerCase() === 'r' || parameter.toLowerCase() === 'random' || parameter.toLowerCase() === 'randomize')) {
-
-  const data = memes.random()
-
-  memes.delete(data.title)
-  return message.channel.send(embedMeme(data))
-
-} else {
-
-  const data = memes.first()
-  memes.delete(data.title)
-  if (!memes.size) await reloadMeme(memes, message)
-  return message.channel.send(embedMeme(data))
-
-}
-
-}
-
-module.exports.config = {
-  name: 'animeme',
-  aliases: ['ameme','animememe','animemes','animememes','amemes'],
-  cooldown: {
-    time: 0,
-    msg: ""
+module.exports = {
+  config: {
+    name: 'animeme',
+    aliases: ['ameme','animememe','animemes','animememes','amemes'],
+    guildOnly: true,
+    ownerOnly: false,
+    adminOnly: false,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: 'anime',
+    description: 'Generate an anime meme fetched from selected subreddits. Include `reload` parameter to reload meme cache. Memes generated are in order by default, add `r`, `random`, or `randomize` to randomize meme.',
+    examples: ['animeme reload','ameme random','animememe'],
+    parameters: ['Reload tag','Randomization tag']
   },
-	group: 'anime',
-  guildOnly: true,
-	description: 'Generate an anime meme fetched from selected subreddits. Include `reload` parameter to reload meme cache. Memes generated are in order by default, add `r`, `random`, or `randomize` to randomize meme.',
-	examples: ['animeme [reload]','ameme','animememe'],
-	parameters: ['reload tag','randomization tag']
+  run:  async (client, message, [ parameter ]) => {
+
+    if (!client.memes.get(message.guild.id)){
+      client.memes.set(message.guild.id, new Collection())
+    }
+
+    const memes = client.memes.get(message.guild.id)
+
+    if (!memes.size) await reloadMeme(memes, message)
+
+    if (parameter === 'reload') {
+
+      await reloadMeme(memes, message)
+      if (!memes.size) return message.channel.send( new MessageEmbed().setColor('RED').setDescription('Could not fetch memes from reddit! Please report this to the bot owner. The API might be down or there might be changes on the API itself.'))
+      const data = memes.first()
+      memes.delete(data.title)
+      return message.channel.send(embedMeme(data))
+
+    } else if (parameter && (parameter.toLowerCase() === 'r' || parameter.toLowerCase() === 'random' || parameter.toLowerCase() === 'randomize')) {
+
+      const data = memes.random()
+
+      memes.delete(data.title)
+      return message.channel.send(embedMeme(data))
+
+    } else {
+
+      const data = memes.first()
+      memes.delete(data.title)
+      if (!memes.size) await reloadMeme(memes, message)
+      return message.channel.send(embedMeme(data))
+
+    }
+  }
 }
 
 

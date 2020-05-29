@@ -1,154 +1,160 @@
 const { MessageEmbed } = require('discord.js')
 const gprofile = require('../../models/guildProfileSchema.js')
 const { default : { prefix } } = require('../../settings.json')
-const allowedResponses = ['xptoggle','economytoggle','xpexcempt','xpallow','excemptedchannels','xpreset','economyreset']
+const allowedResponses = ['xptoggle', 'economytoggle', 'xpexcempt', 'xpallow', 'excemptedchannels', 'xpreset', 'economyreset']
 const experience = require('../../models/xpSchema.js')
 const econschema = require('../../models/bankSchema.js')
 
-module.exports.run = (client, message, args) => {
+module.exports = {
+	config: {
+	  name: 'pointsystem',
+	  aliases: ['ps'],
+    guildOnly: true,
+    ownerOnly: false,
+    adminOnly: true,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: 'setup',
+  	description: `Set the pointing system of this guild.  Type \`${prefix}pointsystem help\` for a guide on how to set up one.`,
+		examples: ['pointsystem help'],
+		parameters: ['subcommands', 'queries'],
+	},
+	run: async (client, message, [ subcommand, ...queries ]) => {
 
-if (!args.length || args[0].toLowerCase() === 'help') return help(message)
+		if (!subcommand ||subcommand.toLowerCase() === 'help') return help(message)
 
-if (!allowedResponses.includes(args[0])) return message.react("👎");
+		if (!allowedResponses.includes(subcommand)) return message.channel.send(error(`[AUTOMSG_ERROR]: Invalid subcommand [${subcommand}]. To view available subcommands: type \`${prefix}pointsystem help\`.`))
 
-gprofile.findOne({guildID: message.guild.id}, async (err, data) => {
+		let data = await gprofile.findOne({ guildID: message.guild.id }).catch(()=>{})
 
-  if (err) return console.log(`${magenta('[Mai-Promise ERROR]')} : Unable to connect to MongoDB.`)
+	  if (!data) data = await new gprofile({ guildID: message.guild.id, welcomeChannel: null, welcomemsg:null, goodbyeChannel: null, goodbyemsg: null, isxpActive: false, xpExceptions:[], iseconomyActive: false }).save()
 
-  if (!data) data = await new gprofile( {guildID: message.guild.id, welcomeChannel: null, welcomemsg:null, goodbyeChannel: null, goodbyemsg: null, isxpActive: false, xpExceptions:[], iseconomyActive: false} ).save()
+	  if (!data) return message.channel.send(error('[POINTSYSTEM_ERROR]: Unable to connect to database...'))
 
-  let gsettings = client.guildsettings.get(message.guild.id)
-  if (!gsettings) gsettings = client.guildsettings.set(message.guild.id, data )
+	  let gsettings = client.guildsettings.get(message.guild.id)
 
-  switch(args[0].toLowerCase()){
-//=============================================================================
-    case 'xptoggle':
+	  if (!gsettings) gsettings = client.guildsettings.set(message.guild.id, data )
 
-      if (data.isxpActive){
+	  switch(subcommand.toLowerCase()){
+	//=============================================================================
+	    case 'xptoggle':
 
-        data.isxpActive = false
-        data.save().then(()=> {
+	      if (data.isxpActive){
 
-          gsettings.isxpActive = false
-          message.reply(`Disabled the xp system!`)
+	        data.isxpActive = false
+	        data.save().then(()=> {
 
-        }).catch((err)=>  message.react('👎'))
+	          gsettings.isxpActive = false
+	          message.channel.send(success(`Disabled the xp system!`))
 
-      } else {
+	        }).catch((err)=>  message.react('👎'))
 
-        data.isxpActive = true
-        data.save().then(()=>{
+	      } else {
 
-          gsettings.isxpActive = true
-          message.reply(`Enabled the xp system!`)
+	        data.isxpActive = true
+	        data.save().then(()=>{
 
-        }).catch((err)=>  message.react('👎'))
-      }
-    break;
-//=============================================================================
-    case 'economytoggle':
+	          gsettings.isxpActive = true
+	          message.channel.send(success(`Enabled the xp system!`))
 
-      if (data.iseconomyActive){
+	        }).catch((err)=>  message.react('👎'))
+	      }
+	    break;
+	//=============================================================================
+	    case 'economytoggle':
 
-        data.iseconomyActive = false
-        data.save().then(() => {
+	      if (data.iseconomyActive){
 
-          gsettings.isxpActive = false
-          message.reply(`Disabled the economy system.`)
+	        data.iseconomyActive = false
+	        data.save().then(() => {
 
-        }).catch(()=> message.react('👎'))
+	          gsettings.isxpActive = false
+	          message.channel.send(success(`Disabled the economy system.`))
 
-      } else {
+	        }).catch(()=> message.react('👎'))
 
-        data.iseconomyActive = true
-        data.save().then(()=>{
+	      } else {
 
-          gsettings.iseconomyActive = true
-          message.reply(`Enabled the economy system!`)
+	        data.iseconomyActive = true
+	        data.save().then(()=>{
 
-        }).catch(() => message.react('👎'))
-      }
-    break;
-//=============================================================================
-    case 'xpexcempt':
-      if (!message.mentions.channels.size) return message.reply(`Please mention a channel.`)
+	          gsettings.iseconomyActive = true
+	          message.channel.send(success(`Enabled the economy system!`))
 
-      let channels = []
-      message.mentions.channels.each( channel => {
-        if (!data.xpExceptions.includes(channel.id)) channels.push(channel.id)
-      })
+	        }).catch(() => message.react('👎'))
+	      }
+	    break;
+	//=============================================================================
+	    case 'xpexcempt':
+	      if (!message.mentions.channels.size) return message.channel.send(error(`[POINTSYSTEM_ERROR]: Please mention a channel.`))
 
-      newInfo = data.xpExceptions.concat(channels)
+	      let channels = []
+	      message.mentions.channels.each( channel => {
+	        if (!data.xpExceptions.includes(channel.id)) channels.push(channel.id)
+	      })
 
-      data.xpExceptions = newInfo
+	      newInfo = data.xpExceptions.concat(channels)
 
-      data.save().then(()=>{
+	      data.xpExceptions = newInfo
 
-        gsettings.xpExceptions = newInfo
-        message.reply(`Disabled xp on <#${channels.join('>, <#')}>`)
+	      data.save().then(()=>{
 
-      }).catch(() => message.react('👎'))
+	        gsettings.xpExceptions = newInfo
+	        message.channel.send(success(`Disabled xp on <#${channels.join('>, <#')}>`))
 
-    break;
-//=============================================================================
-    case 'xpallow':
-      if (!message.mentions.channels.size) return message.reply(`Please mention a channel.`)
+	      }).catch(() => message.react('👎'))
 
-      let ch = []
-      message.mentions.channels.each( channel => {
-        if (data.xpExceptions.includes(channel.id)) ch.push(channel.id)
-      })
+	    break;
+	//=============================================================================
+	    case 'xpallow':
+	      if (!message.mentions.channels.size) return message.channel.send(error(`[POINTSYSTEM_ERROR]: Please mention a channel.`))
 
-      if (!ch.length) return message.reply(`The mentioned channels are not on the exception list!`)
+	      let ch = []
+	      message.mentions.channels.each( channel => {
+	        if (data.xpExceptions.includes(channel.id)) ch.push(channel.id)
+	      })
 
-      ch.forEach( id => {
-        data.xpExceptions.splice(ch.indexOf(id),1)
-      })
+	      if (!ch.length) return message.channel.send(error(`[POINTSYSTEM_ERROR]: The mentioned channels are not on the exception list!`))
 
-      data.save().then( (data) => {
+	      ch.forEach( id => {
+	        data.xpExceptions.splice(ch.indexOf(id),1)
+	      })
 
-        gsettings.xpExceptions = data.xpExceptions
-        message.reply(`Reenabled xp on <#${ch.join('>, <#')}>`)
+	      data.save().then( (data) => {
 
-      })
+	        gsettings.xpExceptions = data.xpExceptions
+	        message.channel.send(success(`Reenabled xp on <#${ch.join('>, <#')}>`))
 
-    break;
-//=============================================================================
-    case 'excemptedchannels':
-      if (!data.isxpActive) return message.reply(`The xp system is currently disabled in the server.`)
-      if (!data.xpExceptions.length) return message.reply(`The xp system is active on all channels.`)
-      message.reply(`The xp system is disabled on <#${data.xpExceptions.join('>, <#')}>`)
-    break;
-//=============================================================================
-    case 'xpreset':
-    if (message.guild.ownerID !== message.author.id) return message.reply(`XP reset can only be toggled by server owner.`)
-    experience.deleteMany({ guildID: message.guild.id}, (err,del) => {
-      message.reply(`**The XP has been reset!**`)
-    })
-    break;
-//=============================================================================
-    case 'economyreset':
-    if (message.guild.ownerID !== message.author.id) return message.reply(`Economy reset can only be toggled by server owner.`)
-    econschema.deleteMany({ guildID: message.guild.id}, (err,del) => {
-      message.reply(`**The economy has been reset!**`)
-    })
-    break;
-//=============================================================================
-    default:
-    }
-  })
-}
+	      })
 
+	    break;
+	//=============================================================================
+	    case 'excemptedchannels':
+	      if (!data.isxpActive) return message.channel.send(error(`[POINTSYSTEM_ERROR]: The xp system is currently disabled in the server.`))
+	      if (!data.xpExceptions.length) return message.channel.send(success(`The xp system is enabled on all channels.`))
+	      message.channel.send(success(`The xp system is disabled on <#${data.xpExceptions.join('>, <#')}>`))
+	    break;
+	//=============================================================================
+	    case 'xpreset':
+	    if (message.guild.ownerID !== message.author.id) return message.channel.send(error(`[POINTSYSTEM_ERROR]: XP reset can only be toggled by server owner.`))
+	    experience.deleteMany({ guildID: message.guild.id}, (err,del) => {
+	      message.channel.send(success(`**The XP has been reset!**`))
+	    })
+	    break;
+	//=============================================================================
+	    case 'economyreset':
+	    if (message.guild.ownerID !== message.author.id) return message.channel.send(error(`[POINTSYSTEM_ERROR]: Economy reset can only be toggled by server owner.`))
+	    econschema.deleteMany({ guildID: message.guild.id}, (err,del) => {
+	      message.channel.send(success(`**The economy has been reset!**`))
+	    })
+	    break;
+	//=============================================================================
+	    default:
 
-module.exports.config = {
-  name: 'pointsystem',
-  aliases: ['ps'],
-  group: 'setup',
-  description: `Set the pointing system of this guild.  Type \`${prefix}pointsystem help\` for a guide on how to set up one.`,
-  guildOnly: true,
-  examples: ['pointsystem help'],
-  parameters: ['subcommands', 'queries'],
-  adminOnly: true
+			}
+
+		}
 }
 
 function help(message){
@@ -167,4 +173,16 @@ function help(message){
     {name:'economyreset',value:'Reset the economy of everyone in this server (Only server owner can execute this command).'}
     )
   )
+}
+
+function error(err){
+  return new MessageEmbed()
+  .setColor('RED')
+  .setDescription(`\u200B\n${err}\n\u200B`)
+}
+
+function success(str){
+  return new MessageEmbed()
+  .setColor('GREEN')
+  .setDescription(`\u200B\n${str}\n\u200B`)
 }

@@ -18,6 +18,6 @@ module.exports = (client, member) => {
 
   if (!welcomemsg) return channel.send( new MessageEmbed().setTitle(`${member.user.tag} has joined our server!`).setFooter(`You are our ${ordinalize(member.guild.memberCount)} member!`).setDescription(`Hello ${member}, welcome to **${member.guild.name}**!`).setThumbnail(member.user.displayAvatarURL({ format:'png', dynamic: true})).setColor('RANDOM')).catch(()=>{})
 
-  return channel.send(welcomemsg.replace(`{user}\g`, `<@${member.id}>`).replace(`{membercount}\g`, member.guild.memberCount)).catch(()=>{})
+  return channel.send(welcomemsg.replace(/{user}|{member}/gi, `${member}`).replace(/{membercount}/gi, `${member.guild.memberCount}`)).catch(()=>{})
 
 }

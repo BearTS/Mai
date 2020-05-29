@@ -1,79 +1,89 @@
 const { commanddir, default: { prefix } } = require('../../settings.json')
 const { MessageEmbed } = require('discord.js')
+const { pointright, pointleft, cancel } = require('../../emojis')
 
-module.exports.run = async (client, message, args) => {
+module.exports = {
+  config: {
+    name: "cmd",
+    aliases: ['commands','command','cmds'],
+    guildOnly: true,
+    ownerOnly: false,
+    adminOnly: false,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: "core",
+    description: "Sends a list of all commands from a specific command group or all commands! Use the reactions to navigate through the panels!",
+    examples: ['cmd anime','commands'],
+  	parameters: ['command group']
+  },
+  run: async (client, message, args) => {
 
-let group = []
+    let group = []
 
-if (!args.length) {
-  commanddir.forEach( g => {
+    if (!args.length) {
+      commanddir.forEach( g => {
 
-    const c = client.commands.filter( c => c.config.group === g )
-    group.push({ group: g, collection: c})
+        const c = client.commands.filter( c => c.config.group === g )
+        group.push({ group: g, collection: c})
 
-  })
-} else {
+      })
 
-  const c = client.commands.filter( g => g.config.group === args.join(' '))
-  if (!c.size) return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`Couldnt find **${args.join(' ')}** command group!`))
+    } else {
 
-  group.push({ group: args.join(' '), collection: c })
-}
+      const c = client.commands.filter( g => g.config.group === args.join(' '))
+      if (!c.size) return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`Couldnt find **${args.join(' ')}** command group!`))
 
-const msg = await message.channel.send(embedder(group[0], message, group.length)).catch( () => message.react("👎") )
-if (!msg) return
-if (group.length === 1) return
+      group.push({ group: args.join(' '), collection: c })
 
-const collector = msg.createReactionCollector( (reaction ,user) => user.id === message.author.id )
-
-let reactions = ['◀', '▶', '❌']
-for (let i = 0; i < reactions.length; i++) await msg.react(reactions[i]);
-
-  let timeout = setTimeout(()=> collector.stop('timeout'), 60000)
-  let i = 0
-
-  collector.on('collect', async (r) => {
-
-    if (r.emoji.name === '◀') {
-
-      if (i < 1) i = group.length
-      clearTimeout(timeout)
-      i--
-      await msg.edit(embedder(group[i], message, group.length,i))
-
-    } else if (r.emoji.name === '▶') {
-
-      if (i === group.length - 1) i = -1
-      clearTimeout(timeout)
-      i++
-      await msg.edit(embedder(group[i], message, group.length,i))
-    } else if (r.emoji.name === "❌") {
-      collector.stop('terminated')
     }
 
-    await r.users.remove(message.author.id)
+    const msg = await message.channel.send(embedder(group[0], message, group.length)).catch( () => message.react("👎") )
+    if (!msg) return
+    if (group.length === 1) return
 
-    timeout = setTimeout(()=> collector.stop('timeout'), 60000)
+    const left = pointleft(client)
+    const right = pointright(client)
+    const terminate = cancel(client)
+    const collector = msg.createReactionCollector( (reaction ,user) => user.id === message.author.id )
 
-  })
+    const navigators = [ left, right, terminate ]
+    for (let i = 0; i < navigators.length; i++) await msg.react(navigators[i]);
 
-  collector.on('end', async(collected,reason)=>{
-      msg.reactions.removeAll()
+    let timeout = setTimeout(()=> collector.stop('timeout'), 60000)
+    let i = 0
+
+    collector.on('collect', async ( { emoji: { name } , users } ) => {
+
+      switch(name){
+        case left.name ? left.name : left:
+          if (i < 1) i = group.length
+          clearTimeout(timeout)
+          i--
+          await msg.edit(embedder(group[i], message, group.length,i))
+        break;
+        case right.name ? right.name : right:
+          if (i === group.length - 1) i = -1
+          clearTimeout(timeout)
+          i++
+          await msg.edit(embedder(group[i], message, group.length,i))
+        break;
+        case terminate.name ? terminate.name : terminate:
+          collector.stop('terminated')
+        break;
+      }
+
+      await users.remove(message.author.id)
+
+      timeout = setTimeout(()=> collector.stop('timeout'), 60000)
+
     })
 
-}
+    collector.on('end', ()=>{
 
-module.exports.config = {
-  name: "cmd",
-  aliases: ['commands','command','cmds'],
-  cooldown:{
-    time: 0,
-    msg: ""
-  },
-  group: "core",
-  description: "Sends a list of all commands from a specific command group or all commands! Use the reactions to navigate through the panels!",
-  examples: ['cmd anime','commands'],
-	parameters: ['command group']
+      msg.reactions.removeAll()
+    })
+  }
 }
 
 

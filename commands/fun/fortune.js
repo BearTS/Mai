@@ -256,23 +256,26 @@ const fortunes = [
 ]
 const { MessageEmbed } = require("discord.js")
 
-module.exports.run = ( client, message) => {
-  message.channel.send(new MessageEmbed()
-  .setColor('GREY')
-  .setDescription(fortunes[Math.floor(Math.random()* (fortunes.length - 1))])
-  .setAuthor(`${message.member.displayName}'s fortune.`, message.author.displayAvatarURL())
-  )
-}
-
-module.exports.config = {
-  name: "fortune",
-  aliases: ['ft','fortunecookies'],
-  cooldown:{
-    time: 0,
-    msg: ""
+module.exports = {
+  config: {
+    name: "fortune",
+    aliases: ['ft','fortunecookies'],
+    guildOnly: false,
+    ownerOnly: false,
+    adminOnly: false,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: "fun",
+    description: "Generate a random fortune" ,
+    examples: ['fortune','ft'],
+    parameters: []
   },
-  group: "fun",
-  description: "Generate a random fortune" ,
-  examples: ['fortune','ft'],
-  parameters: []
+  run: ( client, message) => {
+    message.channel.send(new MessageEmbed()
+    .setColor('GREY')
+    .setDescription(fortunes[Math.floor(Math.random()* (fortunes.length - 1))])
+    .setAuthor(`${message.member ? message.member.displayName : message.author.username}'s fortune.`, message.author.displayAvatarURL())
+    )
+  }
 }

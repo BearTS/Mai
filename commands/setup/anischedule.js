@@ -7,171 +7,188 @@ const { magenta } = require('chalk')
 const { MessageEmbed } = require('discord.js')
 const allowedResponses = ['add','channel','clean','list', 'next', 'remove', 'setchannel']
 
-module.exports.run = ( client, message, args ) => {
+module.exports = {
+  config: {
+    name: 'anisched',
+    aliases: [],
+    guildOnly: true,
+    ownerOnly: false,
+    adminOnly: true,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: 'setup',
+    description: `Setup the airing-anime monitor on your server! Type \`${prefix}anisched help\` for a guide on how to set up one.`,
+    examples: ['anisched help'],
+    parameters: ['subcommands', 'queries']
+  },
+  run: async ( client, message, [ subcommand, ...queries ] ) => {
 
-if (!args.length || args[0].toLowerCase() === 'help') return help(message)
+  if (!subcommand || subcommand.toLowerCase() === 'help') return help(message)
 
-if (!allowedResponses.includes(args[0])) return message.react("👎");
+  if (!allowedResponses.includes(subcommand)) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Invalid subcommand [${subcommand}]. To view available subcommands: type \`${prefix}anisched help\`.`))
 
-watchlist.findOne({guildID: message.guild.id}, async (err, data) => {
-
-  if (err) return console.log(`${magenta('[Mai-Promise ERROR]')} : Unable to connect to MongoDB.`)
+  let data = await watchlist.findOne({guildID: message.guild.id}).catch(()=>{})
 
   if (!data) {
 
-    if (args[0] !== 'setchannel' || !message.mentions.channels.size) return message.reply(`No channel has been set for logging anime schedules. Please set by using \`${prefix}anisched setchannel [channel mention]\`.`)
+      if (subcommand !== 'setchannel' || !message.mentions.channels.size) return message.channel.send(error(`[ANISCHEDULE_ERROR]: No channel has been set for logging anime schedules. Please set by using \`${prefix}anisched setchannel [channel mention]\`.`))
 
-    return data = await new watchlist({  guildID: message.guild.id , channelID: message.mentions.channels.first().id, data: []}).save()
+      return data = await new watchlist({  guildID: message.guild.id , channelID: message.mentions.channels.first().id, data: []}).save()
 
-  }
+    }
 
-  switch(args[0].toLowerCase()){
-//=============================================================================
-    case 'add':
-      if (!args[1]) return message.react("👎");
+    switch(subcommand.toLowerCase()){
+  //=============================================================================
+      case 'add':
+        if (!queries[0]) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Missing URL. Please supply the Anilist / MAL url of the anime to add.`))
 
-      const watchID = await getMediaId(args[1])
-      if (!watchID || data.data.includes(watchID)){
-        return message.react("👎")
-      }
+        const watchID = await getMediaId(queries[0])
+        if (!watchID) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Couldn't fetch Information from [${queries[0]}]. Make sure it is a valid Anilist / MAL url!`))
+        if (data.data.includes(watchID)) return message.channel.send(error(`[ANISCHEDULE_ERROR]: [${queries[0]}] already exist on the list.`))
 
-      data.data.push(watchID)
-      data.save().then(()=>{ message.react('👍') }).catch(()=>{ message.react("👎") })
+        data.data.push(watchID)
+        data.save().then(()=>{
+          return message.channel.send(success(`Successfully added ${queries[0]} to the list!`))
+         }).catch(()=>{
+          return message.channel.send(error(`[ANISCHEDULE_ERROR]: Failed to add ${queries[0]} to the list!`))
+         })
 
-    break;
-//=============================================================================
-    case 'channel':
-      message.channel.send(`Currently announcing anime releases in ${message.guild.channels.cache.get(data.channelID)}!`)
-    break;
-//=============================================================================
-    case 'clean':
-      if ( !data.data || !data.data.length ) {
-        return message.react("👎")
-      }
+      break;
+  //=============================================================================
+      case 'channel':
 
-      function handlePage(page = 0) {
-        return query(requireText('../../utils/anischedule/query/Watching.graphql',require), {watched: data.data, page}).then( res => {
-          return res;
-        })
-      }
+        const anc_ch = message.guild.channels.cache.get(data.channelID)
+        if (!anc_ch) return message.channel.send(error(`[ANISCHEDULE_ERROR]: No channel has been set for logging anime schedules. Please set by using \`${prefix}anisched setchannel [channel mention]\`.`))
+        if (!anc_ch.permissionsFor(message.guild.me).has('SEND_MESSAGES'))  return message.channel.send(error(`[ANISCHEDULE_ERROR]: Currently announcing anime releases in ${anc_ch}! However, I don't have the permission to send message there. Please set a new channel by using \`${prefix}anisched setchannel [channel mention]\`.`))
+        message.channel.send(success(`Currently announcing anime releases in ${anc_ch}!`))
 
-      let finished;
+      break;
+  //=============================================================================
+      case 'clean':
+        if ( !data.data || !data.data.length ) {
+          return message.channel.send(error(`[ANISCHEDULE_ERROR]: List is currently empty!`))
+        }
 
-      return handlePage().then( res => res.data.Page).then(res => promiseWhile(res, val => {
-        finished = val.media.filter( e => e.status === 'FINISHED').map( e => e.id)
-        return val.pageInfo.hasNextPage
-      }, val => handlePage(val.pageInfo.currentPage + 1).then(res => res.data.Page))).then(()=>{
-
-        data.data = data.data.filter( e => !finished.includes(e));
-
-        if (finished.length > 0) {
-          data.save().then(()=>{
-            message.channel.send(`Removed **${finished.length}** shows from the list.`);
-            message.react("👍")
-          }).catch(() => {
-            message.react("👎");
+        function handlePage(page = 0) {
+          return query(requireText('../../utils/anischedule/query/Watching.graphql',require), {watched: data.data, page}).then( res => {
+            return res;
           })
-        } else {
-          message.react("👎");
         }
 
-      })
+        let finished;
 
-    break;
-//=============================================================================
-    case 'list':
-        if ( !data.data || !data.data.length ){
-          return message.react("👎")
-        }
-        handleWatchingPage(0)
+        return handlePage().then( res => res.data.Page).then(res => promiseWhile(res, val => {
+          finished = val.media.filter( e => e.status === 'FINISHED').map( e => e.id)
+          return val.pageInfo.hasNextPage
+        }, val => handlePage(val.pageInfo.currentPage + 1).then(res => res.data.Page))).then(()=>{
 
-        function handleWatchingPage(page) {
-          query(requireText("../../utils/anischedule/query/Watching.graphql",require), {watched: data.data, page}).then(res => {
-            let description = ''
-            res.data.Page.media.forEach( m => {
-              if (m.status !== 'RELEASING') return
+          data.data = data.data.filter( e => !finished.includes(e));
 
-              const nextLine = `\n- [${m.title.romaji}](${m.siteUrl}) (\`${m.id}\`)`
-              if (1000 - description.length < nextLine.length){
-                sendWatchingList(description, message.channel)
-                description = ''
+          if (finished.length) {
+            data.save().then(()=>{
+              return message.channel.send(success(`Removed **${finished.length}** shows from the list.`))
+            }).catch(() => {
+              return message.channel.send(error(`[ANISCHEDULE_ERROR]: Failed to clear finished anime from the list!`))
+            })
+          } else {
+            return message.channel.send(error(`[ANISCHEDULE_ERROR]: No finished anime were found from the list.`))
+          }
+
+        })
+
+      break;
+  //=============================================================================
+      case 'list':
+          if ( !data.data || !data.data.length ){
+            return message.channel.send(error(`[ANISCHEDULE_ERROR]: List is currently empty!`))
+          }
+          handleWatchingPage(0)
+
+          function handleWatchingPage(page) {
+            query(requireText("../../utils/anischedule/query/Watching.graphql",require), {watched: data.data, page}).then(res => {
+              let description = ''
+              res.data.Page.media.forEach( m => {
+                if (m.status !== 'RELEASING') return
+
+                const nextLine = `\n- [${m.title.romaji}](${m.siteUrl}) (\`${m.id}\`)`
+                if (1000 - description.length < nextLine.length){
+                  sendWatchingList(description, message.channel)
+                  description = ''
+                }
+
+                description += nextLine
+              })
+
+              if (description.length !== 0) sendWatchingList(description,message.channel)
+
+              if (res.data.Page.pageInfo.hasNextPage){
+                handleWatchingPage(res.data.Page.pageInfo.currentPage + 1)
+                return
               }
 
-              description += nextLine
+              if (!description.length) return message.channel.send(error("[ANISCHEDULE_ERROR]: No currently airing shows are being announced."))
             })
+          }
 
-            if (description.length !== 0) sendWatchingList(description,message.channel)
+      break;
+  //=============================================================================
+      case 'next':
+          if ( !data.data || !data.data.length ){
+            return message.channel.send(error(`[ANISCHEDULE_ERROR]: List is currently empty!`))
+          }
 
-            if (res.data.Page.pageInfo.hasNextPage){
-              handleWatchingPage(res.data.Page.pageInfo.currentPage + 1)
-              return
+          query(requireText('../../utils/anischedule/query/Schedule.graphql',require), {page: 0, watched: data.data, nextDay: Math.round(getFromNextDays(7).getTime() / 1000)}).then( res => {
+            if (res.errors){
+              message.channel.send(error(`[ANISCHEDULE_ERROR]: An unexpected error has occured. If you're the bot owner, you can view the error log at the terminal / console. If not, please report this incident to the bot owner.`))
+              return console.log(`${magenta('[Mai-Promise ERROR]')} :\n${JSON.stringify(res.errors)}`);
             }
 
-            if (!description.length) return message.channel.send("No currently airing shows are being announced.")
+            if (!res.data.Page.airingSchedules.length) {
+              return message.channel.send(error(`[ANISCHEDULE_ERROR]: Couldn't find next airdate for all the anime on the list!`))
+            }
+
+            const anime = res.data.Page.airingSchedules[0]
+            const embed = getAnnouncementEmbed(anime, new Date(anime.airingAt * 1000), true)
+            message.channel.send(embed)
           })
-        }
 
-    break;
-//=============================================================================
-    case 'next':
+      break;
+  //=============================================================================
+      case 'remove':
         if ( !data.data || !data.data.length ){
-          return message.react("👎")
+          return message.channel.send(error(`[ANISCHEDULE_ERROR]: There is nothing to remove. List is currently empty!`))
         }
 
-        query(requireText('../../utils/anischedule/query/Schedule.graphql',require), {page: 0, watched: data.data, nextDay: Math.round(getFromNextDays(7).getTime() / 1000)}).then( res => {
-          if (res.errors){
-            return console.log(`${magenta('[Mai-Promise ERROR]')} :\n${JSON.stringify(res.errors)}`);
-          }
+        if (!queries[0]) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Missing URL. Please supply the Anilist / MAL url of the anime to add.`))
 
-          if (!res.data.Page.airingSchedules.length) {
-            return message.react("👎")
-          }
+        const watchId = await getMediaId(queries[0]);
+        if (!watchID) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Couldn't fetch Information from [${queries[0]}]. Make sure it is a valid Anilist / MAL url!`))
+        if (!data.data.includes(watchID)) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Unable to remove [${queries[0]}]. It does not exist on the list.`))
 
-          const anime = res.data.Page.airingSchedules[0]
-          const embed = getAnnouncementEmbed(anime, new Date(anime.airingAt * 1000), true)
-          message.channel.send(embed)
-        })
 
-    break;
-//=============================================================================
-    case 'remove':
-      if ( !data.data || !data.data.length ){
-        return message.react("🤷")
+        data.data.splice(data.data.indexOf(watchId),1)
+        data.save().then(()=>{
+          return message.channel.send(success(`Successfully removed ${queries[0]} from the list!`))
+         }).catch(()=>{
+          return message.channel.send(error(`[ANISCHEDULE_ERROR]: Failed to remove ${queries[0]} from the list!`))
+         })
+
+      break;
+  //=============================================================================
+      case 'setchannel':
+        if (!message.mentions.channels.size) return message.channel.send(`[ANISCHEDULE_ERROR]: Please mention a channel!`)
+        if (!message.mentions.channels.first().permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.channel.send(`[ANISCHEDULE_ERROR]: Failed to set channel ${message.mentions.channels.first()} - I can't send messages on that channel!`)
+        data.channelID = message.mentions.channels.first().id
+        data.save().then(()=>{
+          return message.channel.send(success(`Anime Announcement Channel successfully set to ${message.mentions.channels.first()}!`))
+         }).catch(()=>{
+          return message.channel.send(error(`[ANISCHEDULE_ERROR]: Failed to set announcement channel!`))
+         })
+      break;
+      default:
       }
-
-      if (!args[1]) return message.react("👎");
-
-      const watchId = await getMediaId(args[1]);
-      if (!watchId || !data.data.includes(watchId)){
-        return message.react("👎");
-      }
-
-      data.data.splice(data.data.indexOf(watchId),1)
-      data.save().then(()=>{ message.react('👍') }).catch(()=>{ message.react("👎") })
-
-    break;
-//=============================================================================
-    case 'setchannel':
-      if (!message.mentions.channels.size) return message.reply(`Please mention a channel.`)
-      if (!message.mentions.channels.first().permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.reply(`I can't send messages on that channel!`)
-      data.channelID = message.mentions.channels.first().id
-      data.save().then(()=>{ message.react('👍') }).catch(()=>{ message.react("👎") })
-
-    break;
-    default:
     }
-  })
-}
-
-module.exports.config = {
-  name: 'anisched',
-  aliases: [],
-  group: 'setup',
-  guildOnly: true,
-  description: `Setup the airing-anime monitor on your server! Type \`${prefix}anisched help\` for a guide on how to set up one.`,
-  examples: ['anisched help'],
-  parameters: ['subcommands', 'queries'],
-  modOnly: true
 }
 
 function help(message){
@@ -190,5 +207,17 @@ function help(message){
       {name: 'remove', value: 'Removes an anime from the list. You may provide an AniList entry link or a MyAnimeList link.', inline: false},
       {name: 'setchannel', value: 'Set the announcement channel for airing announcements on the server', inline: false}
     )
-)
+  )
+}
+
+function error(err){
+  return new MessageEmbed()
+  .setColor('RED')
+  .setDescription(`\u200B\n${err}\n\u200B`)
+}
+
+function success(str){
+  return new MessageEmbed()
+  .setColor('GREEN')
+  .setDescription(`\u200B\n${str}\n\u200B`)
 }

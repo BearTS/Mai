@@ -48,7 +48,7 @@ const { commanddir, prodtoken } = require('./settings.json')
 //------------------------------Initialize Client----------------------------//
 
 const mai = new Client()
-mai.mongoose = require('./models/mongoose.js')
+mai.mongoose = require('./models/mongoose')
 
 //-------------------------Add necessary Collections-------------------------//
 
@@ -59,7 +59,8 @@ mai.guildsettings = new Collection()
 mai.xp = new Collection()
 mai.memes = new Collection()
 mai.economy = new Collection()
-
+mai.read = new Collection()
+mai.quiz = new Collection()
 
 //--------------------------Load Commands to Client--------------------------//
 
@@ -136,6 +137,8 @@ mai.login(process.env.MAI_TOKEN).catch( (err) => {
   if (err.name === 'Error [TOKEN_INVALID]') console.log(`${red('[Mai-FAIL]')} : The token you provided is not valid! Please get valid token @ https://discordapp.com/developers/applications ~ <3`)
 
   else if (err.name === 'FetchError') console.log(`${red('[Mai-FAIL]')} : Could not connect to internet. Please secure a stable connection. ~ <3`)
+
+  else if (err.name === 'AbortError') console.log(`${red('[Mai-FAIL]')} : A request took longer than 15 seconds, and was aborted to not lock up the request handler.`)
 
   else console.log(`${red('[Mai-FAIL]')} : ${err.name}: ${err.message}`)
 

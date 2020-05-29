@@ -21,7 +21,7 @@ try {
 
     if (message.content.startsWith(prefix)){
 
-    if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
+    if (message.guild && !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
 
     if (message.author.bot) return;
 
@@ -31,7 +31,13 @@ try {
 
     if (!commandfile) return
 
-    const { config : { name, guildOnly, ownerOnly, adminOnly, permissions, clientPermissions, cooldown, econocommand, rankcommand }, run } = commandfile
+    const { config : { group, name, guildOnly, ownerOnly, adminOnly, permissions, clientPermissions, cooldown, econocommand, rankcommand }, run } = commandfile
+
+    //--------------------------------Disallow using of music commands-------------------------------//
+
+    if (group === 'music') return message.channel.send(error(':tools:  \u2000\u2000\u2000The command is currently on maintenance! Sorry :cry:'))
+
+    //-----------------------------------------------------------------------------------------------//
 
     if (guildOnly && message.channel.type === 'dm') return message.channel.send(error(`Sorry! This command is valid on guild channels only!`))
 

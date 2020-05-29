@@ -1,32 +1,31 @@
-module.exports.run = (client ,message,args) => {
-
-  try {
+module.exports = {
+  config: {
+    name: "eval",
+    aliases: [],
+    guildOnly: false,
+    ownerOnly: true,
+    adminOnly: false,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: 'owner',
+    description: "Evaluate JS code",
+    examples: [`eval 1+1`],
+    parameters: ["jscode"],
+  },
+  run: (client ,message,args) => {
+    try {
       const code = clean(message.content).split(/ +/).slice(1).join(' ');
       let evaled = eval(code);
 
       if (typeof evaled !== "string")
-        evaled = require("util").inspect(evaled, {depth:0});
-        message.channel.send(loglength(`Logging output:\n\`\`\`xl\n${evaled}\`\`\``));
+      evaled = require("util").inspect(evaled, {depth:0});
+      message.channel.send(loglength(`Logging output:\n\`\`\`xl\n${evaled}\`\`\``));
     } catch (err) {
       message.channel.send(`Error: \`\`\`xl\n${err}\n\`\`\``);
     }
+  }
 }
-
-module.exports.config = {
-  name: "eval",
-  aliases: [],
-  cooldown:{
-    time: 0,
-    msg: ""
-  },
-  group: "owner",
-  description: "Evaluate JS code",
-  examples: [`eval 1+1`],
-  parameters: ["jscode"],
-  ownerOnly: true
-}
-
-
 function clean(text) {
 			if (typeof text === 'string') {
 				text = text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);

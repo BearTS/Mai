@@ -7,7 +7,8 @@ module.exports = (client, member) => {
     return
   }
 
-  const { goodbyemsg, goodbyeChannel } = client.guildsettings.get(message.guild.id)
+
+  const { goodbyemsg, goodbyeChannel } = client.guildsettings.get(member.guild.id)
 
   const channel = client.channels.cache.get(goodbyeChannel)
 
@@ -15,8 +16,8 @@ module.exports = (client, member) => {
 
   if (!channel.permissionsFor(channel.guild.me).has('SEND_MESSAGES')) return console.log(`${magenta('[Mai-Promise ERROR]')} : MISSING SEND_MESSAGES PERMISSIONS. Cannot send goodbye message [${member.guild.name}]`)
 
-  if (!goodbyemsg) return channel.send( new MessageEmbed().setTitle(`${member.user.tag} has left our server!`).setDescription(` We are mow back to ${member.guild.memberCount}`).setThumbnail(member.user.displayAvatarURL({ format:'png', dynamic: true})).setColor('RANDOM')).catch(()=>{})
+  if (!goodbyemsg) return channel.send( new MessageEmbed().setTitle(`${member.user.tag} has left our server!`).setDescription(` We are now back to ${member.guild.memberCount} members`).setThumbnail(member.user.displayAvatarURL({ format:'png', dynamic: true})).setColor('RANDOM')).catch(()=>{})
 
-  return channel.send(welcomemsg.replace(`{user}\g`, `<@${member.id}>`).replace(`{membercount}\g`, member.guild.memberCount)).catch(()=>{})
+  return channel.send(goodbyemsg.replace(/{user}/gi, `${member}`).replace(/{membercount}/gi, member.guild.memberCount)).catch(()=>{})
 
 }

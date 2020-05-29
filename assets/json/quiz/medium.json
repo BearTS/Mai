@@ -1,0 +1,1013 @@
+[
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":true,
+            "question":"The heroine of “Humanity Has Declined” is a mediator between humans and what?",
+            "choices":[
+                "Angels",
+                "Demons",
+                "Fairies",
+                "Elves"
+            ],
+            "correctAnswer":[
+                "fairies",
+                "3",
+                "c"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"This weapon is the most powerful legendary weapon in ALfheim. It's only seen in battle during the last episode of ALO.",
+            "choices":null,
+            "correctAnswer":[
+                "holy sword excaliber",
+                "excaliber"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":35000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"This rapier is Asuna's final sword in Sword Art Online. It requires an almost maxed out level in One Handed Rapier skill and, combined with Asuna's extremely quick speed, earns her the nickname of `The Flash`.",
+            "choices":null,
+            "correctAnswer":[
+                "lambent light"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":45000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Kirito tries to find a sword as balanced and powerful as his other blade, the Elucidator but quickly finds out that the only way to accomplish this is with rare materials and a highly skilled blacksmith. After questing with Lisbeth, the top level blacksmith he needed, they get the material he needs and together they finish the weapon. This is Kirito's other sword that he uses with his Dual Wielding ability.",
+            "choices":null,
+            "correctAnswer":[
+                "dark repulser"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"This was Kirito's first weapon when he enters ALfheim. It almost as tall as Kirito is and, despite that many of the other players complain that it is too heavy, is the perfect weight for him.",
+            "choices":null,
+            "correctAnswer":[
+                "black iron great sword"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":45000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"This sword replaced Kirito's Black Iron Great Sword and is made with rare materials, just like the Dark Repulser. Also like the Dark Repulser, this sword is made by Lisbeth and it hailed as her greatest masterpiece.",
+            "choices":null,
+            "correctAnswer":[
+                "long sword"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":35000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"This awesome looking sword is Kirito's main weapon in the world of SOA. It has some great durability and it super strong. Kirito gets it as a reward for defeating a boss on the 50th floor.",
+            "choices":null,
+            "correctAnswer":[
+                "elucidator"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Sword Art Online is a virtual reality MMORPG that requires the use of special equipment called?",
+            "choices":null,
+            "correctAnswer":[
+                "nerve gear"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":20000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"What was Kirito's real name?",
+            "choices":null,
+            "correctAnswer":[
+                "kirigaya kazuto",
+                "kazuto kirigaya",
+                "kazuto"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":20000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this anime",
+            "choices":null,
+            "correctAnswer":[
+                "blend s",
+                "burendu esu",
+                "blend-s"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/AQVwUhV.jpg"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"It is the only original move of Kakashi, the rest are copied.",
+            "choices":null,
+            "correctAnswer":[
+                "chidori"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Goku's spriti bomb in japanese is called `Genki Dama` which is a pun on `Denki gama` which translates to what?.",
+            "choices":null,
+            "correctAnswer":[
+                "electric rice cooker"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"This sand sculpture from the anime `Nisekoi` is a reference to what anime?",
+            "choices":null,
+            "correctAnswer":[
+                "aot",
+                "attack on titan",
+                "shingeki no kyojin"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/kbfbElb.jpg"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"This anime character has how many different voice actresses in the entire show?",
+            "choices":null,
+            "correctAnswer":[
+                "22",
+                "twentytwo",
+                "twenty two"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/uHH9XvJ.jpg"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"The only anime that won an academy award.",
+            "choices":null,
+            "correctAnswer":[
+                "spirited away"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"What is the Longest Running Animated TV Series?",
+            "choices":null,
+            "correctAnswer":[
+                "sazae-san",
+                "sazae san"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":40000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character",
+            "choices":null,
+            "correctAnswer":[
+                "saya takagi",
+                "takagi saya"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/YEW2Z2p.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":null,
+            "question":"Guess the anime from this synopsis:\n\nHigh school student Futaro Uesugi is an academically gifted student that leads a difficult life — his mother has died, he has no friends, and on top of all that, his father has incurred a large amount of debt.",
+            "choices":null,
+            "correctAnswer":[
+                "gotoubun no hanayome",
+                "go-toubun no hanayome",
+                "5-toubun no hanayome",
+                "quintissential quintuplets",
+                "5 equal brides"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character",
+            "choices":null,
+            "correctAnswer":[
+                "miku nakano",
+                "nakano miku"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/57M74bJ.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character.",
+            "choices":null,
+            "correctAnswer":[
+                "makise kurisu",
+                "kurisu makise"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/axGJ1BJ.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character",
+            "choices":null,
+            "correctAnswer":[
+                "isla"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/9B74SuJ.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":35000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime Plastic Memories: She was formerly Isla's spotter, but after a botched recovery of Michiru Kinushima's Giftia that left her with a serious injury, she dissolved the partnership between her and Isla? Who is she?",
+            "choices":null,
+            "correctAnswer":[
+                "kazuki kuwanomi",
+                "kuwanomi kazuki"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime Plastic Memories: What was the age of Isla in the series?",
+            "choices":null,
+            "correctAnswer":[
+                "9",
+                "nine"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime Plastic Memories: Who voiced the japanese version of Isla?",
+            "choices":null,
+            "correctAnswer":[
+                "amamiya sora",
+                "sora amamiya"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Who quoted this phrase : `I hope that someday, you'll be reunited with the one you cherish`?\n\nClue: She is from the anime `Plastic Memories`",
+            "choices":null,
+            "correctAnswer":[
+                "isla"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Who quoted this phrase: `Having happy and beautiful memories won't always bring you salvation. The more beautiful a memory is, the more painful it can become. It can even become terrifying. Both for the one who's leaving... and the one left behind.`",
+            "choices":null,
+            "correctAnswer":[
+                "isla"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character.",
+            "choices":null,
+            "correctAnswer":[
+                "shuvi",
+                "dola shuvi",
+                "shuvi dola",
+                "schwi dola",
+                "dola schwi",
+                "schwi",
+                "Üc207Pr4f57t9"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/H5lmKH5.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime: No Game No Life Zero, What is the age of Schwi Dola?",
+            "choices":null,
+            "correctAnswer":[
+                "211",
+                "two hundred eleven"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Of the Ex Machina, Schwi is one of the Prüfer, so she is particularly good at what?",
+            "choices":null,
+            "correctAnswer":[
+                "analysis",
+                "mathematical computation"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":40000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"When Riku asks for the Ex-machina's name, she replies 'Üc207Pr4f57t9', to which Riku immediately responds by asking her for a more human name. Her first choice is _________ (シュヴァルツァー) meaning 'Black One' in German. What was it?",
+            "choices":null,
+            "correctAnswer":[
+                "Schwarzer"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Rem, Shera L. Greenwood, and Diablo are all characters from which anime?",
+            "choices":null,
+            "correctAnswer":[
+                "isekai-maou",
+                "isekai-maou",
+                "isekai maō to shōkan shōjo no dorei majutsu",
+                "isekai maou to shoukan shoujo no dorei majutsu",
+                "how not to summon a demon lord",
+                "The Other World Demon Lord and the Summoning Girl's Slave Magic",
+                "異世界魔王と召喚少女の奴隷魔術"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"She was considered to be the 41st Super Intelligent A.I. in the anime [Beatless], who was she?",
+            "choices":null,
+            "correctAnswer":[
+                "lacia"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"The name of Japan under the British rule in the anime Code Geass.",
+            "choices":null,
+            "correctAnswer":[
+                "11",
+                "eleven",
+                "area eleven",
+                "area 11"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"In Sword Art Online: Alicization, He was Kirito's dearest friend who died in an attempt to stop the pontifex and save Alice.",
+            "choices":null,
+            "correctAnswer":[
+                "eugeo"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":""
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character.",
+            "choices":null,
+            "correctAnswer":[
+                "sakamoto"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/XGyneYF.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character",
+            "choices":null,
+            "correctAnswer":[
+                "kazami yuuji",
+                "yuuji kazami",
+                "yūji kazami",
+                "kazami yūji",
+                "風見 雄二"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/ik6VtPi.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character.",
+            "choices":null,
+            "correctAnswer":[
+                "amane suou",
+                "suou amane",
+                "suō amane",
+                "amane suō"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/rBpuGaK.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":25000,
+            "hasImageURL":true,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Name this character",
+            "choices":null,
+            "correctAnswer":[
+                "michiru matsushima",
+                "matsushima michiru"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":"https://i.imgur.com/aSsp6Fp.gif"
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":40000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[Azur-Lane](https://myanimelist.net/anime/38328/Azur_Lane)\", she was originally a Lexington-class battle cruiser but was reconstructed into an aircraft carrier. After she entered service in 1927, she and her sister Saratoga participated in a series of US naval exercises and accumulated a large amount of experience in the usage and development of aircraft carriers.",
+            "choices":null,
+            "correctAnswer":[
+                "lexington"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":45000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[One Piece](https://myanimelist.net/anime/21/One_Piece)\", she is a special officer of the Donquixote Pirates' Trebol Army. She was one of the most integral components of Doflamingo's plan in keeping Dressrosa in line, as any dissenters were turned into toys by her Hobi Hobi no Mi powers. She is also the younger sister of Monet.Due to her actions, she is a major antagonist of the Dressrosa Arc.",
+            "choices":null,
+            "correctAnswer":[
+                "sugar"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":35000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Gaara (我愛羅) is a shinobi of Sunagakure. He was made the jinchūriki of the One-Tailed _____ before he was born, causing the villagers of Suna to fear him as a monster.",
+            "choices":null,
+            "correctAnswer":[
+                "shukaku"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":40000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[Fire Emblem (1996)](https://myanimelist.net/anime/2782/Fire_Emblem)\", she is a fourteen-year old mage from Fire Emblem. Initially kidnapped by Sonia from her true family as a child and brought under the Black Fang upon Sonia's marriage to Brendan Reed, she later chooses to join the player's army upon realising that the group has strayed far from its original intentions.",
+            "choices":null,
+            "correctAnswer":[
+                "nino"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":35000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[Dorohedoro (2020)](https://myanimelist.net/anime/38668/Dorohedoro)\", she is a short skinny girl with short purple hair and usually wears a black turtleneck, purple leggings with arrow-like metal plates, black combat boots, two small scythes hanging on her shoulders probably being held by her small little knapsack on her back.",
+            "choices":null,
+            "correctAnswer":[
+                "ebisu"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[Daitoshokan no Hitsujikai](https://myanimelist.net/anime/17827/Daitoshokan_no_Hitsujikai)\", she  is the Library Club president and best friends with Tamamo. She is a bit of an airhead at all times, but manages the club well, even if she does need to rely on Tamamo and Kyoutarou for help.",
+            "choices":null,
+            "correctAnswer":[
+                "tsugumi shirasaki",
+                "tsugumi",
+                "shirasaki"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Appears in \"[Resident Evil](https://mywaifulist.moe/series/resident-evil)\", she is s senior member of S.T.A.R.S. belonging on the same team as Chris",
+            "choices":null,
+            "correctAnswer":[
+                "jill valentine",
+                "jill",
+                "valentine"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":35000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[Brave 10](https://myanimelist.net/anime/11241/Brave_10)\", she is Saizo Kirigakure's childhood friend, and a female member of the Iga ninja. She uses Ice magic, and is capable of freezing water and mist in an instant.",
+            "choices":null,
+            "correctAnswer":[
+                "anastasia"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":45000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[Monster Musume no Iru Nichijou](https://myanimelist.net/anime/30307/Monster_Musume_no_Iru_Nichijou)\", she is a Minotaur girl, specifically a Milk-Producing type, who works on a Ranch doing lots of heavy lifting and power work. Her clothing consists of nothing but ripped overalls with a small cow pattern bikini underneath and a pair of workers gloves. She also wears a cow bell around her neck. She can be aggressive and violent at times but is known to be caring and apologetic.",
+            "choices":null,
+            "correctAnswer":[
+                "cathyl"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the Rx-Rated anime \"[Rinkan Club](https://myanimelist.net/anime/10546/Rinkan_Club)\", she is the matriarch of the Katsuragi family and the only doctor in Rinin. Aiko comes from a long line of doctors and married her husband Toshio at rather young age. ",
+            "choices":null,
+            "correctAnswer":[
+                "aiko",
+                "katsuragi",
+                "aiko katsuragi",
+                "katsuragi aiko"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":40000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the manga \"[Aiyoku no Eustia](https://myanimelist.net/manga/37753/Aiyoku_no_Eustia)\", she is the title character,  she was saved from having to work as a prostitute after Caim buys her. An orphan for as long as she could remember, Tia grew up under harsh conditions, having worked as a slave for a noble family before ending up in the “Prison”.",
+            "choices":null,
+            "correctAnswer":[
+                "tia",
+                "eustia",
+                "eustia astraea"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[GATE](https://myanimelist.net/anime/28907/Gate__Jieitai_Kanochi_nite_Kaku_Tatakaeri)\", she is the ex-wife of Itami and an artist of doujinshi catered to females. She has quite a collection of yaoi-themed manga.",
+            "choices":null,
+            "correctAnswer":[
+                "risa aoi",
+                "risa"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[Monogatari Series](https://myanimelist.net/anime/17074/Monogatari_Series__Second_Season?)\", she is an emotionless human corpse tsukumogami and the shikigami familiar of Yozuru Kagenui.",
+            "choices":null,
+            "correctAnswer":[
+                "yotsugi ononoki",
+                "yotsugi",
+                "ononoki",
+                "ononoki yotsugi"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"She is a supporting character in [Kakegurui](https://myanimelist.net/anime/34933/Kakegurui). She is the manager of the Student Council's Head of Public Relations, Yumemi Yumemite.",
+            "choices":null,
+            "correctAnswer":[
+                "saori"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":45000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Appears in [91 Days](https://myanimelist.net/anime/32998/91_Days), she is a selfless and caring woman who deeply treasures her blood family. She does not care for the mafia nor does she wish to be involved with their antics, seeming to have very little involvement of the goings on of the family.",
+            "choices":null,
+            "correctAnswer":[
+                "fio"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":45000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime \"[Hyperdimension Neptunia](https://myanimelist.net/anime/16157/Choujigen_Game_Neptune_The_Animation)\", she is the Oracle of Leanbox. She loves Vert more than anything else and claims to be her younger sister. In her eyes, there is nothing more important than her beloved \"big sister\".",
+            "choices":null,
+            "correctAnswer":[
+                "chika",
+                "chika hakozaki",
+                "hakozaki chika"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":45000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the series \"[Nukige Mitai na Shima ni Sunderu Watashi wa Dou Surya Ii Desu ka?](https://mywaifulist.moe/series/nukige-mitai-na-shima-ni-sunderu-watashi-wa-dou-surya-ii-desu-ka)\", she is a third-year student who is the \"military tactician\" of the \"SS\" committee, or in other words, controls their members.",
+            "choices":null,
+            "correctAnswer":[
+                "rei tadasugawa",
+                "rei"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"Main character of the popular hentai manga “[Emergence (Henshin)](https://myanimelist.net/manga/65981/Henshin)”.",
+            "choices":null,
+            "correctAnswer":[
+                "saki",
+                "yoshida",
+                "saki yoshida",
+                "yoshida saki"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":50000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"From the anime [Shirobako](https://myanimelist.net/anime/25835/Shirobako). In the past, when she attended high school, she usually was seen with her school uniform. These days, she pairs a white button up shirt with a white and periwinkle coloured pinstripe skirt. A turquoise neck tie is accessorised alongside navy knee-highs, a light grey blazer, and black ankle boots. Around the office, she is seen wearing over sized sweaters layered over button ups.",
+            "choices":null,
+            "correctAnswer":[
+                "ema",
+                "yasuhara",
+                "ema yasuhara",
+                "yasuhara ema"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"She is Agnès's lieutenant in [Zero no Tsukaima](https://myanimelist.net/anime/1195/Zero_no_Tsukaima)",
+            "choices":null,
+            "correctAnswer":[
+                "michelle"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"He is the current head of the Phantomhive house, the notorious Queen's Watchdog, the owner of the Funtom Corporation, and an Aristocrat of Evil. He is from the anime [Kuroshitsuji](https://myanimelist.net/anime/4898/Kuroshitsuji).",
+            "choices":null,
+            "correctAnswer":[
+                "ciel",
+                "ciel phantomhive"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"A Mod-Soul who has escaped from Soul Society and is wanted by Kagerōza Inaba. She appeared on the series [Bleach](https://myanimelist.net/anime/269/Bleach)",
+            "choices":null,
+            "correctAnswer":[
+                "nozomi kujou",
+                "nozomi",
+                "nozomi kujō",
+                "kujou nozomi",
+                "kujō nozomi"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"She is a Demon Hunter and the Insect Pillar of the Demon Killing Corps. She appeared on the anime [Demon Slayer](https://myanimelist.net/anime/38000/Kimetsu_no_Yaiba)",
+            "choices":null,
+            "correctAnswer":[
+                "shinobu",
+                "shinobu kocho",
+                "kocho shinobu"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        },
+        {
+            "category":"Anime",
+            "difficulty":"Medium",
+            "time":30000,
+            "hasImageURL":false,
+            "isVerified":false,
+            "isMultipleChoice":false,
+            "question":"_____________ is the third of Admiral Hipper-class heavy cruisers with the nickname “phoenix”, its design was improved with regard to the previous two ships. Appeared on the anime [Azur Lane](https://myanimelist.net/anime/38328/Azur_Lane)",
+            "choices":null,
+            "correctAnswer":[
+                "prinz eugen"
+            ],
+            "createdBy":"Sakurajimai",
+            "imageURL":null
+        }
+    ]

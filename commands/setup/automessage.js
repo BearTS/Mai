@@ -1,151 +1,164 @@
 const { MessageEmbed } = require('discord.js')
 const gprofile = require('../../models/guildProfileSchema.js')
 const { default : { prefix } } = require('../../settings.json')
-const allowedResponses = ['welcome','goodbye','welcomemsg','goodbyemsg']
+const allowedResponses = ['welcome', 'goodbye', 'welcomemsg', 'goodbyemsg']
 
-module.exports.run = (client, message, args) => {
+module.exports = {
+  config: {
+    name: 'automsg',
+    aliases: [],
+    guildOnly: true,
+    ownerOnly: false,
+    adminOnly: true,
+    permissions: null,
+    clientPermissions: null,
+    cooldown: null,
+    group: 'setup',
+    description: `Set the automessages of this guild.  Type \`${prefix}automsg help\` for a guide on how to set up one.`,
+    examples: ['automsg help'],
+    parameters: ['subcommands', 'queries']
+  },
+  run : async ( client, message, [ subcommand, ...queries ] ) => {
 
-  if (!args.length || args[0].toLowerCase() === 'help') return help(message)
+    if (!subcommand || subcommand.toLowerCase() === 'help') return help(message)
 
-  if (!allowedResponses.includes(args[0])) return message.react("👎")
+    if (!allowedResponses.includes(subcommand)) return message.channel.send(error(`[AUTOMSG_ERROR]: Invalid subcommand [${subcommand}]. To view available subcommands: type \`${prefix}automsg help\`.`))
 
-  gprofile.findOne({guildID: message.guild.id}, async (err, data) => {
-
-    if (err) return console.log(`${magenta('[Mai-Promise ERROR]')} : Unable to connect to MongoDB.`)
+    let data = await gprofile.findOne({ guildID: message.guild.id }).catch(()=>{})
 
     if (!data) data = await new gprofile( {guildID: message.guild.id, welcomeChannel: null, welcomemsg:null, goodbyeChannel: null, goodbyemsg: null, isxpActive: false, xpExceptions:[], iseconomyActive: false} ).save()
 
+    if (!data) return message.channel.send(error('[AUTOMSG_ERROR]: Unable to connect to database...'))
+
     let gsettings = client.guildsettings.get(message.guild.id)
+
     if (!gsettings) gsettings = client.guildsettings.set(message.guild.id, data )
 
-    switch(args[0].toLowerCase()){
-//=============================================================================
+    switch(subcommand.toLowerCase()){
+  //=============================================================================
       case 'welcome':
 
       if (!message.mentions.channels.size && data.welcomeChannel) {
 
-        data.welcomeChannel = null;
-        data.save().then(()=>{
+  			data.welcomeChannel = null;
+        data.save().then(() => {
 
           gsettings.welcomeChannel = null
-          message.reply('Disabled the welcome message!')
 
-        }).catch((err)=>  message.react('👎'))
+          return message.channel.send(success('Disabled the welcome message!'))
 
-      } else if (!message.mentions.channels.size && !data.welcomeChannel){
+        }).catch((err)=> message.react('👎'))
 
-        return message.channel.send(`Please specify the channel for welcome message!`)
+        } else if (!message.mentions.channels.size && !data.welcomeChannel) {
 
-      } else {
+          return message.channel.send(error(`[AUTOMSG_ERROR]: Please specify the channel for welcome message!`))
 
-        data.welcomeChannel = message.mentions.channels.first().id
-        data.save().then( (data) => {
+        } else {
 
-          gsettings.welcomeChannel = data.welcomeChannel
-          message.reply(`Welcoming new members on <#${gsettings.welcomeChannel}> !!`)
-
-        }).catch((err)=>  message.react('👎'))
-      }
-
-      break;
-//=============================================================================
-      case 'goodbye':
-
-      if (!message.mentions.channels.size && data.goodbyeChannel) {
-
-        data.goodbyeChannel = null;
-        data.save().then(()=>{
-
-          gsettings.goodbyeChannel = null
-          message.reply('Disabled the goodbye message!')
-
-        }).catch((err)=>  message.react('👎'))
-
-      } else if (!message.mentions.channels.size && !data.goodbyeChannel){
-
-        return message.channel.send(`Please specify the channel for goodbye message!`)
-
-      } else {
-
-        data.goodbyeChannel = message.mentions.channels.first().id
-        data.save().then( (data) => {
-
-          gsettings.goodbyeChannel = data.goodbyeChannel
-          message.reply(`Announcing leaving members on <#${gsettings.welcomeChannel}> !!`)
-
-        }).catch((err)=>  message.react('👎'))
-      }
-
-      break;
-//=============================================================================
-      case 'welcomemsg':
-
-        if (['clear','default','remove'].includes(args[1].toLowerCase())){
-          if (!data.welcomemsg) return message.channel.send(`Welcome message is already on default!`)
-
-          data.welcomemsg = null
+          data.welcomeChannel = message.mentions.channels.first().id
           data.save().then( (data) => {
 
-            gsettings.welcomemsg = data.welcomemsg
-            message.reply(`Cleared custom welcome message. Welcome message now set to default.`)
+            gsettings.welcomeChannel = data.welcomeChannel
+            return message.channel.send(success(`Welcoming new members on <#${gsettings.welcomeChannel}> !!`))
 
           }).catch((err)=>  message.react('👎'))
 
-        } else if (args.length > 2) {
+        }
+        break;
+  //=============================================================================
+        case 'goodbye':
 
-          data.welcomemsg = args.slice(1).join(' ')
+        if (!message.mentions.channels.size && data.goodbyeChannel) {
+
+          data.goodbyeChannel = null;
+          data.save().then(()=>{
+
+            gsettings.goodbyeChannel = null
+            return message.channel.send(success('Disabled the goodbye message!'))
+
+          }).catch( () => message.react('👎'))
+
+        } else if (!message.mentions.channels.size && !data.goodbyeChannel){
+
+          return message.channel.send(error(`[AUTOMSG_ERROR]: Please specify the channel for goodbye message!`))
+
+        } else {
+
+          data.goodbyeChannel = message.mentions.channels.first().id
+          data.save().then( (data) => {
+
+            gsettings.goodbyeChannel = data.goodbyeChannel
+            message.channel.send(success(`Announcing leaving members on <#${gsettings.welcomeChannel}> !!`))
+
+          }).catch((err)=>  message.react('👎'))
+        }
+
+        break;
+  //=============================================================================
+        case 'welcomemsg':
+
+          if (!queries[0] || ['clear','default','remove'].includes(queries[0].toLowerCase())){
+            if (!data.welcomemsg) return message.channel.send(error(`[AUTOMSG_ERROR]: Welcome message is already on default!`))
+
+            data.welcomemsg = null
+            data.save().then( (data) => {
+
+              gsettings.welcomemsg = data.welcomemsg
+              message.channel.send(success(`Cleared custom welcome message. Welcome message now set to default.`))
+
+            }).catch((err)=>  message.react('👎'))
+
+          } else if (!queries.length) {
+
+            return message.channel.send(error(`[AUTOMSG_ERROR]: Please specify the welcome message`))
+
+          } else {
+
+          data.welcomemsg = queries.join(' ')
           data.save().then( data => {
 
             gsettings.welcomemsg = data.welcomemsg
-            message.reply(`Custom welcome message was set!`)
+            message.channel.send(success(`Custom welcome message was set!`))
 
           }).catch((err)=>  message.react('👎'))
 
-        } else return message.channel.send(`Please specify the welcome message`)
+        }
 
-      break;
-//=============================================================================
-      case 'goodbyemsg':
+        break;
+  //=============================================================================
+        case 'goodbyemsg':
 
-        if (['clear','default','remove'].includes(args[1].toLowerCase())){
-          if (!data.goodbyemsg) return message.channel.send(`Goodbye message is already on default!`)
+          if (!queries[0] || ['clear','default','remove'].includes(queries[0].toLowerCase())){
+            if (!data.goodbyemsg) return message.channel.send(error(`[AUTOMSG_ERROR]: Goodbye message is already on default!`))
 
-          data.goodbyemsgbye = null
-          data.save().then( (data) => {
+            data.goodbyemsg = null
+            data.save().then( (data) => {
 
-            gsettings.goodbyemsg = data.goodbyemsg
-            message.reply(`Cleared custom goodbye message. Goodbye message now set to default.`)
+              gsettings.goodbyemsg = data.goodbyemsg
+              message.channel.send(success(`Cleared custom goodbye message. Goodbye message now set to default.`))
 
-          }).catch((err)=>  message.react('👎'))
+            }).catch((err)=>  message.react('👎'))
 
-        } else if (args.length > 2) {
+          } else if (!queries.length) {
 
-          data.goodbyemsg = args.slice(1).join(' ')
-          data.save().then( data => {
+            return message.channel.send(error(`[AUTOMSG_ERROR]: Please specify the goodbye message`))
 
-            gsettings.goodbyemsg = data.goodbyemsg
-            message.reply(`Custom goodbye message was set!`)
+          } else {
+            data.goodbyemsg = queries.join(' ')
+            data.save().then( data => {
 
-          }).catch((err)=>  message.react('👎'))
+              gsettings.goodbyemsg = data.goodbyemsg
+              message.channel.send(success(`Custom goodbye message was set!`))
 
-        } else return message.channel.send(`Please specify the goodbye message`)
+            }).catch((err)=>  message.react('👎'))
 
-      break;
-      default:
-    }
-  })
-}
+          }
 
+        break;
+        default:
+      }
+  }
 
-module.exports.config = {
-  name: 'automsg',
-  aliases: [],
-  group: 'setup',
-  description: `Set the automessages of this guild.  Type \`${prefix}automsg help\` for a guide on how to set up one.`,
-  guildOnly: true,
-  examples: ['automsg help'],
-  parameters: ['subcommands', 'queries'],
-  adminOnly: true
 }
 
 function help(message){
@@ -161,4 +174,16 @@ function help(message){
     {name:'welcomemsg',value:'Customize the welcome message being sent by the bot. Add `[clear]` to set to default message. Typing {user} and {membercount} resolves to the user (who joined) mention and guild member count, respectively.'}
     )
   )
+}
+
+function error(err){
+  return new MessageEmbed()
+  .setColor('RED')
+  .setDescription(`\u200B\n${err}\n\u200B`)
+}
+
+function success(str){
+  return new MessageEmbed()
+  .setColor('GREEN')
+  .setDescription(`\u200B\n${str}\n\u200B`)
 }
