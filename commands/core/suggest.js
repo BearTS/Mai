@@ -9,10 +9,6 @@ module.exports = {
     adminOnly: false,
     permissions: null,
     clientPermissions: null,
-    cooldown:{
-      time: 60 * 60 * 24,
-      msg: "You are only allowed to use this command once a day!"
-    },
     group: "core",
   	description: 'Suggest something for the server.',
   	examples: ['suggest Please remove some inactive members.....'],
