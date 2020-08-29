@@ -60,7 +60,7 @@ async function reloadMeme(memes,message){
     memes.clear()
   }
 
-  const data = await fetch(`https://www.reddit.com/r/animemes.json`).then(res => res.json()).catch(()=>{})
+  const data = await fetch(`https://www.reddit.com/r/goodanimemes.json`).then(res => res.json()).catch(()=>{})
 
   if (!data) return message.channel.send( new MessageEmbed().setColor('RED').setDescription('Could not fetch memes from reddit! Please report this to the bot owner. The API might be down or there might be changes on the API itself.'))
 
@@ -71,10 +71,7 @@ async function reloadMeme(memes,message){
   children.filter( m => m.data.post_hint === 'image').forEach( post => info.push({title:post.data.title,up:post.data.ups,downs:post.data.downs,link:`https://www.reddit.com${post.data.permalink}`,image:post.data.url,timestamp:post.data.created_utc * 1000}))
 
   info.forEach( meme => {
-
-    if (meme.title === "The Unofficial Official /r/Animemes Survey v2.0!") return
     memes.set(meme.title,meme)
-
   })
 
 }
