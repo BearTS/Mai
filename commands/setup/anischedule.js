@@ -163,8 +163,8 @@ module.exports = {
         if (!queries[0]) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Missing URL. Please supply the Anilist / MAL url of the anime to add.`))
 
         const watchId = await getMediaId(queries[0]);
-        if (!watchID) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Couldn't fetch Information from [${queries[0]}]. Make sure it is a valid Anilist / MAL url!`))
-        if (!data.data.includes(watchID)) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Unable to remove [${queries[0]}]. It does not exist on the list.`))
+        if (!watchId) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Couldn't fetch Information from [${queries[0]}]. Make sure it is a valid Anilist / MAL url!`))
+        if (!data.data.includes(watchId)) return message.channel.send(error(`[ANISCHEDULE_ERROR]: Unable to remove [${queries[0]}]. It does not exist on the list.`))
 
 
         data.data.splice(data.data.indexOf(watchId),1)
