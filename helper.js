@@ -3,7 +3,7 @@ const requireText = require('require-text')
 module.exports = {
 
   //text Helpers
-    TextHelpers: require('./utilities/String Utilities')
+    TextHelpers: require('./utilities/StringUtilities')
 
   //GraphiQl Templates
   , NextAirDate_NoQuery: requireText('./assets/graphql/NextAirDateWithoutQuery.graphql', require)
@@ -13,8 +13,8 @@ module.exports = {
   , Watching: requireText('./assets/graphql/Watching.graphql',  require)
 
   //Anilist Tools
-  , AniListQuery: require('./utilities/Anilist Query')
-  , AniListSchedule: require('./utilities/Anilist Schedule')
+  , AniListQuery: require('./utilities/AnilistQuery')
+  , AniListSchedule: require('./utilities/AnilistSchedule')
 
   //Error Tools
   , ErrorTools: require('./utilities/Errors')
@@ -50,7 +50,7 @@ module.exports = {
   , addXP: require('./utilities/Add XP')
 
   //Permissions Checker
-  , PermissionsCheck: require('./utilities/Permissions Checker')
-  , CooldownsCheck: require('./utilities/Cooldowns Checker')
+  , PermissionsCheck: require('./utilities/PermissionsChecker')
+  , CooldownsCheck: require('./utilities/CooldownsChecker')
 
 }
