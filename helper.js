@@ -3,7 +3,7 @@ const requireText = require('require-text')
 module.exports = {
 
   //text Helpers
-    TextHelpers: require('./utilities/StringUtilities')
+    TextHelpers: require('./utilities/String Utilities.js')
 
   //GraphiQl Templates
   , NextAirDate_NoQuery: requireText('./assets/graphql/NextAirDateWithoutQuery.graphql', require)
@@ -13,19 +13,19 @@ module.exports = {
   , Watching: requireText('./assets/graphql/Watching.graphql',  require)
 
   //Anilist Tools
-  , AniListQuery: require('./utilities/AnilistQuery')
-  , AniListSchedule: require('./utilities/AnilistSchedule')
+  , AniListQuery: require('./utilities/Anilist Query.js')
+  , AniListSchedule: require('./utilities/Anilist Schedule.js')
 
   //Error Tools
-  , ErrorTools: require('./utilities/Errors')
+  , ErrorTools: require('./utilities/Errors.js')
 
   //Mongoose Models
   , MongooseModels: {
-      guildInviteSchema: require('./models/guildInviteSchema')
-    , guildProfileSchema: require('./models/guildProfileSchema')
-    , guildWatchlistSchema: require('./models/guildWatchlistSchema')
-    , malProfileSchema: require('./models/malProfileSchema')
-    , xpSchema: require('./models/xpSchema')
+      guildInviteSchema: require('./models/guildInviteSchema.js')
+    , guildProfileSchema: require('./models/guildProfileSchema.js')
+    , guildWatchlistSchema: require('./models/guildWatchlistSchema.js')
+    , malProfileSchema: require('./models/malProfileSchema.js')
+    , xpSchema: require('./models/xpSchema.js')
   }
 
   //Databases
@@ -37,20 +37,20 @@ module.exports = {
 
   //Classes
   , Classes: {
-      Paginate: require('./struct/Paginate')
+      Paginate: require('./struct/Paginate.js')
   }
 
   , Quiz: {
-      collectPlayers: require('./utilities/quiz/collectPlayers')
-    , loadQuestions: require('./utilities/quiz/loadQuestions')
-    , sendQuestion: require('./utilities/quiz/sendQuestion')
+      collectPlayers: require('./utilities/quiz/collectPlayers.js')
+    , loadQuestions: require('./utilities/quiz/loadQuestions.js')
+    , sendQuestion: require('./utilities/quiz/sendQuestion.js')
   }
 
   //XP
-  , addXP: require('./utilities/Add XP')
+  , addXP: require('./utilities/Add XP.js')
 
   //Permissions Checker
-  , PermissionsCheck: require('./utilities/PermissionsChecker')
-  , CooldownsCheck: require('./utilities/CooldownsChecker')
+  , PermissionsCheck: require('./utilities/Permissions Checker.js')
+  , CooldownsCheck: require('./utilities/Cooldowns Checker.js')
 
 }
