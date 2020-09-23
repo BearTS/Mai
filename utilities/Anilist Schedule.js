@@ -4,7 +4,7 @@ require('moment-duration-format');
 const { duration } = require('moment');
 const { MessageEmbed } = require('discord.js')
 const guildWatchlistSchema = require('../models/guildWatchlistSchema')
-const query = require('./AniList Query')
+const query  = require('./Anilist Query')
 const schedule = require('require-text')('../assets/graphql/Schedule.graphql', require)
 let queuedNotifications = [];
 

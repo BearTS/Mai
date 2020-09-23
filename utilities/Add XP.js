@@ -17,11 +17,11 @@ module.exports = (guildID, userID, xp) => {
     return new Promise((resolve,reject)=>{
       xpSchema.findOne({ guildID, userID }, async (err,data) => {
 
-        if (err) reject('Unable to connecto to database')
+        if (err) return reject('Unable to connecto to database')
 
         if (!data) data = await new xpSchema({ guildID, userID }).save().catch(()=>null)
 
-        if (!data) reject('Unable to save new document')
+        if (!data) return reject('Unable to save new document')
 
         let cap = 150 * (data.level * 2)
         let next = cap * data.level

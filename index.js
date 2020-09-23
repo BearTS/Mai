@@ -51,7 +51,7 @@ const mai = new Client({
 		, 'quiz'
 		, 'xp'
 	]
-	,	prefix: ','
+	,	prefix: 'm!'
 	,	uploadchannel: '728866550207086642'
 	,	owners: ['545427431662682112']
 	,	mongoPassword: process.env.MONGO
