@@ -3,50 +3,37 @@ const { sfw: { poke } } = new nekos()
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  config: {
-    name: 'poke',
-    aliases: [],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'action',
-    description: 'Poke your friends!',
-    examples: ['poke @user'],
-    parameters: ['User mention']
-  },
-  run: async ( client, message ) => {
+    name: 'poke'
+  , aliases: []
+  , guildOnly: true
+  , clientPermissions: [
+    'EMBED_LINKS',
+    'ADD_REACTIONS'
+  ]
+  , group: 'action'
+  , description: 'Poke your friends!'
+  , examples: [
+      'poke @user'
+  ]
+  , parameters: ['User Mention']
+  , run: async ( client, message, args ) => {
 
     const { url } = await poke().catch(()=>{})
 
-    if (!url) return message.channel.send(error(`Could not connect to nekos.life`))
+  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
 
-    const embed = new MessageEmbed()
+  if (!message.mentions.members.size)
+  return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, who am I supposed to poke?`)
 
-    if (message.mentions.members.size && message.mentions.members.first().id === client.user.id){
+  if (message.mentions.members.first().id === client.user.id)
+  return message.reply('I\'m already here! Need something?')
 
-      return message.channel.send(error(`${message.member}, I'm already here! You need something?`))
+  if (message.mentions.members.first().id === message.author.id)
+  return message.channel.send(`<:cancel:712586986216489011> | No!`)
 
-    } else if (message.mentions.members.size && message.mentions.members.first().id === message.author.id){
-
-      return message.channel.send(error(`What?`))
-
-    } else if (message.mentions.members.size) {
-
-      return message.channel.send(embed.setColor('GREY').setDescription(`${message.member} pokes ${message.mentions.members.first()}!`).setImage(url))
-
-    } else {
-
-    return message.channel.send(error(`${message.member}, I can't poke your imaginary friend! :(`))
-
-    }
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`${message.member} poked ${message.mentions.members.first()}!`))
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

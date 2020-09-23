@@ -1,137 +1,134 @@
-const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
-const { commatize, timeZoneConvert } = require('../../helper.js')
-const { pointright, pointleft, cancel } = require('../../emojis')
+const Pages = require('../../struct/Paginate')
+const { MessageEmbed, GuildEmoji } = require('discord.js')
+const {
+    TextHelpers: {
+      commatize
+    , timeZoneConvert
+    }
+  , ErrorTools: {
+      jikanError
+    }
+  } = require('../../helper')
 
 module.exports = {
-  config: {
-    name: "manga",
-    aliases: ['comic','manhwa','manhua'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: {
-      time: 10,
-      msg: 'Oops! You are going to fast! Please slow down to avoid being rate-limited!'
-    },
-  	description: 'Searches for a Manga / Manhwa / Manhua in [MyAnimeList.net](https://MyAnimeList.net "MyAnimeList Homepage"). Returns a maximum of 10 results',
-  	examples: ['manga aobuta','comic seishun buta yarou'],
-  	parameters: ['search query']
-  },
-  run: async ( client, message, args ) => {
+  name: "manga"
+  , aliases: [
+    'comic'
+    , 'manhwa'
+    , 'manhua'
+  ]
+  , guildOnly: true
+  , cooldown: {
+    time: 10000
+    , message: 'Oops! You are going too fast! Please slow down to avoid being rate-limited!'
+  }
+  , clientPermissions: [
+    'EMBED_LINKS'
+    , 'USE_EXTERNAL_EMOJIS'
+    , 'ADD_REACTIONS'
+  ]
+  , group: 'anime'
+  , image: 'https://files.catbox.moe/1im628.gif'
+  , description: 'Searches for a Manga / Manhwa / Manhua in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net.co "Homepage").'
+  , examples: [
+    'manga aobuta'
+    , 'comic seishun buta yarou'
+  ]
+  , parameters: [
+    'search query'
+  ]
+  , run: async (client, message, args) => {
 
-    if (!args.length) args = ['seishun', 'buta', 'yarou']
+    const query = args.length
+                  ? args.join(' ')
+                  : 'Seishun Buta Yarou Series'
 
-    let msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for manga titled **${args.join(' ')}** on MAL.\n\u200B`).setThumbnail('https://i.imgur.com/u6ROwvK.gif'))
+    const embed = new MessageEmbed()
+                  .setColor('YELLOW')
+                  .setDescription(`Searching for manga titled **${
+                    query
+                  }** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
+                  .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
 
-    const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(args.join(' '))}&page=1`).then( res => res.json()).catch(()=>{})
+    let msg = await message.channel.send(embed)
 
-    const elapsed = new Date() - msg.createdAt
+    const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(args.join(' '))}&page=1`)
+                        .then( res => res.json())
 
-    if (!data) try {
+      embed.setColor('RED')
+           .setThumbnail('https://i.imgur.com/qkBQB8V.png')
+           .setDescription(`\u200b\n\u2000\u2000<:cancel:712586986216489011> | ${
+             jikanError(
+               data
+               ? data.status
+               : null)
+             }\n\u200b`)
 
-      return msg.edit(error(`Couldn't find **${args.join(' ')}** on MAL's Manga List`))
+    if (!data || data.error)
+      return await msg.edit(embed).catch(()=> null)
+             ? null
+             : await message.channel.send(embed).then(()=> null)
 
-    } catch (err) {
+    const elapsed = Date.now() - message.createdAt
 
-      return message.channel.send(error(`Couldn't find **${args.join(' ')}** on MAL's Manga List`))
+    const pages = new Pages()
 
-    }
-
-    if (data.error) try {
-
-      return msg.edit(error(`Couldn't find **${args.join(' ')}** on MAL's Manga List`))
-
-    } catch (err) {
-
-      return message.channel.send(error(`Couldn't find **${args.join(' ')}** on MAL's Manga List`))
-
-    }
-
-    const { results } = data
-
-    const manga = []
-
-    results.slice(0,10).forEach( res => {
-
-      if (res === undefined) return
-
-      manga.push( new MessageEmbed()
-      .setAuthor(res.title, res.image_url, res.url)
-      .setColor('GREY')
-      .setDescription(res.synopsis)
-      .setThumbnail(res.image_url)
-      .addField('Type', res.type, true)
-      .addField('Status', res.publishing ? 'Publishing' : 'Finished', true)
-      .addField('Chapters', res.chapters, true)
-      .addField('Members', commatize(res.members), true)
-      .addField('Score', res.score, true)
-      .addField('Volumes', res.volumes, true)
-      .addField('Start Date', timeZoneConvert(res.start_date), true)
-      .addField('End Date', res.end_date ? timeZoneConvert(res.end_date) : 'Unknown', true)
-      .addField('\u200B','\u200B',true)
+    for (const res of data.results.slice(0,10)) {
+      pages.add( new MessageEmbed()
+        .setAuthor(res.title, res.image_url, res.url)
+        .setColor('GREY')
+        .setDescription(res.synopsis)
+        .setThumbnail(res.image_url)
+        .spliceFields(0,8)
+        .addField('Type', res.type, true)
+        .addField('Status', res.publishing ? 'Publishing' : 'Finished', true)
+        .addField('Chapters', res.chapters, true)
+        .addField('Members', commatize(res.members), true)
+        .addField('Score', res.score, true)
+        .addField('Volumes', res.volumes, true)
+        .addField('Start Date', timeZoneConvert(res.start_date), true)
+        .addField('End Date', res.end_date ? timeZoneConvert(res.end_date) : 'Unknown', true)
+        .addField('\u200B','\u200B',true)
+        .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds • Page ${pages.size} of ${data.results.slice(0,10).length}`)
       )
-    })
-
-    try {
-
-      msg.edit(manga[0].setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds • Page 1 of ${manga.length}`))
-
-    } catch (err) {
-
-      msg = await message.channel.send(manga[0].setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds • Page 1 of ${manga.length}`))
-
     }
 
-    const left = pointleft(client)
-    const right = pointright(client)
-    const terminate = cancel(client)
+    msg = await msg.edit(pages.firstPage).catch(()=>null) ? msg : await message.channel.send(pages.firstPage)
+
+    if (pages.size === 1) return
+
+    const prev = client.emojis.cache.get('712581829286166579') || '◀'
+    const next = client.emojis.cache.get('712581873628348476') || '▶'
+    const terminate = client.emojis.cache.get('712586986216489011') || '❌'
+
     const collector = msg.createReactionCollector( (reaction, user) => user.id === message.author.id)
-    const navigators = [ left, right, terminate ]
+    const navigators = [ prev, next, terminate ]
 
     for (let i = 0; i < navigators.length; i++) await msg.react(navigators[i])
 
-    let timeout = setTimeout(()=> collector.stop('timeout'), 90000)
-    let n = 0
+    let timeout = setTimeout(()=> collector.stop(), 90000)
 
-    collector.on('collect', async ( { emoji : { name } , users } ) => {
+    collector.on('collect', async ( {emoji: {name}, users }) => {
 
       switch(name){
-        case left.name ? left.name : left:
-          if (n < 1) n = manga.length
-          clearTimeout(timeout)
-          n--
-          await msg.edit(manga[n].setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds • Page ${n+1} of ${manga.length}`))
-        break;
-        case right.name ? right.name : right:
-          if (n === manga.length - 1) n = -1
-          clearTimeout(timeout)
-          n++
-          await msg.edit(manga[n].setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds • Page ${n+1} of ${manga.length}`))
-        break;
-        case terminate.name ? terminate.name : terminate:
-          collector.stop('terminated')
-        break;
+        case prev instanceof GuildEmoji ? prev.name : prev:
+          msg.edit(pages.previous())
+        break
+        case next instanceof GuildEmoji ? next.name : next:
+          msg.edit(pages.next())
+        break
+        case terminate instanceof GuildEmoji ? terminate.name : terminate:
+          collector.stop()
+        break
       }
 
       await users.remove(message.author.id)
-
-      timeout = setTimeout(() => collector.stop('timeout'), 90000)
-
-    })
-
-    collector.on('end', () => {
-
-      msg.reactions.removeAll()
+      timeout.refresh()
 
     })
+
+  collector.on('end', async () => await msg.reactions.removeAll().catch(()=>null) ? null : null )
+
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

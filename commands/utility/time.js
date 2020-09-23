@@ -2,20 +2,13 @@ const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
 
 module.exports = {
-  config: {
-    name: "time",
-    aliases: ['clock'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: "utility",
-    description: "Shows the time for the given location!",
-    examples: ["time [city]"],
-    parameters: []
-  },
+  name: "time",
+  aliases: ['clock'],
+  guildOnly: true,
+  group: "utility",
+  description: "Shows the time for the given location!",
+  examples: ["time [city]"],
+  parameters: [],
   run: async (client, message, args) => {
 
     const location = args.length ? args.join(' ') : 'Tokyo'
@@ -24,46 +17,64 @@ module.exports = {
     if (!res) return message.channel.send( new MessageEmbed().setColor('RED').setDescription('The Time.is API did not respond. Please report this to the bot owner. The API might be down or there might be changes on the API itself.'))
 
   try {
-    let locale = res.split('\n').filter( w => w.startsWith('markers:[{'))[0].split(':')
-    let time = res.split('<time id="clock"')[1].split('<')[0].replace('>','')
-    let {latitude, longitude, city, country} = filterLocale(locale)
-    let [week, month_day, year] = res.split('title="Click for calendar">')[1].split('</span>')[0].split(',')
-    year = year.split('<')[0]
-    let [, month, day] = month_day.split(' ')
-    let [sunrise, sunset, daylength, solarnoon, info] = res.split('<li>Sunrise:')[1].split('time.</li>')[0].replace('Sunset:','').replace('Day length:','').replace('Solar noon:','').split('</li><li>')
+
+    const [ latitude, longitude ] = JSON.parse(res.match(/\[(\d{1,3}.\d{1,7},\d{1,3}.\d{1,7})\]/gi)[0])
+    const [ city, country ] = JSON.parse(res.match(/\"(([0-9A-Z\s]*),\s([0-9A-Z\s]*))\"/gi)[0]).split(', ')
+    const [ time ] = res.match(/(\d{1,2}):(\d{1,2}):(\d{1,2}[\s+apm]{2,}|\d{1,2})/gi)
+    const [ weekday, month, day, year ] = res.match(/(\w{1,9}),\s(\w{1,12})\s(\d{1,2}),\s(\d{4})/gi)[0].replace(/,/g,'').split(' ')
+    const [ sunrise, sunset, daylength, solarnoon ] = res.match(/(?<=(\w{1,10}\s\w{1,10}|\w{1,10}):\s+)(\d{2}|\d{2}h)(:|\s+)(\d{1,2}m|\d{1,2})/gi)
+    const info = res.match(/(the\s+current\s+local\s+time\s+in\s+([a-z\s]*)+\s+is\s+\d+\s+(minutes*)\s+(ahead\s+of|behind)\s+apparent\s+solar\s+time.)/gi)[0]
 
     return message.channel.send( new MessageEmbed()
+
       .setAuthor(`Time.is`,'https://files.catbox.moe/5iolld.png','https://time.is')
+
       .setTitle(`${hour12Format(time)}`)
+
       .setURL(`https://time.is/${encodeURI(city)}`)
-      .setDescription(`in **${city}, ${country}**\n*${week}, ${month} ${day}, ${year}*\nCoordinates: [lat: ${latitude}, long: ${longitude}]*\n\n`)
-      .addField(`Sunrise`,hour12Format(sunrise),true)
-      .addField(`Sunset`,hour12Format(sunset).replace('AM','PM'),true)
-      .addField(`Day Length`,daylength,true)
-      .addField(`Solar Noon`,hour12Format(solarnoon),true)
-      .setFooter(`${info}time.`)
+
+      .setDescription(`in **${city}, ${country}**\n*${weekday}, ${month} ${day}, ${year}*\nCoordinates: [lat: ${latitude}, long: ${longitude}]*\n\n`)
+
+      .addField(
+          `Sunrise`
+        , hour12Format(sunrise)
+        , true)
+
+      .addField(
+          `Sunset`
+        , hour12Format(sunset)
+        , true)
+
+      .addField(
+          `Day Length`
+        , daylength
+        , true)
+
+      .addField(
+          `Solar Noon`
+        , hour12Format(solarnoon)
+        , true)
+
+      .setFooter(`${info}.`)
+
       .setColor('GREY')
     )
   } catch (err) {
 
     return message.channel.send( new MessageEmbed().setColor('RED').setDescription(`\u200B\n\nCouldn't find a city with a name **${location}**`).setThumbnail('https://files.catbox.moe/5iolld.png'))
 
-  }
-
+    }
   }
 }
 
-function filterLocale(locale){
-  const [latitude, longitude] = locale[2].replace('[','').replace(']','').replace('name','').split(',')
-  const [city, country] = locale[3].replace('"','').replace('"}]','').split(',')
-  return {latitude:latitude, longitude:longitude, city:city, country:country}
 
-}
 
 function hour12Format(time){
-  let [hh,mm,ss] = time.split(':')
 
-  mm = mm.split('AM')[0].split('PM')[0]
+  if (time.toLowerCase().endsWith('am') || time.toLowerCase().endsWith('pm')) return time
+
+  let [ hh, mm, ss] = time.split(':')
+
   if (!ss) ss = '00'
 
   if (hh == 00) return `12:${mm}:${ss} AM`

@@ -1,83 +1,169 @@
 const { getInfoFromName } = require('mal-scraper')
 const { MessageEmbed } = require('discord.js')
-const { textTrunctuate } = require('../../helper.js')
+const { TextHelpers: { textTrunctuate, joinArray } } = require('../../helper')
 
 module.exports = {
-  config: {
-    name: 'anime',
-    aliases: ['ani','as'],
-    guildOnly: false,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: {
-      time: 10,
-      msg: 'Oops! You are going to fast! Please slow down to avoid being rate-limited!'
-    },
-    group: 'anime',
-    description: 'Searches for a specific anime in [MyAnimeList.net](https://myanimelist.net "MyAnimeList Homepage")',
-    examples: ['anime','anime aobuta','ani seishun buta yarou','as bunnygirl senpai'],
-    parameters: ['Search Query']
-  },
-  run: async ( client, message, args ) => {
+    name: 'anime'
+  , aliases: [
+      'ani'
+    , 'as'
+    , 'anisearch'
+  ]
+  , cooldown: {
+      time: 10000
+    , message: 'You are going too fast. Please slow down to avoid getting rate-limited!'
+  }
+  , clientPermissions: [
+    'EMBED_LINKS'
+  ]
+  , group: 'anime'
+  , image: 'https://files.catbox.moe/2xqq69.gif'
+  , description: 'Searches for a specific anime in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net "Homepage")'
+  , examples: [
+      'anime'
+    , 'anime aobuta'
+    , 'ani seishun buta yarou'
+    , 'as bunnygirl senpai'
+  ]
+  , parameters: ['Search Query']
+  , run: async ( client, message, args ) => {
 
-    if (!args.length) args = ['seishun','buta','yarou']
+    const query = args.length
+                  ? args.join(' ')
+                  : 'Seishun Buta Yarou'
 
-    const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for anime titled **${args.join(' ')}** on MAL.\n\u200B`).setThumbnail('https://i.imgur.com/u6ROwvK.gif'))
-
-    const data = await getInfoFromName(args.join(' ')).catch()
-
-    if (!data) return msg.edit( new MessageEmbed().setColor('RED').setDescription(`\u200B\nError: No anime found for **${args.join(' ')}**\u200B\n`))
-
-    const elapsed = new Date() - msg.createdAt
-
-    let genres = data.genres && data.genres.length ? joinArray(data.genres) : '\u200B'
-    let producers = data.producers && data.producers.length ? joinArray(data.producers) : '\u200B'
-    let studios = data.studios && data.producers.length ? joinArray(data.studios) : '\u200B'
-
-    const title = data.title ? data.title : 'Untitled'
-    const url = data.url ? data.url : null
-    const desc = data.englishTitle ? data.englishTitle : title
-    const image = data.picture ? data.picture : null
-    const syn = data.synopsis ? data.synopsis: 'N/A'
-    const type = data.type.length ? data.type : "showType Unavailable."
-    const aired = data.aired.length ? data.aired : "N/A"
-    const status = data.status.length ? data.status : "N/A"
-    const episodes = data.episodes.length ? data.episodes : "N/A"
-    const source = data.source.length ? data.source : "N/A"
-    const rating = data.rating.length  ? data.rating : "N/A"
-    const score = data.score
-    const rank = data.ranked && Number(data.ranked.split('#').slice(1)) < 150 ? data.ranked : null
-    const popularity = data.popularity && rank ? data.popularity : null
 
     const embed = new MessageEmbed()
-      .setColor('GREY')
-      .setAuthor(`${textTrunctuate(desc,250)} | ${type}`, image ? image : 'https://myanimelist.net/images/icon.svg', url)
-      .setDescription(`Score: ${score} ${rank ? '| Ranked '+rank : ''} ${popularity ? '| Popularity : '+popularity:''}\n\n${textTrunctuate(syn,1000,`... [Read More](${url})`)}`)
-      .addField(`Information`, `•\u2000\**Japanese Name:** [${title}](${url})\n\•\u2000\**Age Rating:** ${rating}\n•\u2000\**Source:** ${source}`,true)
-      .addField(`\u200B`,`•\u2000\**Genres:** ${genres}\n•\u2000\**Producers:** ${producers}\n•\u2000\**Studios:** ${studios}`,true)
-      .addField(`Status`,`•\u2000\**Episodes:** ${episodes}\n•\u2000\**Start Date:** ${aired}\n\•\u2000\**Status:** ${status}`)
-      .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
-      if (image) embed.setThumbnail(image)
+              .setColor('YELLOW')
+              .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+              .setDescription(`Searching for Anime titled **${
+                query
+              }** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
 
-    try {
-      msg.edit(embed)
-    } catch (err) {
-      message.channel.send(embed)
-    }
+
+    const msg = await message.channel.send(embed)
+
+
+    const data = await new Promise((resolve,reject) => {
+
+                    const timer = setTimeout(() => reject('TIMEOUT'), 10000)
+
+                    getInfoFromName(query)
+                      .then(res => resolve(res))
+                          .catch((err)=> reject(err))
+
+                        }).catch((err)=> err !== 'TIMEOUT' ? null : err)
+
+
+    const errmsg = embed
+                  .setColor('RED')
+                  .setDescription(`\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000${
+                      !data
+                      ? `No results found for **${query}**`
+                      : '[<:mal:722270009761595482> MyAnimeList](https://myanimelist.net) took too long to respond.'
+                    }.\u2000\u2000\n\n\u200b`)
+                  .setThumbnail('https://i.imgur.com/qkBQB8V.png')
+
+
+    if (!data || data === 'TIMEOUT') return await msg.edit(errmsg).catch(()=>null)
+                        ? null
+                        : await message.channel.send(errmsg).then(()=> null)
+
+
+    const elapsed = Date.now() - msg.createdAt
+
+    const {
+        title
+      , url
+      , englishTitle
+      , picture
+      , synopsis
+      , type
+      , aired
+      , status
+      , episodes
+      , source
+      , rating
+      , score
+      , ranked
+      , popularity
+      , genres
+      , producers
+      , studios
+    } = data
+
+     embed.setColor('GREY')
+
+          .setAuthor(`${
+              englishTitle
+              ? textTrunctuate(englishTitle, 200)
+              : textTrunctuate(title, 200)
+            } | ${
+              type && type.length < 200
+              ? type
+              : 'showType Unavailable'
+            }`, picture
+                ? picture
+                : 'https://myanimelist.net/images/icon.svg', url)
+
+          .setDescription(`Score: ${score} ${
+              ranked && Number(ranked.slice(1)) < 150
+              ? '| Ranked '+ ranked
+              : ''
+            } ${
+              popularity
+              ? '| Popularity : '+popularity
+              : ''
+            }\n\n${
+              synopsis && synopsis.length
+              ? textTrunctuate(synopsis, 1000, `... [Read More](${url})`)
+              : 'No Synopsis'
+            }`)
+
+          .addField(`<:info:719474069053112371>  Information`, `•\u2000\**Japanese Name:** [${title}](${url})\n\•\u2000\**Age Rating:** ${
+              rating && rating.length
+              ? rating
+              : 'Unrated'
+            }\n•\u2000\**Source:** ${
+              source && source.length
+              ? source
+              : 'N/A'
+            }`,true)
+
+          .addField(`\u200B`,`•\u2000\**Genres:** ${
+              genres && genres.length
+              ? joinArray(genres)
+              : ''
+            }\n•\u2000\**Producers:** ${
+              producers && producers.length
+              ? joinArray(producers)
+              : ''
+            }\n•\u2000\**Studios:** ${
+              studios && studios.length
+              ? joinArray(studios)
+              : ''
+            }`,true)
+
+          .addField(`<:stats:719473222466142248>  Status`,`•\u2000\**Episodes:** ${
+              episodes
+            }\n•\u2000\**Start Date:** ${
+              aired
+            }\n\•\u2000\**Status:** ${
+              status
+            }`)
+
+          .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
+
+          .setThumbnail(
+            picture
+            ? picture
+            : null
+          );
+
+
+    return await msg.edit(embed).catch(()=> null)
+           ? null
+           : await message.channel.send(embed).then(()=> null);
+
   }
-}
-
-function joinArray(array){
-
-  if (!array.length) return `${array.toString()}.`
-
-  if (array.length < 3) return `${array.join(' and ')}.`
-
-  const last = array.pop()
-
-  const res = `${array.join(', ')}, and ${last}.`
-
-  return res
 }

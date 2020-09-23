@@ -1,55 +1,113 @@
-const xp = require('../../models/xpSchema.js')
+const { MongooseModels: { xpSchema }, TextHelpers: { commatize, ordinalize }} = require('../../helper')
 const { MessageEmbed } = require('discord.js')
-const { commatize, ordinalize } = require('../../helper.js')
 
 module.exports = {
-  config: {
-    name: "leaderboard",
-    aliases: ['lb','top'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    rankcommand: true,
-    description: "Shows the top xp earners for this server",
-    examples: [],
-  	parameters: []
-  },
-  run: async (client, message, args ) => {
+  name: 'leaderboard'
+  , aliases: [
+    'lb'
+    , 'topxp'
+    , 'top'
+  ]
+  , guildOnly: true
+  , rankcommand: true
+  , group: 'core'
+  , description: 'Shows the top xp earners for this server'
+  , clientPermissions: [
+    'EMBED_LINKS'
+  ]
+  , examples: []
+  , parameters: []
+  , run: async (client, message ) => {
 
-    const { xpExceptions } = client.guildsettings.get(message.guild.id)
+    const { exceptions, active } = client.guildsettings.get(message.guild.id).xp
 
-    if (xpExceptions.includes(message.channel.id)) return message.channel.send(error(`XP is currently disabled in this channel.`))
+    const embed = new MessageEmbed()
+      .setColor('RED')
+      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
 
-    let xpdoc = await xp.find({ guildID: message.guild.id }).catch()
 
-    xpdoc.sort(( a, b ) => b.points - a.points)
+    if (!active)
+      return message.channel.send(
+        embed.setDescription(
+            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          + 'XP is currently disabled in this server.\u2000\u2000\n\n\u200b'
+        )
+      )
 
-    if (!xpdoc.length) return message.channel.send(error(`Members in this server have not started earning xp yet!`))
 
-    let field = []
+    if (exceptions.includes(message.channel.id))
+      return message.channel.send(
+        embed.setDescription(
+            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          + 'XP is currently disabled in this channel\u2000\u2000\n\n\u200b'
+        )
+      )
 
-    for (let x = 0; x < ((xpdoc.length < 11) ? (xpdoc.length) : 10); x++) {
 
-      field.push({name:`\u200B`, value: `${(x===0) ? '🥇 - ' : (x===1) ? '🥈 - ' : (x===2) ? '🥉 - ' : '#'+(x+1)+" - "} **${commatize(xpdoc[x].points)}**XP (Level ${xpdoc[x].level})  <@${xpdoc[x].userID}>`, inline: false })
+    const documents = await xpSchema.find({ guildID: message.guild.id }).catch(()=>null)
 
-    }
 
-    message.channel.send( new MessageEmbed()
-      .setAuthor(`🏆 ${message.guild.name} Leaderboard`)
-      .setDescription(`<@${xpdoc[0].userID}> ranked the highest with **${commatize(xpdoc[0].points)+"**XP!\n\n"}`)
-      .setColor('GREY')
-      .addFields(field)
-      .setFooter(`You (${message.member.displayName}) ranked ${ordinalize(xpdoc.findIndex(item => item.userID === message.author.id) + 1)} in this server!`)
-      .setThumbnail(message.guild.icon ? message.guild.iconURL({format:'png',dynamic:true}) : null)
+    if (!documents)
+      return message.channel.send(
+        embed.setDescription(
+            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          + 'Unable to contact the database. Please try again later or report this incident to my developer.'
+          + '\u2000\u2000\n\n\u200b'
+        )
+      )
+
+
+    if (!documents.length || !documents.filter(a => a.points !== 0).length)
+      return message.channel.send(
+        embed.setDescription(
+            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          + 'Users in this server have not started earning XP yet!\u2000\u2000\n\n\u200b'
+        )
+      )
+
+
+    documents.sort((a, b) => b.points - a.points)
+
+
+    return message.channel.send(
+      embed.setColor('GREY')
+
+          .setThumbnail(message.guild.iconURL({format: 'png', dynamic: true, size: 1024}) || null)
+
+          .setAuthor(`🏆 ${message.guild.name} Leaderboard`)
+
+          .setDescription(`<@${documents[0].userID}> ranked the highest with **${commatize(documents[0].points)}**XP!\n\n\u200b`)
+
+          .addFields(
+            documents.filter(a => a.points !== 0).slice(0,11).map((user, index) =>  {
+              return {
+                  name: '\u200B'
+                , inline: false
+                , value:  `${
+                  index === 0
+                  ? '🥇 -'
+                  : index === 1
+                    ? '🥈 -'
+                    : index === 2
+                      ? '🥉 -'
+                      : `#${index + 1} -`
+                } **${
+                  commatize(user.points)
+                }**XP (Level ${
+                  user.level
+                }) <@${
+                  user.userID
+                }>`
+              }
+            })
+          )
+
+        .setFooter(`You (${message.author.tag}) ${
+          documents.findIndex( user => user.userID === message.author.id) !== -1
+          ? `ranked ${ordinalize(documents.findIndex( user => user.userID === message.author.id) + 1)} in this server!`
+          : 'are unranked in this server\'s XP leaderboard'
+        }`)
+
     )
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

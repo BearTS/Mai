@@ -1,54 +1,29 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, TextChannel } = require('discord.js')
 
 module.exports = {
-  config: {
-    name: "fleave",
-    aliases: ['forceleave','leaveguild','removeguild'],
-    guildOnly: false,
-    ownerOnly: true,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'owner',
-    description: 'Leaves a guild!',
-    examples: [`fleave 652351928364738294`],
-    parameters: ['server ID'],
-  },
-  run: async (client, message, args) => {
+  name: 'fleave',
+  aliases: ['forceleave','leaveguild','removeguild','leaveserver'],
+  ownerOnly: true,
+  group: 'owner',
+  description: 'Leaves a guild!',
+  examples: [`fleave 652351928364738294`],
+  parameters: ['server ID'],
+  run: async ( client, message, [id, ...reason] ) => {
 
-  if (!args.length) return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`Specify the guild ID to leave.`))
+    if (!id) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please specify the server id you want me to leave from.`)
 
-  const guild = client.guilds.cache.get(args[0])
+    const guild = client.guilds.cache.get(id)
 
-  if (!guild) return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`could not get guild with id **${args[0]}**`))
+    if (!guild) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, I was not able to find a guild with id **${id}**`)
 
-  let reason = args.slice(1).join(' ')
+    reason = reason.length ? reason.join(' ') : 'Im sorry but the reason was unspecified by my developer!'
 
-  if (!reason.length) reason = 'Im sorry but the reason was unspecified by the developer!'
+    let channel = guild.channels.cache.filter( c => c instanceof TextChannel && c.permissionsFor(guild.me).has('SEND_MESSAGES')).first() || guild.owner
 
-  let channel = guild.channels.cache.filter(c => c.type = 'text').filter(c => c.parent !== null).find( c => c.permissionsFor(guild.me).has('SEND_MESSAGES'))
+    await channel.send(new MessageEmbed().setColor('RED').setTitle(`👋 My developer has requested that I leave ${guild.name}!`).addField(`Reason`,reason)).catch(console.error)
 
-    try {
-
-      try {
-
-        await channel.send(new MessageEmbed().setColor('RED').setTitle(`👋 My developer has requested that I leave ${guild.name}!`).addField(`Reason`,reason))
-
-      } catch (err) {
-
-        await guild.owner.send(new MessageEmbed().setColor('RED').setTitle(`👋 My developer has requested that I leave ${guild.name}!`).addField(`Reason`,reason)).catch(()=>{})
-
-      }
-
-        guild.leave()
-        message.channel.send(`Successfully left the guild **${guild.name}**!!`)
-
-    } catch (err) {
-
-      return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`There was an error trying to leave **${guild.name}**`))
-
-    }
-
+    return guild.leave().then( g => {
+      message.channel.send(`Successully left the guild **${guild.name}**!!`)
+    }).catch(console.error)
   }
 }

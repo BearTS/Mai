@@ -2,58 +2,44 @@ const nekos = require('nekos.life')
 const { sfw: { kiss, slap } } = new nekos()
 const { MessageEmbed } = require('discord.js')
 
-module.exports= {
-  config: {
-    name: 'kiss',
-    aliases: [],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'action',
-    description: 'Show your love to someone special!',
-    examples: ['kiss @user'],
-    parameters: ['user mention']
-  },
-  run: async ( client, message ) => {
+module.exports = {
+    name: 'kiss'
+  , aliases: []
+  , guildOnly: true
+  , clientPermissions: [
+    'EMBED_LINKS',
+    'ADD_REACTIONS'
+  ]
+  , group: 'action'
+  , description: 'Show your love to someone special! Not me lol'
+  , examples: [
+      'kiss @User'
+  ]
+  , parameters: ['User Mention']
+  , run: async ( client, message, args ) => {
 
-    const embed = new MessageEmbed()
+    const { url } = await kiss().catch(()=>{})
 
-    if (message.mentions.members.size && message.mentions.members.first().id === client.user.id){
+    const { url: slapp } = await slap().catch(()=>{})
 
-      const { url } = await slap().catch(()=>{})
+  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
 
-      if (!url) return message.channel.send(error(`Could not connect to nekos.life`))
+  if (!message.mentions.members.size)
+  return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, you desperate enough to kiss an invisible user?!`)
 
-      return message.channel.send(embed.setColor('RED').setDescription(`${message.member}, How dare you!`).setImage(url).setFooter(`${message.member.displayName}, you really do deserve a slapping.`))
+  if (message.mentions.members.first().id === client.user.id)
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(slapp)
+      .setDescription(`${message.member} E~ecchi!`))
 
-    } else {
+  if (message.mentions.members.first().id === message.author.id)
+  return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, ever heard of a mirror?`)
 
-      const { url } = await kiss().catch(()=>{})
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`${message.member} kissed ${message.mentions.members.first()}`))
 
-      if (!url) return message.channel.send(error(`Could not connect to nekos.life`))
-
-      if (message.mentions.members.size && message.mentions.members.first().id === message.author.id){
-
-        return message.channel.send(error(`S~seriously?!`))
-
-      }else if (message.mentions.members.size) {
-
-        return message.channel.send(embed.setColor('GREY').setDescription(`${message.member} kisses ${message.mentions.members.first()}!`).setImage(url))
-
-      } else {
-
-      return message.channel.send(error(`Sorry ${message.member}, I can't seem to locate your imaginary friend.`))
-
-      }
-    }
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

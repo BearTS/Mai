@@ -3,36 +3,29 @@ const { sfw: { smug } } = new nekos()
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  config: {
-    name: 'smug',
-    aliases: [],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'action',
-    description: 'The epitome of arguments: smug anime girls.',
-    examples: ['smug'],
-    parameters: []
-  },
-  run: async ( client, message ) => {
+    name: 'smug'
+  , aliases: []
+  , guildOnly: true
+  , clientPermissions: [
+    'EMBED_LINKS',
+    'ADD_REACTIONS'
+  ]
+  , group: 'action'
+  , description: 'The epitome of arguments: smug anime girls.'
+  , examples: [
+      'smug'
+  ]
+  , parameters: []
+  , run: async ( client, message, args ) => {
 
-    const { url } = await smug().catch(()=>{})
+   const { url } = await smug().catch(()=>{})
 
-    if (!url) return message.channel.send(error(`Could not connect to nekos.life`))
+    if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
 
-    message.channel.send( new MessageEmbed()
+    return message.channel.send( new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
       .setDescription(`${message.member} smugs.`)
     )
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

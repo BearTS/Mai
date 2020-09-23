@@ -1,128 +1,154 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, GuildEmoji } = require('discord.js')
 const fetch = require('node-fetch')
-const { textTrunctuate, timeZoneConvert } = require('../../helper.js')
-const week = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday']
-const { pointright, pointleft, cancel } = require('../../emojis')
+const weekdays = [
+  'sunday'
+  , 'monday'
+  , 'tuesday'
+  , 'wednesday'
+  , 'thursday'
+  , 'friday'
+  , 'saturday'
+]
+const {
+  ErrorTools: {
+    jikanError
+  }
+  , TextHelpers:  {
+    textTrunctuate
+    , timeZoneConvert
+  }
+  , Classes: {
+    Paginate
+  }
+} = require('../../helper')
 
 module.exports = {
-  config: {
-    name: "schedule",
-    aliases: ['anitoday','airing'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: {
-      time: 60,
-      msg: 'Oops! You are going to fast! Please slow down to avoid being rate-limited!'
-    },
-    group: 'anime',
-  	description: 'Displays the list of currently airing anime for today\'s date or given weekday.',
-  	examples: ['schedule monday','airing'],
-  	parameters: ['search query']
-  },
-  run: async (client, message, [ day ]) => {
+  name: 'schedule'
+  , aliases: [
+    'anitoday'
+    , 'airinglist'
+    , 'airing'
+  ]
+  , guildOnly: true
+  , cooldown: {
+    time: 60000
+    , message: 'You are going to fast! Please slow down to avoid being rate-limited!'
+  }
+  , clientPermissions: [
+    'EMBED_LINKS'
+    , 'ADD_REACTIONS'
+    , 'USE_EXTERNAL_EMOJIS'
+  ]
+  , group: 'anime'
+  , description: 'Displays the list of currently airing anime for today\'s date or given weekday.'
+  , examples: [
+    'schedule monday'
+    , 'airinglist'
+  ]
+  , parameters: []
+  , run: async (client, message, [ day ]) => {
 
-    if (!day) day = week[new Date().getDay()]
+    if (!day || weekdays.includes(day))
+      day = weekdays[new Date().getDay()]
 
-    if (!week.includes(day.toLowerCase())) {
+    const embed = new MessageEmbed()
+                  .setColor('YELLOW')
+                  .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+                  .setDescription(`\u200B\n Fetching **${day}** anime schedules from <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'MyAnimeList Homepage').\n\u200B`)
 
-      client.cooldowns.get('schedule').delete(message.author.id)
-      return message.channel.send(error(`${day ? `**${day}** is not a valid weekday! ` : ''}Please enter a valid weekday!`))
+    let msg = await message.channel.send(embed)
 
-    }
+    let res = await fetch(`https://api.jikan.moe/v3/schedule/${day}`)
+                      .then(res => res.json())
 
-    let res = await fetch(`https://api.jikan.moe/v3/schedule/${day}`).then(res => res.json()).catch(()=>{})
+      if (!res || res.error){
+        res = res
+              ? res
+              : {}
+        embed.setColor('RED')
+             .setThumbnail(null)
+             .setDescription(`\u200b\n\u2000\u2000<:cancel:712586986216489011> | ${
+               jikanError(res.status)
+             }\n\u200b`)
 
-    if (!res) return message.channel.send(error(`Fetching data failed.`))
-
-    res = res[day]
-
-    const schedule = []
-
-    res.forEach( data => {
-
-      if (!data) return
-
-      schedule.push( new MessageEmbed()
-      .setAuthor(data.title, data.image_url , data.url)
-      .setColor('GREY')
-      .setDescription(`${data.score ? `Score: ${data.score}\n\n` : ''}${textTrunctuate(data.synopsis, 300)}`)
-      .addField(`Type`,data.type, true)
-      .addField(`Started`, timeZoneConvert(data.airing_start),true)
-      .addField(`Source`,data.source, true)
-      .addField(`Genres`,extract(data.genres),true)
-      .addField(`Producers`,extract(data.producers),true)
-      .addField(`Licensors`,data.licensors.length > 0 ? data.licensors.join(', ') : 'None Found.',true)
-      .setThumbnail(data.image_url))
-
-    })
-
-    const msg = await message.channel.send(schedule[0].setFooter(`Page 1 of ${schedule.length}`))
-
-    const left = pointleft(client)
-    const right = pointright(client)
-    const terminate = cancel(client)
-    const collector = msg.createReactionCollector( (reaction, user) => user.id === message.author.id)
-    const navigators = [ left, right, terminate ]
-
-    for (let i = 0; i < navigators.length; i++) await msg.react(navigators[i])
-
-    let timeout = setTimeout(()=> collector.stop('timeout'), 90000)
-    let n = 0
-
-    collector.on('collect', async ( { emoji: { name } , users } ) => {
-
-      switch(name){
-        case left.name ? left.name : left:
-          if (n < 1) n = schedule.length
-          clearTimeout(timeout)
-          n--
-          await msg.edit(schedule[n].setFooter(`Page ${n+1} of ${schedule.length}`))
-        break;
-        case right.name ? right.name : right:
-          if (n === schedule.length - 1) n = -1
-          clearTimeout(timeout)
-          n++
-          await msg.edit(schedule[n].setFooter(`Page ${n+1} of ${schedule.length}`))
-        break;
-        case terminate.name ? terminate.name : terminate:
-          collector.stop('terminated')
-        break;
+        return await msg.edit(embed).catch(()=>null)
+               ? null
+               : await message.channel.send(embed).then(()=>null)
       }
 
-      await users.remove(message.author.id)
 
-      timeout = setTimeout(() => collector.stop('timeout'), 90000)
+      const elapsed = Date.now() - message.createdTimestamp
 
-    })
+      const pages = new Paginate()
 
-    collector.on('end', () => {
+      for ( const { title, image_url, url, score, synopsis, type, airing_start, source, genres, producers, licensors } of res[day] ){
+        await pages.add( new MessageEmbed()
+          .setColor('GREY')
 
-      msg.reactions.removeAll()
-    })
+          .setThumbnail(image_url)
+
+          .setDescription(`${
+              score
+              ? `Score: ${score}\n\n`
+              : ''}${textTrunctuate(synopsis,300,`...[Read More](${url})`)}`)
+
+          .setAuthor(title, image_url, url)
+
+          .addField('Type', type, true)
+
+          .addField('Started', timeZoneConvert(airing_start), true)
+
+          .addField('Source', source, true)
+
+          .addField('Genres', `\u200b${genres.map( ({ name, url }) => `[${name}](${url})`).join(' • ')}`, true)
+
+          .addField('Producers', `\u200b${producers.map( ({ name, url }) => `[${name}](${url})`).join(' • ')}`, true)
+
+          .addField('Licensors',
+              licensors.length
+              ? licensors.join(' • ')
+              : 'None', true)
+
+          .setFooter(`MyAnimeList.net • Search Duration: ${(elapsed / 1000).toFixed(2)} seconds • Page ${pages.size} of ${res[day].length}`))
+      }
+
+      msg = await msg.edit(pages.currentPage).catch(()=>null)
+            ? msg
+            : await message.channel.send(pages.currentPage)
+
+      if (pages.size === 1) return
+
+      const prev = client.emojis.cache.get('712581829286166579') || '◀'
+      const next = client.emojis.cache.get('712581873628348476') || '▶'
+      const terminate = client.emojis.cache.get('712586986216489011') || '❌'
+
+      const collector = msg.createReactionCollector( (reaction, user) => user.id === message.author.id)
+      const navigators = [ prev, next, terminate ]
+
+      for (let i = 0; i < navigators.length; i++) await msg.react(navigators[i])
+
+      let timeout = setTimeout(()=> collector.stop(), 90000)
+
+      collector.on('collect', async ( {emoji: {name}, users }) => {
+
+        switch(name){
+          case prev instanceof GuildEmoji ? prev.name : prev:
+            msg.edit(pages.previous())
+          break
+          case next instanceof GuildEmoji ? next.name : next:
+            msg.edit(pages.next())
+          break
+          case terminate instanceof GuildEmoji ? terminate.name : terminate:
+            collector.stop()
+          break
+        }
+
+        await users.remove(message.author.id)
+        timeout.refresh()
+
+      })
+
+    collector.on('end', async () => await msg.reactions.removeAll().catch(()=>null) ? null : null)
+
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
-}
-
-function extract(data){
-  if (data.length<1) return 'No Information.'
-  let res = []
-  let output;
-  data.forEach(d => {
-    res.push(`[${d.name}](${d.url})`)
-  })
-  if (res.length > 1){
-  last = res.pop()
-  output = res.join(", ")+`, and ${last}`
-} else if (res.length === 1){
-  output = res.toString()
-}
-return output
 }

@@ -3,50 +3,41 @@ const { sfw: { hug } } = new nekos()
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  config: {
-    name: 'hug',
-    aliases: ['cuddle'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'action',
-    description: 'Hug someone special.',
-    examples: ['hug @user'],
-    parameters: ['User Mention']
-  },
-  run: async ( client, message ) => {
+    name: 'hug'
+  , aliases: []
+  , guildOnly: true
+  , clientPermissions: [
+    'EMBED_LINKS',
+    'ADD_REACTIONS'
+  ]
+  , group: 'action'
+  , description: 'Hug someone special.'
+  , examples: [
+      'hug @user'
+  ]
+  , parameters: ['User Mention']
+  , run: async ( client, message, args ) => {
 
     const { url } = await hug().catch(()=>{})
 
-    if (!url) return message.channel.send(error(`Could not connect to nekos.life`))
+  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
 
-    const embed = new MessageEmbed()
+  if (!message.mentions.members.size || message.mentions.members.first().id === message.author.id)
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`${message.member} H~here! I thought you needed a hug!`))
 
-    if (message.mentions.members.size && message.mentions.members.first().id === client.user.id){
+  if (message.mentions.members.first().id === client.user.id)
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`${message.member} H~how thoughtful! Thank you! ʸᵒᵘ'ʳᵉ ⁿᵒᵗ ˢᵃᵏᵘᵗᵃ ᵗʰᵒ`))
 
-      return message.channel.send(embed.setColor('GREY').setDescription(`${message.member}, Uwu <3 Thanks!`).setImage(url))
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`${message.mentions.members.first()} was being hugged by ${message.member}! How caring!`))
 
-    } else if (message.mentions.members.size && message.mentions.members.first().id === message.author.id){
-
-      return message.channel.send(embed.setColor('GREY').setDescription(`Okay ${message.member}, here you go. *hugg*`).setImage(url))
-
-    } else if (message.mentions.members.size) {
-
-      return message.channel.send(embed.setColor('GREY').setDescription(`${message.member} hugs ${message.mentions.members.first()}!`).setImage(url))
-
-    } else {
-
-      return message.channel.send(embed.setColor('GREY').setDescription(`Okay ${message.member}, here you go. *hugg*`).setImage(url))
-
-    }
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

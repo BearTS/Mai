@@ -1,36 +1,43 @@
-const { yellow, green } = require('chalk')
-const allowedNames = ['sakurajima mai','mai sakurajima','mai-san','mai-san\'s maid','mai-senpai','mai']
-const { ready } = require('../utils/anischedule/main.js')
-const { user : { owner } } = require('../settings.json')
-const { loadguilddata } = require('../utils/pointsystem/main.js')
+const { AniListSchedule: startScheduledAnnouncement } = require('../helper')
+const { MessageEmbed } = require('discord.js')
+
 
 module.exports = client => {
 
-  console.log(`\n${green(client.user.username)} is now online!`)
+  client.guildsettings.load()
 
-  if (!allowedNames.includes(client.user.username.toLowerCase())) {
+  console.log(`
+${client.user.username} is now online!
 
-    console.log(`\n${yellow('[Mai-WARN]')} : You are not using Mai-san's name in your bot. This could hinder some of the commands of this bot.`)
+    Startup Statistics:
+Servers:  ||  ${client.guilds.cache.size}
+Channels: ||  ${client.channels.cache.size}
+Users:    ||  ${client.users.cache.size}
+Commands: ||  ${client.commands.size}
 
-  }
+<=======BOT LOGS WILL SHOW HERE======>`)
 
-  client.user.setActivity('Seishun Buta Yarou',{
 
-    type: 'STREAMING',
-    url: 'https://twitch.tv/sby'
+startScheduledAnnouncement(client)
 
-  })
-
-//-------------------------------Points System-------------------------------//
-
-  loadguilddata( client )
-
-//--------------------------------AniSchedule--------------------------------//
-
-   ready( client )
-
-//------------------------------cache the owner-------------------------------//
-
-  client.users.fetch(owner)
-  
+const loggingchannel = client.channels.cache.get('736504664815828992')
+if (loggingchannel) loggingchannel.send(
+    new MessageEmbed()
+    .setColor('GREY')
+    .setThumbnail(client.user.displayAvatarURL())
+    .setDescription(
+        'Restarted **'
+      + client.user.tag
+      + '**. Up and ready to serve on '
+      + client.guilds.cache.size + ' servers, '
+      + client.channels.cache.size + ' channels, and '
+      + client.users.cache.size + ' unique users, with over '
+      + client.commands.size + ' commands readily available for use!'
+     )
+    .setFooter(
+        'Boot Time \u200b • \u200b '
+      + parseInt(client.readyAt - client.bootTimeStart)
+      + ' ms.\u2000\u2000\u2000 | \u2000\u2000\u2000Last Boot '
+    ).setTimestamp()
+  )
 }

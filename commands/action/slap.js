@@ -3,51 +3,38 @@ const { sfw: { slap } } = new nekos()
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  config: {
-    name: 'slap',
-    aliases: [],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'action',
-    description: 'Slap your worthless friends!',
-    examples: ['slap @user'],
-    parameters: ['User Mention']
-  },
-  run: async ( client, message ) => {
+    name: 'slap'
+  , aliases: []
+  , guildOnly: true
+  , clientPermissions: [
+    'EMBED_LINKS',
+    'ADD_REACTIONS'
+  ]
+  , group: 'action'
+  , description: 'Slap them friends!~'
+  , examples: [
+      'slap @user'
+  ]
+  , parameters: ['User Mention']
+  , run: async ( client, message, args ) => {
 
     const { url } = await slap().catch(()=>{})
 
-    if (!url) return message.channel.send(error(`Could not connect to nekos.life`))
+  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
 
-    const embed = new MessageEmbed()
+  if (!message.mentions.members.size)
+  return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, just what are you doing slapping the air?!`)
 
-    if (message.mentions.members.size && message.mentions.members.first().id === client.user.id){
+  if (message.mentions.members.first().id === client.user.id)
+  return message.reply([`Ouch! How dare you slap me!`,`Stop that!`,`It hurts!`][Math.floor(Math.random() * 3)])
 
-      return message.channel.send(error(`${[`Ouch! How dare you slap me!`,`Stop that!`,`It hurts!`][Math.floor(Math.random() * 2)]}`))
+  if (message.mentions.members.first().id === message.author.id)
+  return message.channel.send(`I'd happily oblige! But i think you need a mental check-up.`)
 
-    } else if (message.mentions.members.size && message.mentions.members.first().id === message.author.id){
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`${message.mentions.members.first()} has been slapped by ${message.member}! That must've been painful! OwO`))
 
-      return message.channel.send(error(`Wai~ Seriously!?`))
-
-    } else if (message.mentions.members.size) {
-
-      return message.channel.send(embed.setColor('GREY').setDescription(`${message.member} slapped ${message.mentions.members.first()}!`).setImage(url))
-
-    } else {
-
-    return message.channel.send(error(`${message.member}, you're practicing to slap or something?`))
-
-    }
   }
-}
-
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

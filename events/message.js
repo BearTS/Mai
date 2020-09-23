@@ -1,138 +1,167 @@
-const { default : { prefix }, user : { owner } } = require('../settings.json')
-const { magenta } = require('chalk')
-const { Collection, MessageEmbed } = require('discord.js')
+require('moment-duration-format')
+const { MessageEmbed, Collection } = require('discord.js')
+const CooldownManager = require('../struct/CooldownManager')
 const { duration } = require('moment')
-const { convertTime } = require('../helper.js')
-const xpSchema = require('../models/xpSchema.js')
+const { addXP, PermissionsCheck, CooldownsCheck } = require('../helper')
 
-module.exports = ( client , message ) => {
+module.exports = async ( client, message ) => {
 
-  //-------------------Command Handling----------------//
+  const {
+      user
+    , commands
+    , config: {
+        prefix
+      , owners
+    }
+    , collections
+    , guildsettings
+  } = client
 
-const { commands, cooldowns, guildsettings, xp, user } = client
 
-  if (message.content.toLowerCase() === 'prefix' || (message.content.split(' ').length === 1 && message.mentions.users.first() === user)) {
+  if (message.author.id === client.user.id) client.messages.sent++
+    else client.messages.received++
 
-    return message.channel.send(`My prefix is **${prefix}**`)
 
+  try {
+
+    if (
+      !message.content.startsWith(prefix)
+      && !message.author.bot
+      && message.channel.type !== 'dm'
+      ) {
+
+        const XP = collections.exists(`xp`, message.guild.id)
+                    ? collections.getFrom('xp', message.guild.id)
+                    : collections.setTo('xp', message.guild.id, new Collection()).get(message.guild.id)
+
+        const gs = guildsettings.get(message.guild.id)
+
+        if (
+          !XP.has(message.author.id)
+          || (
+            gs && (
+                  gs.xp.active
+              ||  !gs.xp.exceptions.includes(message.channel.id)
+            )
+          )
+        ) {
+          return addXP(
+              message.guild.id
+            , message.author.id
+            , {
+              random: true
+            , maxnum: 25
+            , minnum: 10
+            }
+          ).then(()=> {
+              XP.set(message.author.id, message.member.displayName)
+              return setTimeout(()=> XP.delete(message.author.id), 60000)
+            })
+            .catch(()=> null)
+        }
+      }
+  } catch (err) {
+      return null
   }
 
-try {
+  if (
+        message.content.toLowerCase() === 'prefix'
+    ||  message.content.split(/ +/).length === 1
+    &&  message.mentions.users.size
+    &&  message.mentions.users.first().id === user.id
+  ) return message.reply(`My prefix is **${prefix}**`)
 
-    if (message.content.startsWith(prefix)){
 
-    if (message.guild && !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return
 
-    if (message.author.bot) return;
+  if (message.content.startsWith(prefix)){
 
-    let [ cmd, ...args ] = message.content.split(/ +/)
 
-    let commandfile = commands.get(cmd.slice(prefix.length)) || commands.find( c => c.config.aliases && c.config.aliases.includes(cmd.slice(prefix.length)))
+    if (
+      message.author.bot ||
+      message.guild &&
+      !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')
+    ) return
 
-    if (!commandfile) return
 
-    const { config : { group, name, guildOnly, ownerOnly, adminOnly, permissions, clientPermissions, cooldown, econocommand, rankcommand }, run } = commandfile
+    const [ commandName, ...arguments ] = message.content.slice(prefix.length).split(/ +/)
 
-    //--------------------------------Disallow using of music commands-------------------------------//
+    const command = commands.get(commandName)
 
-    if (group === 'music') return message.channel.send(error(':tools:  \u2000\u2000\u2000The command is currently on maintenance! Sorry :cry:'))
+    if (!command) return
 
-    //-----------------------------------------------------------------------------------------------//
+    const { name, cooldown, run } = command
 
-    if (guildOnly && message.channel.type === 'dm') return message.channel.send(error(`Sorry! This command is valid on guild channels only!`))
+//------------------------PERMISSIONS_CHECK---------------------------//
 
-    if (ownerOnly && message.author.id !== owner) return message.channel.send(error(`Sorry! This command is limited to my developer only!`))
+    try {
 
-    if (adminOnly && !message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(error(`Sorry, this command is limited to the server admins only!`))
+      const { status, embed } = PermissionsCheck(message, command)
 
-    if (permissions && !message.member.hasPermission(permissions)) return message.channel.send(error(`You have no permissions to use this command!`))
+      if (status === 'Denied')
+      return message.channel.send(
+        message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')
+        ? embed
+        : embed.description
+      )
 
-    if (clientPermissions && !message.guild.me.hasPermission(clientPermissions)) return message.channel.send(error(`Sorry, I need the following permissions to execute this command\n\n\`${clientPermissions.join('`, `')}\``))
 
-    if (econocommand && (!client.guildsettings.get(message.guild.id) || !client.guildsettings.get(message.guild.id).iseconomyActive)) return message.channel.send(error(`Economy is currently disabled in this server`))
+  //----------------------COOLDOWN CHECK--------------------------------//
 
-    if (rankcommand && (!client.guildsettings.get(message.guild.id) || !client.guildsettings.get(message.guild.id).isxpActive)) return message.channel.send(error(`XP is currently disabled in this server`))
 
-    if (!cooldown || !cooldown.time || cooldown.time === 0) return run(client, message, args)
+      const { accept, timeLeft } = CooldownsCheck(message, command)
 
-    if (!cooldowns.has(name)) cooldowns.set(name, new Collection())
+      if (!accept)
+      return message.channel.send(
+        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000${
+          message.author
+        }, ${
+          command.cooldown.message
+          ? command.cooldown.message
+          : 'You cannot use this command yet.'
+        }\n⏳\u2000\u2000|\u2000\u2000Time left: ${
+          duration(timeLeft,  'milliseconds')
+            .format('D [days] H [hours] m [minutes] s [seconds]')
+        }`
+      )
 
-    const now = Date.now()
-    const ts = cooldowns.get(name)
-    const cdamt = cooldown.time * 1000
+      run(client, message, arguments)
 
-    if (ts.has(message.author.id)) {
+  //-------------------------------------------------------------------//
 
-      const expiry = ts.get(message.author.id) + cdamt
+    } catch (err) {
 
-      if (now < expiry) {
+      const embed = new MessageEmbed()
+        .setColor('RED')
+        .setDescription(
+          '<:cancel:712586986216489011> | An error has occured while executing this command!'
+         + '\n```xl\n'
+         + err.stack.split('\n').splice(0,5).join('\n').split(process.cwd()).join('MAIN_PROCESS')
+         + '\n\n...and '
+         + (err.stack.split('\n').length - 5).toFixed()
+         + 'lines more.\`\`\`\n'
+         + 'A message was automatically created regarding this error and has been sent to my Developer...'
+        )
 
-        const { msg } = cooldown
+      await message.channel.send(
+        message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')
+        ? embed
+        : embed.description
+      )
 
-        const timeLeft = (expiry - now)
-        return message.channel.send(error(`${msg ? msg : ' You cannot use this command yet.'}\nTime left : ${duration(timeLeft / 1000, 'seconds').format('D [days] H [hours] m [minutes] s [seconds]')}`))
-      }
-
-    } else {
-
-      ts.set(message.author.id,now)
-      run( client, message, args )
-      setTimeout(()=> ts.delete(message.author.id), cdamt);
-
+      await client.users.fetch('545427431662682112')
+      .then(user => user.send(
+        '<:cancel:712586986216489011> | An error has occured while executing a command on **'
+        + message.guild.name
+        + '!\n\`\`\`xl\nExecutor: '
+        + message.author.tag
+        + '\nChannel: '
+        + message.channel.id
+        + '\n\n'
+        + err.stack.split('\n').splice(0,5).join('\n').split(process.cwd()).join('MAIN_PROCESS')
+        + '\n\n...and '
+        + (err.stack.split('\n').length - 5).toFixed()
+        + 'lines more.```')
+        ).catch(()=> null)
     }
   }
-
-} catch (err) {
-
-  message.channel.send(error(`Oops! Seems like that command didn't work as expected! Please contact Sakurajimai#6742 to fix this using the error information below. \`\`\`xl\n${err}\`\`\``))
-
-}
-
-  //--------------------EXP SYSTEM CODE ----------------//
-  if (!message.content.startsWith(prefix)){
-
-    if (message.author.bot) return
-
-    if (message.channel.type === 'dm') return
-
-    if (xp.has(message.author.id)) return
-
-    if (!guildsettings.get(message.guild.id)) return
-    if (!guildsettings.get(message.guild.id).isxpActive || guildsettings.get(message.guild.id).xpExceptions.includes(message.channel.id)) return
-
-    xpSchema.findOne({ guildID : message.guild.id, userID: message.author.id }, async (err, data) => {
-
-      if (err) return console.log(`${magenta('[Mai-Promise ERROR]')} : Unable to connect to MongoDB.`)
-
-      if (!data) {
-
-        data = await new xpSchema({  guildID: message.guild.id , userID: message.author.id, points: 0, level: 1, bg: 'https://i.imgur.com/djHyEE0.png'}).save()
-
-      }
-
-      if (!data) return console.log(`${magenta('[Mai-Promise ERROR]')} : Failed to create new server xp document for ${message.guild.name}.`)
-
-      const point = Math.floor(Math.random() * 10) + 15
-      const cap = 150 * (data.level * 2)
-      const next = cap * data.level
-      const difference = next - data.points
-
-      data.points = data.points + point
-
-      if (next <= data.points)  data.level = data.level + 1
-      data.save()
-
-      xp.set(message.author.id,message.member.displayName)
-      setTimeout(()=> xp.delete(message.author.id), 60000)
-
-    })
-
-  }
-
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setDescription(`\u200B\n${err}\n\u200B`)
-  .setColor('RED')
 }

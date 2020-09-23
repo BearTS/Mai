@@ -1,61 +1,63 @@
+const { MongooseModels: { guildProfileSchema }} = require('../../helper')
+const { Error: MongooseError } = require('mongoose')
 const { MessageEmbed } = require('discord.js')
-const guildData = require('../../models/guildProfileSchema.js')
 
 module.exports = {
-  config: {
-    name: 'setmute',
-    aliases: [],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: true,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'setup',
-    description: `Setup the mute role.`,
-    examples: ['setmute muted'],
-    parameters: ['Role ID', 'Role Mention', 'Role Name']
-  },
-  run: async ( { guildsettings }, message, [ role ]) => {
+  name: 'setmute',
+  aliases: ['setmuterole'],
+  guildOnly: true,
+  adminOnly: true,
+  group: 'setup',
+  description: 'Set up the mute role.',
+  examples: ['setmute muted'],
+  parameters: ['Role ID', 'Role Mention', 'Role Name'],
+  run: async ( client, message, [ role ] ) => {
 
     if (!role) {
 
-      const g = guildsettings.get(message.guild.id)
+      const guildsetting = client.guildsettings.get(message.guild.id)
 
-      if (!g || !g.muterole) return message.channel.send(error('Muterole not set!'))
+      if (!guildsetting || !guildsetting.roles || !guildsetting.roles.muted) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Muterole not set!`)
 
-      const muterole = message.guild.roles.cache.get(g.muterole)
+      const muterole = message.guild.roles.cache.get(guildsetting.roles.muted)
 
-      if (!muterole) return message.channel.send(error('The Previous Muterole was deleted! Please set a new one!'))
+      if (!muterole) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, The previous Muterole was either removed or deleted.`)
 
-      return message.channel.send(`The current mute role is ${muterole}`)
-
+      return message.channel.send(`The current muterole is ${muterole}`)
     }
 
-    role = message.mentions.roles.size ? message.mentions.roles.first() : message.guild.roles.cache.get(role) || message.guild.roles.cache.find(r => r.name === role)
+  role = message.mentions.roles.size ? message.mentions.roles.first() : message.guild.roles.cache.get(role) || message.guild.roles.cache.find( r => r.name === role)
 
-    if (!role) return message.channel.send(error('Invalid Role. Please Mention the role or supply the Role ID or the Role Name.'))
+  if (!role)
+    return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Invalid Role - Please supply the mention of the role, the ID of the role, or its Role Name.`)
 
-    let data = await guildData.findOne({guildID: message.guild.id}).catch(()=>{})
+  let data = await guildProfileSchema.findOne({
+    guildID: message.guild.id
+  }).catch((err)=> err)
 
-    if (data === undefined) return message.channel.send(error('Could not connect to database'))
+  if (!data) data = await new guildData({
+    guildID: message.guild.id
+  }).save()
+      .catch((err)=> err)
 
-    if (data === null) data = await new guildData({guildID: message.guild.id}).save()
+  if (data instanceof MongooseError)
+  return message.channel.send(
+    new MessageEmbed().setDescription(
+        '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+      + 'Unable to contact the database. Please try again later or report this incident to my developer.'
+      + '\u2000\u2000\n\n\u200b'
+    )
+  )
 
-    const g = guildsettings.get(message.guild.id) || guildsettings.set(message.guild.id, data).get(message.guild.id)
+  data.muterole = role.id
 
-    data.muterole = role.id
-    g.muterole = role.id
+  client.guildsettings.get(message.guild.id) || guildsettings.set(message.guild.id, data).get(message.guild.id)
 
-    await data.save()
-
-    return message.channel.send(`Mute role is now set to ${role}`)
+  return data.save()
+    .then((data)=>{
+      client.guildsettings.get(message.guild.id).roles.muted = data.muterole
+      return message.channel.send(`Successfully set the mutrole to ${role}!`)
+    }).catch(()=> message.channel.send(`<:cancel:712586986216489011> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`))
 
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

@@ -1,0 +1,79 @@
+Changes from Mai v2.4.0 -> Mai v3.0.0
+
+You can still view the previous version here ---> https://github.com/maisans-maid/Mai/tree/2.4.0
+
+• Major Script rewrite
+The structure of the code in this new version is totally different from the previous version. Using codes from here
+together with the code from v2.4.0 is not possible.
+
+• Removed Commands
+Temporarily removed all of music and all of currency command. Ideas for currency are currently scarce and I can't think of ways to
+make use of it (games, daily, etc doesn't work it doesn't make sense you only get to earn currency but no way to spend it).
+As for music, bot currently cannot support music feature as the hosting is free. The code is already available (didn't pushed
+to repo yet) and will be pushed to the master branch as soon as the bot is hosted on a dedicated hosting services.
+
+• Reworked Commands
+    • invite ------ now generates links for Mai, support server, and an advertised server
+    • ping   ------ new visuals
+    • stats  ------ new visuals
+    • rank   ------ not exactly new but still new visuals
+
+    anisched commands
+      removed the subcommand methods, changed command names
+      • [anisched add] is now [watch]
+      • [anisched remove] is now [unwatch]
+      • [anisched list] is now [watching]
+      • [anisched setchannel] is now [setanischedch]
+      • [channel, clean, help, next] are removed entirely
+
+    ps commands
+      removed currency commands, removed subcommands for xp commands, changed some command names
+      • [ps xptoggle] is now [xptoggle]
+      • [ps xpallow] is now [xpenable]
+      • [ps xpexcempt] is now [xpexcempt]
+      • [ps xpreset] is now [xpreset]
+      • [help] subcommand is removed in favor of main [help] command
+
+• Added new commands
+Updating to a higher version only to remove commands doesn't make any sense. Though most of these commands are supposed to be
+pushed with the previous version if not for the errors that i couldn't fix before. They're here now, idk if it's even used tho
+
+    • Anime ------- • anirandom   - random anime recommendations
+            ------- • discover    - random unique anime recommendations per user on daily basis
+            ------- • mangarandom - random manga recommendations
+            ------- • sauce       - hit those 6-digit codes and we're good to go (NSFW)
+
+    • Bot   ------- • invite      - Rather than added, was moved from core to bot
+
+    • Fun   ------- • 8ball       - Yeah, i didn't know how to make this one before
+            ------- • comment     - Generate image imitating youtube comment
+            ------- • invert      - Invert User Avatar
+            ------- • rate        - Rating system with consistency (not only generating random numbers. LOL)
+            ------- • reverse     - Not really fun but yeah
+            ------- • roll        - Generate random number
+            ------- • ship        - Ship 2 Users (love meter)
+            ------- • triggered   - Just like that triggered gif with user avatar
+            ------- • wasted      - Dead
+
+    • Moderation -- • addemoji    - Add emoji to the server with just the url and a single command
+            ------- • addroles    - Add roles to a member
+            ------- • hackban     - Ban a user, even if he's not on the server
+            ------- • nuke        - Delete all channel conversations (May cause inconsistency with channel ID-based commands)
+            ------- • removeroles - Deletes all user's roles
+            ------- • softban     - Kick user with deleting the user's messages on server
+            ------- • unban       - Unbans a user
+
+    • owner ------- • reload      - Made changes to a command's code? Just hit reload (Works only for debugging)
+
+    • utility ----- • define      - renamed urban dictionary
+            ------- • emoji       - view a larger version of a custom emoji
+            ------- • listrole    - list all the server's roles
+            ------- • lyrics      - the only music command that survived
+            ------- • permissionsfor - checks a user's permission in a server
+            ------- • serverinfo  - check server information
+            ------- • userinfo    - check user information
+
+    This version is still experimental and will be executed for a week for debugging, ---> if no more errors are reported at the end
+    of  the week, this version will officially be used, will change the README.md file for consistency within a month, and will
+    edit the webpage. If experiment fails (bot cannot work properly, always crashes), will roll back to the previous version (v2.4.0)
+    and will fix the errors.

@@ -1,0 +1,34 @@
+query ($search: String) {
+  Staff(search: $search, sort: SEARCH_MATCH) {
+    id
+    name {
+      full
+      native
+    }
+    language
+    image {
+      large
+    }
+    description
+    siteUrl
+    characters(page: 1, perPage: 20, sort: ROLE) {
+      nodes {
+        id
+        name {
+          full
+          native
+        }
+        siteUrl
+      }
+    }
+    staffMedia(page: 1, perPage: 20, sort: POPULARITY) {
+      nodes {
+        title {
+          romaji
+          english
+        }
+        siteUrl
+      }
+    }
+  }
+}

@@ -3,54 +3,40 @@ const { sfw: { baka } } = new nekos()
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  config: {
-    name: 'baka',
-    aliases: [],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'action',
-    description: 'It\'s not like I want you to use my command.. ~Baka!',
-    examples: ['baka'],
-    parameters: []
-  },
-  run: async ( client, message ) => {
+    name: 'baka'
+  , aliases: []
+  , guildOnly: true
+  , clientPermissions: [
+    'EMBED_LINKS',
+    'ADD_REACTIONS'
+  ]
+  , group: 'action'
+  , description: 'It\'s not like I want you to use my command.. ~Baka!'
+  , examples: [
+      'baka'
+  ]
+  , parameters: []
+  , run: async ( client, message, args ) => {
 
-  const { url } = await baka().catch(()=>{})
+    const { url } = await baka().catch(()=>{})
 
-  if (!url) return message.channel.send(error(`Could not connect to nekos.life`))
+  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
 
-  const embed =  new MessageEmbed()
+  if (!message.mentions.members.size)
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url))
 
-  if (message.mentions.members.size && message.mentions.members.first().id === client.user.id){
+  if (message.mentions.members.first().id === client.user.id)
+  return message.react('💢')
 
-    return message.channel.send(error(`Chigau! Anata wa baka desu!`))
+  if (message.mentions.members.first().id === message.author.id)
+  return message.channel.send(`<:cancel:712586986216489011> | No ${message.author}, you're not Baka!`)
 
-  } else if (message.mentions.members.size && message.mentions.members.first().id === message.author.id){
-
-    return message.channel.send(error(`Seriously?`))
-
-  } else if (message.mentions.members.size) {
-
-    return message.channel.send(embed
+  return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
       .setDescription(`${message.mentions.members.first()} B~baka!`))
 
-  } else
-
-    return message.channel.send(embed
-      .setColor('GREY')
-      .setImage(url))
   }
-}
-
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

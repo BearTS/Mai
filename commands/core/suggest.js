@@ -1,47 +1,61 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  config:{
-    name: "suggest",
-    aliases: [],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    group: "core",
-  	description: 'Suggest something for the server.',
-  	examples: ['suggest Please remove some inactive members.....'],
-  	parameters: ['suggestion content']
-  },
-  run: ( client, message, args ) => {
+  name: 'suggest'
+  , aliases: []
+  , guildOnly: true
+  , group: 'core'
+  , description: 'Suggest something for the server.'
+  , clientPermissions: [
+    'EMBED_LINKS'
+    , 'ADD_REACTIONS'
+  ]
+  , examples: ['suggest Please remove some inactive members.....']
+  , parameters: ['suggestion content']
+  , run: async (client, message, args) => {
 
-    if (!message.guild.channels.cache.find(c => c.name === 'suggestions')) {
-
-      return message.channel.send(new MessageEmbed()
-        .setColor('RED')
-        .setDescription('\u200B\n#suggestions channel not found!\n\u200B'))
-
-    }
-
-    if (!args.length) return message.react('👎').then(()=>message.channel.send(new MessageEmbed().setColor('RED').setDescription(`No Message Included. This constitutes a spam, thus you won't be able to use this command again today.`)))
-
-    let channel = message.guild.channels.cache.find(c => c.name === 'suggestions')
+    const channelID = client.guildsettings.get(message.guild.id).suggestChannel
 
     const embed = new MessageEmbed()
-    .setTitle(`${message.member.displayName}'s suggestion`)
-    .setColor('YELLOW')
-    .setDescription(args.join(' '))
-    .setThumbnail(message.author.displayAvatarURL({format:'png',dynamic:true,size:1024}))
-    .addField('Status','Under Review')
+      .setColor('RED')
+      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
 
-    channel.send(embed).then(async (m)=>{
-      await message.react('🇸')
-      await message.react('🇪')
-      await message.react('🇳')
-      await message.react('🇹')
-      await m.react('⬆')
-      await m.react('⬇')
-    })
+    if (!channelID)
+      return message.channel.send(
+        embed.setDescription(
+            '\u200b\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          + 'The **Suggestion Channel** for this server has not yet been set. '
+          + 'If you are a server administrator, you may set the channel by typing:\n\n`'
+          +  client.config.prefix
+          + 'setsuggestch <channel ID | channel mention>`'
+        )
+      )
+
+    if (!message.guild.channels.cache.has(channelID))
+      return message.channel.send(
+        embed.setDescription(
+          '\u200b\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+        + 'The **Suggestion Channel** set for this server was invalidated. '
+        + 'If you are a server administrator, you may set the channel again by typing:\n\n`'
+        +  client.config.prefix
+        + 'setsuggestch <channel ID | channel mention>`'
+        )
+      )
+
+    if (!args.length)
+      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please provide your suggestion message -> Keep it short and brief.`)
+
+    const channel = message.guild.channels.cache.get(channelID)
+
+    return channel.send(
+      new MessageEmbed()
+      .setTitle(`${message.member.displayName}'s suggestion`)
+      .setColor('YELLOW')
+      .setDescription(args.join(' '))
+      .setThumbnail(message.author.displayAvatarURL({format:'png',dynamic:true,size:1024}))
+      .addField('Status','Under Review', true)
+    )
+      .then(()=> message.react('✅'))
+        .catch(()=> message.channel.send(`<:cancel:712586986216489011> | ${message.author}, I could not post your suggestion in the delegated suggestion channel. Make sure I have necessary permissions`))
   }
 }

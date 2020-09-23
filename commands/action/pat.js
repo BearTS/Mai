@@ -3,51 +3,41 @@ const { sfw: { pat } } = new nekos()
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  config: {
-    name: 'pat',
-    aliases: ['headpat'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: 'action',
-    description: 'Why not? All anime girls likes a headpat, don\'t they?',
-    examples: ['pat @user'],
-    parameters: ['User Mention']
-  },
-  run: async ( client, message ) => {
+    name: 'pat'
+  , aliases: ['headpat']
+  , guildOnly: true
+  , clientPermissions: [
+    'EMBED_LINKS',
+    'ADD_REACTIONS'
+  ]
+  , group: 'action'
+  , description: 'It\'s not like I want you to use my command.. ~Baka!'
+  , examples: [
+      'pat @user'
+  ]
+  , parameters: ['User Mention']
+  , run: async ( client, message, args ) => {
 
     const { url } = await pat().catch(()=>{})
 
-    if (!url) return message.channel.send(error(`Could not connect to nekos.life`))
+  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
 
-    const embed = new MessageEmbed()
+  if (!message.mentions.members.size || message.mentions.members.first().id === message.author.id)
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`Here you go ${message.member}, \*pat* \*pat*`))
 
-    if (message.mentions.members.size && message.mentions.members.first().id === client.user.id){
+  if (message.mentions.members.first().id === client.user.id)
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`UwU <3! Thanks!`))
 
-      return message.channel.send(embed.setColor('GREY').setDescription(`${message.member}, Uwu <3 Thanks!`).setImage(url))
+  return message.channel.send(new MessageEmbed()
+      .setColor('GREY')
+      .setImage(url)
+      .setDescription(`${message.member} pats ${message.mentions.members.first()}`))
 
-    } else if (message.mentions.members.size && message.mentions.members.first().id === message.author.id){
-
-      return message.channel.send(embed.setColor('GREY').setDescription(`Okay ${message.member}, here you go. *pat pat*`).setImage(url))
-
-    } else if (message.mentions.members.size) {
-
-      return message.channel.send(embed.setColor('GREY').setDescription(`${message.member} pats ${message.mentions.members.first()}!`).setImage(url))
-
-    } else {
-
-      return message.channel.send(embed.setColor('GREY').setDescription(`Okay ${message.member}, here you go. *pat pat*`).setImage(url))
-
-    }
   }
-}
-
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

@@ -9,7 +9,8 @@ const profile = mongoose.Schema({
   isxpActive:  {type: Boolean, default: false},
   xpExceptions: { type: Array, default: []},
   iseconomyActive: {type: Boolean, default: false},
-  muterole: {type: String, default: null}
+  muterole: {type: String, default: null},
+  suggestChannel: {type: String, default: null}
 });
 
 module.exports = mongoose.model("Guildprofile",profile);

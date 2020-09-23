@@ -1,94 +1,209 @@
 const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
-const { textTrunctuate } = require('../../helper.js')
+const {
+  TextHelpers : {
+    textTrunctuate
+  }
+} = require('../../helper.js')
+const langflags = [
+    {
+      lang: 'Hungarian'
+    , flag: '🇭🇺'
+    }
+  , {
+      lang: 'Japanese'
+    , flag: '🇯🇵'
+    }
+  , {
+      lang: 'French'
+    , flag: '🇫🇷'
+    }
+  , {
+      lang: 'Russian'
+    , flag:'🇷🇺'
+    }
+  , {
+      lang: 'German'
+    , flag: '🇩🇪'
+    }
+  , {
+      lang: 'English'
+    , flag: '🇺🇸'
+    }
+  , {
+      lang: 'Italian'
+    , flag: '🇮🇹'
+    }
+  , {
+      lang: 'Spanish'
+    , flag: '🇪🇸'
+    }
+  , {
+      lang: 'Korean'
+    , flag: '🇰🇷'
+    }
+  , {
+      lang: 'Chinese'
+    , flag: '🇨🇳'
+    }
+  , {
+      lang: 'Brazilian'
+    , flag: '🇧🇷'
+    }
+  ]
+
 
 module.exports = {
-  config: {
-    name: "character",
-    aliases: ['anichar','char','c'],
-    guildOnly: false,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: {
-      time: 10,
-      msg: 'Oops! You are going to fast! Please slow down to avoid being rate-limited!'
-    },
-    group: 'anime',
-  	description: 'Searches for a character in [MyAnimeList.net](https://myanimelist.net "MyAnimeList Homepage").',
-  	examples: ['character mai sakurajima','anichar Mai Sakurajima','char Mai-san','c mai'],
-  	parameters: ['search query']
-  },
-  run: async ( client, message, args ) => {
+    name: 'character'
+  , aliases: [
+      'anichar'
+    , 'char'
+    , 'c'
+  ]
+  , cooldown: {
+      time: 10000
+    , message: 'You are going too fast. Please slow down to avoid getting rate-limited!'
+  }
+  , clientPermissions: [
+    'EMBED_LINKS'
+  ]
+  , group: 'anime'
+  , image: 'https://files.catbox.moe/syzyj7.gif'
+  , description: 'Searches for a character in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net "Homepage")'
+  , examples: [
+      'character mai sakurajima'
+    , 'anichar Mai Sakurajima'
+    , 'char Mai-san'
+    , 'c mai'
+  ]
+  , parameters: [
+    'search query'
+  ]
+  , run: async (client, message, args) => {
 
-    if (!args.length) args = ['mai','sakurajima']
+    const query = args.length
+                  ? args.join(' ')
+                  : 'Mai Sakurajima'
 
-    const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching for character named **${args.join(' ')}** on MAL.\n\u200B`).setThumbnail('https://i.imgur.com/u6ROwvK.gif'))
+    const msg = await message.channel
+                        .send(new MessageEmbed()
+                              .setColor('YELLOW')
+                              .setDescription(`Searching for character named **${query}** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
+                              .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+                        )
 
-    const data = await fetch(`https://api.jikan.moe/v3/search/character?q=${encodeURI(args.join(' '))}&page=1`).then( res => res.json()).catch(()=>{})
+    let data = await fetch(`https://api.jikan.moe/v3/search/character?q=${encodeURI(query)}&page=1`)
+                          .then( res => res.json())
 
-    if (!data) return msg.edit(error(`Couldn't find **${args.join(' ')}** on MAL's Character List`))
+    let errmsg = new MessageEmbed()
+                      .setColor('RED')
+                      .setDescription(`\u200b\n\n\u2000\u2000<:cancel:712586986216489011> | ${
+                            data.status == 404
+                            ? `No results found for **${query}**`
+                            : data.status == 429
+                              ? `I am being rate-limited in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage'). Please try again Later`
+                              : [500,503].includes(data.status)
+                                ? `Could not access <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage'). The site might be currently down at the moment`
+                                  : `An undocumented error occured! <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage') responded with HTTP error code ${
+                                    data.status
+                                  }`}.\n\n\u200b`)
+                      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
 
-    if (data.error) return msg.edit(error(data.error))
+    if (!data || data.error){
+      data = data
+            ? data
+            : {}
 
-    const { results : [ { mal_id }] } = data
+      return await msg.edit(errmsg).catch(()=>null)
+                   ? null
+                   : await message.channel.send(errmsg).then(()=> null)
+    }
 
-    const res = await fetch(`https://api.jikan.moe/v3/character/${mal_id}`).then( res => res.json()).catch(()=>{})
 
-    if (!res) return msg.edit(error(`Couldn't find **${args.join(' ')}** on MAL's Character List`))
+    const { results : [ { mal_id } ] } = data
 
-    if (res.error) return msg.edit(error(data.error))
+    let res = await fetch(`https://api.jikan.moe/v3/character/${mal_id}`)
+                      .then( res => res.json()).catch(()=>null)
 
-    const { url, name, name_kanji, about, image_url, animeography, mangaography, voice_actors } = res
+    errmsg.setDescription(`\u200b\n\n\u2000\u2000<:cancel:712586986216489011> | ${
+            data.status == 404
+            ? `No results found for **${query}**`
+            : data.status == 429
+              ? `I am being rate-limited in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage'). Please try again Later`
+              : [500,503].includes(data.status)
+                ? `Could not access <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage'). The site might be currently down at the moment`
+                : `An undocumented error occured! <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage') responded with HTTP error code ${
+                  data.status
+                }`}.\n\n\u200b`)
 
-    const elapsed = new Date() - msg.createdAt
-    const anime = hyperlink(animeography)
-    const manga = hyperlink(mangaography)
-    const seiyuu = seiyuify(voice_actors)
+
+    if (!res || res.error){
+      res = res
+            ? res
+            : {}
+      return await msg.edit(errmsg).catch(()=>null)
+                   ? null
+                   : await message.channel.send(errmsg).then(()=>null)
+    }
+
+    const { url, name, name_kanji,
+            about, image_url, animeography,
+            mangaography, voice_actors } = res
+
+    const elapsed = Date.now() - msg.createdAt
 
     const embed = new MessageEmbed()
-    .setAuthor(`${name} • ${name_kanji}`, null, url)
+    .setAuthor(`${name}${name_kanji ? ` • ${name_kanji}` : ''}`, null, url)
+
     .setThumbnail(image_url)
+
     .setColor('GREY')
+
     .setDescription(textTrunctuate(about.replace(/\\n/g,''),500,`... [Read More](${url})`))
-    .addField('Anime Appearances',anime.length < 4 ? anime.join('\n') : `${anime.slice(0,3).join('\n')}\n...and ${anime.length - 3} more!`)
-    .addField('Manga Appearances', manga.length < 4 ? manga.join('\n') : `${manga.slice(0,3).join('\n')}\n...and ${manga.length - 3} more!`)
-    .addField(`Seiyuu`, seiyuu.length < 4 ? seiyuu.join('\n') : seiyuu.slice(0,3).join('\n'), true)
+
+    .addField('Anime Appearances', animeography.length < 4
+                                   ? animeography.map(c => `• [${c.name}](${c.url}) as ${c.role}`).join('\n')
+                                   : `${animeography.slice(0,3).map(c => `• [${c.name}](${c.url}) as ${c.role}`).join('\n')}\n...and ${animeography.length - 3} more!`)
+
+    .addField('Manga Appearances', mangaography.length < 4
+                                   ? mangaography.map(c => `• [${c.name}](${c.url}) as ${c.role}`).join('\n')
+                                   : `${mangaography.slice(0,3).map(c => `• [${c.name}](${c.url}) as ${c.role}`).join('\n')}\n...and ${mangaography.length - 3} more!`)
+
+    .addField(`Seiyuu`, voice_actors.length < 4
+                        ? voice_actors.map(c => `• ${langflags.find( m => m.lang === c.language)
+                                                   ? langflags.find( m => m.lang === c.language).flag
+                                                   : c.language} [${c.name}](${c.url})` ).join('\n')
+                        : voice_actors.slice(0,3).map(c => `• ${langflags.find( m => m.lang === c.language)
+                                                            ? langflags.find( m => m.lang === c.language).flag
+                                                            : c.language} [${c.name}](${c.url})` ).join('\n')
+                        , true)
+
     .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
 
-    if (seiyuu.length > 3) embed.addField(`\u200B`, seiyuu.length < 7 ? seiyuu.slice(3).join('\n') : seiyuu.slice(3,6).join('\n'), true)
-    if (seiyuu.length > 6) embed.addField(`\u200B`, seiyuu.length < 10 ? seiyuu.slice(6).join('\n') : `${seiyuu.slice(6,8).join('\n')}\n...and ${seiyuu.length - 8} more!`,true)
+    if (voice_actors.length > 3)
+      embed.addField(`\u200B`, voice_actors.length < 7
+                               ? voice_actors.slice(3).map(c => `• ${langflags.find( m => m.lang === c.language)
+                                                                 ? langflags.find( m => m.lang === c.language).flag
+                                                                 : c.language} [${c.name}](${c.url})`).join('\n')
+                               : voice_actors.slice(3,6).map(c => `• ${langflags.find( m => m.lang === c.language)
+                                                                       ? langflags.find( m => m.lang === c.language).flag
+                                                                       : c.language} [${c.name}](${c.url})`).join('\n')
+                        , true)
+
+    if (voice_actors.length > 6)
+      embed.addField(`\u200B`, voice_actors.length < 10
+                               ? voice_actors.slice(6).map(c => `• ${langflags.find( m => m.lang === c.language)
+                                                                     ? langflags.find( m => m.lang === c.language).flag
+                                                                     : c.language} [${c.name}](${c.url})` ).join('\n')
+                               : `${voice_actors.slice(6,8).map(c => `• ${langflags.find( m => m.lang === c.language)
+                                                                     ? langflags.find( m => m.lang === c.language).flag
+                                                                     : c.language} [${c.name}](${c.url})`).join('\n')}\n...and ${voice_actors.length - 8} more!`
+                        ,true)
 
 
-    msg.edit(embed)
+    return await msg.edit(embed).catch(()=>null)
+                 ? null
+                 : await message.channel.send(embed).then(()=> null)
+
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
-}
-
-function hyperlink(data){
-
-  if (!data) return [`None`]
-
-  if (!data.length) return [`None`]
-  let res = []
-  data.forEach( piece => {
-    res.push(`• [${piece.name}](${piece.url}) as ${piece.role}`)
-  })
-  return res
-}
-
-function seiyuify(data){
-  const langflags = [{lang:'Hungarian',flag:'🇭🇺'},{lang:'Japanese',flag:'🇯🇵'},{lang:'French',flag:'🇫🇷'},{lang:'Russian',flag:'🇷🇺'},{lang:'German',flag:'🇩🇪'},{lang:'English',flag:'🇺🇸'},{lang:'Italian',flag:'🇮🇹'},{lang:'Spanish',flag:'🇪🇸'},{lang:'Korean',flag:'🇰🇷'},{lang:'Chinese',flag:'🇨🇳'},{lang:'Brazilian',flag:'🇧🇷'}]
-  if (!data.length) return ['none']
-  let res = []
-  data.forEach( seiyuu => {
-    res.push(`${langflags.find( m => m.lang === seiyuu.language) ? langflags.find( m => m.lang === seiyuu.language).flag : seiyuu.language } - [${seiyuu.name}](${seiyuu.url})`)
-  })
-  return res
 }

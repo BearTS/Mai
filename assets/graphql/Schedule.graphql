@@ -1,0 +1,40 @@
+query($page: Int = 0, $amount: Int = 50, $watched: [Int!]!, $nextDay: Int!) {
+  Page(page: $page, perPage: $amount) {
+    pageInfo {
+      currentPage
+      hasNextPage
+    }
+    airingSchedules(notYetAired: true, mediaId_in: $watched, sort: TIME, airingAt_lesser: $nextDay) {
+      media {
+        id
+        siteUrl
+        format
+        duration
+        episodes
+        title {
+          romaji
+        }
+        coverImage {
+          large
+          color
+        }
+        externalLinks {
+          site
+          url
+        }
+        studios(isMain: true) {
+          edges {
+            isMain
+            node {
+              name
+            }
+          }
+        }
+      }
+      episode
+      airingAt
+      timeUntilAiring
+      id
+    }
+  }
+}

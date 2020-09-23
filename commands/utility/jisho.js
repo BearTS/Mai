@@ -3,43 +3,45 @@ const fetch = require('node-fetch')
 const { toRomaji } = require('wanakana')
 
 module.exports = {
-  config:{
-    name: "jisho",
-    aliases: ['japanese','kanji','nipponify'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: {
-      time: 10,
-      msg: "Accessing Jisho has been rate limited to 1 use per user per 10 seconds"
-    },
-    group: "utility",
-    description: "Searches for Japanese words and Kanji on Jisho!",
-    examples: ["jisho [word <kanji, katakana, hiragana, romaji>]"],
-    parameters: ['word']
+  name: 'jisho',
+  aliases: ['weebify', 'kanji', 'nipponify'],
+  guildOnly: true,
+  cooldown: {
+    time: 10000,
+    message: "Accessing Jisho has been rate limited to 1 use per user per 10 seconds"
   },
-  run: async (client, message, args) => {
+  group: 'utility',
+  description:"Searches for Japanese words and Kanji on Jisho!",
+  examples: ["jisho [word <kanji, katakana, hiragana, romaji>]"],
+  parameters: ['word'],
+  run: async (client, message, [ query ]) => {
 
-    if (!args.length) return message.channel.send( new MessageEmbed().setColor('RED').setDescription('Please provide me a word to get the definition of'))
+    if (!query) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please provide me a word to get the definition of.`)
 
-    const res = await fetch(`https://jisho.org/api/v1/search/words?keyword=${encodeURI(args.join(' '))}`).then(res => res.json()).catch(()=>{})
+    const res = await fetch(`https://jisho.org/api/v1/search/words?keyword=${encodeURI(query)}`).then(res => res.json()).catch(()=> null)
 
-    if (!res) return message.channel.send( new MessageEmbed().setColor('RED').setDescription('The JishoAPI did not respond. Please report this to the bot owner. The API might be down or there might be changes on the API itself.'))
+      if (!res || res.meta && res.meta.status !== 200)
+        return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Could not connect to JISHO.`)
 
-    if (!res.data.length) return message.channel.send( new MessageEmbed().setColor('RED').setDescription(`\u200B\n\nNo results found for **${args.join(' ')}**!`).setThumbnail('https://jisho.org/images/logo_static.png') )
+      if (!res.data || !res.data.length)
+        return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, No results were found for your query: **${query}**.`)
 
-    const jisho = res.data[0]
+      let fields = []
 
-    message.channel.send( new MessageEmbed()
-      .setAuthor(jisho.slug)
-      .setDescription(`${jisho.is_common ? `Common Word` : `Uncommon Word`} | [External Link](https://jisho.org/search${encodeURI(args.join(' '))})`)
-      .addField(`Definition`, JSON.stringify(jisho.senses[0].english_definitions).replace(/\"/g, '').replace(/,/g, '\n'))
-      .addField(`Reading`,`• **Kana**: ${jisho.japanese[0].reading ? jisho.japanese[0].reading : 'N/A'}\n• **Romaji**: ${toRomaji(jisho.japanese[0].reading)}`)
-      .setFooter(`${jisho.senses[0].see_also[0] ? `See Also: ${jisho.senses[0].see_also[0]}` : '' }`)
-      .setThumbnail('https://jisho.org/images/logo_static.png')
-      .setColor('GREY')
+      for ( const { slug, is_common, tags, japanese, senses } of res.data.filter( d => d.attribution.jmdict ).splice(0,3)) {
+        fields.push({
+          name: '\u200b',
+          value: `**${slug}** - ${is_common ? `Common Word` : `Uncommon Word`}\n**Kanji**: ${japanese.map( m => `${m.word ? `"${m.word}"` : ''} ${m.reading ? `*"(${m.reading})"*`:''}`).join(' • ')}\n**Romanized**: ${japanese.map( m => toRomaji(m.reading)).join(' • ')}\n**Definition**: ${senses[0].english_definitions}\n\n${senses[0].restrictions.length ? `\n**Restrictions**: ${senses[0].restrictions.join('\n')}**`:''}${senses[0].tags.length || senses[0].info.length ? `\n**Notes**:  ${senses[0].tags.join(' • ')}${senses[0].info.length ? ' • ' : ''}${senses[0].info.join(' • ')}` : ''}${senses[0].see_also.length ? `\n\n**See Also**: ${senses[0].see_also.join('\n')}` : ''}`,
+          inline: true
+        })
+      }
+
+      return message.channel.send( new MessageEmbed()
+        .setAuthor(`🇯🇵 • Search Results for ${query}!`)
+        .addFields(fields)
+        .addField('\u200b',`[External Link](https://jisho.org/search/${query} 'https://jisho.org/search/${query}')`)
+        .setColor('GREY')
+        .setFooter(`🇯🇵 • Jisho.org`)
     )
   }
 }

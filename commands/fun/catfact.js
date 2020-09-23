@@ -2,37 +2,30 @@ const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
 
 module.exports = {
-  config: {
-    name: "catfacts",
-    aliases: ['catfact','neko','cf'],
-    guildOnly: false,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: "fun",
-    description: "Generate a random useless cat facts",
-    examples: [],
-    parameters: []
-  },
-  run: async (client, message) => {
+  name: "catfacts"
+  , aliases: [
+    'catfact'
+    , 'neko'
+    , 'cf'
+  ]
+  , group: 'fun'
+  , description: 'Generate a random useless cat facts'
+  , clientPermissions: [
+    'EMBED_LINKS'
+  ]
+  , examples: []
+  , parameters: []
+  , run: async (client, message) => {
 
-    const data = await fetch("https://catfact.ninja/facts").then(res => res.json()).catch(()=>{})
+    const data = await fetch("https://catfact.ninja/facts").then(res => res.json()).catch(()=>null)
 
-    if (!data) return message.channel.send(error(`Oops! Catfact API is currently down`))
+    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! Catfact API is currently down!`)
 
-    const { data : [ cat ] } = data
+    const { data: [cat] } = data
 
     message.channel.send( new MessageEmbed()
-      .setThumbnail(`https://static.ezgif.com/images/loadcat.gif`)
+      .setThumbnail(`https://i.imgur.com/arkxS3f.gif`)
       .setColor('GREY')
       .setDescription(cat.fact))
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }

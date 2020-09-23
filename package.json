@@ -1,58 +1,48 @@
 {
-  "name": "mai-san",
-  "version": "2.4.0",
-  "description": "A simple, multi-functional Discord bot - Focuses on Anime Commands.",
+  "name": "mai",
+  "version": "3.0.0",
+  "description": "Discordbot written in discord.js@12.3.1",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": "12.x",
     "npm": "*"
   },
-  "keywords": [
-    "Mai",
-    "Mai Sakurajima",
-    "discord bot",
-    "discord.js"
-  ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/maisans-maid"
+    "url": "https://github.com/maisans-maid"
   },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "discord bot"
+  ],
   "author": "Sakurajimai#6742",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.2.1",
     "animequotes": "^1.1.2",
+    "bad-words": "^3.0.3",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
-    "chalk": "^4.0.0",
-    "danbooru": "^3.1.0",
-    "discord.js": "^12.2.0",
-    "ffmpeg-static": "^4.2.0",
-    "mal-scraper": "^2.6.8",
-    "moment": "^2.24.0",
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "erlpack": "^0.1.3",
+    "he": "^1.2.0",
+    "html2markdown": "^1.1.0",
+    "mal-scraper": "^2.11.0",
+    "moment": "^2.26.0",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.9.10",
-    "nekos-image-api": "^1.3.3",
-    "nekos.life": "^2.0.6",
+    "mongoose": "^5.9.19",
+    "nekos.life": "^2.0.7",
     "nhentai-api": "^3.0.2",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "node-kitsu": "^1.1.1",
-    "os": "^0.1.1",
-    "poketo": "^0.6.18",
-    "public-waifulist": "0.0.2",
     "relevant-urban": "^2.0.0",
     "require-text": "0.0.1",
-    "sodium": "^3.0.2",
-    "star-labs": "^1.1.2",
     "utf-8-validate": "^5.0.2",
     "wanakana": "^4.0.2",
-    "yt-search": "^1.1.2",
-    "ytdl-core": "^2.1.1"
-  },
-  "devDependencies": {
-    "eslint": "^7.0.0"
+    "zlib-sync": "^0.1.7"
   }
 }

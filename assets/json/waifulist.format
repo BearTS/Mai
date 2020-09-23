@@ -1,0 +1,21 @@
+[
+{
+  "id": 0,
+  "names":{
+    "en": "",
+    "jp": "",
+    "alt": null
+  },
+  "from":{
+    "name": "",
+    "type": ""
+  },
+  "images":[],
+  "statistics":{
+    "fav": 0,
+    "love": 0,
+    "hate": 0,
+    "upvote": 0,
+    "downvote": 0
+  }
+]

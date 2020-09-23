@@ -2,39 +2,49 @@ const { MessageEmbed } = require("discord.js")
 const fetch = require('node-fetch')
 
 module.exports = {
-  config: {
-    name: "meme",
-    aliases: ["humorme"],
-    guildOnly: false,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: "fun",
-    description: "Generate a random meme from a selected subreddit." ,
-    examples: ['meme'],
-    parameters: []
-  },
-  run: async ( client, message ) => {
+  name: 'meme'
+  , aliases: [
+    'humorme'
+  ]
+  , group: 'fun'
+  , description: 'Generate a random meme from a selected subreddit.'
+  , clientPermissions: [
+    'EMBED_LINKS'
+  ]
+  , examples: [
+    'meme'
+  ]
+  , parameters: []
+  , run: async ( client, message ) => {
 
-  const data = await fetch(`https://meme-api.herokuapp.com/gimme`).then(res => res.json())
+    const data = await fetch(`https://meme-api.herokuapp.com/gimme`)
+            .then(res => res.json())
+              .catch(()=>null)
 
-  if (!data) return message.channel.send(error(`Sorry, seems like i can't connect to memeAPI.`))
+    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Sorry, seems like i can't connect to memeAPI.`)
 
-  const { title, postLink, url, subreddit } = data
+    const {
+        title
+      , postLink
+      , url
+      , subreddit
+    } = data
 
-  return message.channel.send(new MessageEmbed()
-    .setAuthor(title, null, postLink)
-    .setColor('GREY')
-    .setImage(url)
-    .setFooter(subreddit)
+    return message.channel.send(
+
+      new MessageEmbed()
+      .setAuthor(
+          title
+        , null
+        , postLink
+      )
+
+      .setColor('GREY')
+
+      .setImage(url)
+
+      .setFooter(subreddit)
+
     )
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setDescription(`\u200B\n${err}\n\u200B`)
-  .setColor('RED')
 }

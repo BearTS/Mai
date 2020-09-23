@@ -1,31 +1,22 @@
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
-  config: {
-    name: "color",
-    aliases: ['colour','hex'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: "utility",
-    description: "Shows a random color or a preview of the given color!",
-    examples: ["color [color]"],
-    parameters: ['color']
-  },
-  run: (client, message, args) => {
+  name: 'color',
+  aliases: ['colour','hex'],
+  group: 'utility',
+  description: "Shows a random color or a preview of the given color!",
+  examples: ["color [color]"],
+  parameters: ['color'],
+  run: async (client, message, args) => {
 
-    let color;
+    const color = args.length && args.join('').startsWith('#') && /(0x)?[0-9a-f]{6}/.test(args.join('').split('#').slice(1)[0])
+                  ? args.join('')
+                  : `#${ Math.floor(Math.random() * 16777215).toString(16) }`
 
-    if (!args.length ) color = `#${ Math.floor(Math.random() * 16777215).toString(16) }`
-
-    if (args.join('').startsWith('#') && /(0x)?[0-9a-f]{6}/.test(args.join('').split('#').slice(1)[0])) color = args.join('')
-
-    else color = `#${ Math.floor(Math.random() * 16777215).toString(16) }`
-
-    return  message.channel.send( new MessageEmbed().setColor(color).setThumbnail(`https://dummyimage.com/125/${color.slice(1)}`).setFooter(color))
+    return  message.channel.send( new MessageEmbed()
+              .setColor(color)
+              .setImage(`https://dummyimage.com/200/${color.slice(1)}`)
+              .setFooter(color.slice(1)))
 
   }
 }

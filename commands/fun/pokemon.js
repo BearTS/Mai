@@ -1,70 +1,212 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require("discord.js")
 const fetch = require('node-fetch')
 
 module.exports = {
-  config: {
-    name: "pokemon",
-    aliases: ["pokedex",'pokémon','pokédex'],
-    guildOnly: false,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: "fun",
-    description: 'Find a specific pokemon using the pokédex',
-    examples: ['pokedex Snorlax','pokémon meowth'],
-    parameters: []
-  },
-  run: async ( client, message, args) => {
+  name: 'pokemon'
+  , aliases: [
+    'pokedex'
+    , 'pokémon'
+    , 'pokédex'
+  ]
+  , group: 'fun'
+  , description: 'Find a specific pokemon using the pokédex'
+  , clientPermissions: [
+    'EMBED_LINKS'
+  ]
+  , examples: [
+    'pokedex Snorlax'
+    , 'pokémon meowth'
+  ]
+  , parameters: []
+  , run: async ( client, message, args ) => {
 
-    if (!args.length) args = ['pikachu']
+    if (!args.length) args = ['Pikachu']
 
-    const msg = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nSearching pokédex for **${args.join(' ')}**.\n\u200B`).setThumbnail('https://i.imgur.com/u6ROwvK.gif'))
+    const prompt = await message.channel.send(
+      new MessageEmbed()
+      .setColor('YELLOW')
+      .setDescription(`\u200B\nSearching pokédex for **${args.join(' ')}**.\n\u200B`)
+      .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+    )
 
-    const data = await fetch(`https://some-random-api.ml/pokedex?pokemon=${encodeURI(args.join(' '))}`).then(res => res.json()).catch(()=>{})
+    const data = await fetch(`https://some-random-api.ml/pokedex?pokemon=${encodeURI(args.join(' '))}`)
+                  .then(res => res.json())
+                    .catch(()=>null)
 
-    if (!data) try {
-      return msg.edit(err(`Oops! pokédex is currently down!`))
-    } catch (err) {
-      return message.channel.send(err(`Oops! pokédex is currently down!`))
-    }
+      let errmsg = new MessageEmbed()
+                    .setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author},  Pokédex is currently down!\n\u200b`)
+                    .setColor('RED')
 
-    const { error, id, name, sprites , description, type, abilities, height, weight, gender, egg_groups, stats, family, generation } = data
-    const { hp, attack, defense, sp_atk, sp_def, speed } = stats ? stats : { hp: null, attack: null, defense: null, sp_atk: null, sp_def: null, speed: null }
-    const { evolutionLine, evolutionStage } = family ? family : { evolutionLine : null, evolutionStage: null }
+    if (!data) return await prompt.edit(errmsg).catch(()=>null)
+                      ? null
+                      : message.channel.send(errmsg).catch(()=>null)
 
-    if (error) try {
-        return msg.edit(err(`Oops! I can't find that pokémon.`).setThumbnail('https://i.imgur.com/2vxrrKw.gif'))
-      } catch (err) {
-        return message.channel.send(err(`Oops! I can't find that pokémon.`).setThumbnail('https://i.imgur.com/2vxrrKw.gif'))
-      }
+      errmsg.setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author},  I can't seem to find **${args.join(' ')}** from the Pokédex!\n\u200b`)
+
+    if (data.error) return await prompt.edit(errmsg).catch(()=>null)
+                            ? null
+                            : message.channel.send(errmsg).catch(()=>null)
+
+    const {
+        error
+      , id
+      , name
+      , sprites
+      , description
+      , type
+      , abilities
+      , height
+      , weight
+      , gender
+      , egg_groups
+      , stats
+      , family
+      , generation } = data[0]
+
+    const {
+        hp
+      , attack
+      , defense
+      , sp_atk
+      , sp_def
+      , speed } = stats
+                  ? stats
+                  : { hp: null, attack: null, defense: null, sp_atk: null, sp_def: null, speed: null }
+
+    const {
+        evolutionLine
+      , evolutionStage } = family
+                           ? family
+                           : { evolutionLine : null, evolutionStage: null }
 
     const embed =  new MessageEmbed()
-    .setAuthor(`Pokédex entry #${id} ${name.toUpperCase()}`,'https://images-ext-2.discordapp.net/external/tqmeVg9xEWxDkURYe5So-KVG-4kCoIxyhDUcuRxBh9k/http/pngimg.com/uploads/pokemon_logo/pokemon_logo_PNG12.png','https://pokemon.com/us')
+
+    .setAuthor(
+      `Pokédex entry #${id} ${name.toUpperCase()}`
+      , 'https://images-ext-2.discordapp.net/external/tqmeVg9xEWxDkURYe5So-KVG-4kCoIxyhDUcuRxBh9k/http/pngimg.com/uploads/pokemon_logo/pokemon_logo_PNG12.png'
+      , 'https://pokemon.com/us'
+    )
+
     .setColor(`GREY`)
-    .setThumbnail(sprites ? sprites.animated ? sprites.animated : sprites.normal ? sprites.normal : null : null)
-    .addField('Info', description ? description : '???')
-    .addField('Type', type.length ? type.join('\n') : '???',true)
-    .addField('Abilities', abilities && abilities.length ? abilities.join('\n') : '???',true)
-    .addField('Build',`\u200B${height ? ` Height: ${height}\n` : '\u200B' } ${weight ? `Weight: ${weight}\n` : `\u200B`} ${gender && gender.length ? `Gender: ${gender.join(', ')}\n` : `\u200B` }`,true)
-    .addField('Egg Groups',`\u200B${ egg_groups && egg_groups.length ? egg_groups.join('\n') : '\u200B'}`,true)
-    .addField('Stats',`\u200B${hp ? ` HP: ${hp}\n`:'\u200B'} ${attack ? `ATK: ${attack}\n`:'\u200B'} ${defense ? `DEF: ${defense}\n` : '\n'}`, true)
-    .addField('\u200B',`${sp_atk ? `SP.ATK: ${sp_atk}\n` : '\u200B'} ${sp_def ? `SP.DEF: ${sp_def}\n` : '\u200B'} ${speed ? `SPEED: ${speed}\n` : `\u200B`}`,true)
-    .addField('Generation',generation ? generation : '\u200B',true)
-    .addField('Evolution Line',evolutionLine.length ? evolutionLine.join(' -> ') : `\u200B`,true)
+
+    .setThumbnail(
+      sprites
+      ? sprites.animated
+        ? sprites.animated
+        : sprites.normal
+          ? sprites.normal
+          : null
+        : null
+      )
+
+    .addField(
+      'Info'
+      , description
+        ? description
+        : '???'
+      )
+
+    .addField(
+      'Type'
+      , type.length
+        ? type.join('\n')
+        : '???'
+      , true
+    )
+
+    .addField(
+      'Abilities'
+      , abilities && abilities.length
+        ? abilities.join('\n')
+        : '???'
+      , true
+    )
+
+    .addField(
+      'Build'
+      , `\u200B${
+          height
+          ? ` Height: ${height}\n`
+          : '\u200B'
+        } ${
+          weight
+          ? `Weight: ${weight}\n`
+          : `\u200B`
+        } ${
+          gender && gender.length
+          ? `Gender: ${gender.join(', ')}\n`
+          : `\u200B`
+        }`
+      , true
+    )
+
+    .addField(
+      'Egg Groups'
+      , `\u200B${
+          egg_groups && egg_groups.length
+          ? egg_groups.join('\n')
+          : '\u200B'
+        }`
+      , true
+    )
+
+    .addField(
+      'Stats'
+      , `\u200B${
+          hp
+          ? ` HP: ${hp}\n`
+          :'\u200B'
+        } ${
+          attack
+          ? `ATK: ${attack}\n`
+          :'\u200B'
+        } ${
+          defense
+          ? `DEF: ${defense}\n`
+          : '\n'
+        }`
+      , true
+    )
+
+    .addField(
+      '\u200B'
+      , `${
+          sp_atk
+          ? `SP.ATK: ${sp_atk}\n`
+          : '\u200B'
+        } ${
+          sp_def
+          ? `SP.DEF: ${sp_def}\n`
+          : '\u200B'
+        } ${
+          speed
+          ? `SPEED: ${speed}\n`
+          : `\u200B`
+        }`
+      , true
+    )
+
+    .addField(
+      'Generation'
+      , generation
+        ? generation
+        : '\u200B'
+      , true
+    )
+
+    .addField(
+      'Evolution Line'
+      , evolutionLine.length
+        ? evolutionLine.join(' -> ')
+        : `\u200B`
+      , true
+    )
+
     .setFooter('The Pokémon Company (c)')
-    try {
-      return msg.edit(embed)
-    } catch (err){
-      return message.channel.send(embed)
-    }
+
+    return await prompt.edit(embed).catch(()=>null)
+                  ? null
+                  : message.channel.send(embed).catch(()=>null)
 
   }
-}
-
-function err(err){
-  return new MessageEmbed()
-  .setDescription(`\u200B\n${err}\n\u200B`)
-  .setColor('RED')
 }

@@ -4,9 +4,9 @@ const xp = mongoose.Schema({
 
   guildID: String,
   userID: String,
-  points: Number,
-  level: Number,
-  bg: String
+  points: {type: Number, default: 0},
+  level: {type: Number, default: 1},
+  bg: {type: String, default: null}
 
 },{
 

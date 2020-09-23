@@ -1,10 +1,10 @@
-  <header>
-    <a href = 'https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303'>
-      <img align="right" src="https://files.catbox.moe/lha6ok.png" height="400">
-    </a>
+<header>
+  <a href = 'https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303'>
+    <img align="right" src="https://files.catbox.moe/lha6ok.png" height="400">
+  </a>
 
 <h1> Mai <a href = 'https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303'>
-  <img src="https://files.catbox.moe/lha6ok.png" height="25">
+<img src="https://files.catbox.moe/lha6ok.png" height="25">
 </a></h1>
 
 #### A simple, multi-functional Discord bot by best girl written in discord.js 12.0.2 - Focuses more in anime..
@@ -30,7 +30,7 @@ Name | Description
 ***
 ## Command list
 <p>
-  <img src="https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_oryou__b2e7634047942a5a367dde6b5ed18622.png" height="500" title="Best Girl" align="left">
+<img src="https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_oryou__b2e7634047942a5a367dde6b5ed18622.png" height="500" title="Best Girl" align="left">
 </p>
 
 ### Action
@@ -45,7 +45,7 @@ Name | Description
 
 ###### [Back to Contents](#Contents)
 <p>
-   <img src = "https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_envyvanity__9754996d5fa61aa824a555c751a76a87.png" height="500" align="right">
+ <img src = "https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_envyvanity__9754996d5fa61aa824a555c751a76a87.png" height="500" align="right">
 </p>
 
 ### Anime
@@ -61,7 +61,7 @@ Name | Description
 
 ###### [Back to Contents](#Contents)
 <p>
-  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_huijin_zhi_ling__sample-355e85ddea98b2e14dda4d711cc1bd03.jpg" height="500" align="left">
+<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_huijin_zhi_ling__sample-355e85ddea98b2e14dda4d711cc1bd03.jpg" height="500" align="left">
 </p>
 
 ### Bot
@@ -72,7 +72,7 @@ Name | Description
 
 ###### [Back to Contents](#Contents)
 <p>
-  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_tousang__sample-40425a146441efacd1a2a2ace669d21c.jpg" height="500" align="right">
+<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_tousang__sample-40425a146441efacd1a2a2ace669d21c.jpg" height="500" align="right">
 </p>
 
 ### Core
@@ -87,7 +87,7 @@ Name | Description
 
 ###### [Back to Contents](#Contents)
 <p>
-  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_hizuki_higure__sample-1bf3c0cd9d9ec41fd6ea1d6220148a4a.jpg" height="500" align="left">
+<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_hizuki_higure__sample-1bf3c0cd9d9ec41fd6ea1d6220148a4a.jpg" height="500" align="left">
 </p>
 
 ### Fun
@@ -109,7 +109,7 @@ Name | Description
 
 ###### [Back to Contents](#Contents)
 <p>
-  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_daye_bie_qia_lian__sample-ccc7906a0edf45a51b2e2272b4d07910.jpg" height="500" align="right">
+<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_daye_bie_qia_lian__sample-ccc7906a0edf45a51b2e2272b4d07910.jpg" height="500" align="right">
 </p>
 
 ### Moderation
@@ -124,7 +124,7 @@ Name | Description
 
 ###### [Back to Contents](#Contents)
 <p>
-  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_moorina__sample-0da0faf5f26ef2dec91601b72e9eb5a8.jpg" height="500" align="left">
+<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_moorina__sample-0da0faf5f26ef2dec91601b72e9eb5a8.jpg" height="500" align="left">
 </p>
 
 ### Music <br>
@@ -139,7 +139,7 @@ Name | Description
 
 ###### [Back to Contents](#Contents)
 <p>
-  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_ale_nqki__sample-ae1a510d3c4360c062f607c4153de0fc.jpg" height="500" align="right">
+<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_ale_nqki__sample-ae1a510d3c4360c062f607c4153de0fc.jpg" height="500" align="right">
 </p>
 
 ### Owner
@@ -153,34 +153,34 @@ Name | Description
 
 ### Setup
 * `m!anischedule [subcommand]` Set up anime scheduling in your server.
-  * `m!anischedule add [MAL / AniList Link]` Adds new anime to watch new episodes of.
-  * `m!anischedule channel` Send the currently selected anime announcement channel.
-  * `m!anischedule clean` Purge completed shows from the channel's watch list.
-  * `m!anischedule help` Print out all available sub-commands with a short description.
-  * `m!anischedule list` Display all anime being watched that are still airing.
-  * `m!anischedule next` Display the next anime to air according to your list.
-  * `m!anischedule remove [MAL / AniList Link]` Removes an anime from the list.
-  * `m!anischedule setchannel` Set the channel for anime airdate announcements.
+* `m!anischedule add [MAL / AniList Link]` Adds new anime to watch new episodes of.
+* `m!anischedule channel` Send the currently selected anime announcement channel.
+* `m!anischedule clean` Purge completed shows from the channel's watch list.
+* `m!anischedule help` Print out all available sub-commands with a short description.
+* `m!anischedule list` Display all anime being watched that are still airing.
+* `m!anischedule next` Display the next anime to air according to your list.
+* `m!anischedule remove [MAL / AniList Link]` Removes an anime from the list.
+* `m!anischedule setchannel` Set the channel for anime airdate announcements.
 * `m!automsg [subcommand]` Set up the auto messages for this server.
-  * `m!automsg help` Print out all available sub-commands with a short description.
-  * `m!automsg goodbye` Toggle goodbye messages on this server.
-  * `m!automsg goodbyemsg` Set the goodbye message being sent by the bot.
-  * `m!automsg welcome ` Toggle welcome messages on this server.
-  * `m!automsg welcomemsg` Set the welcome message being sent by the bot.
-  * `m!pointsystem [subcommands]` Set up the point system for this server.
-  * `m!pointsystem economytoggle` Toggle economy system on/off for this server.
+* `m!automsg help` Print out all available sub-commands with a short description.
+* `m!automsg goodbye` Toggle goodbye messages on this server.
+* `m!automsg goodbyemsg` Set the goodbye message being sent by the bot.
+* `m!automsg welcome ` Toggle welcome messages on this server.
+* `m!automsg welcomemsg` Set the welcome message being sent by the bot.
+* `m!pointsystem [subcommands]` Set up the point system for this server.
+* `m!pointsystem economytoggle` Toggle economy system on/off for this server.
 * `m!automsg [subcommand]` Set up the point system for this server
-  * `m!pointsystem excemptedchannels` Display which channels have their xp disabled.
-  * `m!pointsystem help` Print out all available sub-commands with a short description.
-  * `m!pointsystem xpallow [channel]` Allow xp system on mentioned channel(s), if disabled.
-  * `m!pointsystem xpexcempt [channel]` Excempt xp system on mentioned channel(s), if enabled.
-  * `m!pointsystem xptoggle` Toggle the xp system on/off for this server
-  * `m!pointsystem xpreset` Reset the xp of all members in the server (Limited to Server Owner)
-  * `m!pointsystem economyreset` Reset the economy of all members in the server (Limited to Server Owner)
+* `m!pointsystem excemptedchannels` Display which channels have their xp disabled.
+* `m!pointsystem help` Print out all available sub-commands with a short description.
+* `m!pointsystem xpallow [channel]` Allow xp system on mentioned channel(s), if disabled.
+* `m!pointsystem xpexcempt [channel]` Excempt xp system on mentioned channel(s), if enabled.
+* `m!pointsystem xptoggle` Toggle the xp system on/off for this server
+* `m!pointsystem xpreset` Reset the xp of all members in the server (Limited to Server Owner)
+* `m!pointsystem economyreset` Reset the economy of all members in the server (Limited to Server Owner)
 
 ###### [Back to Contents](#Contents)
 <p>
-  <img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_otono_fei__sample-0e8aff25cb5033d101f097f2dbf36ef1.jpg" height="500" align="right">
+<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_otono_fei__sample-0e8aff25cb5033d101f097f2dbf36ef1.jpg" height="500" align="right">
 </p>
 
 ### Utility

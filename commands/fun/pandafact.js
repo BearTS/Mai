@@ -1,26 +1,28 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require("discord.js")
 const fetch = require('node-fetch')
 
 module.exports = {
-  config: {
-    name: "pandafact",
-    aliases: ["pf",'pandafact'],
-    guildOnly: false,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: null,
-    group: "fun",
-    description: "Generate a random useless panda facts." ,
-    examples: ['pandafact'],
-    parameters: []
-  },
-  run: async ( client, message) => {
+  name: 'pandafact'
+  , aliases: [
+    'pf'
+    , 'pandafact'
+  ]
+  , group: 'fun'
+  , description: 'Generate a random useless panda facts.'
+  , clientPermissions: [
+    'EMBED_LINKS'
+  ]
+  , examples: [
+    'pandafact'
+  ]
+  , parameters: []
+  , run: async ( client, message ) => {
 
-    const data = await fetch("https://some-random-api.ml/facts/panda").then(res => res.json()).catch(()=>{})
+    const data = await fetch("https://some-random-api.ml/facts/panda")
+            .then(res => res.json())
+              .catch(()=>null)
 
-    if (!data) return message.channel.send(error(`Oops! Pandafact API is currently down`))
+    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Pandafact API is currently down.`)
 
     const { fact } = data
 
@@ -30,10 +32,4 @@ module.exports = {
       .setDescription(fact)
     )
   }
-}
-
-function error(err){
-  return new MessageEmbed()
-  .setDescription(`\u200B\n${err}\n\u200B`)
-  .setColor('RED')
 }

@@ -1,82 +1,155 @@
 const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
+const html2md = require('html2markdown')
+const { decode } = require('he')
+const { TextHelpers: { textTrunctuate }} = require('../../helper')
 
 module.exports = {
-  config: {
-    name: "steam",
-    aliases: ['game','gaben'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown:{
-      time: 10,
-      msg: "Accessing Steam has been rate limited to 1 use per user per 10 seconds"
-    },
-    group: "utility",
-    description: "Searches steam for games!",
-    examples: ["steam [game title]"],
-    parameters: ['query']
+  name: 'steam',
+  aliases: [],
+  cooldown:{
+    time: 10000,
+    message: "Accessing Steam has been rate limited to 1 use per user per 10 seconds"
   },
+  group: "utility",
+  description: "Searches <:steam:726304530228183100> [Steam](https://store.steampowered.com/ 'Steam Homepage') for games!",
+  examples: ["steam [game title]"],
+  parameters: ['query'],
   run: async (client, message, args) => {
-  
-    const query = !args.length ? 'Doki Doki Literature Club' : args.join(' ')
 
-    const res = await fetch(`https://store.steampowered.com/api/storesearch/?cc=us&l=en&term=${encodeURI(query)}`).then(res => res.json()).catch(()=>{})
+    const query = !args.length
+                  ? 'Doki Doki Literature Club'
+                  : args.join(' ')
 
-    if (!res) return message.channel.send( new MessageEmbed().setColor('RED').setDescription('The SteamAPI did not respond. Please report this to the bot owner. The API might be down or there might be changes on the API itself.'))
+    const res = await fetch(`https://store.steampowered.com/api/storesearch/?cc=us&l=en&term=${encodeURI(query)}`)
+                  .then(res => res.json())
+                    .catch(()=>null)
 
-    if (!res.total) return message.channel.send( new MessageEmbed().setColor('RED').setDescription(`\u200B\n\nNo results found for **${args.join(' ')}**!`).setThumbnail('https://files.catbox.moe/zd5krc.png') )
+    if (!res
+      || !res.items
+      || !res.items.length
+      || !res.total)
+      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Could not find **${query}** on <:steam:726304530228183100> Steam.`)
 
-    const body = await fetch(`https://store.steampowered.com/api/appdetails/?appids=${res.items[0].id}`).then(res => res.json()).catch(()=>{})
+    const body = await fetch(`https://store.steampowered.com/api/appdetails/?appids=${res.items[0].id}`)
+                  .then(res => res.json())
+                    .catch(()=>null)
 
-    if (!body ) return message.channel.send( new MessageEmbed().setColor('RED').setDescription('The SteamAPI did not respond. Please report this to the bot owner. The API might be down or there might be changes on the API itself.'))
+    if (!body) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Could not find **${query}** on <:steam:726304530228183100> Steam.`)
 
-    const { data } = body[res.items[0].id.toString()]
-    const current = data.price_overview ? `$${roundTo(data.price_overview.final / 100 / 50.63,2)}` : 'Free';
-    const original = data.price_overview ? `$${roundTo(data.price_overview.initial / 100 / 50.63,2)}` : 'Free';
-    const price = current === original ? current : `~~${original}~~ ${current}`;
-    const platforms = [];
-    if (data.platforms) {
-      if (data.platforms.windows) platforms.push('Windows');
-      if (data.platforms.mac) platforms.push('Mac');
-      if (data.platforms.linux) platforms.push('Linux');
+    const { data } = body[res.items[0].id]
+
+    const current = data.price_overview
+                    ? `$${(data.price_overview.final / 100).toFixed(2)}`
+                    : 'Free'
+
+    const original = data.price_overview
+                    ? `$${(data.price_overview.initial / 100).toFixed(2)}`
+                    : 'Free';
+
+    const price = current === original
+                  ? current
+                  : `~~${original}~~ ${current}`;
+
+    const platformLogo = {
+        windows: '<:windows:726323689238560779>'
+      , mac: '<:mac:726323946206527499>'
+      , linux: '<:linux:726324195440721930>'
     }
 
-    message.channel.send( new MessageEmbed()
+    const platformrequirements = {
+        windows: 'pc_requirements'
+      , mac: 'mac_requirements'
+      , linux: 'linux_requirements'
+    }
+
+    const platforms = data.platforms
+                      ? Object.entries(data.platforms)
+                        .filter( ([platform, bool]) => bool)
+                          .map( ([platform]) => {
+                            return {
+                              name: '\u200b'
+                            , inline: true
+                            , value: `${platformLogo[platform]} ${html2md(data[platformrequirements[platform]].minimum).split('* **Additional Notes:')[0]}`
+                          }
+                        })
+                      : []
+
+    platforms[0].name = 'System Requirements'
+
+    return message.channel.send( new MessageEmbed()
+
     .setColor(0x101D2F)
-    .setAuthor('Steam', 'https://i.imgur.com/xxr2UBZ.png', 'http://store.steampowered.com/')
+
+    .setAuthor(
+        'Steam'
+      , 'https://i.imgur.com/xxr2UBZ.png'
+      , 'http://store.steampowered.com/'
+    )
+
     .setTitle(data.name)
+
     .setURL(`http://store.steampowered.com/app/${data.steam_appid}`)
+
     .setImage(res.items[0].tiny_image)
-    .addField('Price', `•\u2000 ${price}`, true)
-    .addField('Metascore', `•\u2000 ${data.metacritic ? data.metacritic.score : '???'}`, true)
-    .addField('Recommendations', `•\u2000 ${data.recommendations ? data.recommendations.total : '???'}`, true)
-    .addField('Platforms', `•\u2000 ${platforms.join(', ') || 'None'}`, true)
-    .addField('Release Date', `•\u2000 ${data.release_date ? data.release_date.date : '???'}`, true)
-    .addField('DLC Count', `•\u2000 ${data.dlc ? data.dlc.length : 0}`, true)
-    .addField('Developers', `•\u2000 ${data.developers ? data.developers.join(', ') || '???' : '???'}`, true)
-    .addField('Publishers', `•\u2000 ${data.publishers ? data.publishers.join(', ') || '???' : '???'}`, true)
-    .addField('\u200B','\u200B',true)
+
+    .addField(
+        'Price'
+      , `•\u2000 ${price}`
+      , true
+    )
+
+    .addField(
+        'Metascore'
+      , `•\u2000 ${
+          data.metacritic
+          ? data.metacritic.score
+          : '???'
+        }`
+      , true
+    )
+
+    .addField(
+        'Release Date'
+      , `•\u2000 ${
+          data.release_date
+          ? data.release_date.date
+          : '???'
+        }`
+      , true
+    )
+
+    .addField(
+        'Developers'
+      , data.developers.map( m => '• ' + m ).join('\n')
+      , true
+    )
+
+    .addField(
+        'Categories'
+      , data.categories.map( m => '• ' + m.description).join('\n')
+      , true
+    )
+
+    .addField(
+        'Genres'
+      , data.genres.map( m => '• ' + m.description).join('\n')
+      , true
+    )
+
+    .addField(
+        '\u200b'
+      , textTrunctuate(decode(data.detailed_description.replace(/(<([^>]+)>)/ig,' ')),980)
+    )
+
+    .addField(
+        'Supported Languages'
+      , `•\u2000 ${textTrunctuate(html2md(data.supported_languages),997)}`
+    )
+
+    .addFields(platforms)
+
+    .setFooter(`©️ Steam.Inc • http://store.steampowered.com/app/${data.steam_appid}`)
     )
   }
-}
-
-function roundTo(n, digits) {
-    var negative = false;
-    if (digits === undefined) {
-        digits = 0;
-    }
-        if( n < 0) {
-        negative = true;
-      n = n * -1;
-    }
-    var multiplicator = Math.pow(10, digits);
-    n = parseFloat((n * multiplicator).toFixed(11));
-    n = (Math.round(n) / multiplicator).toFixed(2);
-    if( negative ) {
-        n = (n * -1).toFixed(2);
-    }
-    return n;
 }

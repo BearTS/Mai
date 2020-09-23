@@ -1,59 +1,60 @@
-const { MessageEmbed } = require('discord.js')
-
 module.exports = {
-  config: {
-    name: "flip",
-    aliases: ['coinflip','coin','tosscoin','tc'],
-    guildOnly: true,
-    ownerOnly: false,
-    adminOnly: false,
-    permissions: null,
-    clientPermissions: null,
-    cooldown: {
-      time: 5,
-      msg: "You still have a pending tosscoin."
-    },
-    group: "fun",
-    description: "Win or Lose, Flip a Coin [Head or Tails]" ,
-    examples: ['flip head','tc tails @user'],
-    parameters: []
-  },
-  run:  async ( client, message, [choice, mention] ) => {
+  name: 'flip'
+  , aliases: [
+    'coinflip'
+    , 'coin'
+    , 'tosscoin'
+    , 'tc'
+  ]
+  , cooldown: {
+    time: 5000
+    , message: 'You still have a pending tosscoin.'
+  }
+  , group: 'fun'
+  , description: 'Win or Lose, Flip a Coin [Head or Tails]'
+  , examples: [
+    'flip head'
+  ]
+  , parameters: []
+  , run: async ( client, message, [ choice ]) => {
 
-    if (!choice) return message.channel.send(error(`Please specify if head or tail.`))
+    if (!choice || !['head','heads','h','tail','tails','t'].includes(choice.toLowerCase()))
+      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please specify if \`[HEAD]\` or \`[TAILS]\``)
 
-    if (!['head','heads','h','tail','tails','t'].includes(choice.toLowerCase())) return message.channel.send(error(`Please specify if head or tail.`))
+    let win = Math.round(Math.random())
 
-    let win = Math.floor(Math.random()*100) > 50
+    const results = [
+      {
+          tile: 'Heads'
+        , children: [ 'head','heads','h' ]
+      },
+      {
+          tile: 'Tails'
+        , children: [ 'tail','tails','t' ]
+      }
+    ]
 
-    const match = mention ? mention.match(/\d{18}/) : undefined
+    const prompt = await message.channel
+                    .send(`${message.author} tossed a coin! Betting for **${results.find(r => r.children.includes(choice.toLowerCase())).tile}**...`)
 
-    mention = mention && match ? (message.guild.members.cache.get(match[0]) || await message.guild.members.fetch(match[0])) : undefined
+    const decision = `${
+        win
+        ? '`✅`' : '<:cancel:712586986216489011>'
+      } ${
+        message.author
+      }! You ${
+        win
+        ? 'won'
+        : 'lost'
+      } the bet.\nYour Choice: ${
+        results.find(r => r.children.includes(choice.toLowerCase())).tile
+      }\nResult: ${
+        results.find(r => !r.children.includes(choice.toLowerCase())).tile
+      }\n\u200b`
 
-    if (mention && (mention.id === client.user.id || message.member.id === mention.id)) mention = undefined
-
-    const prompt = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`${message.author} has flipped a coin${mention ? ` vs ${mention}` : ''}!`)).catch(()=>{})
-
-    setTimeout(()=>{
-
-      const embed = new MessageEmbed()
-        .setAuthor(`Flip coin result: ${win ? 'WON!' : 'LOST'}`)
-        .setColor(win ? 'GREEN' : 'RED')
-        .setDescription(`Your choice: ${[{a:'h',b:'head',c:'heads',d:'Heads'},{a:'t',b:'tail',c:'tails',d:'Tails'}].find(m=> m.a === choice.toLowerCase() || m.b === choice.toLowerCase() || m.c === choice.toLowerCase()).d}\n\n`)
-        .addField(`\u200B`,`You ${win ? 'won' : 'lost'} a flip match against ${mention ? mention : 'me'}!`)
-        if (prompt.deleted) return message.channel.send(embed)
-
-        return prompt.edit(embed)
-
-    },5000)
+    setTimeout(async() => await prompt.edit(decision).catch(()=>null)
+                          ? null
+                          : message.channel.send(decision).catch(()=>null) , 5000)
 
   }
-}
-
-module.exports.run =
-
-function error(err){
-  return new MessageEmbed()
-  .setColor('RED')
-  .setDescription(`\u200B\n${err}\n\u200B`)
 }
