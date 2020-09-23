@@ -3,7 +3,7 @@ const requireText = require('require-text')
 module.exports = {
 
   //text Helpers
-    TextHelpers: require('./utilities/String Utilities.js')
+    TextHelpers: require('./utilities/String Utilities')
 
   //GraphiQl Templates
   , NextAirDate_NoQuery: requireText('./assets/graphql/NextAirDateWithoutQuery.graphql', require)
@@ -14,18 +14,18 @@ module.exports = {
 
   //Anilist Tools
   , AniListQuery: require('./utilities/Anilist Query')
-  , AniListSchedule: require('./utilities/Anilist Schedule.js')
+  , AniListSchedule: require('./utilities/Anilist Schedule')
 
   //Error Tools
-  , ErrorTools: require('./utilities/Errors.js')
+  , ErrorTools: require('./utilities/Errors')
 
   //Mongoose Models
   , MongooseModels: {
-      guildInviteSchema: require('./models/guildInviteSchema.js')
-    , guildProfileSchema: require('./models/guildProfileSchema.js')
-    , guildWatchlistSchema: require('./models/guildWatchlistSchema.js')
-    , malProfileSchema: require('./models/malProfileSchema.js')
-    , xpSchema: require('./models/xpSchema.js')
+      guildInviteSchema: require('./models/guildInviteSchema')
+    , guildProfileSchema: require('./models/guildProfileSchema')
+    , guildWatchlistSchema: require('./models/guildWatchlistSchema')
+    , malProfileSchema: require('./models/malProfileSchema')
+    , xpSchema: require('./models/xpSchema')
   }
 
   //Databases
@@ -37,20 +37,20 @@ module.exports = {
 
   //Classes
   , Classes: {
-      Paginate: require('./struct/Paginate.js')
+      Paginate: require('./struct/Paginate')
   }
 
   , Quiz: {
-      collectPlayers: require('./utilities/quiz/collectPlayers.js')
-    , loadQuestions: require('./utilities/quiz/loadQuestions.js')
-    , sendQuestion: require('./utilities/quiz/sendQuestion.js')
+      collectPlayers: require('./utilities/quiz/collectPlayers')
+    , loadQuestions: require('./utilities/quiz/loadQuestions')
+    , sendQuestion: require('./utilities/quiz/sendQuestion')
   }
 
   //XP
-  , addXP: require('./utilities/Add XP.js')
+  , addXP: require('./utilities/Add XP')
 
   //Permissions Checker
-  , PermissionsCheck: require('./utilities/Permissions Checker.js')
-  , CooldownsCheck: require('./utilities/Cooldowns Checker.js')
+  , PermissionsCheck: require('./utilities/Permissions Checker')
+  , CooldownsCheck: require('./utilities/Cooldowns Checker')
 
 }
