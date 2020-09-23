@@ -13,7 +13,7 @@ module.exports = {
   , Watching: requireText('./assets/graphql/Watching.graphql',  require)
 
   //Anilist Tools
-  , AniListQuery: require('./utilities/AnilistQuery.js')
+  , AniListQuery: require('./utilities/Anilist Query')
   , AniListSchedule: require('./utilities/Anilist Schedule.js')
 
   //Error Tools
