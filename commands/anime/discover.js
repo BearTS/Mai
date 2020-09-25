@@ -45,7 +45,7 @@ module.exports = {
   , run: async ( client, message, [category] ) => {
 
     if (!category || !['a','anime','ani','m','manga','b'].includes(category.toLowerCase()))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, please specify if it is an \`ANIME\` or \`MANGA\``)
+      return message.channel.send(`<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000${message.author}, please specify if it is an \`ANIME\` or \`MANGA\``)
 
     if (['a','anime','ani'].includes(category.toLowerCase())) {
         let data = []
@@ -105,7 +105,7 @@ module.exports = {
       collector.on('collect', async ({ emoji: { name }, users }) => {
         if ((next instanceof GuildEmoji && name === next.name) || next === name){
           await discoveryPrompt.edit(discoveryPages.next())
-          if (discoveryPages.currentIndex == discoveryPages.size-1) return collector.stop()
+          if (discoveryPages.currentIndex == discoveryPages.size - 1) return collector.stop()
         }
         await users.remove(message.author.id)
         timeout.refresh()
@@ -170,7 +170,7 @@ module.exports = {
     collector.on('collect', async ({ emoji: { name }, users }) => {
       if ((next instanceof GuildEmoji && name === next.name) || next === name){
         await discoveryPrompt.edit(discoveryPages.next())
-        if (discoveryPages.currentIndex == discoveryPages.size-1) return collector.stop()
+        if (discoveryPages.currentIndex == discoveryPages.size - 1) return collector.stop()
       }
       await users.remove(message.author.id)
       timeout.refresh()

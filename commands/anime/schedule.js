@@ -32,7 +32,7 @@ module.exports = {
   , guildOnly: true
   , cooldown: {
     time: 60000
-    , message: 'You are going to fast! Please slow down to avoid being rate-limited!'
+    , message: 'You are going too fast! Please slow down to avoid being rate-limited!'
   }
   , clientPermissions: [
     'EMBED_LINKS'
@@ -109,7 +109,8 @@ module.exports = {
               ? licensors.join(' • ')
               : 'None', true)
 
-          .setFooter(`MyAnimeList.net • Search Duration: ${(elapsed / 1000).toFixed(2)} seconds • Page ${pages.size} of ${res[day].length}`))
+          .setFooter(`MyAnimeList.net\u2000\u2000•\u2000\u2000Search Duration: ${(elapsed / 1000).toFixed(2)} seconds\u2000\u2000•\u2000\u2000Page ${pages.size === null ? 1 : pages.size + 1} of ${res[day].length}`,'https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ'))
+
       }
 
       msg = await msg.edit(pages.currentPage).catch(()=>null)
