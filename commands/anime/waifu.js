@@ -43,6 +43,8 @@ if (!message.channel.nsfw)
 
     const no = Math.floor(Math.random() * images.length)
 
+    message.channel.startTyping()
+
     message.channel.send( new MessageEmbed()
 
       .setAuthor(`${
@@ -65,7 +67,14 @@ if (!message.channel.nsfw)
           type
         }*\n\n\u200b`)
 
-      .setImage(images[no])
+      .attachFiles([
+        {
+          attachment: images[no],
+          name: 'waifu.jpg'
+        }
+      ])
+
+      .setImage('attachment://waifu.jpg')
 
       .setFooter(`💖 ${
           ( 100 * (((1 - hate / (love + fav)) * 0.6) + ((upvote / (upvote + downvote)) * 0.4)) ).toFixed(2)
@@ -76,5 +85,7 @@ if (!message.channel.nsfw)
         }`)
 
     ).then( m => m.react('💖'))
+
+    return message.channel.stopTyping()
   }
 }
