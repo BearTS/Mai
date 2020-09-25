@@ -56,8 +56,6 @@ module.exports = {
     const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(args.join(' '))}&page=1`)
                         .then( res => res.json())
 
-   console.log(data)
-
       embed.setColor('RED')
            .setThumbnail('https://i.imgur.com/qkBQB8V.png')
            .setDescription(`\u200b\n\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000${
@@ -67,7 +65,7 @@ module.exports = {
                : null)
              }\n\u200b`)
 
-    if (!data || data.error || !data.results.length)
+    if (!data || data.error || !data.length)
       return await msg.edit(embed).catch(()=> null)
              ? null
              : await message.channel.send(embed).then(()=> null)
