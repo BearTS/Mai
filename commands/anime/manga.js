@@ -53,19 +53,23 @@ module.exports = {
 
     let msg = await message.channel.send(embed)
 
-    const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(args.join(' '))}&page=1`)
+    const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(query)}&page=1`)
                         .then( res => res.json())
+
+                        console.log(!data.error && !data.results.length)
 
       embed.setColor('RED')
            .setThumbnail('https://i.imgur.com/qkBQB8V.png')
            .setDescription(`\u200b\n\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000${
-             jikanError(
+             !data.error && !data.results.length
+             ? `No results found for your query **${query}**`
+             : jikanError(
                data
                ? data.status
                : null)
              }\n\u200b`)
 
-    if (!data || data.error || !data.length)
+    if (!data || data.error || !data.results.length)
       return await msg.edit(embed).catch(()=> null)
              ? null
              : await message.channel.send(embed).then(()=> null)
@@ -90,7 +94,7 @@ module.exports = {
         .addField('Start Date', timeZoneConvert(res.start_date), true)
         .addField('End Date', res.end_date ? timeZoneConvert(res.end_date) : 'Unknown', true)
         .addField('\u200B','\u200B',true)
-        .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds • Page ${pages.size} of ${data.results.slice(0,10).length}`)
+        .setFooter(`MyAnimeList.net\u2000\u2000•\u2000\u2000Search Duration: ${(elapsed / 1000).toFixed(2)} seconds\u2000\u2000•\u2000\u2000Page ${pages.size === null ? 1 : pages.size + 1} of ${data.results.slice(0,10).length}`,'https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ')
       )
     }
 
