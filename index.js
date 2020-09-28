@@ -37,6 +37,7 @@ const mai = new Client({
 		, 'anime'
 		, 'bot'
 		, 'core'
+		,	'economy'
 		, 'fun'
 //	, 'games'
 		, 'moderation'
@@ -47,6 +48,7 @@ const mai = new Client({
 	,	collections: [
 			'memes'
 		, 'anidailyrec'
+		,	'economy'
 		, 'mangadailyrec'
 		, 'quiz'
 		, 'xp'

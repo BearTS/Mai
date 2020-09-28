@@ -13,6 +13,7 @@ module.exports = class GuildSettingProfile{
           active: data.isxpActive,
           exceptions: data.xpExceptions
         },
+        this.isEconomyActive = data.iseconomyActive,
         this.roles = {
           muted: data.muterole
         }

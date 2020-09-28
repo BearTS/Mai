@@ -21,7 +21,8 @@ module.exports = {
 
   //Mongoose Models
   , MongooseModels: {
-      guildInviteSchema: require('./models/guildInviteSchema')
+      bankSchema: require('./models/bankSchema')
+    , guildInviteSchema: require('./models/guildInviteSchema')
     , guildProfileSchema: require('./models/guildProfileSchema')
     , guildWatchlistSchema: require('./models/guildWatchlistSchema')
     , malProfileSchema: require('./models/malProfileSchema')
