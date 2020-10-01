@@ -79,7 +79,7 @@ module.exports = {
           .setDescription(`<@${documents[0].userID}> ranked the highest with **${commatize(documents[0].points)}**XP!\n\n\u200b`)
 
           .addFields(
-            documents.filter(a => a.points !== 0).slice(0,11).map((user, index) =>  {
+            documents.filter(a => a.points !== 0).slice(0,10).map((user, index) =>  {
               return {
                   name: '\u200B'
                 , inline: false
