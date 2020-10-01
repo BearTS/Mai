@@ -58,7 +58,7 @@ module.exports = {
     let percentage = null
 
     if (!first) {
-      for (const id of message.guild.members.cache.filter(m => !m.user.bot).keys())
+      for (const id of message.guild.members.cache.filter(m => !m.user.bot && m.user.id !== message.author.id).keys())
         first = first
                 ? (parseInt(message.member.id) + parseInt(id)) % 101 > first
                   ? id
@@ -103,6 +103,9 @@ module.exports = {
 
     if (!first)
       return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! The supplied ID is not a valid Discord User ID, or that member is not in this server!`)
+
+    if (first === message.author.id)
+      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! You cannot ship with yourself! That's just..... lonely.`)
 
     if (second && second.match(/\d{17,19}/)) {
     second = await message.guild.members.fetch(second.match(/\d{17,19}/)[0])
