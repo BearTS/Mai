@@ -89,7 +89,7 @@ module.exports = {
     const percentage = Math.round((currentLevel.curXP / currentLevel.maxXP) * 100)
 
     const rank = await xpSchema.find({ guildID: message.guild.id})
-      .then((res) => ordinalize(res.findIndex(user => user.userID === member.id) + 1))
+      .then((res) => ordinalize(res.sort((a,b) => b.points - a.points).findIndex(user => user.userID === member.id) + 1))
         .catch(() => null)
 
 
