@@ -24,7 +24,7 @@ module.exports = {
     const { data: [cat] } = data
 
     message.channel.send( new MessageEmbed()
-      .setThumbnail(`https://i.imgur.com/arkxS3f.gif`)
+      .setThumbnail(`https://i.imgur.com/KeitRew.gif`)
       .setColor('GREY')
       .setDescription(cat.fact))
   }
