@@ -4,6 +4,7 @@ module.exports = {
   name: 'respond',
   aliases: [],
   guildOnly: true,
+  adminOnly: true,
   group: 'moderation',
   description: 'Respond to user suggestion',
   examples: ['respond 690105173087223812 deny Doesn\'t make much sense to do this and it does not seem to have much support'],
