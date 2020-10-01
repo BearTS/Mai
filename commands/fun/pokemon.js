@@ -61,7 +61,7 @@ module.exports = {
       , egg_groups
       , stats
       , family
-      , generation } = data[0]
+      , generation } = data
 
     const {
         hp
