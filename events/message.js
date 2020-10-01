@@ -2,7 +2,7 @@ require('moment-duration-format')
 const { MessageEmbed, Collection } = require('discord.js')
 const CooldownManager = require('../struct/CooldownManager')
 const { duration } = require('moment')
-const { addXP, PermissionsCheck, CooldownsCheck } = require('../helper')
+const { addXP, PermissionsCheck, CooldownsCheck, Chatbot } = require('../helper')
 
 module.exports = async ( client, message ) => {
 
@@ -20,6 +20,24 @@ module.exports = async ( client, message ) => {
 
   if (message.author.id === client.user.id) client.messages.sent++
     else client.messages.received++
+
+  if (
+    ( message.content.startsWith(`<@${client.user.id}>`)
+    || message.content.startsWith(`<@!${client.user.id}>`))
+    && client.config.chatbot
+  ) {
+    message.channel.startTyping()
+    const response = await Chatbot(message.content.replace(new RegExp(`<@${client.user.id}>|<@!${client.user.id}>`),''))
+    setTimeout(()=> {
+      message.channel.stopTyping()
+      message.channel.send(response)
+    }, 1500)
+  }
+
+
+  if (
+        message.content.toLowerCase() === 'prefix'
+  ) return message.reply(`My prefix is **${prefix}**`)
 
 
   try {
@@ -63,14 +81,6 @@ module.exports = async ( client, message ) => {
   } catch (err) {
       return null
   }
-
-  if (
-        message.content.toLowerCase() === 'prefix'
-    ||  message.content.split(/ +/).length === 1
-    &&  message.mentions.users.size
-    &&  message.mentions.users.first().id === user.id
-  ) return message.reply(`My prefix is **${prefix}**`)
-
 
 
   if (message.content.startsWith(prefix)){

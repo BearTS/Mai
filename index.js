@@ -23,6 +23,7 @@ const mai = new Client({
 		,	restTimeOffset: 100,
 	}
 	,	bootTimeStart: start
+	, chatbot: true
 	,	enableDatabase: true
 	,	mongoSettings: {
 			useUnifiedTopology : true

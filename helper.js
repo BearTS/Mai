@@ -52,6 +52,11 @@ module.exports = {
 
   //Permissions Checker
   , PermissionsCheck: require('./utilities/Permissions Checker')
+
+  //Cooldowns Checker
   , CooldownsCheck: require('./utilities/Cooldowns Checker')
+
+  //Chatbot
+  , Chatbot: require('./utilities/Chatbot')
 
 }
