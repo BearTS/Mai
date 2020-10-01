@@ -16,11 +16,19 @@ module.exports = {
   , parameters: []
   , run: async (client, message) => {
 
+    const url = safe[Math.floor(Math.random() * safe.length)]
+
     return message.channel.send(
       new MessageEmbed()
         .setColor('GREY')
+        .attachFiles([
+          {
+            attachment: url,
+            name: `mai.${url.split('.').pop()}`
+          }
+        ])
         .setImage(
-          safe[Math.floor(Math.random() * safe.length)]
+          `attachment://mai.${url.split('.').pop()}`
       )
     )
   }
