@@ -39,7 +39,7 @@ module.exports = {
   if (!data)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000
+        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000
         ${message.member.displayName}, You don't have a **wallet** yet! You can't withdraw something you don't have.\n
         To create one, type \`${client.config.prefix}register\`.`
     ).setColor('RED')

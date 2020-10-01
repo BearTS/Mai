@@ -39,9 +39,8 @@ module.exports = {
   if (!data)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000
-        ${message.member.displayName}, You don't have a **wallet** yet! To create one, type \`${client.config.prefix}register\`.
-        \u2000\u2000\n\n\u200b`
+        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000
+        ${message.member.displayName}, You don't have a **wallet** yet! To create one, type \`${client.config.prefix}register\`.`
     ).setColor('RED')
   )
 
