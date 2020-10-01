@@ -21,6 +21,9 @@ module.exports = {
   ]
   , run: (client, message, [ query ]) => {
 
+    if (!query)
+    return message.reply(`You didn\'t specify the command group. Here are the valid command groups that i have:\n\n${client.config.commanddir.join(', ')}`)
+
     if (query && client.config.commanddir.includes(query.toLowerCase())){
 
       const fields = []
