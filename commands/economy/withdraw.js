@@ -87,7 +87,7 @@ module.exports = {
         `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, The amount to be withdrawn + your current wallet balance exceeds your wallet capacity.
 
-        The maximum amount to be withdrawn without causing a wallet overflow is **${commatize(20000 - data.data.wallet)}** coins.`
+        The maximum amount to be withdrawn without causing a wallet [overflow](https://github.com/maisans-maid/Mai/wiki/Economy#Overflow) is **${commatize(20000 - data.data.wallet)}** coins.`
     ).setColor('RED')
   )
 

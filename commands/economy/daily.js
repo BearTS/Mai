@@ -84,7 +84,7 @@ module.exports = {
       new MessageEmbed().setDescription(`
         **${message.member.displayName}**, you received **${commatize(amount)}** coins from daily rewards${
           overflow
-          ? ` but your wallet just overflowed. Instead of receiving the full amount, you'd only get **${
+          ? ` but your wallet just [overflowed](https://github.com/maisans-maid/Mai/wiki/Economy#Overflow). Instead of receiving the full amount, you'd only get **${
             commatize(amount - excess)
           }**(${
             excess

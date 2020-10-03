@@ -87,7 +87,7 @@ module.exports = {
             : ''
           }.
           \nTo check your balance, type \`${client.config.prefix}bal\`
-          Keep your wallet from overflowing by depositing some of your coins to the bank.
+          Keep your wallet from [overflowing](https://github.com/maisans-maid/Mai/wiki/Economy#Overflow) by depositing some of your coins to the bank.
       `).setColor('GREY')
     )
   ).catch(()=>
