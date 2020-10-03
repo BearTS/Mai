@@ -20,7 +20,7 @@ Commands: ||  ${client.commands.size}
 
 startScheduledAnnouncement(client)
 
-const loggingchannel = client.channels.cache.get('736504664815828992')
+const loggingchannel = client.channels.cache.get('761935856331128837')
 if (loggingchannel) loggingchannel.send(
     new MessageEmbed()
     .setColor('GREY')
