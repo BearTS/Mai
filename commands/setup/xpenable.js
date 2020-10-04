@@ -65,8 +65,6 @@ module.exports = {
     data.xpExceptions.splice(data.xpExceptions.indexOf(channel), 1)
   }
 
-  console.log(data.xpExceptions.map( c => client.channels.cache.get(c).name ))
-
   data.save()
   .then(()=>{
     client.guildsettings.profiles.get(message.guild.id).xp.exceptions = data.xpExceptions
@@ -76,11 +74,11 @@ module.exports = {
         + 'XP [Experience Points System] have been reenabled on '
         + avail.map(c => client.channels.cache.get(c).toString()).join(', ')
         + `${nonavail.length ? `\n\n⚠️\u2000\u2000|\u2000\u2000${nonavail.map(c => client.channels.cache.get(c).toString()).join(', ')} are not on excempted list.` : '' }`
-        + '\n\nTo see which channels do not give xp, use the command \`nonxpchannels\`'
+        + `\n\nTo see which channels do not give xp, use the command \`${client.config.prefix}nonxpchannels\``
       ).setColor('GREEN')
     )
   })
-  .catch((err)=> console.log(err)//message.channel.send('<:cancel:712586986216489011> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.')
+  .catch((err)=> essage.channel.send('<:cancel:712586986216489011> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.')
 )
 
   }
