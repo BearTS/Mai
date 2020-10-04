@@ -13,6 +13,7 @@ module.exports = (message, command) => {
     clientPermissions,
     cooldown,
     rankcommand,
+    economycommand
   } = command
 
   let reasons = []
@@ -85,23 +86,41 @@ module.exports = (message, command) => {
     || message.client.guildsettings.get(message.guild.id).xp.exceptions.includes(message.channel.id))
   ) reasons.push(
     !message.client.guildsettings.get(message.guild.id).xp.active
-    ? '**Disabled XP** - XP is currently disabled in this server. Contact server Administrator to enable.'
+    ? '**Disabled XP** - XP is currently disabled in this server.'
     : '**Disabled XP on Channel** - XP is currently disabled in this channel.'
   )
 
+  if (
+    guildOnly
+    && economycommand
+    && (!message.client.guildsettings.get(message.guild.id)
+    || !message.client.guildsettings.get(message.guild.id.isEconomyActive))
+  ) reasons.push(
+    '**Disabled Economy** - Economy has been **Disabled for this server**'
+  )
+
+  const embed = new MessageEmbed()
+  .setColor('ORANGE')
+  .setDescription(
+      '\u2000\u2000⚠️\u2000\u2000|\u2000\u2000Oops, Command execution was blocked due to the following reasons:\n\n'
+    + reasons.map(
+      reason => '• ' + reason
+    ).join('\n')
+  )
+
+  if (reasons.some(str => str.startsWith('**Disabled Economy')))
+  embed.addField('\u200b',`If you are a server administrator, you may reenable it by typing \`${message.client.config.prefix}economytoggle\``)
+
+  if (reasons.some(str => str.startsWith('**Disabled XP on Channel')))
+  embed.addField('\u200b',`If you are a server administrator, you may reallow it by typing **${message.client.config.prefix}xpenable ${message.channel}**`)
+
+  if (reasons.some(str => str.startsWith('**Disabled XP**')))
+  embed.addField('\u200b',`If you are a server administrator, you may reenable it by typing \`${message.client.config.prefix}xptoggle\` command`)
 
   return {
-      status: reasons.length
-        ? 'Denied'
-        : 'Accept'
-    , embed: new MessageEmbed()
-    .setColor('ORANGE')
-    .setDescription(
-        '⚠️ | Oops, Command execution was blocked due to the following reasons:\n\n'
-      + reasons.map(
-        reason => '• ' + reason
-      ).join('\n')
-    )
-  }
+    status: reasons.length
+      ? 'Denied'
+      : 'Accept'
+  , embed }
 
 }

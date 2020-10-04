@@ -6,20 +6,13 @@ module.exports = {
   name: 'transfer',
   aliases: ['give'],
   guildOnly: true,
+  economycommand: true,
   group: 'economy',
   clientPermissions: ['EMBED_LINKS'],
   description: 'Give some of your coins to your friends!',
   examples: ['transfer @user 500'],
   parameters: ['User Mention'],
   run: async (client, message, [friend = '', amount]) => {
-
-  if (!client.guildsettings.get(message.guild.id).isEconomyActive)
-  return message.channel.send(
-    new MessageEmbed().setDescription(`
-        \u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Economy has been **Disabled** for this server.
-        \nIf you are a server administrator, you may reenable it by typing \`${client.config.prefix}economytoggle\` command
-    `).setColor('RED')
-  )
 
   friend = friend.match(/\d{17,19}/) ? friend.match(/\d{17,19}/)[0] : null
   friend = message.guild.members.cache.get(friend)

@@ -7,20 +7,13 @@ module.exports = {
   name: 'deposit',
   aliases: ['dep'],
   guildOnly: true,
+  economycommand: true,
   group: 'economy',
   clientPermissions: ['EMBED_LINKS'],
   description: 'Deposit your money in a bank to safeguard your money!',
   examples: [],
   parameters: [],
   run: async (client, message, [amount]) => {
-
-  if (!client.guildsettings.get(message.guild.id).isEconomyActive)
-  return message.channel.send(
-    new MessageEmbed().setDescription(`
-        \u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Economy has been **Disabled** for this server.
-        \nIf you are a server administrator, you may reenable it by typing \`${client.config.prefix}economytoggle\` command
-    `).setColor('RED')
-  )
 
   let data = await model.bankSchema.findOne({
     guildID: message.guild.id,

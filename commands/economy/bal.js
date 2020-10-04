@@ -6,20 +6,13 @@ module.exports = {
   name: 'bal',
   aliases: ['balance','credits'],
   guildOnly: true,
+  economycommand: true,
   group: 'economy',
   clientPermissions: ['EMBED_LINKS'],
   description: 'Check your wallet, how much have you earned?',
   examples: [],
   parameters: [],
   run: async (client, message) => {
-
-  if (!client.guildsettings.get(message.guild.id).isEconomyActive)
-  return message.channel.send(
-    new MessageEmbed().setDescription(`
-        \u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Economy has been **Disabled** for this server.
-        \nIf you are a server administrator, you may reenable it by typing \`${client.config.prefix}economytoggle\` command
-    `).setColor('RED')
-  )
 
   let data = await model.bankSchema.findOne({
     guildID: message.guild.id,

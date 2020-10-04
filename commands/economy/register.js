@@ -6,20 +6,13 @@ module.exports = {
   name: 'register',
   aliases: [],
   guildOnly: true,
+  economycommand: true,
   group: 'economy',
   clientPermissions: ['EMBED_LINKS'],
   description: 'Start earning currency. Register to keep track of your earned currencies!',
   examples: [],
   parameters: [],
   run: async (client, message) => {
-
-  if (!client.guildsettings.get(message.guild.id).isEconomyActive)
-  return message.channel.send(
-    new MessageEmbed().setDescription(`
-        \u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Economy has been **Disabled** for this server.
-        \nIf you are a server administrator, you may reenable it by typing \`${client.config.prefix}economytoggle\` command
-    `).setColor('RED')
-  )
 
   let data = await model.bankSchema.findOne({
     guildID: message.guild.id,
