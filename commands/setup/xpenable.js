@@ -78,7 +78,7 @@ module.exports = {
       ).setColor('GREEN')
     )
   })
-  .catch((err)=> essage.channel.send('<:cancel:712586986216489011> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.')
+  .catch((err)=> message.channel.send('<:cancel:712586986216489011> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.')
 )
 
   }
