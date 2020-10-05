@@ -94,7 +94,7 @@ module.exports = (message, command) => {
     guildOnly
     && economycommand
     && (!message.client.guildsettings.get(message.guild.id)
-    || !message.client.guildsettings.get(message.guild.id.isEconomyActive))
+    || !message.client.guildsettings.get(message.guild.id).isEconomyActive)
   ) reasons.push(
     '**Disabled Economy** - Economy has been **Disabled for this server**'
   )
