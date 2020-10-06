@@ -27,6 +27,17 @@ module.exports = {
     if (!member)
       return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, cannot mute an invalid user!`)
 
+    if (message.member.roles.highest.position < member.roles.highest.position)
+      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, you cannot mute user whose roles are higher than yours!`)
+
+    if (member.id === client.user.id)
+      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, no don't mute me!`)
+
+    if (member.user.bot)
+      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, you cannot mute bots!`)
+
+    if (message.member.id === member.id)
+      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, you cannot mute yourself!`)
 
     if (member.roles.cache.has(mute.id))
       return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, **${member.user.tag}** is already muted!`)
