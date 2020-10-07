@@ -5,7 +5,7 @@ module.exports = {
   aliases: [],
   guildOnly: true,
   adminOnly: true,
-  group: 'setup',
+  group: 'core',
   description: 'See which channels do not give xp',
   examples: [],
   parameters: [],
