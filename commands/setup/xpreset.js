@@ -19,8 +19,8 @@ module.exports = {
   const continued = await new Promise( resolve => {
     const timeout = setTimeout(()=> collector.stop('TIMEOUT'), 30000)
     collector.on('collect', (message) => {
-      if (['y','yes'].includes(message.content.toLowerCase())) resolve(true)
-      if (['n','no'].includes(message.content.toLowerCase())) resolve(false)
+      if (['y','yes'].includes(message.content.toLowerCase())) return resolve(true)
+      if (['n','no'].includes(message.content.toLowerCase())) return resolve(false)
     })
     collector.on('end', () => resolve(false))
   })
@@ -29,7 +29,6 @@ module.exports = {
     return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, cancelled the xpreset command!`)
 
   return model.xpSchema.deleteMany({ guildID: message.guild.id}, (err,del) => {
-      console.log(err,del)
       message.channel.send(
         new MessageEmbed().setDescription(
             '\u2000\u2000<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
