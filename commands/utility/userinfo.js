@@ -98,7 +98,7 @@ module.exports = {
           }\n${
             member && member.premiumSince
             ? `This user is boosting this server since ${timeZoneConvert(member.premiumSince).split(/ +/).splice(0,3).join(' ')}, ${duration(new Date() - member.premiumSinceTimestamp, 'milliseconds').format(' Y [year] M [month] D [day]')} ago`
-            : ''}`)
+            : '\u200b'}`)
 
         .addField('Roles', `${
             member.roles.cache.filter(role => role.id !== message.guild.id)
@@ -107,10 +107,10 @@ module.exports = {
             } ${
               member.roles.cache.size > 26
               ? `and ${member.roles.cache.size - 26} more.`
-              :''
+              :'\u200b'
             }`)
 
-        .setFooter(`userinfo`,'https://cdn.discordapp.com/emojis/729380844611043438')
+        .setFooter(`userinfo | ©️${new Date().getFullYear()} Mai`,'https://cdn.discordapp.com/emojis/729380844611043438')
     )
   }
 }
