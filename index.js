@@ -5,6 +5,7 @@ require('dotenv').config();
 const { readdirSync } = require('fs');
 const { join } = require('path');
 const { Intents } = require('discord.js');
+const { BugReporter } = require('./helper');
 const Client = require('./struct/Client');
 
 const mai = new Client({
@@ -24,6 +25,7 @@ const mai = new Client({
 	}
 	,	bootTimeStart: start
 	, chatbot: true
+	, debug: '764083507542491177'
 	,	enableDatabase: true
 	,	mongoSettings: {
 			useUnifiedTopology : true
@@ -70,7 +72,10 @@ for ( const event of readdirSync(join(__dirname, 'events')).filter( f => f.split
   mai.on(event.split('.')[0], require(`./events/${event}`).bind(null, mai));
 
 
-//process.on('unhandledRejection', () => null)
+process.on('unhandledRejection', (err) => process.emit('reportBugs', mai, err, null))
+
+process.on('reportBugs', (client, err, message, command) => BugReporter(mai, err, message, command))
+
 //process.on('rejectionHandled', () => null)
 
 

@@ -59,4 +59,7 @@ module.exports = {
   //Chatbot
   , Chatbot: require('./utilities/Chatbot')
 
+  //Bug Reporter
+  , BugReporter: require('./utilities/Bug Reporter')
+
 }

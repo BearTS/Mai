@@ -158,20 +158,7 @@ module.exports = async ( client, message ) => {
         : embed.description
       )
 
-      await client.users.fetch('545427431662682112')
-      .then(user => user.send(
-        '<:cancel:712586986216489011> | An error has occured while executing a command on **'
-        + message.guild.name
-        + '!\n\`\`\`xl\nExecutor: '
-        + message.author.tag
-        + '\nChannel: '
-        + message.channel.id
-        + '\n\n'
-        + err.stack.split('\n').splice(0,5).join('\n').split(process.cwd()).join('MAIN_PROCESS')
-        + '\n\n...and '
-        + (err.stack.split('\n').length - 5).toFixed()
-        + 'lines more.```')
-        ).catch(()=> null)
+      return process.emit('reportBugs', client, err, message, command.name)
     }
   }
 }

@@ -5,7 +5,7 @@ const PersonalizedCollections = require('./PersonalizedCollections')
 const Mongoose = require('./Mongoose')
 
 module.exports = class MaiClient extends Client{
-    constructor({ clientSettings, collections, enableDatabase, prefix, chatbot, commandgroups, token, mongoSettings, mongoPassword, owners, uploadchannel, bootTimeStart }){
+    constructor({ clientSettings, collections, enableDatabase, debug = false, prefix = 'm!', chatbot, commandgroups, token, mongoSettings, mongoPassword, owners, uploadchannel, bootTimeStart }){
         super(clientSettings);
         this.bootTimeStart = bootTimeStart
         this.uploadchannel = uploadchannel
@@ -14,7 +14,7 @@ module.exports = class MaiClient extends Client{
         this.collections = new PersonalizedCollections(collections)
         this.guildsettings = new GuildSettingsManager(this)
         this.database = enableDatabase ? new Mongoose({settings: mongoSettings, password: mongoPassword}) : null
-        this.config = { prefix, token, chatbot, owners, commanddir: commandgroups, pings: {},
+        this.config = { prefix, token, chatbot, owners, debug, commanddir: commandgroups, pings: {},
             github: 'https://maisans-maid/Mai#readme',
             website: 'https://maisans-maid.github.io/mai.moe'
          }
