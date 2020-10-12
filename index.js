@@ -63,6 +63,7 @@ const mai = new Client({
 	,	mongoPassword: process.env.MONGO
 	,	token: process.env.TOKEN,
 });
+///giveaway
 const { GiveawaysManager } = require('discord-giveaways');
 mai.giveawaysManager = new GiveawaysManager(mai, {
     storage: "./database.json",
