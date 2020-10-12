@@ -44,6 +44,7 @@ const mai = new Client({
 		, 'fun'
 //	, 'games'
 		, 'moderation'
+		, 'giveaway'
 		, 'owner'
 		, 'setup'
 		, 'utility'
