@@ -62,6 +62,16 @@ const mai = new Client({
 	,	mongoPassword: process.env.MONGO
 	,	token: process.env.TOKEN,
 });
+const { GiveawaysManager } = require('discord-giveaways');
+mai.giveawaysManager = new GiveawaysManager(mai, {
+    storage: "./database.json",
+    updateCountdownEvery: 3000,
+    default: {
+        botsCanWin: false,
+        embedColor: "#FF0000",
+        reaction: "🎉"
+    }
+});
 
 for (const dir of mai.config.commanddir) {
 	for (const file of readdirSync(join(__dirname, 'commands', dir)).filter(f => f.split('.').pop() === 'js'))
