@@ -7,7 +7,7 @@ module.exports = {
   guildOnly: true,
   permissions: [],
   clientPermissions: [],
-  group: 'resume',
+  group: 'music',
   description: 'Resume the paused music',
   examples: ['resume'],
   parameters: [],
