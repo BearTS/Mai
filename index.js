@@ -63,6 +63,8 @@ const mai = new Client({
 	,	token: process.env.TOKEN,
 });
 
+mai.queue = new Map()
+
 for (const dir of mai.config.commanddir) {
 	for (const file of readdirSync(join(__dirname, 'commands', dir)).filter(f => f.split('.').pop() === 'js'))
 		mai.commands.add(require(`./commands/${dir}/${file}`));
