@@ -7,7 +7,7 @@ module.exports = {
   guildOnly: true,
   permissions: [],
   clientPermissions: [],
-  group: 'giveaway',
+  group: 'music',
   description: 'To show the music which is currently playing in this server',
   examples: ['nowplaying'],
   parameters: [],
