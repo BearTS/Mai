@@ -40,6 +40,7 @@ const mai = new Client({
 		, 'anime'
 		, 'bot'
 		, 'core'
+		, 'music'
 		,	'economy'
 		, 'fun'
 //	, 'games'
