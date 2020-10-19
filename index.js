@@ -4,16 +4,12 @@ require('dotenv').config();
 
 const { readdirSync } = require('fs');
 const { join } = require('path');
-const { Intents } = require('discord.js');
 const { BugReporter } = require('./helper');
 const Client = require('./struct/Client');
 
 const mai = new Client({
 	clientSettings: {
 			disableMentions: 'everyone'
-		,	ws: {
-				intents: Intents.ALL
-			}
 		,	presence: {
 				activity: {
 						name: 'Seishun Buta Yarou'
