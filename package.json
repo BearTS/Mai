@@ -4,7 +4,8 @@
   "description": "Discordbot written in discord.js@12.3.1",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "engines": {
     "node": "12.x",
