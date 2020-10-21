@@ -3,11 +3,17 @@ module.exports = class GuildSettingProfile{
         this.id = data.guildID
         this.welcome = {
           channel: data.welcomeChannel,
-          message: data.welcomemsg
+          message: data.welcomemsg,
+          enabled: data.welcomeEnabled,
+          embed: data.welcomeEmbed,
+          use: data.welcomeUse
         }
         this.goodbye = {
           channel: data.goodbyeChannel,
-          message: data.goodbyemsg
+          message: data.goodbyemsg,
+          enabled: data.goodbyeEnabled,
+          embed: data.goodbyeEmbed, 
+          use: data.goodbyeUse
         },
         this.xp = {
           active: data.isxpActive,

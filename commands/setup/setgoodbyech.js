@@ -94,7 +94,8 @@ module.exports = {
       return message.channel.send(
        new MessageEmbed().setDescription(
            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-           + `Successfully set the goodbye channel to ${channel}!`
+           + `Successfully set the goodbye channel to ${channel}!
+           \nTo disable this feature, use the \`${client.config.prefix}goodbyetoggle\` command.`
          ).setColor('GREEN')
        )
     }).catch(()=>

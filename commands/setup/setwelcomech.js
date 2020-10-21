@@ -94,8 +94,9 @@ module.exports = {
       return message.channel.send(
        new MessageEmbed().setDescription(
            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-           + `Successfully set the welcome channel to ${channel}!`
-         ).setColor('GREEN')
+           + `Successfully set the welcome channel to ${channel}!
+           \n${!client.guildsettings.get(message.guild.id).welcome.enabled ? `\u2000\⚠ Member Greeter Message has been disabled. [Learn](https://mai-san.ml/) how to customize one.` : ''}`
+         ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
        )
     }).catch(()=>
     message.channel.send(
