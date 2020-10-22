@@ -18,7 +18,7 @@ module.exports = {
       new MessageEmbed().setDescription(
           '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
         + `Please include the option parameter.
-        \n[Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+        \n[Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
       ).setColor('RED')
     )
 
@@ -44,7 +44,7 @@ module.exports = {
             + `Member Greeter Feature message has been successfully reverted to **default**!
             \nIncoming members will now be greeted by Mai's default greet message.
             To change the message, use \`${client.config.prefix}setwelcomemsg [options] [additional parameters]\`
-            [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
           ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
         ).catch(() =>
            message.channel.send(
@@ -64,7 +64,7 @@ module.exports = {
           + `Unable to change the greet message to **text mode**!
           \nMake sure you have already set a greet message (plain text) before you run this command.
           To set  the message, use \`${client.config.prefix}setwelcomemsg msg=set [message content]\`
-          [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+          [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
         ).setColor('RED')
       )
 
@@ -77,7 +77,7 @@ module.exports = {
             + `Member Greeter Feature message has been successfully changed to **text mode**!
             \nIncoming members will now be greeted by your guild's configured greet message.
             To change the message, use \`${client.config.prefix}setwelcomemsg [options] [additional parameters]\`
-            [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
           ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
         ).catch(() =>
            message.channel.send(
@@ -97,7 +97,7 @@ module.exports = {
           + `Unable to change the greet message to **embed mode**!
           \nMake sure you have already set a greet message (embed) before you run this command.
           To set the message, use \`${client.config.prefix}setwelcomemsg embed=set [embed details]\`
-          [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+          [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
         ).setColor('RED')
       )
 
@@ -110,7 +110,7 @@ module.exports = {
             + `Member Greeter Feature message has been successfully changed to **embed mode**!
             \nIncoming members will now be greeted by your guild's configured greet message.
             To change the message, use \`${client.config.prefix}setwelcomemsg [options] [additional parameters]\`
-            [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
           ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
         ).catch(() =>
            message.channel.send(
@@ -129,7 +129,7 @@ module.exports = {
           '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
           + `Please enter a greeter message after the \`[options]\` parameter!
           \nYou can use modifiers too to use dynamic information like the incoming member's name, guild name, and guild membercount!
-          [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+          [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
         ).setColor('RED')
       )
 
@@ -141,7 +141,7 @@ module.exports = {
             '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
             + `Member Greeter Feature message has been set!
             \nYou may now use this message on member joins via \`${client.config.prefix}setwelcomemsg msg=true\`
-            [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
           ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
         ).catch(() =>
            message.channel.send(
@@ -160,7 +160,7 @@ module.exports = {
           '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
           + `Please enter the embed options after the \`[options]\` parameter!
           \nYou can use modifiers too to use dynamic information like the incoming member's name, guild name, and guild membercount!
-          [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+          [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
         ).setColor('RED')
       )
 
@@ -263,7 +263,7 @@ module.exports = {
             '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
             + `Embed options not detected!
             \nEmbed options such as \`-title:[]\`, \`-url:[]\`, or \`-description:[]\` are needed so I could know which is which!
-            [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature with Embeds!`
+            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature with Embeds!`
           ).setColor('RED')
         )
 
@@ -272,7 +272,7 @@ module.exports = {
             '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
             + `All passed embed options are invalid!
             \n${fails.map(x => `\\⚠️ ${x}`).join('\n')}
-            [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature with Embeds!`
+            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature with Embeds!`
           ).setColor('RED')
         )
       }
@@ -283,9 +283,9 @@ module.exports = {
 
       newData
       .setAuthor(
-        embedProps.authorName || newData.author ? newData.author.name : '',
-        embedProps.authorImageURL || newData.author ? newData.author.iconURL : null,
-        embedProps.authorURL || newData.author ? newData.author.url : null
+        embedProps.authorName || (newData.author ? newData.author.name : ''),
+        embedProps.authorImageURL || (newData.author ? newData.author.iconURL : null),
+        embedProps.authorURL || (newData.author ? newData.author.url : null)
       )
       .setTitle(
         embedProps.title || newData.title
@@ -294,20 +294,20 @@ module.exports = {
         embedProps.url || newData.url
       )
       .setThumbnail(
-        embedProps.thumbnail || newData.thumbnail ? newData.thumbnail.url : null
+        embedProps.thumbnail || (newData.thumbnail ? newData.thumbnail.url : null)
       )
       .setDescription(
-        embedProps.description || newData.description
+        embedProps.description || (newData.description ? newData.description : '')
       )
       .setImage(
-        embedProps.image || newData.image ? newData.image.url : null
+        embedProps.image || (newData.image ? newData.image.url : null)
       )
       .setColor(
         embedProps.color || newData.color
       )
       .setFooter(
-        embedProps.footerText || newData.footer ? newData.footer.text : '',
-        embedProps.footerImage || newData.footer ? newData.footer.iconURL : null
+        embedProps.footerText || (newData.footer ? newData.footer.text : ''),
+        embedProps.footerImage || (newData.footer ? newData.footer.iconURL : null)
       )
 
       // checking for modifiers in replacement to urls
@@ -338,7 +338,7 @@ module.exports = {
             + `Member Embedded message Feature has been updated!
             \n${success.map(x => `\\✔️ ${x}`).join('\n')}${fails.length ? `\n${fails.map(x => `\\⚠️ ${x}`).join('\n')}` : ''}
             You may now use this embed on member joins via \`${client.config.prefix}setwelcomemsg embed=true\`
-            [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
           ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
         )
       }).catch((err) =>
@@ -353,7 +353,7 @@ module.exports = {
        '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
        + `This feature is currently disabled on your server!
        \nEnable it by typing \`${client.config.prefix}welcometoggle\`!
-       [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+       [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
      ).setColor('RED')
    )
 
@@ -363,7 +363,7 @@ module.exports = {
        '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
        + `No channel are set for sending these messages!
        \nSet it by typing \`${client.config.prefix}setwelcomech [#channel Mention | channel ID]\`!
-       [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+       [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
      ).setColor('RED')
    )
 
@@ -373,7 +373,7 @@ module.exports = {
        '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
        + `Failure to detect use-case!
        \nPlease fix it by typing \`${client.config.prefix}setwelcomemsg default\`!
-       [Learn more](https://mai-san.ml/) on how to configure Mai's member greeter feature.`
+       [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
      ).setColor('RED')
    )
 
