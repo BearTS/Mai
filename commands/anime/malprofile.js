@@ -133,7 +133,7 @@ module.exports = {
     )
 
     // Checks mismatch of modifiers
-    if (data.MALUser && modifier === '-set' || !data.MALUser && !['-u', '-update'].includes(modifier))
+    if (data.MALUser && modifier === '-set' || !data.MALUser && ['-u', '-update'].includes(modifier))
     return message.channel.send(
       new MessageEmbed().setDescription(
         '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
