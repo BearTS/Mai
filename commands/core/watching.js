@@ -17,7 +17,6 @@ module.exports = {
     , 'list'
   ]
   , guildOnly: true
-  , adminOnly: true
   , group: 'core'
   , description: 'Removes a watched anime from your watchlist'
   , clientPermissions: [
