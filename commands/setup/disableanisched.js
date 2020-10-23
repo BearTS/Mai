@@ -43,7 +43,7 @@ module.exports = {
 
   return data.save()
     .then(()=>{
-      client.guildsettings.profiles.get(message.guild.id).suggestChannel = null
+      client.guildsettings.profiles.get(message.guild.id).featuredChannels.anisched = null
       message.channel.send('Successfully disabled the Anisched Feature')
     })
       .catch(()=> message.channel.send('<:cancel:712586986216489011> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.'))

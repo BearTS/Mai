@@ -11,7 +11,7 @@ module.exports = {
   parameters: ['messsage ID','accept/deny','reason'],
   run: async ( client, message, [id, action, ...reason]) => {
 
-    const channelID = client.guildsettings.get(message.guild.id).suggestChannel
+    const channelID = client.guildsettings.get(message.guild.id).featuredChannels.suggest
 
     const embed = new MessageEmbed()
       .setColor('RED')

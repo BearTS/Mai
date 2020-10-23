@@ -49,7 +49,7 @@ module.exports = {
 
     return data.save()
       .then( data => {
-        client.guildsettings.get(message.guild.id).suggestChannel = data.suggestChannel
+        client.guildsettings.get(message.guild.id).featuredChannels.suggest = data.suggestChannel
         return message.channel.send(`Successfully set the suggest channel to ${channel}!`)
       })
         .catch(() =>

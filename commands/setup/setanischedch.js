@@ -49,7 +49,7 @@ module.exports = {
 
     return data.save()
       .then(() => {
-        client.guildsettings.profiles.get(message.guild.id).suggestChannel = channel.id
+        client.guildsettings.profiles.get(message.guild.id).featuredChannels.anisched = channel.id
         message.channel.send(`Successfully set the anime airing notification channel to ${channel}!`)
       })
         .catch(() => message.channel.send(`<:cancel:712586986216489011> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`))

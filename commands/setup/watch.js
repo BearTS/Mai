@@ -27,7 +27,7 @@ module.exports = {
   parameters: ['AniList or MAL entry link'],
   run: async ( client, message, args) => {
 
-    if (client.guildsettings.profiles.get(message.guild.id).suggestChannel === null)
+    if (client.guildsettings.profiles.get(message.guild.id).featuredChannels.anisched === null)
     return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Anischedule Feature has been disabled in this server.`)
 
 

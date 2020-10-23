@@ -1,5 +1,5 @@
 module.exports = class GuildSettingProfile{
-    constructor(data){
+    constructor(data, anischedCh){
         this.id = data.guildID
         this.welcome = {
           channel: data.welcomeChannel,
@@ -12,7 +12,7 @@ module.exports = class GuildSettingProfile{
           channel: data.goodbyeChannel,
           message: data.goodbyemsg,
           enabled: data.goodbyeEnabled,
-          embed: data.goodbyeEmbed, 
+          embed: data.goodbyeEmbed,
           use: data.goodbyeUse
         },
         this.xp = {
@@ -23,7 +23,10 @@ module.exports = class GuildSettingProfile{
         this.roles = {
           muted: data.muterole
         }
+        this.featuredChannels = {
+          anisched: anischedCh,
+          suggest: data.suggestChannel
+        }
         this.invite = data.invite
-        this.suggestChannel = data.suggestChannel
     }
 }
