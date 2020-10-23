@@ -133,7 +133,7 @@ module.exports = {
     )
 
     // Checks mismatch of modifiers
-    if (data.MALUser && modifier === '-set' || !data.MALUser && !['-u', '-update'].includes(modifier))
+    if (data.MALUser && modifier === '-set' || !data.MALUser && ['-u', '-update'].includes(modifier))
     return message.channel.send(
       new MessageEmbed().setDescription(
         '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
@@ -219,7 +219,7 @@ module.exports = {
     .setAuthor(`${username}'s Profile`, image_url, url)
     .setThumbnail(`https://i.imgur.com/${total > 19999 ? 'MzmmlUG' : total > 14999 ? 'phrKQJI' : total > 9999 ? '01NgPDw' : total > 4999 ? 'rabLZqh' : total > 999 ? 'dZ8bNQW' : total > 499 ? 'DKHajgw' : 'YGLefI9' }.png`)
     .setDescription(
-      `${about ? text.textTrunctuate(about, 350, `...[Read More](${url})`) : ''}
+      `${about ? text.textTrunctuate(about.replace(/(<([^>]+)>)/ig, ''), 350, `...[Read More](${url})`) : ''}
       \n• **Gender**: ${gender}
       • **From** ${location}
       • **Joined MAL:** ${text.timeZoneConvert(joined).split(' ').splice(0,3).join(' ')}, *${duration(Date.now() - new Date(joined)).format('Y [year] M [month and] D [day]')} ago.*
