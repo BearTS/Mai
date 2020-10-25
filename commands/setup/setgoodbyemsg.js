@@ -279,7 +279,7 @@ module.exports = {
 
       //-------------------------------------------------------//
 
-      const newData = new MessageEmbed(data.goodbyeEmbed)
+      const newData = new MessageEmbed(data.goodbyeEmbed || {})
 
       newData
       .setAuthor(
