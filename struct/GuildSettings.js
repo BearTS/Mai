@@ -1,6 +1,7 @@
 module.exports = class GuildSettingProfile{
     constructor(data, anischedCh){
         this.id = data.guildID
+        this.prefix = data.prefix || null
         this.welcome = {
           channel: data.welcomeChannel,
           message: data.welcomemsg,

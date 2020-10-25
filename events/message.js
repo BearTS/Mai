@@ -17,6 +17,8 @@ module.exports = async ( client, message ) => {
     , guildsettings
   } = client
 
+  const serverprefix = client.guildsettings.get(message.guild.id) ? client.guildsettings.get(message.guild.id).prefix : null
+
 
   if (message.author.id === client.user.id) client.messages.sent++
     else client.messages.received++
@@ -37,13 +39,13 @@ module.exports = async ( client, message ) => {
 
   if (
         message.content.toLowerCase() === 'prefix'
-  ) return message.reply(`My prefix is **${prefix}**`)
+  ) return message.reply(`My prefix is **${prefix}**${serverprefix ? `, The custom prefix is (**${serverprefix}**).` : '.'}`)
 
 
   try {
 
     if (
-      !message.content.startsWith(prefix)
+      (!message.content.startsWith(prefix) && (serverprefix && !message.content.startsWith(serverprefix)))
       && !message.author.bot
       && message.channel.type !== 'dm'
       ) {
@@ -82,9 +84,10 @@ module.exports = async ( client, message ) => {
       return null
   }
 
-
-  if (message.content.startsWith(prefix)){
-
+  if (
+    message.content.startsWith(prefix)
+  || (serverprefix && message.content.startsWith(serverprefix))
+  ){
 
     if (
       message.author.bot ||
@@ -93,7 +96,7 @@ module.exports = async ( client, message ) => {
     ) return
 
 
-    const [ commandName, ...arguments ] = message.content.slice(prefix.length).split(/ +/)
+    const [ commandName, ...arguments ] = message.content.slice(message.content.startsWith(prefix) ? prefix.length : serverprefix.length).split(/ +/)
 
     const command = commands.get(commandName)
 

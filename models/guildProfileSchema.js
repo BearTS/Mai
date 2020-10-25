@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const profile = mongoose.Schema({
   guildID: String,
+  prefix: {type: String, default: null},
   welcomeEnabled: {type: Boolean, default: false},
   welcomeEmbed: {type: Object, default: {}},
   isWelcomeEmbed: {type: Boolean, default: false},
