@@ -34,7 +34,9 @@ module.exports = {
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.mentions.members.first()} has been slapped by ${message.member}! That must've been painful! OwO`))
+      .setDescription(`${message.mentions.members.first()} has been slapped by ${message.member}! That must've been painful! OwO`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   }
 }

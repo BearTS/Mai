@@ -31,7 +31,9 @@ module.exports = {
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(slapp)
-      .setDescription(`${message.member} E~ecchi!`))
+      .setDescription(`${message.member} E~ecchi!`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   if (message.mentions.members.first().id === message.author.id)
   return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, ever heard of a mirror?`)
@@ -39,7 +41,9 @@ module.exports = {
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.member} kissed ${message.mentions.members.first()}`))
+      .setDescription(`${message.member} kissed ${message.mentions.members.first()}`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   }
 }

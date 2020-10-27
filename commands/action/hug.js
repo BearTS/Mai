@@ -26,18 +26,24 @@ module.exports = {
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.member} H~here! I thought you needed a hug!`))
+      .setDescription(`${message.member} H~here! I thought you needed a hug!`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   if (message.mentions.members.first().id === client.user.id)
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.member} H~how thoughtful! Thank you! ʸᵒᵘ'ʳᵉ ⁿᵒᵗ ˢᵃᵏᵘᵗᵃ ᵗʰᵒ`))
+      .setDescription(`${message.member} H~how thoughtful! Thank you! ʸᵒᵘ'ʳᵉ ⁿᵒᵗ ˢᵃᵏᵘᵗᵃ ᵗʰᵒ`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.mentions.members.first()} was being hugged by ${message.member}! How caring!`))
+      .setDescription(`${message.mentions.members.first()} was being hugged by ${message.member}! How caring!`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   }
 }

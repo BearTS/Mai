@@ -29,7 +29,7 @@ module.exports = {
     , 'anirecommend'
   ]
   , group: 'anime'
-  , description: 'Generates a random anime recommendation. Use `discover` command to generate a handpicked recommendations for a user'
+  , description: 'Generates a random anime recommendation. Recommends a Hentai if used on a nsfw channel.'
   , clientPermissions: [
     'EMBED_LINKS'
   ]
@@ -59,17 +59,23 @@ module.exports = {
         , image
         , color
         , description
-      } = animeDB[Math.floor(Math.random() * animeDB.length)]
+      } = message.channel.nsfw
+      ? animeDB.filter(a => a.isAdult)[Math.floor(Math.random() * animeDB.filter(a => a.isAdult).length)]
+      : animeDB.filter(a => !a.isAdult)[Math.floor(Math.random() * animeDB.filter(a => !a.isAdult).length)]
 
       return message.channel.send(new MessageEmbed()
         .setAuthor(`${
             romaji
-            ? romaji
+            ? textTrunctuate(romaji)
               : native
-              ? native
-                : english
+              ? textTrunctuate(native)
+                : textTrunctuate(english)
           } | ${
             fm[format]
+          }\n${
+            studio
+            ? studio
+            : ''
           }`, null ,`https://myanimelist.net/anime/${mal}`)
 
         .setColor(color)
@@ -106,9 +112,7 @@ module.exports = {
             ? `${duration} minutes`
             : 'Unknown', true)
 
-        .setFooter(studio
-                  ? studio
-                  : '\u200b')
+        .setFooter(`Random Recommendations | \©️${new Date().getFullYear()} Mai`)
 
         .setColor(color)
 

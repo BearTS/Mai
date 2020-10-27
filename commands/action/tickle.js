@@ -25,13 +25,17 @@ module.exports = {
   if (!message.mentions.members.size)
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
-      .setImage(url))
+      .setImage(url)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   if (message.mentions.members.first().id === client.user.id)
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`Stop ${message.member}! It tickles~`))
+      .setDescription(`Stop ${message.member}! It tickles~`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   if (message.mentions.members.first().id === message.author.id)
   return message.channel.send(`<:cancel:712586986216489011> | Have fun tickling yourself ${message.author}!`)
@@ -39,6 +43,8 @@ module.exports = {
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.member} tickled ${message.mentions.members.first()}!`))
+      .setDescription(`${message.member} tickled ${message.mentions.members.first()}!`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
   }
 }

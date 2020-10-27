@@ -1,4 +1,4 @@
-const { AniListSchedule: startScheduledAnnouncement } = require('../helper')
+const { AniListSchedule: startScheduledAnnouncement, VoteManager } = require('../helper')
 const { MessageEmbed } = require('discord.js')
 
 
@@ -19,6 +19,8 @@ Commands: ||  ${client.commands.size}
 
 
 startScheduledAnnouncement(client)
+
+VoteManager.dblPost(client)
 
 const loggingchannel = client.channels.cache.get('761935856331128837')
 if (loggingchannel) loggingchannel.send(

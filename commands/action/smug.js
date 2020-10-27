@@ -26,6 +26,7 @@ module.exports = {
       .setColor('GREY')
       .setImage(url)
       .setDescription(`${message.member} smugs.`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

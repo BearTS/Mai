@@ -25,7 +25,9 @@ module.exports = {
   if (!message.mentions.members.size)
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
-      .setImage(url))
+      .setImage(url)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   if (message.mentions.members.first().id === client.user.id)
   return message.react('💢')
@@ -36,7 +38,8 @@ module.exports = {
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.mentions.members.first()} B~baka!`))
-
+      .setDescription(`${message.mentions.members.first()} B~baka!`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
   }
 }

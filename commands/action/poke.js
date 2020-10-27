@@ -34,6 +34,8 @@ module.exports = {
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.member} poked ${message.mentions.members.first()}!`))
+      .setDescription(`${message.member} poked ${message.mentions.members.first()}!`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
   }
 }

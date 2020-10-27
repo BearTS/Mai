@@ -62,4 +62,7 @@ module.exports = {
   //Bug Reporter
   , BugReporter: require('./utilities/Bug Reporter')
 
+  //Vote Manager
+  , VoteManager: require('./utilities/Vote Manager')
+
 }

@@ -1,7 +1,5 @@
 const {
-  MongooseModels: {
-    guildWatchlistSchema
-  }
+  MongooseModels: { guildWatchlistSchema }
   , AniListQuery: query
   , Watching: watching
   } = require('../../helper')
@@ -18,14 +16,11 @@ module.exports = {
   ]
   , guildOnly: true
   , group: 'core'
-  , description: 'Removes a watched anime from your watchlist'
+  , description: 'View list of currently watching anime.'
   , clientPermissions: [
     'EMBED_LINKS'
   ]
-  , examples: [
-    'unwatch https://myanimelist.net/anime/37450/Seishun_Buta_Yarou_wa_Bunny_Girl_Senpai_no_Yume_wo_Minai'
-    , 'unwatch 37450'
-  ]
+  , examples: []
   , parameters: ['Anilist or MAL entry link']
   , run: async (client, message) => {
 
@@ -39,13 +34,13 @@ module.exports = {
     if (!profile)
       profile = await new guildWatchlistSchema({
         guildID: message.guild.id
-      }).catch(err => err)
+      }).save().catch(()=>null)
 
     if (profile instanceof MongooseError)
       return message.channel.send(
       )
 
-    if (!profile.data || !profile.data.length)
+    if (!profile || !profile.data || !profile.data.length)
       return message.channel.send(
         new MessageEmbed().setColor('RED')
           .setDescription(
