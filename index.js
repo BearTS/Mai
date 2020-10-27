@@ -17,7 +17,8 @@ const mai = new Client({
 					, url: 'https://twitch.tv/sby'
 				}
 			}
-		,	restTimeOffset: 100,
+		,	restTimeOffset: 100
+		,	fetchAllMembers: true
 	}
 	,	bootTimeStart: start
 	, chatbot: true
