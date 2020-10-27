@@ -18,7 +18,6 @@ const mai = new Client({
 				}
 			}
 		,	restTimeOffset: 100
-		,	fetchAllMembers: true
 	}
 	,	bootTimeStart: start
 	, chatbot: true
