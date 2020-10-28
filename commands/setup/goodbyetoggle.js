@@ -34,9 +34,9 @@ module.exports = {
        new MessageEmbed().setDescription(
            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
            + `Leaving Member Announcer Feature has been successfully **${data.goodbyeEnabled ? 'enabled' : 'disabled'}**!
-           \nTo disable this feature, use the \`${client.config.prefix}welcometoggle\` command.
+           \nTo disable this feature, use the \`${client.config.prefix}goodbyetoggle\` command.
            ${!guildProfile.goodbye.msg ? `\u2000\⚠ LMA Message has not been configured. [Learn](https://mai-san.ml/) how to customize one.` : ''}
-           ${!guildProfile.goodbye.channel ? `\u2000\⚠ LMA channel has not been set! Set one by using the \`${client.config.prefix}setwelcomech\` command!` : ''}`
+           ${!guildProfile.goodbye.channel ? `\u2000\⚠ LMA channel has not been set! Set one by using the \`${client.config.prefix}setgoodbyech\` command!` : ''}`
          ).setColor('GREEN').setFooter('Leaving Member Announcer | ©️2020 Mai')
        )
     }).catch(()=>
