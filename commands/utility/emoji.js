@@ -15,10 +15,11 @@ module.exports = {
 
     const emojiID = emoji.match(/\d{17,19}/)[0]
 
-    return message.channel.send(new MessageEmbed()
-                                    .setColor('GREY')
-                                    .setImage(`https://cdn.discordapp.com/emojis/${emojiID}`)
-                                    .setFooter(emoji.match(/\w{2,32}/)[0]))
-
+    return message.channel.send(
+      new MessageEmbed()
+      .setColor('GREY')
+      .setImage(`https://cdn.discordapp.com/emojis/${emojiID}`)
+      .setFooter(`Emoji: ${emoji.match(/\w{2,32}/)[0]} | \©️${new Date().getFullYear()} Mai`)
+    )
   }
 }

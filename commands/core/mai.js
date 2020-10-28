@@ -30,6 +30,7 @@ module.exports = {
         .setImage(
           `attachment://mai.${url.split('.').pop()}`
       )
+      .setFooter(`Mai | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

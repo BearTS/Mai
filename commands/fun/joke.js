@@ -43,6 +43,8 @@ module.exports = {
       .setColor('GREY')
 
       .setThumbnail('https://i.imgur.com/KOZUjcc.gif')
+
+      .setFooter(`Joke | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

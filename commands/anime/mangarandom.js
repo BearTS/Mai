@@ -1,7 +1,16 @@
-const { TextHelpers: { textTrunctuate, joinArray }, LocalDatabase: { mangaDB }} = require('../../helper')
+const {
+  TextHelpers: { textTrunctuate, joinArray }
+  , LocalDatabase: { mangaDB }
+} = require('../../helper')
+
 const { MessageEmbed } = require('discord.js')
 const { decode } = require('he')
-const fm = {  MANGA: 'Manga', NOVEL: 'Light Novel', ONE_SHOT: 'One Shot Manga' }
+
+const fm = {
+  MANGA: 'Manga'
+  , NOVEL: 'Light Novel'
+  , ONE_SHOT: 'One Shot Manga'
+}
 
 
 module.exports = {
@@ -10,7 +19,7 @@ module.exports = {
     'mangarand'
   ]
   , group: 'anime'
-  , description: 'Generates a random manga recommendation. You can add `-discover` parameter to generate a handpicked recommendations for a user'
+  , description: 'Generates a random manga recommendation. Recommends a Hentai if used on a nsfw channel.'
   , clientPermissions: [
     'EMBED_LINKS'
   ]
@@ -41,19 +50,21 @@ module.exports = {
           , image
           , color
           , description
-        } = mangaDB[Math.floor(Math.random() * mangaDB.length)]
+        } = message.channel.nsfw
+        ? mangaDB.filter(a => a.isAdult)[Math.floor(Math.random() * mangaDB.filter(a => a.isAdult).length)]
+        : mangaDB.filter(a => !a.isAdult)[Math.floor(Math.random() * mangaDB.filter(a => !a.isAdult).length)]
 
         return message.channel.send(new MessageEmbed()
 
           .setAuthor(`${
               romaji
-              ? romaji
+              ? textTrunctuate(romaji)
               : native
-                ? native
-                : english
+                ? textTrunctuate(native)
+                : textTrunctuate(english)
               } | ${
                 fm[format]
-              }`, null, `https://myanimelist.net/anime/${mal}`)
+              }`, null, `https://myanimelist.net/manga/${mal}`)
 
           .setColor(color)
 
@@ -88,13 +99,14 @@ module.exports = {
               ? volumes
               : 'Unknown', true)
 
-          .setColor(color)
+          .setFooter(`Random Recommendations | \©️${new Date().getFullYear()} Mai`)
+
 
           .setThumbnail(image)
 
           .addField('\u200b',
               description && description !== ' '
-              ? textTrunctuate(decode(description), 1000, ` […Read More](https://myanimelist.net/anime/${mal})`)
+              ? textTrunctuate(decode(description), 1000, ` […Read More](https://myanimelist.net/manga/${mal})`)
               : '\u200b')
 
     )

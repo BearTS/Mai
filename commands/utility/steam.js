@@ -149,7 +149,8 @@ module.exports = {
 
     .addFields(platforms)
 
-    .setFooter(`©️ Steam.Inc • http://store.steampowered.com/app/${data.steam_appid}`)
+    .setFooter(`Steam @ Steam.Inc©️  | \©️${new Date().getFullYear()} Mai`)
+
     )
   }
 }

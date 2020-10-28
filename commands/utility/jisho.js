@@ -41,7 +41,7 @@ module.exports = {
         .addFields(fields)
         .addField('\u200b',`[External Link](https://jisho.org/search/${query} 'https://jisho.org/search/${query}')`)
         .setColor('GREY')
-        .setFooter(`🇯🇵 • Jisho.org`)
+        .setFooter(`Jisho @ Jisho.org | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

@@ -54,6 +54,7 @@ module.exports = {
     .setColor('GREY')
     .setImage(url)
     .setTimestamp(created_utc * 1000)
+    .setFooter(`Reddit | \©️${new Date().getFullYear()} Mai`)
 
     try {
       return prompt.edit(embed)

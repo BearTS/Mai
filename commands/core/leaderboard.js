@@ -29,18 +29,23 @@ module.exports = {
     if (!active)
       return message.channel.send(
         embed.setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-          + 'XP is currently disabled in this server.\u2000\u2000\n\n\u200b'
-        )
+          `**${message.member.displayName}**, XP is currently disabled in this server.\n\n`
+          + `If you are the server Administrator, you may enable it by typing \`${client.config.prefix}xptoggle\`.\n`
+          + `[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai's XP System.`
+        ).setAuthor('XP Systems Disabled','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
 
     if (exceptions.includes(message.channel.id))
       return message.channel.send(
         embed.setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-          + 'XP is currently disabled in this channel\u2000\u2000\n\n\u200b'
-        )
+          `**${message.member.displayName}**, XP is currently disabled in this channel.\n\n`
+          + `To see which channels are xp-disabled, use the command \`${client.config.prefix}nonxpchannels\`\n`
+          + `If you are the server Administrator, you may reenable it here by typing \`${client.config.prefix}xpenable #${message.channel.name}\`\n`
+          + `[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai's XP System.`
+        ).setAuthor('Channel Blacklisted','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
 
@@ -50,19 +55,21 @@ module.exports = {
     if (!documents)
       return message.channel.send(
         embed.setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-          + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-          + '\u2000\u2000\n\n\u200b'
-        )
+          `**${message.member.displayName}**, I am unable to contact the database.\n\n`
+          + `Please try again later or report this incident to my developer.`
+        ).setAuthor('Database Error','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
 
     if (!documents.length || !documents.filter(a => a.points !== 0).length)
       return message.channel.send(
         embed.setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-          + 'Users in this server have not started earning XP yet!\u2000\u2000\n\n\u200b'
-        )
+          `**${message.member.displayName}**, No XP found.\n\n`
+          + `Users in this server have not started earning XP yet!\n`
+          + `[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai's XP System.`
+        ).setAuthor('No XP','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
 

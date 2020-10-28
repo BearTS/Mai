@@ -33,25 +33,30 @@ module.exports = {
     if (!active)
       return message.channel.send(
         embed.setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-          + 'XP is currently disabled in this server.\u2000\u2000\n\n\u200b'
-        )
+          `**${message.member.displayName}**, XP is currently disabled in this server.\n\n`
+          + `If you are the server Administrator, you may enable it by typing \`${client.config.prefix}xptoggle\`.\n`
+          + `[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai's XP System.`
+        ).setAuthor('XP Systems Disabled','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
 
     if (exceptions.includes(message.channel.id))
       return message.channel.send(
         embed.setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-          + 'XP is currently disabled in this channel\u2000\u2000\n\n\u200b'
-        )
+          `**${message.member.displayName}**, XP is currently disabled in this channel.\n\n`
+          + `To see which channels are xp-disabled, use the command \`${client.config.prefix}nonxpchannels\`\n`
+          + `If you are the server Administrator, you may reenable it here by typing \`${client.config.prefix}xpenable #${message.channel.name}\`\n`
+          + `[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai's XP System.`
+        ).setAuthor('Channel Blacklisted','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
     const match = message.content.match(/\d{17,19}/)
 
     const member = match
-                  ? await message.guild.members.fetch(match[0]).catch(()=> null) || message.member
-                  : message.member
+    ? await message.guild.members.fetch(match[0]).catch(()=> null) || message.member
+    : message.member
 
     let document = await xpSchema.findOne({
         guildID: message.guild.id
@@ -69,10 +74,10 @@ module.exports = {
     if (document instanceof MongooseError)
       return message.channel.send(
         embed.setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-          + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-          + '\u2000\u2000\n\n\u200b'
-        )
+          `**${message.member.displayName}**, I am unable to contact the database.\n\n`
+          + `Please try again later or report this incident to my developer.`
+        ).setAuthor('Database Error','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
 

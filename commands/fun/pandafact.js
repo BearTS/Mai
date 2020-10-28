@@ -30,6 +30,7 @@ module.exports = {
       .setThumbnail(`https://i.imgur.com/QUF4VQX.gif`)
       .setColor('GREY')
       .setDescription(fact)
+      .setFooter(`Pandafact | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

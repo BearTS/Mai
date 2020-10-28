@@ -41,38 +41,42 @@ module.exports = {
   , run: async (client, message, args) => {
 
     const query = args.length
-                  ? args.join(' ')
-                  : 'Seishun Buta Yarou Series'
+    ? args.join(' ')
+    : 'Seishun Buta Yarou Series'
 
     const embed = new MessageEmbed()
-                  .setColor('YELLOW')
-                  .setDescription(`Searching for manga titled **${
-                    query
-                  }** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
-                  .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+    .setColor('YELLOW')
+    .setDescription(`Searching for manga titled **${
+      query
+    }** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
+    .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
 
     let msg = await message.channel.send(embed)
 
     const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(query)}&page=1`)
-                        .then( res => res.json())
-
-                        console.log(!data.error && !data.results.length)
+      .then( res => res.json())
 
       embed.setColor('RED')
-           .setThumbnail('https://i.imgur.com/qkBQB8V.png')
-           .setDescription(`\u200b\n\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000${
-             !data.error && !data.results.length
-             ? `No results found for your query **${query}**`
-             : jikanError(
-               data
-               ? data.status
-               : null)
-             }\n\u200b`)
+      .setAuthor(
+        !data.error && !data.results.length
+        ? 'None Found'
+        : 'Response Error'
+        ,'https://cdn.discordapp.com/emojis/712586986216489011.png?v=1'
+      )
+      .setDescription(
+        !data.error && !data.results.length
+        ? `**${message.member.displayName}**, No results were found for **${query}**!\n\n`
+        + `If you believe this manga exists, try the following methods:\n`
+        + `• Try the alternative names (e.g. English, Native, Romaji).\n`
+        + `• Include the volume number (if it exists).\n`
+        : jikanError( data ? data.status : null)
+      )
+
 
     if (!data || data.error || !data.results.length)
       return await msg.edit(embed).catch(()=> null)
-             ? null
-             : await message.channel.send(embed).then(()=> null)
+      ? null
+      : await message.channel.send(embed).then(()=> null)
 
     const elapsed = Date.now() - message.createdAt
 
@@ -94,11 +98,13 @@ module.exports = {
         .addField('Start Date', timeZoneConvert(res.start_date), true)
         .addField('End Date', res.end_date ? timeZoneConvert(res.end_date) : 'Unknown', true)
         .addField('\u200B','\u200B',true)
-        .setFooter(`MyAnimeList.net\u2000\u2000•\u2000\u2000Search Duration: ${(elapsed / 1000).toFixed(2)} seconds\u2000\u2000•\u2000\u2000Page ${pages.size === null ? 1 : pages.size + 1} of ${data.results.slice(0,10).length}`,'https://image.myanimelist.net/ui/OK6W_koKDTOqqqLDbIoPAiC8a86sHufn_jOI-JGtoCQ')
+        .setFooter(`Search duration: ${(elapsed / 1000).toFixed(2)} seconds\u2000\u2000•\u2000\u2000Page ${pages.size + 1} of ${data.results.slice(0,10).length}\u2000\u2000•\u2000\u2000Manga Query with MAL | \©️${new Date().getFullYear()} Mai`)
       )
     }
 
-    msg = await msg.edit(pages.firstPage).catch(()=>null) ? msg : await message.channel.send(pages.firstPage)
+    msg = await msg.edit(pages.firstPage).catch(()=>null)
+    ? msg
+    : await message.channel.send(pages.firstPage)
 
     if (pages.size === 1) return
 

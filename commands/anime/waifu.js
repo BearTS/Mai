@@ -21,71 +21,30 @@ if (!message.channel.nsfw)
 //--------------------------------WORK IN PROGRESS------------------------------------//
 
     const {
-        id
-      , names: {
-          en
-        , jp
-        , alt
-      }
-      , from: {
-          name
-        , type
-      }
-      , images
-      , statistics: {
-          fav
-        , love
-        , hate
-        , upvote
-        , downvote
-      }
+      id,
+      names: { en, jp, alt },
+      from: { name, type } ,
+      images,
+      statistics: { fav , love , hate , upvote , downvote }
     } = waifuDB[Math.floor(Math.random() * (waifuDB.length))]
 
     const no = Math.floor(Math.random() * images.length)
 
     message.channel.startTyping()
 
-    message.channel.send( new MessageEmbed()
-
-      .setAuthor(`${
-          en
-        }${
-          jp
-          ? ` • ${jp}`
-          :''
-        }`, null, images[no])
-
+    return message.channel.send(
+      new MessageEmbed()
+      .setAuthor(`${en}${jp? ` • ${jp}`:''}`, null, images[no])
       .setColor('GREY')
-
-      .setDescription(`${
-          alt
-          ? `${alt}\n\n`
-          : ''
-        }${
-          name
-        }\n*${
-          type
-        }*\n\n\u200b`)
-
-      .attachFiles([
-        {
-          attachment: images[no],
-          name: 'waifu.jpg'
-        }
-      ])
-
+      .setDescription(`${alt ? `${alt}\n\n` : '' }${
+        name}\n*${ type }*`)
+      .attachFiles([{ attachment: images[no], name: 'waifu.jpg' }])
       .setImage('attachment://waifu.jpg')
-
       .setFooter(`💖 ${
-          ( 100 * (((1 - hate / (love + fav)) * 0.6) + ((upvote / (upvote + downvote)) * 0.4)) ).toFixed(2)
-        }% Likability | Image #${
-          no + 1
-        } of ${
-          images.length
-        }`)
-
+        ( 100 * (((1 - hate / (love + fav)) * 0.6) + ((upvote / (upvote + downvote)) * 0.4)) ).toFixed(2)
+      }% Likability | Image #${ no + 1 } of ${ images.length } | \©️${new Date().getFullYear()} Mai`)
     ).then( m => m.react('💖'))
-
-    return message.channel.stopTyping()
+    .then(() => message.channel.stopTyping())
+    
   }
 }

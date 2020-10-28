@@ -16,7 +16,7 @@ module.exports = {
     return  message.channel.send( new MessageEmbed()
               .setColor(color)
               .setImage(`https://dummyimage.com/200/${color.slice(1)}`)
-              .setFooter(color.slice(1)))
-
+              .setFooter(`Color ${color.slice(1)} | \©️${new Date().getFullYear()} Mai`)
+            )
   }
 }

@@ -100,7 +100,7 @@ module.exports = {
 
       .setColor('GREY')
 
-      .setFooter(`Today's Horoscope`)
+      .setFooter(`Horoscope | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

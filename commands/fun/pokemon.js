@@ -202,7 +202,7 @@ module.exports = {
       , true
     )
 
-    .setFooter('The Pokémon Company (c)')
+    .setFooter(`Pokédex - The Pokémon Company\©️ | \©️${new Date().getFullYear()} Mai`)
 
     return await prompt.edit(embed).catch(()=>null)
                   ? null
