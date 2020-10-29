@@ -1,11 +1,6 @@
 const {
-    TextHelpers: {
-      textTrunctuate
-    , joinArray
-  }
-  , LocalDatabase: {
-    animeDB
-  }
+  TextHelpers: { textTrunctuate, joinArray }
+  , LocalDatabase: { animeDB }
 } = require('../../helper')
 
 const { MessageEmbed } = require('discord.js')
@@ -114,13 +109,11 @@ module.exports = {
 
         .setFooter(`Random Recommendations | \©️${new Date().getFullYear()} Mai`)
 
-        .setColor(color)
-
         .setThumbnail(image)
 
         .addField('\u200b',
             description && description !== ' '
-            ? textTrunctuate(description.replace(/&#(\d+);/g, (str) => String.fromCharCode(str)), 1000, ` […Read More](https://myanimelist.net/anime/${mal})`)
+            ? textTrunctuate(decode(description), 1000, ` […Read More](https://myanimelist.net/anime/${mal})`)
             : '\u200b')
 
     )

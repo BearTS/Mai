@@ -26,6 +26,7 @@ module.exports = {
     message.channel.send( new MessageEmbed()
       .setThumbnail(`https://i.imgur.com/oTVVqHQ.gif`)
       .setColor('GREY')
-      .setDescription(facts))
+      .setDescription(facts)
+      .setFooter(`Dogfact | \©️${new Date().getFullYear()} Mai`))
   }
 }

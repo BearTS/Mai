@@ -108,7 +108,6 @@ module.exports = {
 
     .addField('\u200b',`Mai [Github Repository](${github}) | [Website](${website})`)
 
-    .setImage(image)
     )
   }
 }

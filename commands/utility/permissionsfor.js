@@ -57,6 +57,9 @@ module.exports = {
     return message.channel.send(
       new MessageEmbed()
 
+      .setDescription(`*These permissions are bound to this server and not in any way related to other permissions in other servers
+*These permissions are not absolute and can be overwritten by channel permission overwrites.`)
+
       .setColor('GREY')
 
       .setFooter(
@@ -87,6 +90,8 @@ module.exports = {
             : 'not do anything... All perms are enabled'
           }`
       )
+
+      .setFooter(`Permissions | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

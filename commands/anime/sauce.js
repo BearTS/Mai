@@ -1,4 +1,7 @@
+require('moment-duration-format')
+const { TextHelpers: { timeZoneConvert } } = require('../../helper')
 const { MessageEmbed } = require('discord.js')
+const { duration } = require('moment')
 const { API } = require('nhentai-api')
 const api = new API()
 
@@ -38,9 +41,10 @@ module.exports = {
     }
 
     const prompt = new MessageEmbed()
-                  .setColor('YELLOW')
-                  .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
-                  .setDescription(`Searching for **${id}** on <:nhentai:723108426896375848> [nHentai.net](https:/nhentai.net 'nHentai Homepage').`)
+    .setColor('YELLOW')
+    .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+    .setDescription(`Searching for **${id}** on <:nhentai:723108426896375848> [nHentai.net](https:/nhentai.net 'nHentai Homepage').`)
+    .setFooter(`Doujin Query | \©️${new Date().getFullYear()} Mai`);
 
     const msg = await message.channel.send(prompt)
 
@@ -48,11 +52,15 @@ module.exports = {
 
     if (!book){
       prompt.setColor('RED')
-            .setThumbnail(null)
-            .setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author}, Couldn't find doujin with sauce: **${id}**.\n\u200b`)
+      .setAuthor('None Found','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setDescription(
+        `**${message.member.displayName}**, couldn't find doujin with sauce **${id}**.`
+      )
+      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
+
       return await msg.edit(prompt).catch(()=>null)
-             ? null
-             : await message.channel.send(prompt).then(()=> null)
+      ? null
+      : await message.channel.send(prompt).then(()=> null)
     }
 
     const { title: { english, japanese, pretty },
@@ -66,14 +74,14 @@ module.exports = {
       `)
     .addField('TAGS', tags.map( m => m.name).sort().join(', '))
     .addField('PAGES', pages.length, true)
+    .addField('Uploaded on', `${timeZoneConvert(uploaded)}, ${duration(uploaded).format('Y [Year] M [Month, and] D [Day]')} ago.`, true)
     .addField('\u200b',`[\`[LINK]\`](https://nhentai.net/g/${id} 'Click here to proceed to ${pretty}'s nHentai Page')`,true)
-    .setTimestamp(uploaded)
     .setThumbnail(api.getImageURL(cover))
     .setColor('GREY')
-    .setFooter('Uploaded on')
+    .setFooter(`Doujin Query | \©️${new Date().getFullYear()} Mai`);
 
     return await msg.edit(embed).catch(()=>null)
-           ? null
-           : await message.channel.send(embed).then(()=> null)
+    ? null
+    : await message.channel.send(embed).then(()=> null)
   }
 }

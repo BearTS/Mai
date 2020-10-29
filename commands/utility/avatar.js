@@ -33,6 +33,8 @@ module.exports = {
               : 'GREY')
 
     .setImage(member.user.displayAvatarURL({format:'png',dynamic:true,size:1024}))
+
+    .setFooter(`Avatar | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

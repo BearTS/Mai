@@ -16,7 +16,7 @@ module.exports = class MaiClient extends Client{
         this.database = enableDatabase ? new Mongoose({settings: mongoSettings, password: mongoPassword}) : null
         this.config = { prefix, token, chatbot, owners, debug, commanddir: commandgroups, pings: {},
             github: 'https://maisans-maid/Mai#readme',
-            website: 'https://maisans-maid.github.io/mai.moe'
+            website: 'https://mai-san.ml'
          }
     }
 

@@ -110,7 +110,7 @@ module.exports = {
               :'\u200b'
             }`)
 
-        .setFooter(`userinfo | ©️${new Date().getFullYear()} Mai`,'https://cdn.discordapp.com/emojis/729380844611043438')
+        .setFooter(`Userinfo | ©️${new Date().getFullYear()} Mai`)
     )
   }
 }

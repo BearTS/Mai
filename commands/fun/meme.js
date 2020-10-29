@@ -43,7 +43,7 @@ module.exports = {
 
       .setImage(url)
 
-      .setFooter(subreddit)
+      .setFooter(`${subreddit}:Meme | \©️${new Date().getFullYear()} Mai`)
 
     )
   }

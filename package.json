@@ -1,7 +1,7 @@
 {
   "name": "mai",
-  "version": "3.0.0",
-  "description": "Discordbot written in discord.js@12.3.1",
+  "version": "3.0.1",
+  "description": "Discordbot written in discord.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

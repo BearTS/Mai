@@ -130,6 +130,8 @@ module.exports = {
 
           .setTitle(title(percentage))
 
+          .setFooter(`Ship | \©️${new Date().getFullYear()} Mai`)
+
       return message.channel.send(embed)
 
     }
@@ -148,6 +150,8 @@ module.exports = {
         .setColor(color(percentage))
 
         .setTitle(title(percentage))
+
+        .setFooter(`Ship | \©️${new Date().getFullYear()} Mai`)
 
     return message.channel.send(embed)
   }

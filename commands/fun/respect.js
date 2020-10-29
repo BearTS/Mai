@@ -19,7 +19,7 @@ module.exports = {
     const rep = await message.channel.send(new MessageEmbed()
       .setDescription(`${message.member} has paid their respect${args.length ? ` to ${args.join(' ')}.` : ''}`)
       .setColor('GREY')
-      .setFooter('Press F to pay respect.')
+      .setFooter(`Press F to pay respect | \©️${new Date().getFullYear()} Mai`)
     )
 
     if (!message.deleted) await message.delete()

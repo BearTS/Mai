@@ -22,8 +22,10 @@ module.exports = {
       .setURL('https://ao-buta.com/tv/?innerlink')
       .addField(`Definition`,`No arguing, Mai Sakurajima indeed is the best anime girl!`)
       .addField('Example(s)', '[Mai sakurajima] is the best girl around. No one could beat her, not even zero two.')
+      .addField('\u200b', 'Submitted by Sakuta Azusagawa')
       .setColor('#e86222')
-      .setFooter(`Submitted by Sakuta Azusagawa`))
+      .setFooter(`Define | \©️${new Date().getFullYear()} Mai`)
+    )
     }
 
     if (filter.isProfane(args.join(' ')) && !message.channel.nsfw)
@@ -42,8 +44,9 @@ module.exports = {
     .setURL(urbanURL)
     .addField(`Definition`, message.channel.nsfw ? textTrunctuate(definition) : textTrunctuate(filter.clean(definition),1000))
     .addField('Example(s)', example ? message.channel.nsfw ? textTrunctuate(example,1000) : textTrunctuate(filter.clean(example),1000) : 'N/A')
+    .addField('\u200b', `Submitted by ${message.channel.nsfw ? author : `${filter.clean(author)}\nProfane word? Contact my developer through the command \`feedback\` and ask to blacklist the word!`}`)
     .setColor('#e86222')
-    .setFooter(`Submitted by ${message.channel.nsfw ? author : `${filter.clean(author)}\nProfane word? Contact my developer through the command \`feedback\` and ask to blacklist the word!`}`)
+    .setFooter(`Define | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

@@ -6,50 +6,12 @@ const {
   }
 } = require('../../helper.js')
 const langflags = [
-    {
-      lang: 'Hungarian'
-    , flag: '🇭🇺'
-    }
-  , {
-      lang: 'Japanese'
-    , flag: '🇯🇵'
-    }
-  , {
-      lang: 'French'
-    , flag: '🇫🇷'
-    }
-  , {
-      lang: 'Russian'
-    , flag:'🇷🇺'
-    }
-  , {
-      lang: 'German'
-    , flag: '🇩🇪'
-    }
-  , {
-      lang: 'English'
-    , flag: '🇺🇸'
-    }
-  , {
-      lang: 'Italian'
-    , flag: '🇮🇹'
-    }
-  , {
-      lang: 'Spanish'
-    , flag: '🇪🇸'
-    }
-  , {
-      lang: 'Korean'
-    , flag: '🇰🇷'
-    }
-  , {
-      lang: 'Chinese'
-    , flag: '🇨🇳'
-    }
-  , {
-      lang: 'Brazilian'
-    , flag: '🇧🇷'
-    }
+  { lang: 'Hungarian', flag: '🇭🇺' }, { lang: 'Japanese', flag: '🇯🇵' }
+  , { lang: 'French' , flag: '🇫🇷' }, { lang: 'Russian' , flag:'🇷🇺' }
+  , { lang: 'German', flag: '🇩🇪' }, { lang: 'English', flag: '🇺🇸' }
+  , { lang: 'Italian', flag: '🇮🇹' }, { lang: 'Spanish', flag: '🇪🇸' }
+  , { lang: 'Korean', flag: '🇰🇷' }, { lang: 'Chinese', flag: '🇨🇳' }
+  , { lang: 'Brazilian', flag: '🇧🇷' }
   ]
 
 

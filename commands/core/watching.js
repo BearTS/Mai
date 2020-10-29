@@ -91,6 +91,7 @@ module.exports = {
         .setTitle('Current Announcements')
         .setColor('GREY')
         .setDescription(description)
+        .setFooter(`Anischedule (Watchlist) | \©️${new Date().getFullYear()} Mai`)
       )
 
       description = '\u200b'
@@ -105,6 +106,7 @@ module.exports = {
         .setColor('GREY')
         .setTitle('Current Announcements')
         .setDescription(description)
+        .setFooter(`Anischedule (Watchlist) | \©️${new Date().getFullYear()} Mai`)
     )
 
     for (const embed of embeds){
