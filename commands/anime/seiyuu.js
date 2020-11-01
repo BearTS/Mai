@@ -51,8 +51,8 @@ module.exports = {
         search
       }** on <:anilist:719460833838759967> [Anilist](https://anilist.co 'Anilist Homepage').\n\u200B`)
         .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
-
-      ).setFooter(`Seiyuu Query with AL | \©️${new Date().getFullYear()} Mai`);
+        .setFooter(`Seiyuu Query with AL | \©️${new Date().getFullYear()} Mai`)
+      )
 
 
     let res = await query(Seiyuu, { search })

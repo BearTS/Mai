@@ -1,5 +1,5 @@
 var fetch = require("node-fetch")
-const { URLSearchPArams } = require('url')
+const { URLSearchParams } = require('url')
 
 module.exports.dblPost = (client, delay = 300000) => {
   const params = new URLSearchParams();
@@ -13,7 +13,7 @@ module.exports.dblPost = (client, delay = 300000) => {
         path: { 'id': client.user.id},
         body: params,
         headers: { 'Authorization' : process.env.DBL_Auth }
-    }).then(res => res.json())
+    }).then(res => res.json().catch(err => err))
     .then(json => client.emit('DBLPostStatistics', json))
   }
 
