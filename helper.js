@@ -40,13 +40,7 @@ module.exports = {
   , Classes: {
       Paginate: require('./struct/Paginate')
   }
-
-  , Quiz: {
-      collectPlayers: require('./utilities/quiz/collectPlayers')
-    , loadQuestions: require('./utilities/quiz/loadQuestions')
-    , sendQuestion: require('./utilities/quiz/sendQuestion')
-  }
-
+  
   //XP
   , addXP: require('./utilities/Add XP')
 
