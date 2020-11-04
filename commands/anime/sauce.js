@@ -74,7 +74,7 @@ module.exports = {
       `)
     .addField('TAGS', tags.map( m => m.name).sort().join(', '))
     .addField('PAGES', pages.length, true)
-    .addField('Uploaded on', `${timeZoneConvert(uploaded)}, ${duration(uploaded).format('Y [Year] M [Month, and] D [Day]')} ago.`, true)
+    .addField('Uploaded on', `${timeZoneConvert(uploaded)}, ${duration(Date.now() - uploaded).format('Y [Years] M [Months, and] D [Days]')} ago.`, true)
     .addField('\u200b',`[\`[LINK]\`](https://nhentai.net/g/${id} 'Click here to proceed to ${pretty}'s nHentai Page')`,true)
     .setThumbnail(api.getImageURL(cover))
     .setColor('GREY')
