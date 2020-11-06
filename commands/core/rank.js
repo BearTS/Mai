@@ -36,7 +36,7 @@ module.exports = {
           `**${message.member.displayName}**, XP is currently disabled in this server.\n\n`
           + `If you are the server Administrator, you may enable it by typing \`${client.config.prefix}xptoggle\`.\n`
           + `[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai's XP System.`
-        ).setAuthor('XP Systems Disabled','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('XP Systems Disabled','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
@@ -48,7 +48,7 @@ module.exports = {
           + `To see which channels are xp-disabled, use the command \`${client.config.prefix}nonxpchannels\`\n`
           + `If you are the server Administrator, you may reenable it here by typing \`${client.config.prefix}xpenable #${message.channel.name}\`\n`
           + `[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai's XP System.`
-        ).setAuthor('Channel Blacklisted','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('Channel Blacklisted','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 
@@ -76,7 +76,7 @@ module.exports = {
         embed.setDescription(
           `**${message.member.displayName}**, I am unable to contact the database.\n\n`
           + `Please try again later or report this incident to my developer.`
-        ).setAuthor('Database Error','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('Database Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
       )
 

@@ -9,7 +9,7 @@ module.exports = {
   parameters: [],
   run: async (client, message, [commandname]) => {
 
-    if (!commandname) return message.channel.send(`<:cancel:712586986216489011> | Please specify the command to load!`)
+    if (!commandname) return message.channel.send(`<:cancel:767062250279927818> | Please specify the command to load!`)
 
     const { status, err, info } = await client.commands.reload(commandname)
 
@@ -22,11 +22,11 @@ module.exports = {
       if (message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS'))
         return message.channel.send( new MessageEmbed()
                                       .setColor('RED')
-                                      .setAuthor('Failed to load the specified command...','https://cdn.discordapp.com/emojis/712586986216489011')
+                                      .setAuthor('Failed to load the specified command...','https://cdn.discordapp.com/emojis/767062250279927818')
                                       .setDescription(`\`\`\`xl\n${stacktrace}\n\`\`\``)
                                    )
 
-      return message.channel.send(`<:cancel:712586986216489011> | Failed to reload the specified command: \n\`\`\`xl\n{}\n\`\`\``)
+      return message.channel.send(`<:cancel:767062250279927818> | Failed to reload the specified command: \n\`\`\`xl\n{}\n\`\`\``)
 
     }
 

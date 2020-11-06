@@ -35,7 +35,7 @@ module.exports = {
     ]
 
     if (!args.length)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! You're not asking anything!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! You're not asking anything!`)
 
     return message.channel.send(eightball[Math.floor(Math.random() * eightball.length)])
 

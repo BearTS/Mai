@@ -44,7 +44,7 @@ module.exports = {
     const embed = new MessageEmbed()
     .setColor('YELLOW')
     .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
-    .setDescription(`\u200B\n Fetching **${day}** anime schedules from <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'MyAnimeList Homepage').\n\u200B`)
+    .setDescription(`\u200B\n Fetching **${day}** anime schedules from <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'MyAnimeList Homepage').\n\u200B`)
     .setFooter(`Schedule Query with MAL | \©️${new Date().getFullYear()} Mai`)
 
     let msg = await message.channel.send(embed)
@@ -58,7 +58,7 @@ module.exports = {
       : {}
 
       embed.setColor('RED')
-      .setAuthor(res.error === 'Bad Request' ? 'Unknown day' : 'Response Error','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor(res.error === 'Bad Request' ? 'Unknown day' : 'Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
         `**${message.member.displayName}**, ${res.error === 'Bad Request' ? 'Could not recognize input' : 'An unexpected error occured!'}\n\n`
         + `${res.error === 'Bad Request' ? `**${day}** seems to be an invalid day, please select from Monday - Sunday.` : jikanError(res.status)}`
@@ -100,9 +100,9 @@ module.exports = {
 
     if (pages.size === 1) return
 
-    const prev = client.emojis.cache.get('712581829286166579') || '◀'
-    const next = client.emojis.cache.get('712581873628348476') || '▶'
-    const terminate = client.emojis.cache.get('712586986216489011') || '❌'
+    const prev = client.emojis.cache.get('767062237722050561') || '◀'
+    const next = client.emojis.cache.get('767062244034084865') || '▶'
+    const terminate = client.emojis.cache.get('767062250279927818') || '❌'
 
     const collector = msg.createReactionCollector( (reaction, user) => user.id === message.author.id)
     const navigators = [ prev, next, terminate ]

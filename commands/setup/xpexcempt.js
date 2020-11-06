@@ -18,7 +18,7 @@ module.exports = {
   if (!channels.length)
   return message.channel.send(
       new MessageEmbed().setDescription(
-          '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'Please mention the channel(s) you want me to not collect xp from.'
       ).setColor('RED')
     )
@@ -34,7 +34,7 @@ module.exports = {
   if (data instanceof MongooseError)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+        '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
       + 'Unable to contact the database. Please try again later or report this incident to my developer.'
       + '\u2000\u2000\n\n\u200b'
     ).setColor('RED')
@@ -54,7 +54,7 @@ module.exports = {
   if (!newch.length)
   return message.channel.send(
       new MessageEmbed().setDescription(
-          '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'The mentioned channel(s) '
         + oldch.map(c => client.channels.cache.get(c).toString().toString()).join(', ')
         + ' are already in the excempt list.'
@@ -79,7 +79,7 @@ module.exports = {
       ).setColor('GREEN')
     )
   })
-  .catch((err)=> message.channel.send('<:cancel:712586986216489011> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.')
+  .catch((err)=> message.channel.send('<:cancel:767062250279927818> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.')
 )
 
   }

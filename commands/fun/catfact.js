@@ -19,7 +19,7 @@ module.exports = {
 
     const data = await fetch("https://catfact.ninja/facts").then(res => res.json()).catch(()=>null)
 
-    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! Catfact API is currently down!`)
+    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Catfact API is currently down!`)
 
     const { data: [cat] } = data
 

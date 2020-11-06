@@ -25,7 +25,7 @@ module.exports = {
         embed.setDescription(
           `**${message.member.displayName}**, The **Suggestion Channel** for this server has not yet been set.\n\n`
           + `If you are a server administrator, you may set the channel by typing: \`${client.config.prefix}setsuggestch <channel ID | channel mention>\``
-        ).setAuthor('No Channel','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('No Channel','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setFooter(`Suggest | \©️${new Date().getFullYear()} Mai`)
       )
 
@@ -34,7 +34,7 @@ module.exports = {
         embed.setDescription(
           `**${message.member.displayName}**, The **Suggestion Channel** for this server was invalidated.\n\n`
           + `If you are a server administrator, you may set the channel by typing: \`${client.config.prefix}setsuggestch <channel ID | channel mention>\``
-        ).setAuthor('Invalid Channel','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('Invalid Channel','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setFooter(`Suggest | \©️${new Date().getFullYear()} Mai`)
       )
 
@@ -43,7 +43,7 @@ module.exports = {
         embed.setDescription(
           `**${message.member.displayName}**, Please include your **suggestion message**.\n\n`
           + `Keep it short and brief.`
-        ).setAuthor('No Message','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('No Message','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setFooter(`Suggest | \©️${new Date().getFullYear()} Mai`)
       )
 
@@ -61,7 +61,7 @@ module.exports = {
         .catch(()=> message.channel.send(embed.setDescription(
           `**${message.member.displayName}**, I have no permissions to send message on the suggestion channel.\n\n`
           + `If you are a server administrator, please make sure I have the necessary permissions. (Send Messages, Embed Links, Add Reactions)`
-        ).setAuthor('Unable to Post Suggestion','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('Unable to Post Suggestion','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setFooter(`Suggest | \©️${new Date().getFullYear()} Mai`)))
   }
 }

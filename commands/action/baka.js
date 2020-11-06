@@ -20,7 +20,7 @@ module.exports = {
 
     const { url } = await baka().catch(()=>{})
 
-  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
+  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
 
   if (!message.mentions.members.size)
   return message.channel.send(new MessageEmbed()
@@ -33,7 +33,7 @@ module.exports = {
   return message.react('💢')
 
   if (message.mentions.members.first().id === message.author.id)
-  return message.channel.send(`<:cancel:712586986216489011> | No ${message.author}, you're not Baka!`)
+  return message.channel.send(`<:cancel:767062250279927818> | No ${message.author}, you're not Baka!`)
 
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')

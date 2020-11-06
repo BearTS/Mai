@@ -16,7 +16,7 @@ module.exports = {
     if (!prefix)
     return message.channel.send(
       new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'Please tell me the prefix you want me to listen to.'
       ).setColor('RED')
     )
@@ -24,7 +24,7 @@ module.exports = {
     if (prefix.length > 5)
     return message.channel.send(
       new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'Prefix are supposed to be short! \n\n Please supply prefix not exceeding 5 characters in length.'
       ).setColor('RED')
     )
@@ -39,7 +39,7 @@ module.exports = {
     if (data instanceof MongooseError)
     return message.channel.send(
       new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'Unable to contact the database. Please try again later or report this incident to my developer.'
       ).setColor('RED')
     )
@@ -59,7 +59,7 @@ module.exports = {
     }).catch(()=>
     message.channel.send(
       new MessageEmbed().setDescription(
-        `<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
+        `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
       `).setColor('RED')
     )
   )

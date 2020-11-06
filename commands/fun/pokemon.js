@@ -34,14 +34,14 @@ module.exports = {
                     .catch(()=>null)
 
       let errmsg = new MessageEmbed()
-                    .setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author},  Pokédex is currently down!\n\u200b`)
+                    .setDescription(`\u200b\n<:cancel:767062250279927818> | ${message.author},  Pokédex is currently down!\n\u200b`)
                     .setColor('RED')
 
     if (!data) return await prompt.edit(errmsg).catch(()=>null)
                       ? null
                       : message.channel.send(errmsg).catch(()=>null)
 
-      errmsg.setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author},  I can't seem to find **${args.join(' ')}** from the Pokédex!\n\u200b`)
+      errmsg.setDescription(`\u200b\n<:cancel:767062250279927818> | ${message.author},  I can't seem to find **${args.join(' ')}** from the Pokédex!\n\u200b`)
 
     if (data.error) return await prompt.edit(errmsg).catch(()=>null)
                             ? null

@@ -22,13 +22,13 @@ module.exports = {
   guildOnly: true,
   adminOnly: true,
   group: 'setup',
-  description: 'Adds a new anime to watch for new episodes of. You may provide an <:anilist:719460833838759967>AniList entry link or a <:mal:722270009761595482>MyAnimeList link.',
+  description: 'Adds a new anime to watch for new episodes of. You may provide an <:anilist:767062314121035806>AniList entry link or a <:mal:767062339177676800>MyAnimeList link.',
   examples: ['watch https://myanimelist.net/anime/37450/Seishun_Buta_Yarou_wa_Bunny_Girl_Senpai_no_Yume_wo_Minai'],
   parameters: ['AniList or MAL entry link'],
   run: async ( client, message, args) => {
 
     if (client.guildsettings.profiles.get(message.guild.id).featuredChannels.anisched === null)
-    return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Anischedule Feature has been disabled in this server.`)
+    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Anischedule Feature has been disabled in this server.`)
 
 
     let profile = await guildWatchlistSchema.findOne({
@@ -45,14 +45,14 @@ module.exports = {
     return message.channel.send(
       new MessageEmbed().setColor('RED')
         .setDescription(
-          '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
         + 'Unable to contact the database. Please try again later or report this incident to my developer.'
         + '\u2000\u2000\n\n\u200b'
       )
     )
 
     if (!args.length)
-    return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You need to provide the anime link(s) to watch for.`)
+    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You need to provide the anime link(s) to watch for.`)
 
     let mal = (/(?<=myanimelist\.net\/anime\/)(.\d*)/gi).test(args.join(' '))
             ? args.join(' ').match(/(?<=myanimelist\.net\/anime\/)(.\d*)/gi)[0]
@@ -62,7 +62,7 @@ module.exports = {
             : null
 
     if (!mal && !al)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You need to provide the anime link(s) to watch for.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You need to provide the anime link(s) to watch for.`)
 
     const info = mal
             ? await query('query ($Id: Int) {Media(idMal: $Id, type: ANIME) {id title { romaji english native } status coverImage { large color} nextAiringEpisode { episode timeUntilAiring}}}', { Id: mal })
@@ -77,13 +77,13 @@ module.exports = {
               })
 
     if (info.errors && info.errors[0].status !== 404)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Couldn't contact Anilist.co. Please try again in a minute.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Couldn't contact Anilist.co. Please try again in a minute.`)
 
     if (info.errors && info.errors[0].status === 404)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, The link you provided does not match any anime.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The link you provided does not match any anime.`)
 
     if (!info)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, The link you provided does not match any anime.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The link you provided does not match any anime.`)
 
 
    if (!['RELEASING','NOT_YET_RELEASED'].includes(info.status))
@@ -92,7 +92,7 @@ module.exports = {
         .setColor('RED')
         .setThumbnail(info.coverImage.large)
         .setDescription(
-          '\u200b\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          '\u200b\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
         + `Unable to add **${
           info.title.romaji
           ? info.title.romaji
@@ -109,7 +109,7 @@ module.exports = {
       .setColor('RED')
       .setThumbnail(info.coverImage.large)
       .setDescription(
-        '\u200b\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+        '\u200b\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
       + `The anime **${
         info.title.romaji
         ? info.title.romaji
@@ -147,7 +147,7 @@ module.exports = {
               }`)
         )
       })
-        .catch((err)=> message.channel.send(`<:cancel:712586986216489011> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`)
+        .catch((err)=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`)
     )
   }
 }

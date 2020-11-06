@@ -20,7 +20,7 @@ module.exports = {
     if (!member)
     return message.channel.send(
       new MessageEmbed().setDescription(
-        '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+        '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'Couldn\'t find that member in this server!'
       ).setColor('RED')
     )
@@ -28,7 +28,7 @@ module.exports = {
     if (member.user.bot)
     return message.channel.send(
       new MessageEmbed().setDescription(
-        '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+        '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'A bot cannot earn experience points!'
       ).setColor('RED')
     )
@@ -46,7 +46,7 @@ module.exports = {
   })
 
   if (!continued)
-    return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, cancelled the userxpreset command!`)
+    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cancelled the userxpreset command!`)
 
   const data = await model.xpSchema.findOne({ guildID: message.guild.id, userID: member.id})
 
@@ -54,7 +54,7 @@ module.exports = {
   return message.channel.send(
     new MessageEmbed().setColor('RED')
     .setDescription(
-      '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+      '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
       + `**${member.displayName}** has not started earning experience points!`
     )
   )
@@ -63,7 +63,7 @@ module.exports = {
   return message.channel.send(
     new MessageEmbed().setColor('RED')
       .setDescription(
-        '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+        '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
       + 'Unable to contact the database. Please try again later or report this incident to my developer.'
     )
   )
@@ -80,7 +80,7 @@ module.exports = {
   message.channel.send(
     new MessageEmbed().setColor('GREEN')
     .setDescription(
-      '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+      '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
       + `**${member.displayName}**'s experience points **reset attempt** has failed.`
       )
     )

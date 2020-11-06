@@ -66,7 +66,7 @@ module.exports = {
                 : id
 
       if (!first)
-        return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! There isn't any human on your server!`)
+        return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! There isn't any human on your server!`)
 
         percentage = (parseInt(message.member.id) + parseInt(first)) % 101
 
@@ -95,17 +95,17 @@ module.exports = {
     }
 
     if (!first.match(/\d{17,19}/))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! The supplied argument is neither an ID nor a mention!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! The supplied argument is neither an ID nor a mention!`)
 
     first = await message.guild.members.fetch(first.match(/\d{17,19}/)[0])
               .then(member => member.id)
                 .catch(()=>null)
 
     if (!first)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! The supplied ID is not a valid Discord User ID, or that member is not in this server!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! The supplied ID is not a valid Discord User ID, or that member is not in this server!`)
 
     if (first === message.author.id)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! You cannot ship with yourself! That's just..... lonely.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! You cannot ship with yourself! That's just..... lonely.`)
 
     if (second && second.match(/\d{17,19}/)) {
     second = await message.guild.members.fetch(second.match(/\d{17,19}/)[0])

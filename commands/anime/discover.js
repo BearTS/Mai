@@ -55,7 +55,7 @@ module.exports = {
          `**${message.member.displayName}**, Please specify if it's \`ANIME\` or \`MANGA\`.`
       ).setColor('RED').setFooter(`Discover | \©️${new Date().getFullYear()} Mai`)
       .setThumbnail('https://i.imgur.com/qkBQB8V.png')
-      .setAuthor('Unrecognized Category!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('Unrecognized Category!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     )
 
     let profile = {};
@@ -98,7 +98,7 @@ module.exports = {
       if (errors && errors.some(x => x.status === 429))
       return message.channel.send(
         new MessageEmbed()
-        .setAuthor('Oh no! Mai has been rate-limited', 'https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setAuthor('Oh no! Mai has been rate-limited', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setDescription(
           `**${message.member.displayName}**, please try again in a minute.\n\n`
           + `If this error occurs frequently, please contact **Sakurajimai#6742**.`
@@ -110,7 +110,7 @@ module.exports = {
       if (errors && errors.some(x => x.status === 400))
       return message.channel.send(
         new MessageEmbed()
-        .setAuthor('Oops! A wild bug 🐛 appeared!', 'https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setAuthor('Oops! A wild bug 🐛 appeared!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setDescription(
           `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n`
           + `Please contact **Sakurajimai#6742** for a quick fix.\n`
@@ -123,7 +123,7 @@ module.exports = {
       if (errors)
       return message.channel.send(
         new MessageEmbed()
-        .setAuthor('Oops! An unexpected error occured!', 'https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        .setAuthor('Oops! An unexpected error occured!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setDescription(
           `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n`
           + `This might be an issue on Anilist's end. Please try again in a minute\n`
@@ -152,7 +152,7 @@ module.exports = {
         + `You get a different ${collection_name === 'anidailyrec' ? 'anime' : 'manga'} recommendations daily so don\'t miss the chance to discover every day.`)
       .addField('\u200b',`${profile.selectedgenres.map(g => `\\🟢 ${g}`).join('\n')}`)
       .addField( profile.timesviewed > 1 ? `Times viewed today:\n${profile.timesviewed + 1}` : '\u200b', '\u200b' )
-      .addField('\u200b', 'Start Your Queue by clicking <:next:712581873628348476> below!!')
+      .addField('\u200b', 'Start Your Queue by clicking <:next:767062244034084865> below!!')
       .setFooter(`Discover ${collection_name === 'anidailyrec' ? 'Anime' : 'Manga'} | \©️${new Date().getFullYear()} Mai`)
     )
 
@@ -193,7 +193,7 @@ module.exports = {
     }
 
     const discoveryPrompt = await message.channel.send(discoveryPages.currentPage)
-    const next = client.emojis.cache.get('712581873628348476') || '▶'
+    const next = client.emojis.cache.get('767062244034084865') || '▶'
     const collector = discoveryPrompt.createReactionCollector( (reaction, user) => user.id === message.author.id)
     await discoveryPrompt.react(next)
     let timeout = setTimeout(()=> collector.stop(), 90000)

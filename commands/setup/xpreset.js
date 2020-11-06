@@ -26,7 +26,7 @@ module.exports = {
   })
 
   if (!continued)
-    return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, cancelled the xpreset command!`)
+    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cancelled the xpreset command!`)
 
   return model.xpSchema.deleteMany({ guildID: message.guild.id}, (err,del) => {
       message.channel.send(

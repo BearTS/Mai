@@ -22,7 +22,7 @@ module.exports = {
   if (data instanceof MongooseError)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+        '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
       + 'Unable to contact the database. Please try again later or report this incident to my developer.'
       + '\u2000\u2000\n\n\u200b'
     ).setColor('RED')
@@ -31,7 +31,7 @@ module.exports = {
   if (!data)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `**${message.member.displayName}**, You don't have a **wallet** yet!
         \nTo create one, type \`${client.config.prefix}register\`.
         \u2000\u2000`
@@ -41,7 +41,7 @@ module.exports = {
   if (data.data.bank === null)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, You don't have a **bank** yet! Won bets might be higher than wallet capacity depending on your bet amount
         \n Get a bank first by typing \`${client.config.prefix}bank\`. You must have at least **2,500** coins to register to a bank!`
     ).setColor('RED')
@@ -50,7 +50,7 @@ module.exports = {
   if (!amount || isNaN(amount))
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, Please enter a valid amount.
         \nBets must be greater than **499** coins but less than **5,001**`
     ).setColor('RED')
@@ -59,7 +59,7 @@ module.exports = {
   if (amount < 500)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, That amount is too low for a bet.
         \nBets must be greater than **499** coins but less than **5,001**`
     ).setColor('RED')
@@ -68,7 +68,7 @@ module.exports = {
   if (amount > 5000)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, That amount is too large for a bet.
         \nBets must be greater than **499** coins but less than **5,001**`
     ).setColor('RED')
@@ -77,7 +77,7 @@ module.exports = {
   if (amount > data.data.wallet)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, You don't have enough coins in your wallet to proceed with that bet.
         \nGet more coins from your bank by typing \`${client.config.prefix}withdraw\`.`
     ).setColor('RED')
@@ -137,7 +137,7 @@ module.exports = {
   ).catch(()=>
     message.channel.send(
       new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
+        `\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
         `).setColor('RED')
       )
     )

@@ -62,7 +62,7 @@ module.exports = {
     ) return message.channel.send(
       new MessageEmbed()
       .setColor('RED')
-      .setAuthor('Response Error','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
          `**${message.member.displayName}**, An unexpected error has occured!\n\n`
          `${res.errors.map(({ message }) => '• ' + message).join('\n')}`
@@ -81,7 +81,7 @@ module.exports = {
     ) return message.channel.send(
       new MessageEmbed()
       .setColor('RED')
-      .setAuthor('None Found','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('None Found','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
          `**${message.member.displayName}**, That anime may have already **Finished Airing**, `
          + `have **unknown next Airdate**, or that anime may have **never existed** at all!`

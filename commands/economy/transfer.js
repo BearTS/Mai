@@ -20,7 +20,7 @@ module.exports = {
   if (!friend || friend.user.bot)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, I can't find your friend in this server.
 
         ${friend && friend.user.bot
@@ -43,7 +43,7 @@ module.exports = {
   if (sender instanceof MongooseError || recepient instanceof MongooseError)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+        '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
       + 'Unable to contact the database. Please try again later or report this incident to my developer.'
       + '\u2000\u2000\n\n\u200b'
     ).setColor('RED')
@@ -52,7 +52,7 @@ module.exports = {
   if (!sender || !recepient || sender.data.bank !== 0 || recepient.data.bank !== 0)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+        '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
       + `${message.member.displayName}, ${
           sender
           ? sender.data.bank || sender.data.bank === 0
@@ -69,7 +69,7 @@ module.exports = {
   if (!amount || isNaN(amount) || amount < 1)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, Please enter a valid amount.`
     ).setColor('RED')
   )
@@ -77,7 +77,7 @@ module.exports = {
   if (amount < 100)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, The amount to be transferred must be at least **100**.`
     ).setColor('RED')
   )
@@ -85,7 +85,7 @@ module.exports = {
   if (Math.floor(amount * 1.1) > sender.data.bank)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `${message.member.displayName}, You don't have enough coins in your bank to proceed with the transaction.
         \nYou only have **${commatize(sender.data.wallet)}**, ${commatize((amount - sender.data.wallet) + Math.floor(amount * 0.1))} less than the amount you want to transfer (Transaction fee of 10% included).
         `
@@ -106,13 +106,13 @@ module.exports = {
     ).catch(()=>
     message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Transferred amount was lost on the void. Please try again later.
+        `\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Transferred amount was lost on the void. Please try again later.
       `).setColor('RED')
       )
     ).catch(()=>
     message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Transaction was cancelled. Please try again later.
+        `\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Transaction was cancelled. Please try again later.
       `).setColor('RED')
       )
     )

@@ -18,7 +18,7 @@ module.exports = {
     if (!channelID)
     return message.channel.send(
       new MessageEmbed().setDescription(
-        '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+        '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + `**${message.member.displayName}**, please provide a valid channel ID or channel mention`
         + '\n\nYou can either mention the channel or just provide the channel ID.'
       ).setColor('RED')
@@ -38,7 +38,7 @@ module.exports = {
     if (!channel || channel.type !== 'text')
     return message.channel.send(
       new MessageEmbed().setDescription(
-        '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+        '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + `**${message.member.displayName}**, the supplied channel id is not valid.`
         + '\n\nPlease make sure that the channel ID is a valid channel id, and is it is of type `text`'
       ).setColor('RED')
@@ -56,7 +56,7 @@ module.exports = {
     if (!channel.permissionsFor(message.guild.me).has('SEND_MESSAGES'))
     return message.channel.send(
       new MessageEmbed().setDescription(
-        '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+        '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + `**${message.member.displayName}**, I cannot type anything in ${channel}.`
         + '\n\nPlease adjust the necessary permissions for me on that channel and try again.'
       ).setColor('RED')
@@ -81,7 +81,7 @@ module.exports = {
     if (data instanceof MongooseError)
     return message.channel.send(
       new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'Unable to contact the database. Please try again later or report this incident to my developer.'
       ).setColor('RED')
     )
@@ -101,7 +101,7 @@ module.exports = {
     }).catch(()=>
     message.channel.send(
       new MessageEmbed().setDescription(
-        `<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
+        `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
       `).setColor('RED')
     )
   )

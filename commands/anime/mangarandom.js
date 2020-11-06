@@ -49,7 +49,7 @@ module.exports = {
     if (errors && errors.some(x => x.status === 429))
     return message.channel.send(
       new MessageEmbed()
-      .setAuthor('Oh no! Mai has been rate-limited', 'https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('Oh no! Mai has been rate-limited', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
         `**${message.member.displayName}**, please try again in a minute.\n\n`
         + `If this error occurs frequently, please contact **Sakurajimai#6742**.`
@@ -61,7 +61,7 @@ module.exports = {
     if (errors && errors.some(x => x.status === 400))
     return message.channel.send(
       new MessageEmbed()
-      .setAuthor('Oops! A wild bug 🐛 appeared!', 'https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('Oops! A wild bug 🐛 appeared!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
         `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n`
         + `Please contact **Sakurajimai#6742** for a quick fix.\n`
@@ -74,7 +74,7 @@ module.exports = {
     if (errors)
     return message.channel.send(
       new MessageEmbed()
-      .setAuthor('Oops! An unexpected error occured!', 'https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('Oops! An unexpected error occured!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
         `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n`
         + `This might be an issue on Anilist's end. Please try again in a minute\n`

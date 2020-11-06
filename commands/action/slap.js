@@ -20,10 +20,10 @@ module.exports = {
 
     const { url } = await slap().catch(()=>{})
 
-  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
+  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
 
   if (!message.mentions.members.size)
-  return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, just what are you doing slapping the air?!`)
+  return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, just what are you doing slapping the air?!`)
 
   if (message.mentions.members.first().id === client.user.id)
   return message.reply([`Ouch! How dare you slap me!`,`Stop that!`,`It hurts!`][Math.floor(Math.random() * 3)])

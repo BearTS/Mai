@@ -25,7 +25,7 @@ module.exports = {
   , run: async (client, message) => {
 
     if (client.guildsettings.profiles.get(message.guild.id).featuredChannels.anisched === null)
-    return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Anischedule Feature has been disabled in this server.`)
+    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Anischedule Feature has been disabled in this server.`)
 
     let profile = await guildWatchlistSchema.findOne({
       guildID: message.guild.id
@@ -44,7 +44,7 @@ module.exports = {
       return message.channel.send(
         new MessageEmbed().setColor('RED')
           .setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+            '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
           + message.author.tag
           + ', The server\'s current watchlist is empty. You may add anime to watch by using `watch` command.'
           + '\u2000\u2000\n\n\u200b'
@@ -65,7 +65,7 @@ module.exports = {
       }).catch((err)=> err)
 
       if (!res || res.errors)
-        return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Unable to contact Anilist.co. Please try again later.`)
+        return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Unable to contact Anilist.co. Please try again later.`)
 
       for (const media of res.data.Page.media){
         if (media.status === 'RELEASING'){

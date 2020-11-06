@@ -22,10 +22,10 @@ module.exports = {
 
     const { url: slapp } = await slap().catch(()=>{})
 
-  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
+  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
 
   if (!message.mentions.members.size)
-  return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, you desperate enough to kiss an invisible user?!`)
+  return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, you desperate enough to kiss an invisible user?!`)
 
   if (message.mentions.members.first().id === client.user.id)
   return message.channel.send(new MessageEmbed()
@@ -36,7 +36,7 @@ module.exports = {
     )
 
   if (message.mentions.members.first().id === message.author.id)
-  return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, ever heard of a mirror?`)
+  return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, ever heard of a mirror?`)
 
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')

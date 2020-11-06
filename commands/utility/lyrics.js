@@ -15,7 +15,7 @@ module.exports = {
 
     const data = await fetch(`https://some-random-api.ml/lyrics?title=${encodeURI(args.join(' '))}`).then(res => res.json())
 
-    if (data.error) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, I couldn't find the lyrics for ${args.join(' ')}!`)
+    if (data.error) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I couldn't find the lyrics for ${args.join(' ')}!`)
 
     const { title, author, lyrics, thumbnail, links } = data
 
@@ -55,9 +55,9 @@ module.exports = {
 
     const msg = await message.channel.send(pages.currentPage)
 
-    const prev = client.emojis.cache.get('712581829286166579') || '◀'
-    const next = client.emojis.cache.get('712581873628348476') || '▶'
-    const terminate = client.emojis.cache.get('712586986216489011') || '❌'
+    const prev = client.emojis.cache.get('767062237722050561') || '◀'
+    const next = client.emojis.cache.get('767062244034084865') || '▶'
+    const terminate = client.emojis.cache.get('767062250279927818') || '❌'
 
     const collector = msg.createReactionCollector( (reaction, user) => user.id === message.author.id)
     const navigators = [ prev, next, terminate ]

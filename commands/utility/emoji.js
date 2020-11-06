@@ -11,7 +11,7 @@ module.exports = {
   run: async (client, message, [ emoji ]) => {
 
     if (!emoji || !emoji.match(/<?(a)?:?(\w{2,32}):(\d{17,19})>?/))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, please enter a valid custom emoji!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, please enter a valid custom emoji!`)
 
     const emojiID = emoji.match(/\d{17,19}/)[0]
 
