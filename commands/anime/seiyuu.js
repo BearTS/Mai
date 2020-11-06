@@ -49,7 +49,7 @@ module.exports = {
       .setColor('YELLOW')
       .setDescription(`\u200B\nSearching for character named **${
         search
-      }** on <:anilist:719460833838759967> [Anilist](https://anilist.co 'Anilist Homepage').\n\u200B`)
+      }** on <:anilist:767062314121035806> [Anilist](https://anilist.co 'Anilist Homepage').\n\u200B`)
         .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
         .setFooter(`Seiyuu Query with AL | \©️${new Date().getFullYear()} Mai`)
       )
@@ -66,7 +66,7 @@ module.exports = {
 
       const errembed = new MessageEmbed()
       .setColor('RED')
-      .setAuthor('Response Error','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
          `**${message.member.displayName}**, An unexpected error has occured!\n\n`
          `${res.errors.map(({ message }) => '• ' + message).join('\n')}`
@@ -90,7 +90,7 @@ module.exports = {
 
       const noneembed = new MessageEmbed()
       .setColor('RED')
-      .setAuthor('None Found','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('None Found','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
          `**${message.member.displayName}**, No results were found for **${search}**!\n\n`
          + `If you believe this seiyuu exists, try the following methods:\n`

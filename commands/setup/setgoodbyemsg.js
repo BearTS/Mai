@@ -16,7 +16,7 @@ module.exports = {
     if (!stats || !['default', 'msg=true', 'embed=true', 'msg=set', 'embed=set', 'test'].includes(stats))
     return message.channel.send(
       new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + `Please include the option parameter.
         \n[Learn More](https://mai-san.ml/docs/Getting%20Started/custom_leave_message) on how to configure Mai's Leaving Member Announcer feature.`
       ).setColor('RED')
@@ -28,7 +28,7 @@ module.exports = {
     if (!data || data instanceof MongooseError)
     return message.channel.send(
       new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'Unable to contact the database. Please try again later or report this incident to my developer.'
       ).setColor('RED')
     )
@@ -49,7 +49,7 @@ module.exports = {
         ).catch(() =>
            message.channel.send(
             new MessageEmbed().setDescription(
-              `<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
+              `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
             `).setColor('RED')
           )
         )
@@ -60,7 +60,7 @@ module.exports = {
       if (!data.goodbyemsg)
       return message.channel.send(
         new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
           + `Unable to change the goodbye message to **text mode**!
           \nMake sure you have already set a goodbye message (plain text) before you run this command.
           To set the message, use \`${client.config.prefix}setgoodbyemsg msg=set [message content]\`
@@ -82,7 +82,7 @@ module.exports = {
         ).catch(() =>
            message.channel.send(
             new MessageEmbed().setDescription(
-              `<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
+              `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
             `).setColor('RED')
           )
         )
@@ -93,7 +93,7 @@ module.exports = {
       if (!data.goodbyeEmbed || isEmpty(data.goodbyeEmbed))
       return message.channel.send(
         new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
           + `Unable to change the goodbye message to **embed mode**!
           \nMake sure you have already set a goodbye message (embed) before you run this command.
           To set the message, use \`${client.config.prefix}setgoodbyemsg embed=set [embed details]\`
@@ -115,7 +115,7 @@ module.exports = {
         ).catch(() =>
            message.channel.send(
             new MessageEmbed().setDescription(
-              `<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
+              `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
             `).setColor('RED')
           )
         )
@@ -126,7 +126,7 @@ module.exports = {
       if (!args.length)
       return message.channel.send(
         new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
           + `Please enter a goodbye message after the \`[options]\` parameter!
           \nYou can use modifiers too to use dynamic information like the Outgoing member's name, guild name, and guild membercount!
           [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_leave_message) on how to configure Mai's Leaving Member Announcer feature.`
@@ -146,7 +146,7 @@ module.exports = {
         ).catch(() =>
            message.channel.send(
             new MessageEmbed().setDescription(
-              `<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
+              `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
             `).setColor('RED')
           )
         )
@@ -157,7 +157,7 @@ module.exports = {
       if (!args.length)
       return message.channel.send(
         new MessageEmbed().setDescription(
-          '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
           + `Please enter the embed options after the \`[options]\` parameter!
           \nYou can use modifiers too to use dynamic information like the Outgoing member's name, guild name, and guild membercount!
           [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_leave_message) on how to configure Mai's Leaving Member Announcer feature.`
@@ -260,7 +260,7 @@ module.exports = {
         if (!fails.length) // no fails and success detected means improper args were passed
         return message.channel.send(
           new MessageEmbed().setDescription(
-            '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
             + `Embed options not detected!
             \nEmbed options such as \`-title:[]\`, \`-url:[]\`, or \`-description:[]\` are needed so I could know which is which!
             [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_leave_message) on how to configure Mai's Leaving Member Announcer feature with Embeds!`
@@ -269,7 +269,7 @@ module.exports = {
 
         return message.channel.send(
           new MessageEmbed().setDescription(
-            '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
             + `All passed embed options are invalid!
             \n${fails.map(x => `\\⚠️ ${x}`).join('\n')}
             [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_leave_message) on how to configure Mai's Leaving Member Announcer feature with Embeds!`
@@ -350,7 +350,7 @@ module.exports = {
    if (!profile.goodbye.enabled) //disabled channel
    return message.channel.send(
      new MessageEmbed().setDescription(
-       '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+       '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
        + `This feature is currently disabled on your server!
        \nEnable it by typing \`${client.config.prefix}goodbyetoggle\`!
        [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_leave_message) on how to configure Mai's Leaving Member Announcer feature.`
@@ -360,7 +360,7 @@ module.exports = {
    if (!profile.goodbye.channel || !message.guild.channels.cache.get(profile.goodbye.channel)) //No channel detected
    return message.channel.send(
      new MessageEmbed().setDescription(
-       '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+       '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
        + `No channel are set for sending these messages!
        \nSet it by typing \`${client.config.prefix}setgoodbyech [#channel Mention | channel ID]\`!
        [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_leave_message) on how to configure Mai's Leaving Member Announcer feature.`
@@ -370,7 +370,7 @@ module.exports = {
    if (!profile.goodbye.use) //use not set
    return message.channel.send(
      new MessageEmbed().setDescription(
-       '<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+       '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
        + `Failure to detect use-case!
        \nPlease fix it by typing \`${client.config.prefix}setgoodbyemsg default\`!
        [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_leave_message) on how to configure Mai's Leaving Member Announcer feature.`

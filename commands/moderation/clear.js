@@ -14,7 +14,7 @@ module.exports = {
   run: async (client, message, [ quantity ]) => {
 
     if (!quantity || isNaN(quantity) || quantity < 2 || quantity > 100)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please provide the quantity of messages to be deleted which must be greater than two (2) and less than one hundred (100)`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please provide the quantity of messages to be deleted which must be greater than two (2) and less than one hundred (100)`)
 
     return message.channel.bulkDelete(Number(quantity), true)
       .then( async messages =>  {

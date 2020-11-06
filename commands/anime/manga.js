@@ -30,7 +30,7 @@ module.exports = {
   ]
   , group: 'anime'
   , image: 'https://files.catbox.moe/1im628.gif'
-  , description: 'Searches for a Manga / Manhwa / Manhua in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net.co "Homepage").'
+  , description: 'Searches for a Manga / Manhwa / Manhua in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net.co "Homepage").'
   , examples: [
     'manga aobuta'
     , 'comic seishun buta yarou'
@@ -48,7 +48,7 @@ module.exports = {
     .setColor('YELLOW')
     .setDescription(`Searching for manga titled **${
       query
-    }** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
+    }** on <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'Homepage').`)
     .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
 
     let msg = await message.channel.send(embed)
@@ -61,7 +61,7 @@ module.exports = {
         !data.error && !data.results.length
         ? 'None Found'
         : 'Response Error'
-        ,'https://cdn.discordapp.com/emojis/712586986216489011.png?v=1'
+        ,'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1'
       )
       .setDescription(
         !data.error && !data.results.length
@@ -108,9 +108,9 @@ module.exports = {
 
     if (pages.size === 1) return
 
-    const prev = client.emojis.cache.get('712581829286166579') || '◀'
-    const next = client.emojis.cache.get('712581873628348476') || '▶'
-    const terminate = client.emojis.cache.get('712586986216489011') || '❌'
+    const prev = client.emojis.cache.get('767062237722050561') || '◀'
+    const next = client.emojis.cache.get('767062244034084865') || '▶'
+    const terminate = client.emojis.cache.get('767062250279927818') || '❌'
 
     const collector = msg.createReactionCollector( (reaction, user) => user.id === message.author.id)
     const navigators = [ prev, next, terminate ]

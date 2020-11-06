@@ -21,7 +21,7 @@ module.exports = {
   }
   , nsfw: true
   , group: 'anime'
-  , description: 'Fetch doujin information from <:nhentai:723108426896375848> [nHentai](https://nhentai.net "nHentai Homepage")'
+  , description: 'Fetch doujin information from <:nhentai:767062351169323039> [nHentai](https://nhentai.net "nHentai Homepage")'
   , clientPermissions: [
     'EMBED_LINKS'
   ]
@@ -37,13 +37,13 @@ module.exports = {
     if (!id || isNaN(id)) {
       client.commands.cooldowns.get('sauce')
         .users.delete(message.author.id)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please provide a valid **Sauce**.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please provide a valid **Sauce**.`)
     }
 
     const prompt = new MessageEmbed()
     .setColor('YELLOW')
     .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
-    .setDescription(`Searching for **${id}** on <:nhentai:723108426896375848> [nHentai.net](https:/nhentai.net 'nHentai Homepage').`)
+    .setDescription(`Searching for **${id}** on <:nhentai:767062351169323039> [nHentai.net](https:/nhentai.net 'nHentai Homepage').`)
     .setFooter(`Doujin Query | \©️${new Date().getFullYear()} Mai`);
 
     const msg = await message.channel.send(prompt)
@@ -52,7 +52,7 @@ module.exports = {
 
     if (!book){
       prompt.setColor('RED')
-      .setAuthor('None Found','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      .setAuthor('None Found','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setDescription(
         `**${message.member.displayName}**, couldn't find doujin with sauce **${id}**.`
       )
@@ -74,7 +74,7 @@ module.exports = {
       `)
     .addField('TAGS', tags.map( m => m.name).sort().join(', '))
     .addField('PAGES', pages.length, true)
-    .addField('Uploaded on', `${timeZoneConvert(uploaded)}, ${duration(uploaded).format('Y [Year] M [Month, and] D [Day]')} ago.`, true)
+    .addField('Uploaded on', `${timeZoneConvert(uploaded)}, ${duration(Date.now() - uploaded).format('Y [Years] M [Months, and] D [Days]')} ago.`, true)
     .addField('\u200b',`[\`[LINK]\`](https://nhentai.net/g/${id} 'Click here to proceed to ${pretty}'s nHentai Page')`,true)
     .setThumbnail(api.getImageURL(cover))
     .setColor('GREY')

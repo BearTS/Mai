@@ -29,12 +29,12 @@ module.exports = {
     }
 
     if (filter.isProfane(args.join(' ')) && !message.channel.nsfw)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You cannot look-up for the definition of that term in a sfw channel!\n\nNot a profane word? Contact my developer through the command \`feedback\` and ask to whitelist the word!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot look-up for the definition of that term in a sfw channel!\n\nNot a profane word? Contact my developer through the command \`feedback\` and ask to whitelist the word!`)
 
     const defs = await urban(encodeURI(args.join(' '))).catch(()=> null)
 
     if (!defs)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, No definition found for **${args.join(' ')}**`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, No definition found for **${args.join(' ')}**`)
 
     const { word, urbanURL, definition, example, author, thumbsup, thumbsdown } = defs
 

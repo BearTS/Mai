@@ -20,7 +20,7 @@ module.exports = {
     if (!channelID)
     return message.channel.send(
       embed.setDescription(
-          '\u200b\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          '\u200b\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
         + 'The **Suggestion Channel** for this server has not yet been set. '
         + 'If you are a server administrator, you may set the channel by typing:\n\n`'
         +  client.config.prefix
@@ -32,7 +32,7 @@ module.exports = {
     if (!channel)
       return message.channel.send(
         embed.setDescription(
-          '\u200b\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          '\u200b\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
         + 'The **Suggestion Channel** set for this server was invalidated. '
         + 'If you are a server administrator, you may set the channel again by typing:\n\n`'
         +  client.config.prefix

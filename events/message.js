@@ -17,7 +17,7 @@ module.exports = async ( client, message ) => {
     , guildsettings
   } = client
 
-  const serverprefix = client.guildsettings.get(message.guild.id) ? client.guildsettings.get(message.guild.id).prefix : null
+  const serverprefix = client.guildsettings.get((message.guild || {}).id) ? client.guildsettings.get(message.guild.id).prefix : null
 
 
   if (message.author.id === client.user.id) client.messages.sent++
@@ -125,7 +125,7 @@ module.exports = async ( client, message ) => {
 
       if (!accept)
       return message.channel.send(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000${
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000${
           message.author
         }, ${
           command.cooldown.message
@@ -146,7 +146,7 @@ module.exports = async ( client, message ) => {
       const embed = new MessageEmbed()
         .setColor('RED')
         .setDescription(
-          '<:cancel:712586986216489011> | An error has occured while executing this command!'
+          '<:cancel:767062250279927818> | An error has occured while executing this command!'
          + '\n```xl\n'
          + err.stack.split('\n').splice(0,5).join('\n').split(process.cwd()).join('MAIN_PROCESS')
          + '\n\n...and '

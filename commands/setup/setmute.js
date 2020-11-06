@@ -17,11 +17,11 @@ module.exports = {
 
       const guildsetting = client.guildsettings.get(message.guild.id)
 
-      if (!guildsetting || !guildsetting.roles || !guildsetting.roles.muted) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Muterole not set!`)
+      if (!guildsetting || !guildsetting.roles || !guildsetting.roles.muted) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Muterole not set!`)
 
       const muterole = message.guild.roles.cache.get(guildsetting.roles.muted)
 
-      if (!muterole) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, The previous Muterole was either removed or deleted.`)
+      if (!muterole) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The previous Muterole was either removed or deleted.`)
 
       return message.channel.send(`The current muterole is ${muterole}`)
     }
@@ -29,7 +29,7 @@ module.exports = {
   role = message.mentions.roles.size ? message.mentions.roles.first() : message.guild.roles.cache.get(role) || message.guild.roles.cache.find( r => r.name === role)
 
   if (!role)
-    return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Invalid Role - Please supply the mention of the role, the ID of the role, or its Role Name.`)
+    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Invalid Role - Please supply the mention of the role, the ID of the role, or its Role Name.`)
 
   let data = await guildProfileSchema.findOne({
     guildID: message.guild.id
@@ -43,7 +43,7 @@ module.exports = {
   if (data instanceof MongooseError)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+        '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
       + 'Unable to contact the database. Please try again later or report this incident to my developer.'
       + '\u2000\u2000\n\n\u200b'
     )
@@ -57,7 +57,7 @@ module.exports = {
     .then((data)=>{
       client.guildsettings.get(message.guild.id).roles.muted = data.muterole
       return message.channel.send(`Successfully set the mutrole to ${role}!`)
-    }).catch(()=> message.channel.send(`<:cancel:712586986216489011> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`))
+    }).catch(()=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`))
 
   }
 }

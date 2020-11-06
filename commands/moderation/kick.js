@@ -13,27 +13,27 @@ module.exports = {
   run: async ( client, message, [ mention, ...reason ]) => {
 
     if (!message.mentions.members.size || !mention.match(/\d{17,19}/))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please mention the user to kick. [mention first before adding the reason]`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please mention the user to kick. [mention first before adding the reason]`)
 
     let member = message.mentions.members.get(mention.match(/\d{17,19}/)[0])
 
     if (member.id === message.author.id)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You cannot kick yourself!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot kick yourself!`)
 
     if (member.id === client.user.id)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please don't kick me!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please don't kick me!`)
 
     if (member.id === message.guild.ownerID)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You cannot kick a server owner!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot kick a server owner!`)
 
     if (client.config.owners.includes(member.id))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, No, you can't kick my developers through me!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, No, you can't kick my developers through me!`)
 
     if (message.member.roles.highest.position < member.roles.highest.position)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You can't kick that user! He/She has a higher role than yours`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You can't kick that user! He/She has a higher role than yours`)
 
     if (!member.kickable)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, I couldn't kick that user!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I couldn't kick that user!`)
 
     reason = reason.length ? reason.join(' ') : 'None'
 
@@ -49,7 +49,7 @@ module.exports = {
       collector.on('end', () => resolve(false))
     })
 
-    if (!proceed_kick) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, cancelled the ban command!`)
+    if (!proceed_kick) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cancelled the ban command!`)
 
     await message.channel.send(`Inform **${member.user.tag}** about the kick? (y/n)`)
     collector = message.channel.createMessageCollector( res => message.author.id === res.author.id )
@@ -67,7 +67,7 @@ module.exports = {
 
     return member.kick({ reason: `MAI_KICKS: ${message.author.tag}: ${reason}`})
               .then(()=> message.channel.send(`Successfully kicked **${member.user.tag}**${dmuser ? DMed ? ` and sent the notification!` : `but failed to notify about the kick. They probably had their DMs closed.` :'.'}`))
-                .catch(()=> message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Failed to kick **${member.user.tag}**`))
+                .catch(()=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Failed to kick **${member.user.tag}**`))
 
   }
 }

@@ -14,12 +14,12 @@ module.exports = {
   run: async ({ emojis, users }, message, [userID]) => {
 
     if (!message.content.match(/\d{17,19}/))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, please specify a valid user ID or user mention`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, please specify a valid user ID or user mention`)
 
     const user = await users.fetch(message.content.match(/\d{17,19}/)[0]).catch(()=> null)
 
     if (!user)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, please specify a valid user ID or user mention`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, please specify a valid user ID or user mention`)
 
     const userFlags = await user.fetchFlags()
                               .then( flags => flags.toArray().map( name => emojis.cache.some( n => n.name === name) ? emojis.cache.find( n => n.name === name).toString() : '\u200b').join('\u200b\u2000'))
@@ -29,7 +29,7 @@ module.exports = {
     const member = await message.guild.members.fetch(user.id).catch(()=> null)
 
     if (!member)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, That user is not in this server!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, That user is not in this server!`)
 
     return message.channel.send(new MessageEmbed()
 

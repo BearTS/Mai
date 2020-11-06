@@ -32,7 +32,7 @@ module.exports = {
     return message.channel.send(
       new MessageEmbed().setColor('RED')
         .setDescription(
-          '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
         + 'Unable to contact the database.'
         + '\u2000\u2000\n\n\u200b'
       )
@@ -60,7 +60,7 @@ module.exports = {
     return message.channel.send(
       new MessageEmbed().setColor('RED')
         .setDescription(
-          '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+          '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
         + 'AniList Returned (an) Error(s).\n\n'
         + data.errors.map(e => `\\⚠️ \`[${e.status}]\` - *${e.message}*`).join('\n')
       )
@@ -91,7 +91,7 @@ module.exports = {
       return message.channel.send(
         new MessageEmbed().setColor('RED')
           .setDescription(
-            '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+            '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
           + 'Unable to contact the database.'
         )
       )
@@ -107,7 +107,7 @@ module.exports = {
       await profile.save().catch(()=> message.channel.send(
         new MessageEmbed().setColor('RED')
           .setDescription(
-            '\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000'
+            '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
           + 'Unable to save information for the server'
           + profile.guildID
           )

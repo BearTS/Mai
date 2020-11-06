@@ -31,7 +31,7 @@ module.exports = {
   ]
   , group: 'anime'
   , image: 'https://files.catbox.moe/syzyj7.gif'
-  , description: 'Searches for a character in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net "Homepage")'
+  , description: 'Searches for a character in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage")'
   , examples: [
       'character mai sakurajima'
     , 'anichar Mai Sakurajima'
@@ -50,7 +50,7 @@ module.exports = {
     const msg = await message.channel.send(
       new MessageEmbed()
       .setColor('YELLOW')
-      .setDescription(`Searching for character named **${query}** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
+      .setDescription(`Searching for character named **${query}** on <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'Homepage').`)
       .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
       .setFooter(`Character Query with MAL | \©️${new Date().getFullYear()}`)
     )
@@ -60,18 +60,18 @@ module.exports = {
 
     const errstatus = {
       "404": `No results were found for **${query}**!\n\nIf you believe this character exists, try their alternative names.`,
-      "429": `I am being rate-limited in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage'). Please try again Later`,
-      "500": `Could not access <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net \'Homepage\'). The site might be currently down at the moment`,
-      "503": `Could not access <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net \'Homepage\'). The site might be currently down at the moment`,
+      "429": `I am being rate-limited in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'Homepage'). Please try again Later`,
+      "500": `Could not access <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \'Homepage\'). The site might be currently down at the moment`,
+      "503": `Could not access <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \'Homepage\'). The site might be currently down at the moment`,
     }
 
     let errmsg = new MessageEmbed()
     .setColor('RED')
-    .setAuthor(data.status == 404 ? 'None Found' : 'Response Error','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+    .setAuthor(data.status == 404 ? 'None Found' : 'Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     .setDescription(
       `**${message.member.displayName}**, ${
         errstatus[data.status]
-        || `<:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage') responded with HTTP error code ${data.status}`
+        || `<:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'Homepage') responded with HTTP error code ${data.status}`
       }`
     )
     .setThumbnail('https://i.imgur.com/qkBQB8V.png')
@@ -89,7 +89,7 @@ module.exports = {
     errmsg.setDescription(
       `**${message.member.displayName}**, ${
         errstatus[res.status]
-        || `<:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage') responded with HTTP error code ${data.status}`
+        || `<:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'Homepage') responded with HTTP error code ${data.status}`
       }`
     )
 

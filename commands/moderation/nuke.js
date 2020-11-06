@@ -24,7 +24,7 @@ module.exports = {
     })
 
     if (!continued)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, cancelled the nuke command!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cancelled the nuke command!`)
 
     await message.channel.send(`The nuke has been deployed. This channel will be wiped off the face of discord in 10`)
 

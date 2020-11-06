@@ -22,7 +22,7 @@ module.exports = {
   'EMBED_LINKS'
  ]
  , group: 'anime'
- , description: 'Get user stats from <:mal:722270009761595482> [MAL](https://myanimelist.net "MyAnimeList Homepage")'
+ , description: 'Get user stats from <:mal:767062339177676800> [MAL](https://myanimelist.net "MyAnimeList Homepage")'
  , examples: [
   'malprofile 545427431662682112'
   , 'malprofile @user'
@@ -46,7 +46,7 @@ module.exports = {
       new MessageEmbed().setDescription(
         `**${message.member.displayName}**, The User you mentioned or the ID you provided doesn\'t seem to match any user in this server.`
         + `\n\nMake sure the suplied parameter is a valid user ID or a user mention.`
-      ).setAuthor('Unrecognized User!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      ).setAuthor('Unrecognized User!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setThumbnail('https://i.imgur.com/qkBQB8V.png')
       .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
       .setColor('RED')
@@ -69,7 +69,7 @@ module.exports = {
     new MessageEmbed().setDescription(
       `**${message.member.displayName}**, I am unable to contact the database.`
       + `\n\nPlease try again later or report this incident to my developer.`
-    ).setAuthor('Database Error!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+    ).setAuthor('Database Error!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     .setThumbnail('https://i.imgur.com/qkBQB8V.png')
     .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
     .setColor('RED')
@@ -80,10 +80,10 @@ module.exports = {
     if (member.id === message.author.id){
       return message.channel.send(
         new MessageEmbed().setDescription(
-          `**${message.member.displayName}**, No associated <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net/) account has been found in your account!`
+          `**${message.member.displayName}**, No associated <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net/) account has been found in your account!`
           + `\n\nYou can set up one by providing your MAL username and attaching the \`-set\` modifier at the end.`
           + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-        ).setAuthor('MAL Account not linked!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('MAL Account not linked!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setThumbnail('https://i.imgur.com/qkBQB8V.png')
         .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
         .setColor('RED')
@@ -91,10 +91,10 @@ module.exports = {
     } else {
       return message.channel.send(
         new MessageEmbed().setDescription(
-          `**${message.member.displayName}**, No associated <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net/) account has been found in **${member.displayName}**'s account!`
+          `**${message.member.displayName}**, No associated <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net/) account has been found in **${member.displayName}**'s account!`
           + `\n\nYou may inform them to link their MAL account to their profile instead.`
           + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-        ).setAuthor('MAL Account not linked!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('MAL Account not linked!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setThumbnail('https://i.imgur.com/qkBQB8V.png')
         .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
         .setColor('RED')
@@ -111,7 +111,7 @@ module.exports = {
           `**${message.member.displayName}**,  You are not authorized to \`update\` **${member.displayName}**(${member.user.tag})'s MAL account!`
           + `\n\nYou may inform them to link their MAL account to their profile instead.`
           + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-        ).setAuthor('Unauthorized Access!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+        ).setAuthor('Unauthorized Access!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setThumbnail('https://i.imgur.com/qkBQB8V.png')
         .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
         .setColor('RED')
@@ -123,7 +123,7 @@ module.exports = {
           new MessageEmbed().setDescription(
             `**${message.member.displayName}**, Please include the **MAL username** you want your account to be linked to!`
             + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-          ).setAuthor('Missing Parameters!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+          ).setAuthor('Missing Parameters!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
           .setThumbnail('https://i.imgur.com/qkBQB8V.png')
           .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
           .setColor('RED')
@@ -144,7 +144,7 @@ module.exports = {
         + '\n\u2000\u2000• Your MAL account might have been linked by others unauthorizedly. [Report](https://support.mai-san.ml/)'
         + '\n\u2000\u2000• You just don\'t own this account in any way.'
         + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-      ).setAuthor('Used Username!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      ).setAuthor('Used Username!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setThumbnail('https://i.imgur.com/qkBQB8V.png')
       .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
       .setColor('RED')
@@ -157,7 +157,7 @@ module.exports = {
         `**${message.member.displayName}** ${data.MALUser ? 'You already have an existing MAL account linked in your account!' : 'You haven\'t set any account yet. Set account first before updating.'}`
         + '\n\n**Use the proper modifiers**\n`-set` - linking for the first time\n`-update` - for updating your account (for any changes in your MAL profile)'
         + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-      ).setAuthor('Mismatched Parameters!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+      ).setAuthor('Mismatched Parameters!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
       .setThumbnail('https://i.imgur.com/qkBQB8V.png')
       .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
       .setColor('RED')
@@ -170,10 +170,10 @@ module.exports = {
    return message.channel.send(
      new MessageEmbed().setDescription(
        `**${message.member.displayName}**, ${account.status == 404 ? `User **${info.join(' ')}** doesn't exist on MAL.` : jikanError(account.status)}`
-       + `\n\n${account.status == 404 ? 'Make sure your <:mal:722270009761595482> [MyanimeList](https://myanimelist.net/) account is not set to private.\n\n' : ''}`
+       + `\n\n${account.status == 404 ? 'Make sure your <:mal:767062339177676800> [MyanimeList](https://myanimelist.net/) account is not set to private.\n\n' : ''}`
        + '**Use the proper modifiers**\n`-set` linking for the first time\n`-update` for updating your account (for any changes in your MAL profile)'
        + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-     ).setAuthor('Unknown User!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+     ).setAuthor('Unknown User!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
      .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
      .setColor('RED')
@@ -196,7 +196,7 @@ module.exports = {
    message.channel.send(
      new MessageEmbed().setDescription(
        `**${message.member.displayName}**, Failed to save configuration to Mongo Client [Database Provider]. Please try again later.`
-     ).setAuthor('Database Error!','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+     ).setAuthor('Database Error!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
      .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
      .setColor('RED')
@@ -213,7 +213,7 @@ module.exports = {
     new MessageEmbed().setDescription(
       `**${message.member.displayName}*, MAL responded with an unknown error code. Please try again later.`
       + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-    ).setAuthor('Trouble Connecting to MAL','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+    ).setAuthor('Trouble Connecting to MAL','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     .setThumbnail('https://i.imgur.com/qkBQB8V.png')
     .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
     .setColor('RED')
@@ -230,7 +230,7 @@ module.exports = {
           : `**${member.displayName}**'s MAL account could not be found.`
         : jikanError(account.status)}`
       + `\n[Learn more](https://mai-san.ml/) about how we link your MAL and how we access and store it's data.`
-    ).setAuthor('Trouble Connecting To MAL','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+    ).setAuthor('Trouble Connecting To MAL','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     .setThumbnail('https://i.imgur.com/qkBQB8V.png')
     .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
     .setColor('RED')

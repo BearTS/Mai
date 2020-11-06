@@ -18,7 +18,7 @@ module.exports = {
   ]
   , group: 'anime'
   , image: 'https://files.catbox.moe/2xqq69.gif'
-  , description: 'Searches for a specific anime in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net "Homepage")'
+  , description: 'Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage")'
   , examples: [
       'anime'
     , 'anime aobuta'
@@ -39,7 +39,7 @@ module.exports = {
     .setDescription(
       `Searching for Anime titled **${
         query
-      }** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`
+      }** on <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'Homepage').`
     )
     .setFooter(`Anime Query with MAL | \©️${new Date().getFullYear()} Mai`);
 
@@ -60,7 +60,7 @@ module.exports = {
 
     const errmsg = embed
     .setColor('RED')
-    .setAuthor(!data ? 'None Found' : 'Response Error','https://cdn.discordapp.com/emojis/712586986216489011.png?v=1')
+    .setAuthor(!data ? 'None Found' : 'Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     .setDescription(
       !data
       ? `**${message.member.displayName}**, No results were found for **${query}**!\n\n`
@@ -130,7 +130,7 @@ module.exports = {
               : 'No Synopsis'
             }`)
 
-          .addField(`<:info:719474069053112371>  Information`, `•\u2000\**Japanese Name:** [${title}](${url})\n\•\u2000\**Age Rating:** ${
+          .addField(`<:info:767062326859268116>  Information`, `•\u2000\**Japanese Name:** [${title}](${url})\n\•\u2000\**Age Rating:** ${
               rating && rating.length
               ? rating
               : 'Unrated'
@@ -154,7 +154,7 @@ module.exports = {
               : ''
             }`,true)
 
-          .addField(`<:stats:719473222466142248>  Status`,`•\u2000\**Episodes:** ${
+          .addField(`<:stats:767062320425730059>  Status`,`•\u2000\**Episodes:** ${
               episodes
             }\n•\u2000\**Start Date:** ${
               aired

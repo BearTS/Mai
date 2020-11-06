@@ -16,22 +16,22 @@ module.exports = {
     const mute = client.guildsettings.has(message.guild.id) ? message.guild.roles.cache.get(client.guildsettings.get(message.guild.id).roles.muted) : undefined
 
     if (!mute)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Muterole has not yet been set! Do so by using \`setmute\` command.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Muterole has not yet been set! Do so by using \`setmute\` command.`)
 
     if (!member || !member.match(/\d{17,19}/))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please supply the ID or mention the member to unmute!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please supply the ID or mention the member to unmute!`)
 
     member = await message.guild.members.fetch(member.match(/\d{17,19}/)[0]).catch(()=>null)
 
     if (!member)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, cannot unmute an invalid user!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cannot unmute an invalid user!`)
 
     if (!member.roles.cache.has(mute.id))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, **${member.user.tag}** is not muted!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, **${member.user.tag}** is not muted!`)
 
     return member.roles.remove(mute)
       .then((member) => message.channel.send(`**${member.user.tag}** has been unmuted!`))
-        .catch(() => message.channel.send(`<:cancel:712586986216489011> | ${message.author}, I'm unable to unmute **${member.user.tag}**`))
+        .catch(() => message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I'm unable to unmute **${member.user.tag}**`))
 
   }
 }

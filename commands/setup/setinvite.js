@@ -14,13 +14,13 @@ module.exports = {
   run: async ( client, message, [ inviteLink, ...description]) => {
 
     if (!inviteLink)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, please supply the invite url or use \`remove\` to remove already existing invite.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, please supply the invite url or use \`remove\` to remove already existing invite.`)
 
     if (!description.length && inviteLink.startsWith('https://discord.gg/'))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You need to supply the description of your guild.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You need to supply the description of your guild.`)
 
     if (!description.length && inviteLink.toLowerCase() !== 'remove')
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You supplied an invalid discord invite url. Please supply a valid invite url + description or use \`remove\` to remove already existing invite.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You supplied an invalid discord invite url. Please supply a valid invite url + description or use \`remove\` to remove already existing invite.`)
 
     let invite = await guildInviteSchema
                   .findOne({ guildID: message.guild.id })
@@ -35,7 +35,7 @@ module.exports = {
     if (invite instanceof MongooseError)
     return message.channel.send(
       new MessageEmbed().setDescription(
-          '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
         + 'Unable to contact the database. Please try again later or report this incident to my developer.'
         + '\u2000\u2000\n\n\u200b'
       )
@@ -43,7 +43,7 @@ module.exports = {
 
     if (inviteLink.toLowerCase() === 'remove') {
 
-      if (!invite || !invite.invite.description) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, This server has no set-up invite to be removed.`)
+      if (!invite || !invite.invite.description) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, This server has no set-up invite to be removed.`)
 
       invite.invite = {
         description: null,
@@ -52,7 +52,7 @@ module.exports = {
 
       return invite.save()
         .then(()=> message.channel.send(`${message.author}, This server's invite has successfully been **removed**.`))
-          .catch(()=> message.channel.send(`<:cancel:712586986216489011> | ${message.author}, unable to remove the invite link.`))
+          .catch(()=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, unable to remove the invite link.`))
     }
 
     if (!invite) invite = await new guildInviteSchema({ guildID: message.guild.id }).save()
@@ -63,7 +63,7 @@ module.exports = {
                               .then(()=> true)
                                 .catch(()=> null)
 
-    if (!verified) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You supplied an invalid discord invite url. Please supply a valid invite url + description or use \`remove\` to remove already existing invite.`)
+    if (!verified) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You supplied an invalid discord invite url. Please supply a valid invite url + description or use \`remove\` to remove already existing invite.`)
 
     invite.invite = {
       description: textTrunctuate(description.join(' '),1000),
@@ -72,7 +72,7 @@ module.exports = {
 
     return invite.save()
       .then(()=> message.channel.send(`${message.author}, successfully **${truebefore ? 'replaced' : 'set'}** the invite url and description. It will now (randomly) apppear on my invite command.`))
-        .catch(()=> message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Failed to save the discord invite url. Please try again later.`))
+        .catch(()=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Failed to save the discord invite url. Please try again later.`))
 
   }
 }

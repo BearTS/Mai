@@ -23,7 +23,7 @@ module.exports = {
   if (data instanceof MongooseError)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        '\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+        '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
       + 'Unable to contact the database. Please try again later or report this incident to my developer.'
       + '\u2000\u2000\n\n\u200b'
     ).setColor('RED')
@@ -32,7 +32,7 @@ module.exports = {
   if (!data)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `**${message.member.displayName}**, You don't have a **wallet** yet!
         \nTo create one, type \`${client.config.prefix}register\`.
         \u2000\u2000`
@@ -47,7 +47,7 @@ module.exports = {
   if (data.daily.timestamp !== 0 && data.daily.timestamp - now > 0)
   return message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000`
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000`
         + `You already got your daily reward!
         \nYou can get your next daily reward in ${
           moment.duration(data.daily.timestamp - now, 'milliseconds').format('H [hour,] m [minute, and] s [second]')
@@ -97,7 +97,7 @@ module.exports = {
 
   message.channel.send(
     new MessageEmbed().setDescription(
-        `\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
+        `\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
       `).setColor('RED')
   )
 
