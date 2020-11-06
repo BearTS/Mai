@@ -17,7 +17,7 @@ module.exports = async ( client, message ) => {
     , guildsettings
   } = client
 
-  const serverprefix = client.guildsettings.get(message.guild.id) ? client.guildsettings.get(message.guild.id).prefix : null
+  const serverprefix = client.guildsettings.get((message.guild || {}).id) ? client.guildsettings.get(message.guild.id).prefix : null
 
 
   if (message.author.id === client.user.id) client.messages.sent++
