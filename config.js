@@ -3,14 +3,10 @@ const settings = {
   // more client options can be found at
   // https://discord.js.org/#/docs/main/stable/typedef/ClientOptions
   client: {
-    disableMentions: 'everyone',
-    restTimeOffset: 100,
-    ws: { intents: 32767 },
     presence: {
       activity: {
-        name: 'Seishun Buta Yarou',
-        type:'STREAMING',
-        url: 'https://twitch.tv/sby'
+        name: 'https://mai-san.ml/',
+        type: 'COMPETING'
       }
     }
   },
