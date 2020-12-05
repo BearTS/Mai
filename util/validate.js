@@ -1,3 +1,9 @@
+
+/**
+ * _command -> Validates the command
+ * @param {Command} command The command to check validation
+ * @returns {Boolean} Whether the command passes the validation check
+ */
 function _command(command){
 
   if (command.rankcommand){
