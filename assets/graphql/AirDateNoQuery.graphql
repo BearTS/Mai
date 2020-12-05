@@ -1,0 +1,31 @@
+{
+  Page {
+    media(type: ANIME, status: RELEASING, sort: POPULARITY_DESC) {
+      title {
+        romaji
+        english
+        native
+      }
+      episodes
+      nextAiringEpisode {
+        episode
+        timeUntilAiring
+      }
+      id
+      siteUrl
+      coverImage {
+        large
+        color
+      }
+      studios(isMain: true) {
+        edges {
+          isMain
+          node {
+            name
+            siteUrl
+          }
+        }
+      }
+    }
+  }
+}

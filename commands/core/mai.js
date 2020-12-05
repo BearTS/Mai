@@ -1,36 +1,22 @@
-const { LocalDatabase: { mai: { safe }}} = require('../../helper')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-  name: 'mai'
-  , aliases: [
-    'bestgirl'
-  ]
-  , cooldown: null
-  , group: 'core'
-  , description: 'Mai is the best girl and there\'s no denying it!'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , examples: []
-  , parameters: []
-  , run: async (client, message) => {
+  name: 'mai',
+  aliases: [ 'bestgirl' ],
+  group: 'core',
+  description: 'Mai is the best girl and there\'s no denying it!',
+  clientPermissions: [ 'EMBED_LINKS', 'ATTACH_FILES' ],
+  get examples(){ return [ this.name, ...this.aliases ]; },
+  run: (client, message) => {
 
-    const url = safe[Math.floor(Math.random() * safe.length)]
+    const { nsfw } = message.channel;
+    const image = client.images.mai({ nsfw });
 
     return message.channel.send(
       new MessageEmbed()
-        .setColor('GREY')
-        .attachFiles([
-          {
-            attachment: url,
-            name: `mai.${url.split('.').pop()}`
-          }
-        ])
-        .setImage(
-          `attachment://mai.${url.split('.').pop()}`
-      )
-      .setFooter(`Mai | \©️${new Date().getFullYear()} Mai`)
-    )
+      .setColor(nsfw ? 'RED' : 'GREY')
+      .setFooter(`Mai Images | \©️${new Date().getFullYear()} Mai`)
+      .setImage(image)
+    );
   }
-}
+};

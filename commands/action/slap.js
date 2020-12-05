@@ -1,42 +1,46 @@
-const nekos = require('nekos.life')
-const { sfw: { slap } } = new nekos()
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'slap'
-  , aliases: []
-  , guildOnly: true
-  , clientPermissions: [
+  name: 'slap',
+  aliases: [],
+  guildOnly: true,
+  clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
-  ]
-  , group: 'action'
-  , description: 'Slap them friends!~'
-  , examples: [
-      'slap @user'
-  ]
-  , parameters: ['User Mention']
-  , run: async ( client, message, args ) => {
+  ],
+  group: 'action',
+  description: 'Slap them friends!~',
+  examples: [ 'slap @user' ],
+  parameters: [ 'User Mention' ],
+  run: async ( client, message, args ) => {
 
-    const { url } = await slap().catch(()=>{})
+    // Filter out args so that args are only user-mention formats.
+    args = args.filter(x => /<@!?\d{17,19}>/.test(x))
 
-  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
+    const url = client.images.slap();
+    const embed = new MessageEmbed()
+    .setColor('GREY')
+    .setImage(url)
+    .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-  if (!message.mentions.members.size)
-  return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, just what are you doing slapping the air?!`)
+    if (!message.mentions.members.size){
 
-  if (message.mentions.members.first().id === client.user.id)
-  return message.reply([`Ouch! How dare you slap me!`,`Stop that!`,`It hurts!`][Math.floor(Math.random() * 3)])
+      message.channel.send(`<:cancel:767062250279927818> | ${message.author}, what's the idea slapping nothingness? At least mention a user!`);
 
-  if (message.mentions.members.first().id === message.author.id)
-  return message.channel.send(`I'd happily oblige! But i think you need a mental check-up.`)
+    } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setDescription(`${message.mentions.members.first()} has been slapped by ${message.member}! That must've been painful! OwO`)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+      return message.channel.send([`Ouch! How dare you slap me!`,`Stop that!`,`It hurts!`][Math.floor(Math.random() * 3)]);
 
+    } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
+
+      return message.channel.send(`I'd happily oblige! But i think you need a mental check-up ${message.author}!`);
+
+    } else {
+
+      return message.channel.send(
+        embed.setDescription(`${args[0]} has been slapped by${message.member}! That must been painful~`)
+      );
+
+    };
   }
-}
+};

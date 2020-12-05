@@ -1,73 +1,68 @@
-const { MessageEmbed } = require('discord.js')
-
 module.exports = {
   name: 'kick',
   aliases: [],
   guildOnly: true,
-  permissions: ['KICK_MEMBERS'],
-  clientPermissions: ['KICK_MEMBERS'],
+  permissions: [ 'KICK_MEMBERS' ],
+  clientPermissions: [ 'KICK_MEMBERS' ],
   group: 'moderation',
-  description: 'kick mentioned user from this server.',
-  examples: ['kick @user'],
-  parameters: ['user mention'],
-  run: async ( client, message, [ mention, ...reason ]) => {
+  description: 'Kick mentioned user from this server.',
+  parameters: [ 'User Mention | ID', 'Kick Reason'],
+  get examples(){ return [ this.name + ' ' + '@user <reason>'];},
+  run: async (client, message, [member = '', ...reason] ) => {
 
-    if (!message.mentions.members.size || !mention.match(/\d{17,19}/))
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please mention the user to kick. [mention first before adding the reason]`)
+    if (!member.match(/\d{17,19}/)){
+      return message.channel.send(`\\❌ | ${message.author}, Please provide the ID or mention the user to kick. [mention first before adding the reason]`);
+    };
 
-    let member = message.mentions.members.get(mention.match(/\d{17,19}/)[0])
+    member = await message.guild.members
+    .fetch(member.match(/\d{17,19}/)[0])
+    .catch(() => null);
 
-    if (member.id === message.author.id)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot kick yourself!`)
+    if (!member){
+      return message.channel.send(`\\❌ | ${message.author}, User could not be found! Please ensure the supplied ID is valid. Mention user for more precision on pinpointing user.`);
+    };
 
-    if (member.id === client.user.id)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please don't kick me!`)
+    if (member.id === message.author.id){
+      return message.channel.send(`\\❌ | ${message.author}, You cannot kick yourself!`);
+    };
 
-    if (member.id === message.guild.ownerID)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot kick a server owner!`)
+    if (member.id === client.user.id){
+      return message.channel.send(`\\❌ | ${message.author}, Please don't kic me!`);
+    };
 
-    if (client.config.owners.includes(member.id))
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, No, you can't kick my developers through me!`)
+    if (member.id === message.guild.ownerID){
+      return message.channel.send(`\\❌ | ${message.author}, You cannot kick a server owner!`);
+    };
 
-    if (message.member.roles.highest.position < member.roles.highest.position)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You can't kick that user! He/She has a higher role than yours`)
+    if (client.config.owners.includes(member.id)){
+      return message.channel.send(`\\❌ | ${message.author}, No, you can't kick my developers through me!`)
+    };
 
-    if (!member.kickable)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I couldn't kick that user!`)
+    if (message.member.roles.highest.position < member.roles.highest.position){
+      return message.channel.send(`\\❌ | ${message.author}, You can't kick that user! He/She has a higher role than yours`)
+    };
 
-    reason = reason.length ? reason.join(' ') : 'None'
+    if (!member.kickable){
+      return message.channel.send(`\\❌ | ${message.author}, I couldn't kick that user!`);
+    };
 
     await message.channel.send(`Are you sure you want to kick **${member.user.tag}**? (y/n)`)
-    let collector = message.channel.createMessageCollector( res => message.author.id === res.author.id )
 
-    const proceed_kick = await new Promise( resolve => {
-      const timeout = setTimeout(()=> collector.stop('TIMEOUT'), 30000)
-      collector.on('collect', (message) => {
-        if (['y','yes','ok','sure'].includes(message.content.toLowerCase())) resolve(true)
-        if (['n','no','nah','nvm'].includes(message.content.toLowerCase())) resolve(false)
-      })
-      collector.on('end', () => resolve(false))
-    })
+    const filter = _message => message.author.id === _message.author.id && ['y','n','yes','no'].includes(_message.content.toLowerCase());
+    const options = { max: 1, time: 30000, errors: ['time'] };
+    const proceed = await message.channel.awaitMessages(filter, options)
+    .then(collected => ['y','yes'].includes(collected.first().content.toLowerCase()) ? true : false)
+    .catch(() => false);
 
-    if (!proceed_kick) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cancelled the ban command!`)
+    if (!proceed){
+      return message.channel.send(`\\❌ | ${message.author}, cancelled the kick command!`);
+    };
 
-    await message.channel.send(`Inform **${member.user.tag}** about the kick? (y/n)`)
-    collector = message.channel.createMessageCollector( res => message.author.id === res.author.id )
+    await member.send(`**${message.author.tag}** kicked you from ${message.guild.name}!\n**Reason**: ${reason.join(' ') || 'Unspecified.'}`)
+    .catch(() => null);
 
-    const dmuser = await new Promise( resolve => {
-      const timeout = setTimeout(()=> collector.stop('TIMEOUT'), 30000)
-      collector.on('collect', (message) => {
-        if (['y','yes'].includes(message.content.toLowerCase())) resolve(true)
-        if (['n','no'].includes(message.content.toLowerCase())) resolve(false)
-      })
-      collector.on('end', () => resolve(false))
-    })
-
-    const DMed = dmuser && await member.send(new MessageEmbed().setAuthor('Ban Notice!').setDescription(`Oh no ${member}! You have been kicked from **${message.guild.name}**!\n\n${message.author.tag} has kicked you from our server${reason === 'None' ? '.' : ` because of the following reason:\n\`\`\`${reason}\n\`\`\``}`).setColor('RED').setThumbnail(message.author.displayAvatarURL()).setFooter('This message is auto-generated.').setTimestamp()).catch(()=>null) ? true : false
-
-    return member.kick({ reason: `MAI_KICKS: ${message.author.tag}: ${reason}`})
-              .then(()=> message.channel.send(`Successfully kicked **${member.user.tag}**${dmuser ? DMed ? ` and sent the notification!` : `but failed to notify about the kick. They probably had their DMs closed.` :'.'}`))
-                .catch(()=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Failed to kick **${member.user.tag}**`))
-
+    return member.kick({ reason: `MAI Kick Command: ${message.author.tag}: ${reason.join(' ') || 'Unspecified'}`})
+    .then(_member => message.channel.send(`\\✔️ Successfully kicked **${_member.user.tag}**`))
+    .catch(() => message.channel.send(`\\❌ Failed to kicked **${member.user.tag}**!`));
   }
-}
+};

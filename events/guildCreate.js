@@ -1,33 +1,26 @@
-const { MongooseModels: { guildProfileSchema }} = require('../helper')
-const { Error } = require('mongoose')
+const guildProfileSchema = require(`${process.cwd()}/models/GuildProfile`);
+const consoleUtil = require(`${process.cwd()}/util/console`);
+const { Error } = require('mongoose');
 
 module.exports = async (client, guild) => {
 
-
   let data = await guildProfileSchema.findOne({
     guildID: guild.id
-  }).catch((err)=> err)
-
-  if (!data) data = await new guildProfileSchema({
+  }).catch((err) => null) || await new guildProfileSchema({
     guildID: guild.id
-  }).save()
-      .catch((err)=> err)
+  }).save().catch(err => err);
 
   if (data instanceof Error){
-    console.error(
+    consoleUtil.error(
         'Unable to find/register guild '
       + guild
       + 'on/to mongo Database.\n'
       + data.name
-    )
-  }
+    );
+  };
 
-  client.guildsettings.set(
+  client.guildProfiles.set(
       guild.id
-    , data
-      ? data
-      : { guildID : guild.id }
-    )
-
-
-}
+    , data || { guildID : guild.id }
+  );
+};

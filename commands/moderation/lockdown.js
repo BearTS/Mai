@@ -1,49 +1,34 @@
 module.exports = {
   name: 'lockdown',
-  aliases: ['lock','ld','lockchannel'],
+  aliases: [ 'lock', 'ld', 'lockchannel' ],
   guildOnly: true,
-  permissions: ['MANAGE_MESSAGES','MANAGE_CHANNELS'],
-  clientPermissions: ['MANAGE_CHANNELS'],
+  permissions: [ 'MANAGE_MESSAGES', 'MANAGE_CHANNELS' ],
+  clientPermissions: [ 'MANAGE_CHANNELS' ],
   group: 'moderation',
-  description: '[Prevent/Allow] users from messaging in the current channel.\nNote: This resets all the permissions for the channel',
-  examples: [],
-  parameters: [],
-  run: async ( client, message) => {
-
-
-    channelPermissions = message.channel.permissionsFor(message.guild.roles.everyone)
-
-    if (channelPermissions.has('SEND_MESSAGES')) {
-
-      return message.channel.overwritePermissions(
-          [
-              {
-                id: message.guild.roles.everyone.id
-                , deny: ['SEND_MESSAGES']
-              }
-            , {
-                id: message.guild.me.id
-                , allow: ['SEND_MESSAGES']
-              }
-          ]
-        , 'Mai-Lockdown Command'
-      )
-        .then(() => message.channel.send(`Lockdown has initiated! Most users are now unable to send a message in this channel!\nPlease use \`lockdown\` again to end the lockdown!`))
-          .catch(() => message.channel.send(`Unable to lockdown this channel`))
-
+  description: `[Prevent/Allow] users from sending messages in the current channel. Permission Overwrites will be lost.`,
+  get examples(){ return [ this.name, ...this.aliases ]},
+  run: (client, message) => message.channel.overwritePermissions([
+    {
+      id: message.guild.roles.everyone.id,
+      deny: [ 'SEND_MESSAGES' ].slice(Number(
+        !message.channel.permissionsFor(message.guild.roles.everyone)
+        .has('SEND_MESSAGES'))),
+      allow: [ 'SEND_MESSAGES' ].slice(Number(
+        message.channel.permissionsFor(message.guild.roles.everyone)
+        .has('SEND_MESSAGES')))
+    },
+    {
+      id: message.guild.me.id,
+      allow: [ 'SEND_MESSAGES' ]
     }
-
-    return message.channel.overwritePermissions(
-        [
-          {
-            id: message.guild.roles.everyone.id
-            , allow: ['SEND_MESSAGES']
-          }
-        ]
-      , 'Mai-Lockdown Command'
-    )
-      .then(()=> message.channel.send(`Lockdown ended.`))
-        .catch(()=> message.channel.send(`Unable to restore channel.`))
-
-  }
-}
+  ], `Mai Lockdown Command: ${message.author.tag}`)
+  .then((ch) => message.channel.send(
+    ch.permissionsFor(message.guild.roles.everyone).has('SEND_MESSAGES')
+    ? '\\✔️ Lockdown Ended! Everyone can now send messages on this channel'
+    : '\\✔️ Lockdown has initiated! Users withour special permissions will not be able to send messages here!'
+  )).catch(() => message.channel.send(
+    message.channel.permissionsFor(message.guild.roles.everyone).has('SEND_MESSAGES')
+    ? '\\❌ Unable to Lockdown this channel!'
+    : '\\❌ Unable to restore this channel!'
+  ))
+};

@@ -1,41 +1,30 @@
-const { MessageEmbed } = require('discord.js')
-const { randomQuote } = require('animequotes')
-const { searchAnime } = require('node-kitsu')
+const { MessageEmbed } = require('discord.js');
+const { randomQuote } = require('animequotes');
+const { searchAnime } = require('node-kitsu');
 
 module.exports = {
-    name: "aniquote"
-  , aliases: [
-      'aq'
-    , 'animequote'
-  ]
-  , group: 'anime'
-  , image: 'https://files.catbox.moe/svcss6.gif'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , description: 'Generate a random anime quote'
-  , examples: []
-  , parameters: []
-  , run: async ( client, message) => {
+  name: "aniquote",
+  aliases: [ 'aq', 'animequote' ],
+  group: 'anime',
+  clientPermissions: [ 'EMBED_LINKS' ],
+  description: 'Generate a random anime quote',
+  parameters: [],
+  get examples(){ return [this.name, ...this.aliases]; },
+  run: async ( client, message) => {
 
-    const { quote, anime, id, name } = randomQuote()
+    const { quote, anime, id, name } = randomQuote();
 
-    let image = null
+    const res = await searchAnime(anime,0).catch(()=>null) || [];
 
-    const res = await searchAnime(anime,0).catch(()=>{})
+    const image = (((res[0] || {}).attributes || {}).coverImage || {}).original || null;
 
-    if (res
-      && res[0].attributes
-      && res[0].attributes.coverImage
-      && res[0].attributes.coverImage.original)
-        image = res[0].attributes.coverImage.original
-
-    message.channel.send(new MessageEmbed()
-    .setColor(`GREY`)
-    .addField(`*Quoted from ${anime}*`,`${quote}\n\n-*${name}*`)
-    .setImage(image)
-    .setTimestamp()
-    .setFooter(`Anime Quotes | \©️${new Date().getFullYear()} Mai`)
-    )
+    return message.channel.send(
+      new MessageEmbed()
+      .setColor(`GREY`)
+      .addField(`*Quoted from ${anime}*`,`${quote}\n\n-*${name}*`)
+      .setImage(image)
+      .setTimestamp()
+      .setFooter(`Anime Quotes | \©️${new Date().getFullYear()} Mai`)
+    );
   }
-}
+};

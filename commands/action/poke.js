@@ -1,41 +1,48 @@
-const nekos = require('nekos.life')
-const { sfw: { poke } } = new nekos()
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'poke'
-  , aliases: []
-  , guildOnly: true
-  , clientPermissions: [
+  name: 'poke',
+  aliases: [],
+  guildOnly: true,
+  clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
-  ]
-  , group: 'action'
-  , description: 'Poke your friends!'
-  , examples: [
-      'poke @user'
-  ]
-  , parameters: ['User Mention']
-  , run: async ( client, message, args ) => {
+  ],
+  group: 'action',
+  description: 'Poke your friends!',
+  examples: [ 'poke @user' ],
+  parameters: [ 'User Mention' ],
+  run: async ( client, message, args ) => {
 
-    const { url } = await poke().catch(()=>{})
+    // Filter out args so that args are only user-mention formats.
+    args = args.filter(x => /<@!?\d{17,19}>/.test(x))
 
-  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
+    const url = client.images.poke();
+    const embed = new MessageEmbed()
+    .setColor('GREY')
+    .setImage(url)
+    .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-  if (!message.mentions.members.size)
-  return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, who am I supposed to poke?`)
+    if (!message.mentions.members.size){
 
-  if (message.mentions.members.first().id === client.user.id)
-  return message.reply('I\'m already here! Need something?')
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, who am I supposed to poke?`);
 
-  if (message.mentions.members.first().id === message.author.id)
-  return message.channel.send(`<:cancel:767062250279927818> | No!`)
+    } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setDescription(`${message.member} poked ${message.mentions.members.first()}!`)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+      return message.channel.send(
+        embed.setDescription('I\'m already here! Need something?')
+      );
+
+    } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
+
+      return message.channel.send(`<:cancel:767062250279927818> | No!`);
+
+    } else {
+
+      return message.channel.send(
+        embed.setDescription(`${message.member} poked ${args[0]}`)
+      );
+
+    };
   }
-}
+};

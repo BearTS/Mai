@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
   name: 'respond',
@@ -7,124 +7,100 @@ module.exports = {
   adminOnly: true,
   group: 'moderation',
   description: 'Respond to user suggestion',
-  examples: ['respond 690105173087223812 deny Doesn\'t make much sense to do this and it does not seem to have much support'],
-  parameters: ['messsage ID','accept/deny','reason'],
-  run: async ( client, message, [id, action, ...reason]) => {
+  parameters: [ 'Message ID', 'accept/deny', 'reason' ],
+  get examples(){ return [ ...this.name + ' 690105173087223812 deny Doesn\'t make much sense to do this']},
+  run: async (client, message, [id, action = '', ...reason]) => {
 
-    const channelID = client.guildsettings.get(message.guild.id).featuredChannels.suggest
+    const channelID = (client.guildProfiles
+    .get(message.guild.id) || {})
+    .featuredChannels.suggest;
 
     const embed = new MessageEmbed()
-      .setColor('RED')
-      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
+    .setColor('RED')
+    .setFooter(`Respond to Suggestion | \©️${new Date().getFullYear()} Mai`);
 
-    if (!channelID)
-    return message.channel.send(
-      embed.setDescription(
-          '\u200b\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-        + 'The **Suggestion Channel** for this server has not yet been set. '
-        + 'If you are a server administrator, you may set the channel by typing:\n\n`'
-        +  client.config.prefix
-        + 'setsuggestch <channel ID | channel mention>`'
-      )
-    )
-
-    const channel = message.guild.channels.cache.get(channelID)
-    if (!channel)
+    if (!channelID){
       return message.channel.send(
-        embed.setDescription(
-          '\u200b\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-        + 'The **Suggestion Channel** set for this server was invalidated. '
-        + 'If you are a server administrator, you may set the channel again by typing:\n\n`'
-        +  client.config.prefix
-        + 'setsuggestch <channel ID | channel mention>`'
-        )
-      )
+        embed.setAuthor('Suggest Channel not Set!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setDescription([
+          `**${message.author.tag}**, the **Suggestion Channel** for this server has not been set!`,
+          'If you are a server administrator, you may set the channel by typing:\n',
+          `\`${client.prefix}setsuggestch <channel ID | channel mention>\``
+        ].join('\n'))
+      );
+    };
 
-    if (!id)
-    return message.channel.send(
-      embed.setDescription(
-        'You need to supply the **message ID** of the suggestion'
-      )
-    )
+    const channel = message.guild.channels.cache.get(channelID);
 
-    if (!action || !['accept','deny'].includes(action.toLowerCase()))
-    return message.channel.send(
-      embed.setDescription(
-        'Please specify if you want to `accept` or `deny` the suggestion'
-      )
-    )
+    if (!channelID){
+      return message.channel.send(
+        embed.setAuthor('Suggest Channel Invalid!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setDescription([
+          `**${message.author.tag}**, the **Suggestion Channel** for this server was invalidated.`,
+          'If you are a server administrator, you may set the channel again by typing:\n',
+          `\`${client.prefix}setsuggestch <channel ID | channel mention>\``
+        ].join('\n'))
+      );
+    };
 
-    if (!reason.length || reason.join(' ').length > 1024)
-    return message.channel.send(
-      embed.setDescription(
-        'You need to supply a reason not exceeding 1024 characters.'
-      )
-    )
+    if (!id){
+      return message.channel.send(
+        embed.setDescription('You need to supply the **message ID** of the suggestion')
+        .setAuthor('Message ID not Found!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+      );
+    };
 
-    const suggestion = await channel.messages.fetch(id)
-      .catch(()=> null)
+    if (!['accept', 'deny'].includes(action.toLowerCase())){
+      return message.channel.send(
+        embed.setDescription('Please specify if you want to `accept` or `deny` the suggestion')
+        .setAuthor('Response Undefined!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+      );
+    };
 
-    if (
-      !suggestion
-      ||  suggestion.author.id !== client.user.id
-      ||  !suggestion.embeds.length
-      ||  !suggestion.embeds[0].title
-      ||  !suggestion.embeds[0].title.endsWith('suggestion')
-    ) return message.channel.send(
-      embed.setDescription(
-          'I can\'t seem to find the suggestion with message ID **'
-        + id
-        + '** in '
-        + channel.toString()
-        +'.'
-      )
-    )
+    if (!reason.length || reason.join(' ').length > 1024){
+      return message.channel.send(
+        embed.setDescription('You need to supply a reason not exceeding 1024 characters')
+        .setAuthor('Could not parse response reason!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+      );
+    };
 
-    if (suggestion.embeds[0].fields.length > 1)
-    return message.channel.send(
-      embed.setDescription(
-          '**'
-        + suggestion.embeds[0].fields[0].value.replace('Accepted by ','')
-        + '** already responded to this suggestion!'
-      )
-    )
+    const suggestion = await channel.messages.fetch(id).catch(() => undefined);
 
-    if (!suggestion.editable)
-    return message.channel.send(
-      embed.setDescription(
-        'The Suggestion has somehow been invalidated (Cause Unknown).'
-      )
-    )
+    if (!suggestion ||
+      suggestion.author.id !== client.user.id ||
+      !suggestion.embeds.length ||
+      !(suggestion.embeds[0].title || '').endsWith('suggestion')
+    ){
+      return message.channel.send(
+        embed.setAuthor('Suggestion not Found', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setDescription(`I can't seem to find the suggestion with the message ID **${id}** in **${channel}**.`)
+      );
+    };
 
-    const { fields } = suggestion.embeds[0]
+    if (suggestion.embeds[0].fields.length > 1){
+      return message.channel.send(
+        embed.setAuthor('Suggestion already responded with', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setDescription(`**${suggestion.embeds[0].fields[0].value.replace('Accepted by','')}** already responded to this suggestion!`)
+      );
+    };
 
-    fields[0].value = action.toLowerCase() === 'accept'
-    ? 'Accepted by '
-      + message.author.tag
-    : 'Denied by '
-      + message.author.tag
+    if (!suggestion.editable){
+      return message.channel.send(
+        embed.setAuthor('Suggestion can\'t be edited.', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setDescription('The suggestion has somehow been invalidated (cause unknown)')
+      );
+    };
 
-    const success = await suggestion.edit(
+    suggestion.embeds[0].fields[0].value = action.toLowerCase() === 'accept'
+    ? `Accepted by **${message.author.tag}**`
+    : `Denied by **${message.author.tag}**`;
+
+    return suggestion.edit(
       new MessageEmbed(suggestion.embeds[0])
-      .setColor(
-        action.toLowerCase() === 'accept'
-        ? 'GREEN'
-        : 'RED'
-      )
-
-      .addField(
-          'Reason'
-        , reason.join(' ')
-      )
-    )
-
-    if (success)
-    return message.react('✅')
-
-    return message.channel.send(
-      embed.setDescription(
-        'Unable to Update Suggestion Panel!'
-      )
-    )
+      .setColor(action.toLowerCase() === 'accept' ? 'GREEN' : 'RED')
+      .addField('Reason', reason.join(' '))
+    ).then(()=> message.react('✅'))
+    .catch(()=> embed.setAuthor('Suggestion can\'t be edited.', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+    .setDescription('The suggestion has somehow been invalidated (cause unknown)'));
   }
-}
+};

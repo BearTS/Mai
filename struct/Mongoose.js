@@ -1,20 +1,65 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const consoleUtil = require(`${process.cwd()}/util/console`);
 
 module.exports = class Mongoose{
-  constructor({settings, password}){
-    this.connector = `mongodb://botAdmin:${password}@botdev-shard-00-00-pblka.mongodb.net:27017,botdev-shard-00-01-pblka.mongodb.net:27017,botdev-shard-00-02-pblka.mongodb.net:27017/MaiDocs?replicaSet=BotDev-shard-0&ssl=true&authSource=admin`
-    this.settings = settings
+  constructor(client, options = {}){
+
+    /**
+     * The client that instantiated this
+     * @name Mongoose#client
+     * @type {MaiClient}
+     * @readonly
+     */
+    Object.defineProperty(this, 'client', { value: client })
+
+    /**
+     * The connection URI for this instance
+     * @type {string}
+     */
+    if (typeof options.connector === 'string'){
+      this.connector = options.connector;
+    } else {
+      this.connector = `mongodb://botAdmin:${options.password}@botdev-shard-00-00-pblka.mongodb.net:27017,botdev-shard-00-01-pblka.mongodb.net:27017,botdev-shard-00-02-pblka.mongodb.net:27017/MaiDocs?replicaSet=BotDev-shard-0&ssl=true&authSource=admin`;
+    };
+
+    /**
+     * The connection settings for this instance
+     * @type {object}
+     */
+    this.settings = options.config;
+
+    /**
+     * instance of mongoose library
+     * @type {object}
+     */
+    this.db = mongoose;
+
+    /**
+     * whether the client is connected to the database
+     * @type {string}
+     */
+    this.connected = false;
+
+    // Listen to event to set connected to true or false
+    this.db.connection.on('connected', () => this.connected = true);
+    this.db.connection.on('disconnect', () => this.connected = false);
   }
 
+  /**
+   * Initialize this database
+   * @returns {Object<Database>}
+   */
   init(){
-    mongoose.connect(this.connector, this.settings).catch(console.error)
-    mongoose.set('useFindAndModify',false)
-    mongoose.Promise = global.Promise
 
-    mongoose.connection.on('connecting', () => console.log('Connecting to MongoDB...'))
-    mongoose.connection.on('connected', () => console.log('Connected to MongoDB!'))
-    mongoose.connection.on('err', (err) => console.log(`Mongoose Error:\n${err.stack}`))
-    mongoose.connection.on('disconnected', () => console.log('Disconnected to MongoDB...'))
-    mongoose.connection.on('reconnected', () => console.log('Reconnected to MongoDB!'))
-  }
-}
+    this.db.connect(this.connector, this.settings).catch((error) => {
+      consoleUtil.error(error.message, 'db');
+    });
+
+    this.db.set('useFindAndModify',false)
+    this.db.Promise = global.Promise;
+
+    this.db.connection.on('connected', () => consoleUtil.success('Connected to MongoDB!'));
+
+    return this.db;
+  };
+};

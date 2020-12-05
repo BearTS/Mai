@@ -1,118 +1,139 @@
-const {
-  MongooseModels: { guildWatchlistSchema }
-  , AniListQuery: query
-  , Watching: watching
-  } = require('../../helper')
-
-const { Error: MongooseError } = require('mongoose')
-const requireText = require('require-text')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, GuildEmoji } = require('discord.js');
+const _ = require('lodash');
+const watching = require('require-text')(`${process.cwd()}/assets/graphql/Watching.graphql`,require);
+const list = require(`${process.cwd()}/models/GuildWatchlist`);
+const Page = require(`${process.cwd()}/struct/Paginate`);
+const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
-  name: 'watching'
-  , aliases: [
-    'watchlist'
-    , 'list'
-  ]
-  , guildOnly: true
-  , group: 'core'
-  , description: 'View list of currently watching anime.'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , examples: []
-  , parameters: ['Anilist or MAL entry link']
-  , run: async (client, message) => {
+  name: 'watching',
+  aliases: [ 'watchlist', 'list' ],
+  guildOnly: true,
+  cooldown: {
+    time: 60000,
+  },
+  group: 'core',
+  description: 'View list of anime this server is subscribed to.',
+  clientPermissions: [ 'EMBED_LINKS' ],
+  get examples(){ return [ this.name, ...this.aliases ]},
+  run: async (client, message) => {
 
-    if (client.guildsettings.profiles.get(message.guild.id).featuredChannels.anisched === null)
-    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Anischedule Feature has been disabled in this server.`)
+    const id = client.guildProfiles.get(message.guild.id).anischedChannel;
+    const guildID = message.guild.id;
+    const embed = new MessageEmbed()
+    .setColor('RED')
+    .setFooter(`Anischedule Watchlist | \©️${new Date().getFullYear()} Mai`)
 
-    let profile = await guildWatchlistSchema.findOne({
-      guildID: message.guild.id
-    }).catch(err => err)
+    if (!id){
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, This server's anischedule feature has been disabled.`);
+    };
 
-    if (!profile)
-      profile = await new guildWatchlistSchema({
-        guildID: message.guild.id
-      }).save().catch(()=>null)
+    let profile = await list.findOne({ guildID }).catch(err => null) ||
+    await new list({ guildID }).save().catch(err => err);
 
-    if (profile instanceof MongooseError)
+    if (!profile || !(profile instanceof list)){
       return message.channel.send(
+        embed.setAuthor('Database Not Found', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setDescription(`Couldn't contact database provider. Please try again later.`)
+      );
+    };
+
+    if (!profile.data.length){
+      return message.channel.send(
+        embed.setAuthor('No Subscription','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setDescription(`**${message.member.displayName}**, this server has no anischedule entries yet.`)
       )
+    };
 
-    if (!profile || !profile.data || !profile.data.length)
-      return message.channel.send(
-        new MessageEmbed().setColor('RED')
-          .setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-          + message.author.tag
-          + ', The server\'s current watchlist is empty. You may add anime to watch by using `watch` command.'
-          + '\u2000\u2000\n\n\u200b'
+    const entries = [];
+    const watched = profile.data;
+    let page = 0
+    let hasNextPage = false;
+
+    do {
+      const res = await client.anischedule.fetch(watching, {watched, page});
+
+      if (res.errors){
+        return message.channel.send(
+          embed.setAuthor('AniList Error', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+          .setDescription('Received error from anilist:\n' + errors.map(x => x.message).join('\n'))
+        );
+      };
+
+      if (!entries.length && !res.data.Page.media.length){
+        return message.channel.send(
+          embed.setAuthor('No Subscription','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+          .setDescription(`**${message.member.displayName}**, this server has no anischedule entries yet.`)
         )
-      )
+      };
 
-    const entries = []
+      page = res.data.Page.pageInfo.currentPage + 1;
+      hasNextPage = res.data.Page.pageInfo.hasNextPage;
+      entries.push(...res.data.Page.media.filter(x => x.status === 'RELEASING'));
+    } while (hasNextPage);
 
-    const embeds = []
+    const descriptions = _.chunk(entries.sort((A,B) => A.id - B.id).map( entry => {
+      return `•\u2000\u2000\`[ ${' '.repeat(6 - (entry.id).toString().length)}${entry.id} ]\` **[${text.truncate(entry.title.romaji, 42, '...')}](${entry.siteUrl})**`
+    }), 20).map( description => description.join('\n'));
 
-    await handleWatchingPage(0)
-
-    async function handleWatchingPage(page){
-
-      const res = await query(watching, {
-        watched: profile.data,
-        page
-      }).catch((err)=> err)
-
-      if (!res || res.errors)
-        return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Unable to contact Anilist.co. Please try again later.`)
-
-      for (const media of res.data.Page.media){
-        if (media.status === 'RELEASING'){
-          entries.push(`\`[ ${media.id} ]\` **[${media.title.romaji}](${media.siteUrl})**`)
-        }
-      }
-
-      if (res.data.Page.pageInfo.hasNextPage){
-        handleWatchingPage(res.data.Page.pageInfo.currentPage + 1)
-        return
-      }
-
-      return
-
-    }
-
-    let description = '\u200b'
-
-    for (const entry of entries){
-      if (2000 - description.length < entry.length) {
-
-        embeds.push( new MessageEmbed()
-        .setTitle('Current Announcements')
-        .setColor('GREY')
-        .setDescription(description)
-        .setFooter(`Anischedule (Watchlist) | \©️${new Date().getFullYear()} Mai`)
-      )
-
-      description = '\u200b'
-
-      } else {
-        description += `\n\u2000•\u2000${entry}\n`
-      }
-    }
-
-    embeds.push(
+    const embeds = descriptions.map((d,i) =>
       new MessageEmbed()
-        .setColor('GREY')
-        .setTitle('Current Announcements')
-        .setDescription(description)
-        .setFooter(`Anischedule (Watchlist) | \©️${new Date().getFullYear()} Mai`)
-    )
+      .setColor('GREY')
+      .setFooter([
+        `Anischedule Watchlist`,
+        `Page ${i + 1} of ${descriptions.length}`,
+        `\©️${new Date().getFullYear()} Mai`
+      ].join('\u2000\u2000•\u2000\u2000'))
+      .setTitle(`Current Anischedule Subscription (${entries.length} entries!)`)
+      .setDescription(d)
+      .addField('Tips', [
+        `- Use [\`${client.prefix}watch\`](https://mai-san.ml/docs/Features/Anischedule#adding-more-to-the-list) to add subscription`,
+        `- Use [\`${client.prefix}unwatch\`](https://mai-san.ml/docs/Features/Anischedule#removing-anime-from-the-list) to remove subscription`,
+        `- Use \`${client.prefix}nextep <anime title>\` to check episode countdown`
+      ].join('\n'))
+    );
 
-    for (const embed of embeds){
-      await message.channel.send(embed)
-    }
+    const pages = new Page(embeds);
 
-    return null
+    const msg = await message.channel.send(pages.firstPage);
+
+    if (pages.size === 1){
+      return;
+    };
+
+    const prev = client.emojis.cache.get('767062237722050561') || '◀';
+    const next = client.emojis.cache.get('767062244034084865') || '▶';
+    const terminate = client.emojis.cache.get('767062250279927818') || '❌';
+
+    const filter = (_, user) => user.id === message.author.id;
+    const collector = msg.createReactionCollector(filter);
+    const navigators = [ prev, next, terminate ];
+    let timeout = setTimeout(()=> collector.stop(), 90000);
+
+    for (let i = 0; i < navigators.length; i++) {
+      await msg.react(navigators[i]);
+    };
+
+    collector.on('collect', async reaction => {
+
+      switch(reaction.emoji.name){
+        case prev instanceof GuildEmoji ? prev.name : prev:
+          msg.edit(pages.previous());
+        break;
+        case next instanceof GuildEmoji ? next.name : next:
+          msg.edit(pages.next());
+        break;
+        case terminate instanceof GuildEmoji ? terminate.name : terminate:
+          collector.stop();
+        break;
+      };
+
+      await reaction.users.remove(message.author.id);
+      timeout.refresh();
+    });
+
+  collector.on('end', async () => await msg.reactions.removeAll());
+
+  return;
   }
-}
+};

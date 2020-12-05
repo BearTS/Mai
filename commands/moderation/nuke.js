@@ -1,39 +1,28 @@
 module.exports = {
   name: 'nuke',
-  aliases: ['clearall'],
+  aliases: [ 'clearall' ],
   guildOnly: true,
-  permissions: ['MANAGE_MESSAGES','MANAGE_CHANNELS'],
-  clientPermissions: ['MANAGE_CHANNELS'],
+  permissions: [ 'MANAGE_MESSAGES', 'MANAGE_CHANNELS' ],
+  clientPermissions: [ 'MANAGE_CHANNELS' ],
   group: 'moderation',
   description: 'Removes all messages in the channel (Deletes the old channel and makes a copy of it with permissions intact)',
-  examples: [],
-  parameters: [],
-  run: async ( client, message) => {
+  get examples(){ return [ this.name, ...this.aliases]; },
+  run: async (client, message) => {
 
-    await message.channel.send(`This will remove all conversations in this channel. Continue?`)
+    await message.channel.send(`This will remove all conversation in this channel and may cause conflict for bots using ID to track channels. Continue?`);
 
-    collector = message.channel.createMessageCollector( res => message.author.id === res.author.id )
+    const filter = _message => message.author.id === _message.author.id && ['y','n','yes','no'].includes(_message.content.toLowerCase());
+    const options = { max: 1, time: 30000, errors: ['time'] };
+    const proceed = await message.channel.awaitMessages(filter, options)
+    .then(collected => ['y','yes'].includes(collected.first().content.toLowerCase()) ? true : false)
+    .catch(() => false);
 
-    const continued = await new Promise( resolve => {
-      const timeout = setTimeout(()=> collector.stop('TIMEOUT'), 30000)
-      collector.on('collect', (message) => {
-        if (['y','yes'].includes(message.content.toLowerCase())) resolve(true)
-        if (['n','no'].includes(message.content.toLowerCase())) resolve(false)
-      })
-      collector.on('end', () => resolve(false))
-    })
+    if (!proceed){
+      return message.channel.send(`\\❌ | **${message.author.tag}**, you cancelled the nuke command!`);
+    };
 
-    if (!continued)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cancelled the nuke command!`)
-
-    await message.channel.send(`The nuke has been deployed. This channel will be wiped off the face of discord in 10`)
-
-    return setTimeout(()=>{
-
-      message.channel.clone()
-        .then(() => message.channel.delete().catch(()=>null))
-          .catch(()=> null)
-
-    }, 10000)
+    return message.channel.send(`The nuke has been deployed, saying goodbye to **#${message.channel.name}** in 10`)
+    .then(() => setTimeout(() => message.channel.clone()
+    .then(() => message.channel.delete().catch(() => null)), 10000))
   }
-}
+};
