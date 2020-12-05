@@ -27,7 +27,7 @@ module.exports = class MaiClient extends Client{
    * @param {ClientSettings} [settings] for this client, including the ClientOptions [options] for the client
    */
   constructor(settings = {}){
-    super(settings.client = {});
+    super(settings.client);
 
     // Initialize bot, log on terminal when instantiated.
     console.log(`Initializing the client. Please wait...`);

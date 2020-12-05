@@ -99,7 +99,7 @@ module.exports = class Anischedule{
     }).join(' • ');
 
     return new MessageEmbed()
-    .setColor(parseInt((entry.media.coverImage.color).substr(1), 16) || 'GREY')
+    .setColor(parseInt((entry.media.coverImage.color || '').substr(1), 16) || 'GREY')
     .setThumbnail(entry.media.coverImage.large)
     .setAuthor('Mai Anischedule')
     .setTimestamp(date)
@@ -110,10 +110,10 @@ module.exports = class Anischedule{
       `\n\nIt may take some time to appear on the above service(s).`
     ].join(''))
     .setFooter([
-      `${entry.media.format ? `Format: ${{TV:'TV',TV_SHORT:'TV Short',MOVIE:'Movie',SPECIAL:'Special',ONA:'ONA',OVA:'OVA',MUSIC:'Music'}[entry.media.format] || 'Unknown'}`:''}`,
+      `${entry.media.format ? `Format: ${constants.mediaFormat[entry.media.format] || 'Unknown'}`:''}`,
       `${entry.media.duration ? `Duration: ${ duration(entry.media.duration * 60, 'seconds') .format('H [hr] m [minute]') }  `:''}`,
-      `${'edges.length' in entry.media.studios ? `Studio: ${ entry.media.studios.edges[0].node.name }` : ''}`
-    ].join('  •  '));
+      `${!!entry.media.studios.edges.length ? `Studio: ${ entry.media.studios.edges[0].node.name }` : ''}`
+    ].filter(Boolean).join('  •  '));
   };
 
   /**
