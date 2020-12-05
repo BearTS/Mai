@@ -63,7 +63,7 @@ module.exports = {
       text.truncate(data.type || 'showType Unavailable', 200)
     ].join('\u2000|\u2000'), data.picture || 'https://myanimelist.net/images/icon.svg', data.url)
     .setDescription([
-      `Score: ${data.score}\u2000|\u2000Ranked: ${text.ordinalize((data.ranked || '').slice(1) || '~')}\u2000|\u2000Popularity: ${data.popularity || '~'}`,
+      `Score: ${data.score}\u2000•\u2000Ranked: ${text.ordinalize((data.ranked || '').slice(1) || '~')}\u2000•\u2000Popularity: ${data.popularity || '~'}`,
       `${text.truncate(data.synopsis || 'No Synopsis', 1000, `... [Read More](${data.url})`)}`
     ].join('\n\n'))
     .addFields([
