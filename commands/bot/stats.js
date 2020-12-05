@@ -101,7 +101,7 @@ module.exports = {
         },{
           name: '\u200b', inline: true,
           value: [
-            `[Github](${client.config.websites.github})\u2000|\u2000[Website](${client.config.websites.website})`,
+            `[Github](${client.config.websites.repository})\u2000|\u2000[Website](${client.config.websites.website})`,
             `${moment.duration(Date.now() - client.user.createdTimestamp, 'milliseconds').format('Y [years] M [months] d [days]')} old.`
           ].join('\n')
         }
