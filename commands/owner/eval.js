@@ -17,8 +17,6 @@ module.exports = {
     .filter(x => !!x && isNaN(x) && !['default','no'].includes(x.toLowerCase()))
     .join('|') ,'gi');
 
-    message.channel.startTyping();
-
     try {
 
       const code = args.join(' ');
@@ -27,6 +25,7 @@ module.exports = {
       let promise, output, bin, download, type, color;
 
       if (evaled instanceof Promise){
+        message.channel.startTyping();
         promise = await evaled
         .then(res => { return { resolved: true, body: inspect(res, { depth: 0 })};})
         .catch(err => { return { rejected: true, body: inspect(err, { depth: 0 })};});
@@ -102,7 +101,7 @@ module.exports = {
         stacktrace.excess ? `\nand ${stacktrace.excess} lines more!` : '',
         '```'
       ].join('\n');
-      
+
       message.channel.stopTyping();
       return message.channel.send(
         new MessageEmbed()

@@ -80,7 +80,7 @@ module.exports = class CommandManager{
     this.groups.get(command.group).set(command.name, command);
     this.registers.set(command.name, new CommandRegister(command));
 
-    if (command.cooldown){
+    if (command.cooldown.time){
       this.cooldowns.set(command.name, new CooldownManager(command));
     } else {
       // Do nothing..
@@ -118,7 +118,7 @@ module.exports = class CommandManager{
 
     this.registers.set(newCommand.name, new CommandRegister(newCommand));
 
-    if (!newCommand.cooldown) {
+    if (!newCommand.cooldown.time) {
       this.cooldowns.delete(newCommand.name)
     } else {
       // Do nothing..
