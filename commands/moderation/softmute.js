@@ -4,7 +4,7 @@ module.exports = {
   guildOnly: true,
   permissions: [ 'MANAGE_ROLES' ],
   group: 'moderation',
-  description: 'Prevents a user from sending a message in this channel',
+  description: 'Toggle to prevent a user from sending a message in this channel',
   parameters: [ 'User Mention | ID' ],
   get examples(){ [this.name, ...this.aliases].map(x => `${x} [user]`)},
   run: async (client, message, [member = '']) => {

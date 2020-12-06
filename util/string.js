@@ -82,6 +82,14 @@ function joinArrayAndLimit(array = [], limit = 1000, connector = '\n'){
   , { text: '', excess: 0});
 };
 
+/**
+ * cleans text from unnecessary character
+ * @param {string} text The string to clean
+ * @returns {string} the cleaned string
+ */
+function clean(text){
+  return String(text).replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`)
+};
 
 module.exports = {
   textTruncate,
@@ -91,4 +99,5 @@ module.exports = {
   compactNum,
   joinArray,
   joinArrayAndLimit,
+  clean
 };
