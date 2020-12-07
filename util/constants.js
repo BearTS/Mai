@@ -97,3 +97,11 @@ module.exports.horoscope = {
 module.exports.regex = {
   userID: /\d{17,19}/
 };
+
+module.exports.verificationlvl = {
+  NONE: "None",
+  LOW: "Low",
+  MEDIUM: "Medium",
+  HIGH: "(╯°□°）╯︵ ┻━┻",
+  VERY_HIGH: "┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻",
+}

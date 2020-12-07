@@ -94,14 +94,12 @@ async function experience(message, command_executed, execute){
   // define points
   let _xp = {
     global: {
-      get cap(){ return 150 * res.data.global_level * 2; },
-      get next(){ return this.cap * res.data.global_level; },
-      get difference(){ return this.next - res.data.global_xp; }
+      get cap(){ return (50 * Math.pow(res.data.global_level,2)) + (250 * res.data.global_level); },
+      get next(){ return this.cap -  res.data.global_xp; },
     },
     local: {
-      get cap(){ return 150 * serverdata.level * 2; },
-      get next(){ return this.cap * serverdata.level; },
-      get difference() { return this.next - serverdata.xp }
+      get cap(){ return (50 * Math.pow(serverdata.level,2)) + (250 * serverdata.level); },
+      get next(){ return this.cap - serverdata.xp }
     }
   };
 
@@ -109,7 +107,7 @@ async function experience(message, command_executed, execute){
   // Add 3xp xp add on global based xp
   // Increment level if next is less than the current xp
   res.data.global_xp = res.data.global_xp + 3;
-  while (_xp.global.next < res.data.global_xp){
+  while (_xp.global.next < 1){
     res.data.global_level++
   };
 
@@ -117,7 +115,7 @@ async function experience(message, command_executed, execute){
   // Add points which was previously randomized on server[local] based xp
   // increment level if next is less than the current xp.
   serverdata.xp = serverdata.xp + points;
-  while (_xp.local.next < serverdata.xp){
+  while (_xp.local.next < 1){
     serverdata.level++
   };
 

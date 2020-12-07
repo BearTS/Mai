@@ -64,6 +64,16 @@ function check(message, command){
         // Do nothing..
       };
     };
+    if (command.rankcommand){
+      if (!guildProfile.xp.active || guildProfile.xp.exceptions.includes(message.channel.id)){
+        reasons.push([
+          !guildProfile.xp.active ? '**Disabled XP**' : '**Disabled XP on Channel**',
+          !guildProfile.xp.active ? 'XP is currently disabled in this server.' : ' XP is currently disabled in this channel.'
+        ].join(' - '))
+      } else {
+        //Do nothing
+      };
+    };
   };
 
   if (command.nsfw) {
@@ -72,19 +82,6 @@ function check(message, command){
         '**NSFW Command**',
         'You can only use this command on a nsfw channel.'
       ].join(' - '))
-    };
-  };
-
-  if (command.rankcommand){
-    if (message.guild){
-      if (guildProfile.xp.active || guildProfile.xp.exceptions.includes(message.channel.id)){
-        reasons.push([
-          guildProfile.xp.active ? '**Disabled XP**' : '**Disabled XP on Channel**',
-          guildProfile.xp.active ? 'XP is currently disabled in this server.' : ' XP is currently disabled in this channel.'
-        ].join(' - '))
-      } else {
-        // Do nothing..
-      };
     };
   };
 
