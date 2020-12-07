@@ -33,6 +33,7 @@
     "erlpack": "^0.1.3",
     "he": "^1.2.0",
     "html-to-markdown": "^1.0.0",
+    "html2markdown": "^1.1.0",
     "lodash": "^4.17.20",
     "mal-scraper": "^2.11.2",
     "moment": "^2.29.1",
