@@ -34,7 +34,6 @@ module.exports = {
     };
 
     res = res.data.children.filter(m => m.data.post_hint === 'image');
-    console.log(res)
 
     embed.setAuthor('No Image Found', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     .setDescription('This <:reddit:767062345422864394> subreddit does not have any image posts.');

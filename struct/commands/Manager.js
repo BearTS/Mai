@@ -108,8 +108,8 @@ module.exports = class CommandManager{
           join(process.cwd(), this.parent, command.group, command.name)
         )
       ];
-    } catch {
-      return { status: 'FAILED', err: {stack: 'Error: TypeError: Command-name and Command-filename mismatch.'}}
+    } catch (err){
+      return { status: 'FAILED', err }
     };
 
     const newCommand = new Command(this.client, require(join(process.cwd(), this.parent, command.group, command.name)));

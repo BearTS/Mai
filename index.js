@@ -27,7 +27,7 @@ client.loadCommands({ parent: 'commands', ...options });
 
 client.loadEvents({ parent: 'events', ...options });
 
-client.defineCollections([ 'discovery', 'memes', 'xp' ]);
+client.defineCollections([ 'discovery', 'economy', 'memes', 'xp' ]);
 
 // let client listen to process events, setting ignore to true will
 // ignore errors and not execute the functions from util/processEvents.js.
