@@ -116,6 +116,5 @@ module.exports = {
 function reviseURL(url){
   const baseurl = 'https://i1.wp.com/static-assets.droidbuzz.top/';
   const ext = String(url).match(/images\/(covers|posters)\/[\-\w]{1,}\.(jpe?g|png|gif)/i);
-  console.log( baseurl + ext[0])
   return ext ? baseurl + ext[0] : null;
 };;
