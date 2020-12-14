@@ -1,5 +1,6 @@
+require('dotenv').config();
 const fetch = require('node-fetch');
-
+const { chatbot_id, chatbot_key } = process.env;
 module.exports = async message => {
 
   const mentionregexp = new RegExp(`<@!?${message.client.user.id}>`);
@@ -26,15 +27,15 @@ module.exports = async message => {
   message.channel.startTyping();
 
   // Get a response from the bot via api
-  const res = await fetch(`https://some-random-api.ml/chatbot?message=${encodeURI(input)}`)
+  const res = await fetch(`http://api.brainshop.ai/get?bid=${chatbot_id}&key=${chatbot_key}&uid=${message.author.id}&msg=${encodeURIComponent(input)}`)
     .then(res => res.json())
-    .catch(err => {});
+    .catch(() => {});
 
   // Add a 3s delay
   await new Promise(_ => setTimeout(() => _(), 3000))
 
   // check if we get proper response
-  if (res.response && !typeof res.response === 'string'){
+  if (res.cnt && !typeof res.cnt === 'string'){
     return message.channel.send('???', { replyTo: message })
     .then(() => {
       message.channel.stopTyping();
@@ -47,7 +48,7 @@ module.exports = async message => {
   };
 
   // send the response
-  return message.channel.send(res.response, { replyTo: message })
+  return message.channel.send(res.cnt , { replyTo: message })
   .then(() => {
     message.channel.stopTyping();
     return { success: true };
