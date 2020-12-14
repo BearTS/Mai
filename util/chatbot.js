@@ -29,7 +29,7 @@ module.exports = async message => {
   // Get a response from the bot via api
   const res = await fetch(`http://api.brainshop.ai/get?bid=${chatbot_id}&key=${chatbot_key}&uid=${message.author.id}&msg=${encodeURIComponent(input)}`)
     .then(res => res.json())
-    .catch(err => {});
+    .catch(() => {});
 
   // Add a 3s delay
   await new Promise(_ => setTimeout(() => _(), 3000))
