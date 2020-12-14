@@ -27,7 +27,7 @@ module.exports = async message => {
   message.channel.startTyping();
 
   // Get a response from the bot via api
-  const res = await fetch(`http://api.brainshop.ai/get?bid=${chatbot_id}&key=${chatbot_key}&msg=${encodeURIComponent(input)}`)
+  const res = await fetch(`http://api.brainshop.ai/get?bid=${chatbot_id}&key=${chatbot_key}&uid=${message.author.user.id}&msg=${encodeURIComponent(input)}`)
     .then(res => res.json())
     .catch(err => {});
 
