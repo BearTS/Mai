@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
+const { model, Schema } = require('mongoose');
 
-const profile = mongoose.Schema({
-  // User ID in string format
+module.exports = model('watchlist', Schema({
   _id: String,
   data: {
     global_xp: {type: Number, default: 0},
@@ -33,8 +32,6 @@ const profile = mongoose.Schema({
     },
     xp: {type: Array, default: []}
   }
-}, {
+},{
   versionKey: false
-});
-
-module.exports = mongoose.model("profile", profile);
+}));

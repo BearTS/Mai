@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const { model, Schema } = require('mongoose');
 
-const profile = mongoose.Schema({
+module.exports = model('Guildprofile', Schema({
   guildID: String,
   prefix: {type: String, default: null},
   welcomeEnabled: {type: Boolean, default: false},
@@ -22,6 +22,4 @@ const profile = mongoose.Schema({
   suggestChannel: {type: String, default: null}
 }, {
   versionKey: false
-});
-
-module.exports = mongoose.model("Guildprofile",profile);
+}));
