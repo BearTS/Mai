@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-module.exports = model('watchlist', Schema({
+module.exports = model('profile', Schema({
   _id: String,
   data: {
     global_xp: {type: Number, default: 0},
