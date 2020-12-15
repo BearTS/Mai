@@ -13,7 +13,9 @@ module.exports = async message => {
   // Check the message if the bot's mention was the first on content
   // or the message was a reply from the bot's previous cached message
   if (!mentionregexp.test(message.content.split(/ +/).filter(Boolean)[0])){
-    if (((!message.channel.messages.cache.get((message.reference||{}).messageID)||{}).author||{}).id === message.client.user.id){
+    const ref_id = (message.reference||{}).messageID;
+    const ref_msg = message.channel.messages.cache.get(ref_id);
+    if (!ref_msg || ref_msg.author.id !== message.client.user.id){
       return Promise.resolve({ success: false });
     };
   };
