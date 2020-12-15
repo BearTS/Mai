@@ -11,15 +11,18 @@ module.exports = async message => {
   };
 
   // Check the message if the bot's mention was the first on content
+  // or the message was a reply from the bot's previous cached message
   if (!mentionregexp.test(message.content.split(/ +/).filter(Boolean)[0])){
-    return Promise.resolve({ success: false });
+    if (((!message.channel.messages.cache.get((message.reference||{}).messageID)||{}).author||{}).id === message.client.user.id){
+      return Promise.resolve({ success: false });
+    };
   };
 
   const input = message.content.replace(mentionregexp, '');
 
   // Check if the user has input other than mention
   if (!input.split(/ +/).filter(Boolean).length){
-    return message.channel.send(`${message.author}, how may i help you?`)
+    return message.channel.send(`How may i help you?`, { replyTo: message })
     .then(() => { return { success: true }; })
     .catch(() => { return { success: false }; });
   };
