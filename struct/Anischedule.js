@@ -175,12 +175,12 @@ module.exports = class Anischedule{
    * Initialize the scheduler
    * @returns {Interval}
    */
-  init(){
+  async init(){
     if (!this.enabled){
       return;
     } else if (!this.client.database?.connected){
       consoleUtil.error('Unable to start Anischedule. Reason: Database not found. Retrying...', 'db');
-      return this.client.database?.db.connection.once('connected', this.init());
+      await new Promise(resolve => this.client.database?.db.connection.once('connected', resolve(null)));
     } else {
       // Do nothing
     };
