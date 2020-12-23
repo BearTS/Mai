@@ -17,7 +17,7 @@ module.exports = async ( client, member ) => {
   };
 
   if (!guildProfile.greeter.welcome.message || guildProfile.greeter.welcome.type === 'default'){
-    return client.channels.cache.get(guildProfile.welcome.greeter.channel).send(
+    return client.channels.cache.get(guildProfile.greeter.welcome.channel).send(
       new MessageEmbed()
       .setColor('GREY')
       .setTitle(`${member.user.tag} has joined our server!`)

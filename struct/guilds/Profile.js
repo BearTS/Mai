@@ -89,7 +89,7 @@ module.exports = class GuildProfile{
       * Whether the xp system is active on the guild
       * @type {Boolean}
       */
-      active: data.xp.isActive,
+      isActive: data.xp.isActive,
 
       /**
       * The channel IDs to blacklist from xp system.

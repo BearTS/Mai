@@ -65,10 +65,10 @@ function check(message, command){
       };
     };
     if (command.rankcommand){
-      if (!guildProfile.xp.active || guildProfile.xp.exceptions.includes(message.channel.id)){
+      if (!guildProfile.xp.isActive || guildProfile.xp.exceptions.includes(message.channel.id)){
         reasons.push([
-          !guildProfile.xp.active ? '**Disabled XP**' : '**Disabled XP on Channel**',
-          !guildProfile.xp.active ? 'XP is currently disabled in this server.' : ' XP is currently disabled in this channel.'
+          !guildProfile.xp.isActive ? '**Disabled XP**' : '**Disabled XP on Channel**',
+          !guildProfile.xp.isActive ? 'XP is currently disabled in this server.' : ' XP is currently disabled in this channel.'
         ].join(' - '))
       } else {
         //Do nothing

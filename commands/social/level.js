@@ -15,7 +15,7 @@ module.exports = {
   get examples(){ return [this.name, ...this.aliases].map(x => x + ' <User Mention>')},
   run: async function (client, message, [member = '']){
 
-    member = (member.match(/\d{17,18}/)||[])[0]||message.member.id;
+    member = member.match(/\d{17,18}/)?.[0] || message.member.id;
     member = await message.guild.members.fetch(member).catch(() => message.member);
 
     if (member.user.bot){

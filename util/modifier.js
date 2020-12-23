@@ -42,7 +42,7 @@ async function modify(str, member){
   const regexp = new RegExp(Object.keys(modifiers).join('|'), 'g');
 
   return str.replace(regexp, word => {
-    return Promise.resolve(modifiers[word] || word);
+    return modifiers[word] || word;
   });
 };
 
