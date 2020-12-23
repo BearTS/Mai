@@ -1,12 +1,12 @@
 module.exports = class GuildProfile{
-  constructor(data, anischedCh){
+  constructor(data){
     // *Goodbye Message refer to Leaving Member Announcer
 
     /**
     * The id of this profile identical to the guild ID
     * @type {string}
     */
-    this.id = data.guildID;
+    this.id = data._id;
 
     /**
     * The custom prefix for this guild.
@@ -14,70 +14,73 @@ module.exports = class GuildProfile{
     */
     this.prefix = data.prefix || null;
 
-    this.welcome = {
+    this.greeter = {
 
-      /**
-      * The channel ID for logging welcome messages (if enabled).
-      * @type {?string<Snowflake>}
-      */
-      channel: data.welcomeChannel,
+      welcome: {
 
-      /**
-      * The text version of the message for logging welcome messages.
-      * @type {?string}
-      */
-      message: data.welcomemsg,
+        /**
+        * Whether the welcome messages is enabled.
+        * @type {Boolean}
+        */
+        isEnabled: data.greeter.welcome.isEnabled,
 
-      /**
-      * Whether the welcome messages is enabled.
-      * @type {Boolean}
-      */
-      enabled: data.welcomeEnabled,
+        /**
+        * The channel ID for logging welcome messages (if enabled).
+        * @type {?string<Snowflake>}
+        */
+        channel: data.greeter.welcome.channel,
 
-      /**
-      * The embedded version of the message for logging welcome messages.
-      * @type {?MessageEmbed}
-      */
-      embed: data.welcomeEmbed,
+        /**
+        * The text version of the message for logging welcome messages.
+        * @type {?string}
+        */
+        message: data.greeter.welcome.message,
 
-      /**
-      * Which type to use.
-      * @type {string<default|text|embed>}
-      */
-      use: data.welcomeUse
-    };
+        /**
+        * The embedded version of the message for logging welcome messages.
+        * @type {?MessageEmbed}
+        */
+        embed: data.greeter.welcome.embed,
 
-    this.goodbye = {
+        /**
+        * Which type to use.
+        * @type {string<default|text|embed>}
+        */
+        type: data.greeter.welcome.type
+      },
 
-      /**
-      * The channel ID for logging goodbye messages (if enabled).
-      * @type {?string<Snowflake>}
-      */
-      channel: data.goodbyeChannel,
+      leaving: {
 
-      /**
-      * The text version of the message for logging goodbye messages.
-      * @type {?string}
-      */
-      message: data.goodbyemsg,
+        /**
+        * Whether the goodbye messages is enabled.
+        * @type {Boolean}
+        */
+        enabled: data.greeter.leaving.isEnabled,
 
-      /**
-      * Whether the goodbye messages is enabled.
-      * @type {Boolean}
-      */
-      enabled: data.goodbyeEnabled,
+        /**
+        * The channel ID for logging goodbye messages (if enabled).
+        * @type {?string<Snowflake>}
+        */
+        channel: data.greeter.leaving.channel,
 
-      /**
-      * The embedded version of the message for logging goodbye messages.
-      * @type {?MessageEmbed}
-      */
-      embed: data.goodbyeEmbed,
+        /**
+        * The text version of the message for logging goodbye messages.
+        * @type {?string}
+        */
+        message: data.greeter.leaving.message,
 
-      /**
-      * Which type to use.
-      * @type {string<default|text|embed>}
-      */
-      use: data.goodbyeUse
+        /**
+        * The embedded version of the message for logging goodbye messages.
+        * @type {?MessageEmbed}
+        */
+        embed: data.greeter.leaving.embed,
+
+        /**
+        * Which type to use.
+        * @type {string<default|text|embed>}
+        */
+        type: data.greeter.leaving.type
+      }
     };
 
     this.xp = {
@@ -86,28 +89,26 @@ module.exports = class GuildProfile{
       * Whether the xp system is active on the guild
       * @type {Boolean}
       */
-      active: data.isxpActive,
+      active: data.xp.isActive,
 
       /**
       * The channel IDs to blacklist from xp system.
       * @type {string[]}
       */
-      exceptions: data.xpExceptions
+      exceptions: data.xp.exceptions
     };
 
     /**
-    * ?Whether the guild's economy system is active.
-    * Deprecated - Will remove in next release
-    * @type {Boolean}
-    */
-    this.isEconomyActive = data.iseconomyActive;
-
-    /**
     * Role IDs bound to specific bot function.
-    * @type {string{}}
+    * @type {Object} role Ids
     */
     this.roles = {
-      muted: data.muterole
+
+      /**
+      * The role ID for the muterole
+      * @type {?String}
+      */
+      muted: data.roles.muted
     };
 
     /**
@@ -115,19 +116,10 @@ module.exports = class GuildProfile{
     * @type {string{}}
     */
     this.featuredChannels = {
-      anisched: anischedCh,
       suggest: data.suggestChannel
     };
   };
-
-  /**
-   * Retrieves the channel id of the suggest channel, if it exists
-   * @private
-   */
-  get anischedChannel(){
-    return this.featuredChannels.anisched
-  };
-
+  
   /**
    * Retrieves the channel id of the suggest channel, if it exists
    * @private

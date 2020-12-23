@@ -1,25 +1,34 @@
 const { model, Schema } = require('mongoose');
 
-module.exports = model('Guildprofile', Schema({
-  guildID: String,
-  prefix: {type: String, default: null},
-  welcomeEnabled: {type: Boolean, default: false},
-  welcomeEmbed: {type: Object, default: {}},
-  isWelcomeEmbed: {type: Boolean, default: false},
-  welcomeChannel: {type: String, default: null},
-  welcomemsg:  {type: String, default: null},
-  welcomeUse: {type: String, default: 'default'},
-  goodbyeEnabled: {type: Boolean, default: false},
-  goodbyeEmbed: {type: Object, default: null},
-  isGoodbyeEmbed: {type: Boolean, default: false},
-  goodbyeChannel: {type: String, default: null},
-  goodbyemsg:  {type: String, default: null},
-  goodbyeUse: {type: String, default: 'default'},
-  isxpActive:  {type: Boolean, default: false},
-  xpExceptions: { type: Array, default: []},
-  iseconomyActive: {type: Boolean, default: false},
-  muterole: {type: String, default: null},
-  suggestChannel: {type: String, default: null}
+module.exports = model('Guildprofiles', Schema({
+  _id: String,
+  prefix: { type: String, default: null },
+  greeter: {
+    welcome: {
+      isEnabled: { type: Boolean, default: false },
+      channel: { type: String, default: null },
+      message: { type: String, default: null },
+      embed: { type: Object, default: false },
+      type: { type: String, default: 'default' }
+    },
+    leaving: {
+      isEnabled: { type: Boolean, default: false },
+      channel: { type: String, default: null },
+      message: { type: String, default: null },
+      embed: { type: Object, default: null },
+      type: { type: String, default: 'default' }
+    }
+  },
+  xp: {
+    isActive: { type: Boolean, defaut: false },
+    exceptions: { type: Array, default: []}
+  },
+  roles: {
+    muted: { type: String, default: null }
+  },
+  channels: {
+    suggest: { type: String, default: null }
+  }
 }, {
   versionKey: false
 }));

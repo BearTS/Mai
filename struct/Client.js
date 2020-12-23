@@ -297,7 +297,8 @@ module.exports = class MaiClient extends Client{
       let files = null;
 
       try {
-        files = readdirSync(join(process.cwd(), settings.parent, dir)).filter(f => f.split('.').pop() === 'js');
+        files = readdirSync(join(process.cwd(), settings.parent, dir))
+        .filter(f => f.split('.').pop() === 'js');
       } catch {
         if (log){
           consoleUtil.error(`DIR_NOT_FOUND: Cannot resolve path '${join(process.cwd(), settings.parent, dir)}'`, 'dir');
@@ -418,5 +419,4 @@ module.exports = class MaiClient extends Client{
       client: require(`${process.cwd()}/package.json`).version
     };
   };
-
 };
