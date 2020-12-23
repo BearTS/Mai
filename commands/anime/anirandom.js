@@ -21,9 +21,8 @@ module.exports = {
     // Indicator that Mai is trying to fetch these data
     message.channel.startTyping();
 
-    const { ids: { al: id }} = message.channel.nsfw
-    ? animeDB.filter(a => a.isAdult)[Math.floor(Math.random() * animeDB.filter(a => a.isAdult).length)]
-    : animeDB.filter(a => !a.isAdult)[Math.floor(Math.random() * animeDB.filter(a => !a.isAdult).length)];
+    const db = animeDB.filter(a => message.channel.nsfw === a.isAdult);
+    const { ids: { al: id }} = db[Math.floor(Math.random() * db.length)];
 
     const { errors , data } = await client.anischedule.fetch(`query ($id: Int) { Media(id: $id){ siteUrl id idMal synonyms isAdult format startDate { year month day } episodes duration genres studios(isMain:true){ nodes{ name siteUrl } } coverImage{ large color } description title { romaji english native userPreferred } } }`, { id });
 

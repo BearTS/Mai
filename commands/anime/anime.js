@@ -55,9 +55,9 @@ module.exports = {
       return await msg.edit(embed).catch(() => null) || message.channel.send(embed);
     };
 
-    const elapsed = Date.now() - msg.createdAt
-
     embed.setColor('GREY')
+    .setFooter(`Anime Query with MAL | \©️${new Date().getFullYear()} Mai`)
+    .setThumbnail(data.picture || null)
     .setAuthor([
       text.truncate(data.englishTitle || data.title, 200),
       text.truncate(data.type || 'showType Unavailable', 200)
@@ -93,14 +93,9 @@ module.exports = {
           `•\u2000\**Status:**\u2000${data.status || 'Unknown'}`
         ].join('\n')
       }
-    ])
-    .setFooter([
-      `Search duration: ${Math.abs(elapsed / 1000).toFixed(2)} seconds`,
-      `Anime Query with MAL | \©️${new Date().getFullYear()} Mai`
-    ].join('\u2000\u2000•\u2000\u2000'))
-    .setThumbnail(data.picture || null);
+    ]);
 
 
-    return await msg.edit(embed).catch(()=> null) || message.channel.send(embed);
+    return await msg.edit(embed).catch(()=>{}) || message.channel.send(embed);
   }
 };

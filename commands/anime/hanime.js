@@ -14,7 +14,7 @@ module.exports = {
     time: 10000,
     message: 'You are going too fast! Please slow down to avoid getting ratelimited.',
   },
-  clientPermissions: [ 'EMBED_LINKS' ],
+  clientPermissions: [ 'EMBED_LINKS', 'MANAGE_MESSAGES' ],
   group: 'anime',
   nsfw: true,
   description: 'Queries hanime.tv for a specific hentai. Returns a maximum of 10 results',
