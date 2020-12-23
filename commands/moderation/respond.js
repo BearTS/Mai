@@ -69,7 +69,7 @@ module.exports = {
     if (!suggestion ||
       suggestion.author.id !== client.user.id ||
       !suggestion.embeds.length ||
-      !(suggestion.embeds[0].title || '').endsWith('suggestion')
+      !(suggestion.embeds[0].title || '').endsWith('Suggestion')
     ){
       return message.channel.send(
         embed.setAuthor('Suggestion not Found', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')

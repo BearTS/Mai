@@ -6,18 +6,18 @@ module.exports = async ( client, member ) => {
 
   const guildProfile = client.guildProfiles.get(member.guild.id);
 
-  if (!guildProfile.welcome.enabled){
+  if (!guildProfile.greeter.welcome.isEnabled){
     return;
-  } else if (!guildProfile.welcome.channel){
+  } else if (!guildProfile.greeter.welcome.channel){
     return;
-  } else if (!member.guild.channels.cache.get(guildProfile.welcome.channel)){
+  } else if (!member.guild.channels.cache.get(guildProfile.greeter.welcome.channel)){
     return;
   } else {
     // Do nothing..
   };
 
-  if (!guildProfile.welcome.message || guildProfile.welcome.use === 'default'){
-    return client.channels.cache.get(guildProfile.welcome.channel).send(
+  if (!guildProfile.greeter.welcome.message || guildProfile.greeter.welcome.type === 'default'){
+    return client.channels.cache.get(guildProfile.welcome.greeter.channel).send(
       new MessageEmbed()
       .setColor('GREY')
       .setTitle(`${member.user.tag} has joined our server!`)
@@ -28,15 +28,15 @@ module.exports = async ( client, member ) => {
   };
 
   //if message was text, send the text
-  if (guildProfile.welcome.use === 'msg'){
-    const message = await modifier.modify(guildProfile.welcome.message, member);
-    return client.channels.cache.get(guildProfile.welcome.channel).send(message);
+  if (guildProfile.greeter.welcome.type === 'msg'){
+    const message = await modifier.modify(guildProfile.greeter.welcome.message, member);
+    return client.channels.cache.get(guildProfile.greeter.welcome.channel).send(message);
  };
 
   //if message was embed
-  return client.channels.cache.get(guildProfile.welcome.channel).send(
+  return client.channels.cache.get(guildProfile.greeter.welcome.channel).send(
     new MessageEmbed(
       JSON.parse(
-        await modifier.modify(JSON.stringify(guildProfile.welcome.embed), member)))
+        await modifier.modify(JSON.stringify(guildProfile.greeter.welcome.embed), member)))
   );
 };

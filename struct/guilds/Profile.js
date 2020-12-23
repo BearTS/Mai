@@ -55,7 +55,7 @@ module.exports = class GuildProfile{
         * Whether the goodbye messages is enabled.
         * @type {Boolean}
         */
-        enabled: data.greeter.leaving.isEnabled,
+        isEnabled: data.greeter.leaving.isEnabled,
 
         /**
         * The channel ID for logging goodbye messages (if enabled).
@@ -116,10 +116,10 @@ module.exports = class GuildProfile{
     * @type {string{}}
     */
     this.featuredChannels = {
-      suggest: data.suggestChannel
+      suggest: data.channels.suggest
     };
   };
-  
+
   /**
    * Retrieves the channel id of the suggest channel, if it exists
    * @private

@@ -5,18 +5,16 @@ module.exports = async (client, member) => {
 
   const guildProfile = client.guildProfiles.get(member.guild.id);
 
-  if (!guildProfile.goodbye.enabled){
+  if (!guildProfile.greeter.leaving.isEnabled){
     return;
-  } else if (!guildProfile.goodbye.channel){
-    return;
-  } else if (!member.guild.channels.cache.get(guildProfile.goodbye.channel)){
+  } else if (!member.guild.channels.cache.get(guildProfile.greeter.leaving.channel)){
     return;
   } else {
     // Do nothing..
   };
 
-  if (!guildProfile.goodbye.message || guildProfile.goodbye.use === 'default'){
-    return client.channels.cache.get(guildProfile.goodbye.channel).send(
+  if (!guildProfile.greeter.leaving.message || guildProfile.greeter.leaving.type === 'default'){
+    return client.channels.cache.get(guildProfile.greeter.leaving.channel).send(
       new MessageEmbed()
       .setColor('GREY')
       .setTitle(`${member.user.tag} has left our server!`)
@@ -26,14 +24,14 @@ module.exports = async (client, member) => {
     );
   };
 
-  if (guildProfile.welcome.use === 'msg'){
-    const message = await modifier.modify(guildProfile.goodbye.message, member)
-    return client.channels.cache.get(guildProfile.goodbye.channel).send(message);
+  if (guildProfile.greeter.leaving.type === 'msg'){
+    const message = await modifier.modify(guildProfile.greeter.leaving.message, member)
+    return client.channels.cache.get(guildProfile.greeter.leaving.channel).send(message);
  };
 
- return client.channels.cache.get(guildProfile.goodbye.channel).send(
+ return client.channels.cache.get(guildProfile.greeter.leaving.channel).send(
    new MessageEmbed(
      JSON.parse(
-       await modifier.modify(JSON.stringify(guildProfile.goodbye.embed), member)))
+       await modifier.modify(JSON.stringify(guildProfile.greeter.leaving.embed), member)))
  );
 };
