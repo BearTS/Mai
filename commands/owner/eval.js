@@ -94,7 +94,7 @@ module.exports = {
     } catch (err) {
 
       const stacktrace = text.joinArrayAndLimit(err.stack.replace(sensitive, 'PRIVATE_DATA')
-      .split('\n'),998,'\n');
+      .split('\n'),900,'\n');
       const value = [
         '```xl',
         stacktrace.text,
