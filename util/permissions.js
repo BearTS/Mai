@@ -56,7 +56,7 @@ function check(message, command){
           '**No Necessary Permissions (Mai)** - ',
           'I need the following permission(s):\n\u2000\u2000- ',
           Object.entries(message.channel.permissionsFor(message.guild.me).serialize())
-          .filter(p => command.permissions.includes(p[0]) && !p[1])
+          .filter(p => command.clientPermissions.includes(p[0]) && !p[1])
           .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
           .join('\n\u2000\u2000- ')
         ].join(''))
