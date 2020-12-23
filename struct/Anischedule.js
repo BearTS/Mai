@@ -180,11 +180,7 @@ module.exports = class Anischedule{
       return;
     } else if (!this.client.database?.connected){
       consoleUtil.error('Unable to start Anischedule. Reason: Database not found. Retrying...', 'db');
-      return this.client.database?.db.connection.once('connected', function(){
-        return this.client.loop(function(){
-          return this.handleSchedules(Math.round(this.getFromNextDays().getTime() / 1000))
-        }, 24 * 60 * 60 * 1000);
-      });
+      return this.client.database?.db.connection.once('connected', this.init());
     } else {
       // Do nothing
     };
