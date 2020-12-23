@@ -41,10 +41,10 @@ module.exports = {
         output = text.clean(evaled).replace(sensitive, 'PRIVATE_DATA');
       };
 
-      if ((promise || {}).resolved){
+      if (promise?.resolved){
         color = 'GREEN'
         type = 'Promise (Resolved)'
-      } else if ((promise || {}).rejected){
+      } else if (promise?.rejected){
         color = 'RED'
         type = 'Promise (Rejected)'
       } else {

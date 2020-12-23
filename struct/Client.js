@@ -92,12 +92,10 @@ module.exports = class MaiClient extends Client{
     */
     this.database = null;
 
-    if ('enable' in (settings.database || {})){
-      if (settings.database.enable === true){
-        this.database = new Mongoose(this, settings.database);
-      } else {
-        // Do Nothing..
-      };
+    if (settings.database?.enable === true){
+      this.database = new Mongoose(this, settings.database);
+    } else {
+      // Do nothing..
     };
 
     /**
@@ -114,7 +112,7 @@ module.exports = class MaiClient extends Client{
       prefix: settings.prefix || 'm!',
       features: [],
       owners: [],
-      channels: { debug: null, uploads: null },
+      channels: { debug: null, uploads: null, logs: null },
       websites: settings.websites
     };
 
@@ -122,7 +120,7 @@ module.exports = class MaiClient extends Client{
      * Channel ID used by the bot to log errors when enabled.
      * @type {?Snowflake}
      */
-    if (typeof (settings.channels || {}).debug === 'string'){
+    if (typeof settings.channels?.debug === 'string'){
       this.config.channels.debug = settings.channels.debug;
     } else {
       // Do nothing...
@@ -132,8 +130,14 @@ module.exports = class MaiClient extends Client{
      * Channel ID used by the bot to upload files for some commands that necessitates uploads.
      * @type {?Snowflake}
      */
-    if (typeof (settings.channels || {}).uploads === 'string'){
+    if (typeof settings.channels?.uploads === 'string'){
       this.config.channels.uploads = settings.channels.uploads;
+    } else {
+      // Do nothing...
+    };
+
+    if (typeof settings.channels?.logs === 'string'){
+      this.config.channels.logs = settings.channels.logs;
     } else {
       // Do nothing...
     };
@@ -257,7 +261,7 @@ module.exports = class MaiClient extends Client{
     let log = true;
     const bypass = Boolean(settings.bypass);
 
-    if (settings.log && typeof settings.log === 'boolean'){
+    if (typeof settings.log === 'boolean'){
       log = settings.log;
     };
 
@@ -272,7 +276,7 @@ module.exports = class MaiClient extends Client{
 
     this.commands.parent = settings.parent;
 
-    if (!('paths' in settings) || !settings.paths.length){
+    if (!settings.paths?.length){
       settings['paths'] = ['']
     };
 

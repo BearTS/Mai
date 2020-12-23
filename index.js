@@ -17,11 +17,7 @@ const options = {
   ]
 };
 
-if (client.database){
-  client.database.init();
-} else {
-  // Do nothing..
-};
+client.database?.init();
 
 client.loadCommands({ parent: 'commands', ...options });
 

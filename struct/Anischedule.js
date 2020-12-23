@@ -178,11 +178,17 @@ module.exports = class Anischedule{
   init(){
     if (!this.enabled){
       return;
-    } else if (!this.client.database.connected){
-      return consoleUtil.error('Unable to start Anischedule. Reason: Database not found.', 'db');
+    } else if (!this.client.database?.connected){
+      consoleUtil.error('Unable to start Anischedule. Reason: Database not found. Retrying...', 'db');
+      return this.client.database?.db.connection.once('connected', function(){
+        return this.client.loop(function(){
+          return this.handleSchedules(Math.round(this.getFromNextDays().getTime() / 1000))
+        }, 24 * 60 * 60 * 1000);
+      });
     } else {
       // Do nothing
     };
+
     return this.client.loop(() => {
       return this.handleSchedules(Math.round(this.getFromNextDays().getTime() / 1000))
     }, 24 * 60 * 60 * 1000);
@@ -217,9 +223,9 @@ module.exports = class Anischedule{
         return consoleUtil.error(`Announcement for ${
           entry.media.title.romaji || entry.media.title.userPreferred
         } has \x1b[31mfailed\x1b[0m in ${
-          ((channel || {}).guild || {}).name || g.channelID
+          channel?.guild?.name || g.channelID
         } because ${
-          (channel || {}).guild ? `of \x1b[31mmissing\x1b[0m 'SEND_MESSAGES' and/or 'EMBED_LINKS' permissions.`
+          channel?.guild ? `of \x1b[31mmissing\x1b[0m 'SEND_MESSAGES' and/or 'EMBED_LINKS' permissions.`
           : `such channel \x1b[31mdoes not exist\x1b[0m.`
         }`);
       };

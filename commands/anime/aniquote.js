@@ -14,9 +14,9 @@ module.exports = {
 
     const { quote, anime, id, name } = randomQuote();
 
-    const res = await searchAnime(anime,0).catch(()=>null) || [];
+    const res = await searchAnime(anime,0).catch(()=>{}) || [];
 
-    const image = (((res[0] || {}).attributes || {}).coverImage || {}).original || null;
+    const image = res?.[0]?.attributes?.coverImage?.original || null;
 
     return message.channel.send(
       new MessageEmbed()

@@ -72,14 +72,14 @@ module.exports = {
         text.truncate(data.Media.title.romaji || data.Media.title.english || data.Media.title.native),
         client.anischedule.info.mediaFormat[data.Media.format]
       ].join('\u2000|\u2000'), null, data.Media.siteUrl)
-      .setDescription((data.Media.studios.nodes || []).map(x => `[${x.name}](${x.url})`).join('\u2000|\u2000'))
+      .setDescription(data.Media.studios.nodes?.map(x => `[${x.name}](${x.url})`).join('\u2000|\u2000')||'')
       .addFields([
         {
           name: 'Other Titles',
           value: [
             `•\u2000**Native**:\u2000${data.Media.title.native || 'None'}.`,
-            `•\u2000**Romanized**: ${data.Media.title.romaji || 'None'}.`,
-            `•\u2000**English**: ${data.Media.title.english || 'None'}.`
+            `•\u2000**Romanized**:\u2000${data.Media.title.romaji || 'None'}.`,
+            `•\u2000**English**:\u2000${data.Media.title.english || 'None'}.`
           ].join('\n')
         },{
           name: 'Genres',

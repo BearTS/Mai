@@ -35,22 +35,21 @@ module.exports = class GuildProfileManager{
     * @returns {Promise<GuildProfilesManager>} This manager
     */
     async load(){
-      if (!this.client.database.connected){
+      if (!this.client.database?.connected){
         return Promise.resolve(this)
       };
 
       const res = await profile.find({});
-      const data = await list.find({});
 
-      this.client.guilds.cache.each( guild => {
-        this.profiles.set(
-          guild.id,
-          new GuildProfile(
-            res.find( r => r.guildID === guild.id) || { guildID: guild.id },
-            (data.find( d => d.guildID === guild.id) || {}).channelID || null
-          )
-        );
-      });
+      for (const guild of this.client.guilds.cache.values()){
+        let data = res.find(r => r._id === guild.id);
+
+        if (!data){
+          data = await new profile({ _id: guild.id }).save();
+        };
+
+        this.profiles.set(guild.id, new GuildProfile(data));
+      };
 
       this.lastUpdatedAt = new Date()
       return Promise.resolve(this);
