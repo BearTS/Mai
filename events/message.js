@@ -53,7 +53,7 @@ module.exports = async (client, message) => {
   // False if otherwise
   const execute = Boolean(!['PERMISSION', 'TERMINATED', 'COOLDOWN'].includes(reason));
   const response = await experience(message, executed, execute);
-  console.log(response);
+
   // Log errors not caused by the following reasons
   if (!response.xpAdded && ![
     'DISABLED', // The xp is disabled, requires `EXPERIENCE_POINTS` on client#features
