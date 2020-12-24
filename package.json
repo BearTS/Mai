@@ -23,6 +23,7 @@
   "author": "Sakurajimai#6742",
   "license": "MIT",
   "dependencies": {
+    "@discordjs/opus": "^0.3.3",
     "animequotes": "^1.1.2",
     "bad-words": "^3.0.4",
     "bufferutil": "^4.0.2",
@@ -47,6 +48,8 @@
     "require-text": "0.0.1",
     "utf-8-validate": "^5.0.3",
     "wanakana": "^4.0.2",
+    "yt-search": "^2.5.1",
+    "ytdl-core": "^4.2.1",
     "zlib-sync": "^0.1.7"
   }
 }

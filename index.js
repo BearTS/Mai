@@ -12,12 +12,14 @@ const options = {
   paths: [
     'action', 'anime', 'bot',
     'core', 'fun', 'games',
-    'moderation', 'owner',
+    'moderation', 'owner', 'music',
     'setup', 'social','utility'
   ]
 };
 
 client.database?.init();
+
+client.queue = new Map();
 
 client.loadCommands({ parent: 'commands', ...options });
 
