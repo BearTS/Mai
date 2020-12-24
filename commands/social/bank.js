@@ -7,6 +7,7 @@ module.exports = {
   guildOnly: true,
   group: 'social',
   description: 'Check your wallet, how much have you earned?',
+  requiresDatabase: true,
   get examples(){ return [this.name, ...this.aliases];},
   run: (client, message) => profile.findById(message.author.id, (err,doc) => {
 

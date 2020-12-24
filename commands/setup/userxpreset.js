@@ -7,6 +7,7 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Reset the xp of a particular user in this server.',
+  requiresDatabase: true,
   run: async (client, message ) => {
     const match = message.content.match(/\d{17,19}/)?.[0];
 

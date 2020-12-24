@@ -36,19 +36,19 @@ module.exports = class GuildProfileManager{
     */
     async load(){
       if (!this.client.database?.connected){
-        return Promise.resolve(this)
+        await new Promise(resolve => this.client.database?.db.connection.once('connected', resolve(null)));
       };
 
       const res = await profile.find({});
 
-      for (const guild of this.client.guilds.cache.values()){
-        let data = res.find(r => r._id === guild.id);
+      for (const _id of this.client.guilds.cache.keys()){
+        let data = res.find(r => r._id === _id);
 
         if (!data){
-          data = await new profile({ _id: guild.id }).save();
+          data = await new profile({ _id }).save();
         };
 
-        this.profiles.set(guild.id, new GuildProfile(data));
+        this.profiles.set(_id, new GuildProfile(data));
       };
 
       this.lastUpdatedAt = new Date()

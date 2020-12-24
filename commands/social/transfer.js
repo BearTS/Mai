@@ -6,6 +6,7 @@ module.exports = {
   guildOnly: true,
   group: 'social',
   description: 'Transfer some of your credits to your friends!',
+  requiresDatabase: true,
   parameters: [ 'User Mention', 'Amount' ],
   get examples(){ return [this.name, ...this.aliases];},
   run: (client, message, [ friend='', amount ]) => profile.findById(message.author.id, async (err, doc) => {

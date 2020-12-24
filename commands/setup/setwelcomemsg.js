@@ -8,6 +8,7 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Set up the welcome message. Supports Embeds!',
+  requiresDatabase: true,
   run: (client, message, [stats = '', ...args]) => guilds.findById(message.guild.id, (err, doc) => {
 
     stats = stats.toLowerCase();

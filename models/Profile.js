@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-module.exports = model('profile', Schema({
+module.exports = model('user_profiles', Schema({
   _id: String,
   data: {
     global_xp: {type: Number, default: 0},

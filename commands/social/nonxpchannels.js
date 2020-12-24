@@ -8,6 +8,7 @@ module.exports = {
   adminOnly: true,
   group: 'social',
   description: 'See which channels do not give xp',
+  requiresDatabase: true,
   run: (client, message) => {
 
     let totalch = message.guild.channels.cache.filter(c => c.send).size;

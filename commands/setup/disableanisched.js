@@ -7,6 +7,7 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Disable the anisched feature for this server',
+  requiresDatabase: true,
   run: (client, message) => list.findById(message.guild.id, (err,doc) => {
 
     if (err){

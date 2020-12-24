@@ -7,6 +7,7 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Set up custom prefix for this server.',
+  requiresDatabase: true,
   parameters: [ 'prefix' ],
   get examples(){ return [this.name].map(x => `${x} !?`)},
   run: (client, message, [prefix]) => guilds.findById(message.guild.id, (err, doc) => {

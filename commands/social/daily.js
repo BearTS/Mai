@@ -11,6 +11,7 @@ module.exports = {
   guildOnly: true,
   group: 'social',
   description: 'Retrieve your daily reward <3',
+  requiresDatabase: true,
   get examples(){ return [this.name, ...this.aliases];},
   run: (client, message) => profile.findById(message.author.id, (err,doc) => {
 

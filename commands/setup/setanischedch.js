@@ -7,6 +7,7 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Where will i post the announcement for recently aired anime?',
+  requiresDatabase: true,
   parameters: ['Channel ID/Mention'],
   get examples(){ return [this.name, ...this.aliases].map(x => `${x} <Channel ID/Mention>`)},
   run: (client, message, [channel='']) => list.findById(message.guild.id, (err, doc) => {

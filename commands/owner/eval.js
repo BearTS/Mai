@@ -13,10 +13,6 @@ module.exports = {
   get examples(){ return [ this.name + ' 1 + 1'];},
   run: async (client, message, args) => {
 
-    const sensitive = new RegExp(Object.values(process.env)
-    .filter(x => !!x && isNaN(x) && !['default','no'].includes(x.toLowerCase()))
-    .join('|') ,'gi');
-
     try {
 
       const code = args.join(' ');
@@ -36,9 +32,9 @@ module.exports = {
       };
 
       if (promise){
-        output = text.clean(promise.body).replace(sensitive, 'PRIVATE_DATA');
+        output = text.clean(promise.body)
       } else {
-        output = text.clean(evaled).replace(sensitive, 'PRIVATE_DATA');
+        output = text.clean(evaled)
       };
 
       if (promise?.resolved){
@@ -93,8 +89,7 @@ module.exports = {
       );
     } catch (err) {
 
-      const stacktrace = text.joinArrayAndLimit(err.stack.replace(sensitive, 'PRIVATE_DATA')
-      .split('\n'),900,'\n');
+      const stacktrace = text.joinArrayAndLimit(err.stack.split('\n'),900,'\n');
       const value = [
         '```xl',
         stacktrace.text,

@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-module.exports = model('Watchlists', Schema({
+module.exports = model('server_watchlists', Schema({
   _id: String,
   channelID: { type: String, default: null },
   data: { type: Array, default: []}

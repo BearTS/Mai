@@ -14,6 +14,7 @@ module.exports = {
   },
   group: 'core',
   description: 'View list of anime this server is subscribed to.',
+  requiresDatabase: true,
   clientPermissions: [ 'EMBED_LINKS', 'MANAGE_MESSAGES' ],
   get examples(){ return [ this.name, ...this.aliases ]},
   run: (client, message) => list.findById(message.guild.id, async (err, doc) => {

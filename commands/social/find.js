@@ -6,6 +6,7 @@ module.exports = {
   guildOnly: true,
   group: 'social',
   description: 'You can find hidden credits on your surrounding if you try!',
+  requiresDatabase: true,
   get examples(){ return [this.name, ...this.aliases];},
   run: (client, message) => profile.findById(message.author.id, (err, doc) => {
 

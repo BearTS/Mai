@@ -8,6 +8,7 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Disable collecting xp on mentioned channels',
+  requiresDatabase: true,
   run: (client, message) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){

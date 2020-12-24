@@ -192,9 +192,14 @@ module.exports = class MaiClient extends Client{
     // Execute these internal functions once the bot is ready!!
     this.once('ready', () => {
       this.bootTime = Math.round(performance.now());
-      this.anischedule.init();
-      this.guildProfiles.load();
       this.votes.init({dbl: 900000,top:900000});
+      this.guildProfiles.load();
+      return;
+    });
+
+    // Execute these internal functions once the database establishes connection!!
+    this.database?.db.connection.once('connected', () => {
+      this.anischedule.init();
       return;
     });
 

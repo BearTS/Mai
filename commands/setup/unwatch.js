@@ -8,6 +8,7 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: ['Removes a watched anime from your watchlist'],
+  requiresDatabase: true,
   parameters: [ 'Anilist/Mal link' ],
   get examples(){ return [ this.name, ...this.aliases].map(x => `${x} <url>`)},
   run: (client, message, links) => list.findById(message.guild.id, async (err, doc) => {

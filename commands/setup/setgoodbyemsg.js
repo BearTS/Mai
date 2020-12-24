@@ -8,6 +8,7 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Set up the goodbye message. Supports Embeds! [Learn how to set up your Leaving Member Announcer](https://mai-san.ml/)',
+  requiresDatabase: true,
   run: (client, message, [stats = '', ...args]) => guilds.findById(message.guild.id, (err, doc) => {
 
     stats = stats.toLowerCase();

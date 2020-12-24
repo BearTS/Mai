@@ -7,6 +7,7 @@ module.exports = {
   clientPermissions: [],
   group: 'social',
   description: 'Sets the profile bio for your profile card.',
+  requiresDatabase: true,
   run: async (client, message, args ) => profile.findById(message.author.id, (err, doc) => {
 
     if (err){

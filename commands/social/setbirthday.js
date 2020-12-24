@@ -25,10 +25,10 @@ module.exports = {
         return message.channel.send(`\\❌ **${message.author.tag}**, Please add the date in DD-MM-YYYY format`);
       };
 
-      doc.data.profile.birthday = date.format('do MMMM YYYY');
+      doc.data.profile.birthday = date.format('Do MMMM YYYY');
 
       return doc.save()
-      .then(() => message.channel.send(`\\✔️ **${message.author.tag}**, your birthday has been updated to **${date.format('do MMMM YYYY')}**!`))
+      .then(() => message.channel.send(`\\✔️ **${message.author.tag}**, your birthday has been updated to **${date.format('Do MMMM YYYY')}**!`))
       .catch(() => message.channel.send(`\\❌ **${message.author.tag}**, your birthday update failed!`))
     };
   })

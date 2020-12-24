@@ -37,7 +37,12 @@ async function experience(message, command_executed, execute){
   };
 
   // Check if the xp is disabled on the server
-  if (!gs.xp.active){
+
+  if (!gs){
+    return Promise.resolve({ xpAdded: false, reason: 'DATABASE_NOT_FOUND' })
+  };
+
+  if (!gs.xp.isActive){
     return Promise.resolve({ xpAdded: false, reason: 'DISABLED_ON_GUILD' });
   };
 
@@ -52,7 +57,7 @@ async function experience(message, command_executed, execute){
   };
 
   // Check if the database is connected
-  if (!message.client.database.connected){
+  if (!message.client.database?.connected){
     return Promise.resolve({ xpAdded: false, reason: 'DB_DISCONNECT'});
   };
 

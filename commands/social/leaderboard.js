@@ -9,6 +9,7 @@ module.exports = {
   rankcommand: true,
   group: 'social',
   description: 'Shows the top xp earners for this server',
+  requiresDatabase: true,
   clientPermissions: [ 'EMBED_LINKS' ],
   get examples(){ return [this.name, ...this.aliases ];},
   run: (client, message) => {

@@ -85,6 +85,15 @@ function check(message, command){
     };
   };
 
+  if (command.requiresDatabase){
+    if (!message.client.database?.connected){
+      reasons.push([
+        '**Cannot connect to Database**',
+        'This command requires a database connection.'
+      ].join(' - '))
+    };
+  };
+
   const embed = new MessageEmbed()
   .setAuthor('Command Execution Blocked!')
   .setColor('ORANGE')

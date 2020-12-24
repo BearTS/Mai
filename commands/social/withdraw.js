@@ -7,6 +7,7 @@ module.exports = {
   guildOnly: true,
   group: 'social',
   description: 'Withdraw some of your money from the bank.',
+  requiresDatabase: true,
   parameters: [ 'Amount' ],
   get examples(){ return [this.name, ...this.aliases].map(x => x + ' 10000')},
   run: (client, message, [amount]) => profile.findById(message.author.id, (err,doc) =>{

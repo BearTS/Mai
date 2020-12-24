@@ -8,6 +8,7 @@ module.exports = {
   group: 'social',
   description: 'Deposit your credits to safeguard it!',
   parameters: [ 'Amount' ],
+  requiresDatabase: true,
   get examples(){ return [this.name, ...this.aliases].map(x => x + ' 10000')},
   run: (client, message, [amount]) => profile.findById(message.author.id, (err, doc) => {
 

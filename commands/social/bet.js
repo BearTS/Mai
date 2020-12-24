@@ -8,6 +8,7 @@ module.exports = {
   guildOnly: true,
   group: 'social',
   description: 'Rely on fate to increase your balance... or lower it.',
+  requiresDatabase: true,
   get examples(){ return [this.name, ...this.aliases];},
   run: (client, message, [amount]) => profile.findById(message.author.id, (err,doc) => {
 

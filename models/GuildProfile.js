@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-module.exports = model('Guildprofiles', Schema({
+module.exports = model('server_profiles', Schema({
   _id: String,
   prefix: { type: String, default: null },
   greeter: {
@@ -20,7 +20,7 @@ module.exports = model('Guildprofiles', Schema({
     }
   },
   xp: {
-    isActive: { type: Boolean, defaut: false },
+    isActive: { type: Boolean, default: false },
     exceptions: { type: Array, default: []}
   },
   roles: {

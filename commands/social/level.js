@@ -11,6 +11,7 @@ module.exports = {
   clientPermissions: [ 'ATTACH_FILES' ],
   group: 'social',
   description: 'Shows the current xp, level, rank, and other details of a user',
+  requiresDatabase: true,
   parameters: [ '<User Mention|ID>'],
   get examples(){ return [this.name, ...this.aliases].map(x => x + ' <User Mention>')},
   run: async function (client, message, [member = '']){
