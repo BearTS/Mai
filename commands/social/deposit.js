@@ -43,7 +43,7 @@ module.exports = {
       doc.data.economy.bank = doc.data.economy.bank + amount;
       doc.data.economy.wallet = doc.data.economy.wallet - Math.floor(amount * 1.05);
 
-      return data.save()
+      return doc.save()
       .then(() => message.channel.send(`\\✔️ **${message.member.displayName}**, you successfully deposited **${text.commatize(amount)}** credits to your bank! (+5% fee).`))
       .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
     };

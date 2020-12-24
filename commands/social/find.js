@@ -1,3 +1,4 @@
+const { Collection } = require('discord.js');
 const profile = require(`${process.cwd()}/models/Profile`);
 
 module.exports = {
@@ -36,7 +37,7 @@ module.exports = {
 
     doc.data.economy.wallet = overflow ? 50000 : doc.data.economy.wallet + amount;
 
-    return data.save()
+    return doc.save()
     .then(() => message.channel.send([
       `✔️ **${message.member.displayName}**, You found **${amount}** from all that searching.`,
       overflow ? `\n⚠️Overflow warning! Please deposit some of your account to your **bank**. You only received ${amount-excess} for this one!` :'',

@@ -39,7 +39,7 @@ module.exports = {
         doc.data.economy.streak.current++
       };
 
-      if (doc.data.economy.streak.alltime < doc.data.exonomy.streak.current){
+      if (doc.data.economy.streak.alltime < doc.data.economy.streak.current){
         doc.data.economy.streak.alltime = doc.data.economy.streak.current;
       };
 
@@ -54,7 +54,7 @@ module.exports = {
       doc.data.economy.wallet = overflow ? 50000 : doc.data.economy.wallet + amount;
 
       // Include the streak state and overflow state in the confirmation message
-      return data.save()
+      return doc.save()
       .then(() => message.channel.send([
         `\\✔️ **${message.member.displayName}**, you got your **${text.commatize(amount)}** daily reward.`,
         overflow ? `\n\\⚠️ **Overflow Warning**: Your wallet just overflowed! You need to transfer some of your credits to your bank!` : '',

@@ -42,7 +42,7 @@ module.exports = {
         };
 
         doc.data.economy.bank = doc.data.economy.bank + prize;
-        return data.save()
+        return doc.save()
         .then(() => message.channel.send(`✔️ **${message.member.displayName}**, You won **${text.commatize(amount)}** coins from your previous bet!\nYour bet **${Math.floor(amount)}** coins have multiplied by **${multiplier}**.\nYou'll receive **${text.commatize(prize)}** coins as the prize. Your winnings has been transferred to your bank!`))
         .catch(() => message.channel.send(`\`❌ Oh no! ${message.member.displayName}, The betting machine just broke! You lost **${text.commatize(amount)}** coins from your previous bet.\nThis doesn't usually happen. Please contact my developer if you receive this message.`))
       }).catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));

@@ -23,7 +23,7 @@ module.exports = {
       doc.data.economy.wallet = doc.data.economy.wallet - 2500;
       doc.data.economy.bank = 2500;
 
-      return data.save()
+      return doc.save()
       .then(() => message.channel.send(`✔️ **${message.member.displayName}**, Registered to a bank! The **2,500** fee was transferred to your bank. To check your balance, type \`${client.prefix}bal\``))
       .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
     };
