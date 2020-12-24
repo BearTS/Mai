@@ -49,6 +49,7 @@ module.exports = {
       const ctx = canvas.getContext('2d');
       const color = doc.data.profile.color || 'rgb(255,182,193)'
 
+      const wreath = await loadImage(doc.data.profile.wreath) || null;
       const def = await loadImage(doc.data.profile.background || 'https://i.imgur.com/57eRI6H.jpg');
       const defpattern = await loadImage(doc.data.profile.pattern || 'https://i.imgur.com/nx5qJUb.png' || 'https://i.imgur.com/bnLhXeW.jpg');
       const avatar = await loadImage(member.user.displayAvatarURL({format: 'png'}));
@@ -288,8 +289,16 @@ module.exports = {
       ctx.strokeStyle = 'rgba(0,0,0,0.6)'
       ctx.stroke();
       ctx.closePath();
+      ctx.save();
       ctx.clip();
       ctx.drawImage(avatar,75,150,150,150);
+
+      // add wreath
+      if (wreath){
+        ctx.restore()
+        ctx.beginPath();
+        ctx.drawImage(wreath,60,145,180,180);
+      };
 
       message.channel.send({
         files: [{
