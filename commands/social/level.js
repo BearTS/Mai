@@ -40,7 +40,7 @@ module.exports = {
 
       const server_data = doc.data.xp.find(x => x.id === message.guild.id);
       const cap = (50 * Math.pow(server_data.level,2)) + (250 * server_data.level);
-      const lowerLim = (50 * Math.pow(server_data.level-1,2)) + (250 * server_data.level-1);
+      const lowerLim = (50 * Math.pow(server_data.level-1,2)) + (250 * (server_data.level-1));
       const range = cap - lowerLim;
       const currxp = server_data.xp - lowerLim;
       const percentDiff = currxp / range;
@@ -85,14 +85,12 @@ module.exports = {
       ctx.stroke();
 
       // add bio title
-
       ctx.beginPath();
       ctx.font = 'bold 20px sans-serif'
       ctx.fillStyle = 'rgba(0,0,0,0.4)'
       ctx.fillText('BIO', 330, 345, 50)
 
       // add bio text to bio carrd
-
       ctx.beginPath();
       ctx.font = '15px sans-serif'
       ctx.fillStyle = 'rgba(0,0,0,0.8)'
@@ -111,7 +109,6 @@ module.exports = {
       ctx.stroke();
 
       // add birthday title
-
       ctx.beginPath();
       ctx.font = 'bold 18px sans-serif'
       ctx.fillStyle = 'rgba(0,0,0,0.4)'
