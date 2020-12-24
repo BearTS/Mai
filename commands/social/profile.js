@@ -49,7 +49,8 @@ module.exports = {
       const ctx = canvas.getContext('2d');
       const color = doc.data.profile.color || 'rgb(255,182,193)'
 
-      const wreath = await loadImage(doc.data.profile.wreath) || null;
+      const emblem = doc.data.profile.emblem ? await loadImage(doc.data.profile.emblem) : null;
+      const wreath = doc.data.profile.wreath ? await loadImage(doc.data.profile.wreath) :  null;
       const def = await loadImage(doc.data.profile.background || 'https://i.imgur.com/57eRI6H.jpg');
       const defpattern = await loadImage(doc.data.profile.pattern || 'https://i.imgur.com/nx5qJUb.png' || 'https://i.imgur.com/bnLhXeW.jpg');
       const avatar = await loadImage(member.user.displayAvatarURL({format: 'png'}));
@@ -149,12 +150,20 @@ module.exports = {
       ctx.fillText(`🏦: ${doc.data.economy.bank || '0'}`, 430, 512, 80)
 
       // add emblem indicator
-      ctx.beginPath();
-      ctx.fillStyle = 'rgba(0,0,0,0.4)'
-      ctx.font = 'bold 25px sans-serif'
-      ctx.textAlign = 'center'
-      ctx.fillText('NO', 660 , 469, 150)
-      ctx.fillText('EMBLEM', 660, 500, 150)
+      if (!emblem){
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(0,0,0,0.4)'
+        ctx.font = 'bold 25px sans-serif'
+        ctx.textAlign = 'center'
+        ctx.fillText('NO', 660 , 469, 150)
+        ctx.fillText('EMBLEM', 660, 500, 150)
+      } else {
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetX = 10;
+        ctx.shadowOffsetY = 10;
+        ctx.beginPath();
+        ctx.drawImage(emblem,580,400,160,160);
+      };
 
 
       // add the tip shape

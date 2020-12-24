@@ -4,7 +4,7 @@ const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
   name: 'use',
-  aliases: [],
+  aliases: [ 'equip' ],
   rankcommand: true,
   clientPermissions: [ 'MANAGE_MESSAGES' ],
   group: 'social',
