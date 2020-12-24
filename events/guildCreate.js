@@ -1,10 +1,11 @@
-const { MessageEmbed } = require('discord.js');
 const guilds = require(`${process.cwd()}/models/GuildProfile`);
 const consoleUtil = require(`${process.cwd()}/util/console`);
+const text = require(`${process.cwd()}/util/string`);
 
 module.exports = (client, guild) => guilds.findById(guild.id, async (err, doc) => {
 
   const debug = client.channels.cache.get(client.config.channels.debug);
+  const owner = await client.users.fetch(guild.ownerID);
 
   if (err && debug){
     return debug.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
@@ -19,18 +20,8 @@ module.exports = (client, guild) => guilds.findById(guild.id, async (err, doc) =
     if (!channel){
       return;
     } else {
-      channel.send(
-        new MessageEmbed()
-        .setTimestamp()
-        .setColor('GREY')
-        .setFooter(`ID: ${guild.id}`)
-        .setTitle(`Joined ${guild.name}!`)
-        .setThumbnail(guild.iconURL({ format: 'png' }))
-        .addFields([
-          { name: '❯\u2000\u2000Members', value: guild.memberCount, inline: true },
-          { name: '❯\u2000\u2000Owner', value: guild.owner?.user?.tag || 'Uncached', inline: true }
-        ])
-      );
+      channel.send(`**JOIN** \`[ ${guild.id} ]\` **${guild.name}** (Owned by **${owner.tag}**): ${text.commatize(guild.memberCount)} members.`)
+      .catch(() => {});
     };
   };
 });

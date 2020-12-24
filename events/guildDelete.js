@@ -1,23 +1,14 @@
-const { MessageEmbed } = require('discord.js');
+const text = require(`${process.cwd()}/util/string`);
 
-module.exports = (client, guild) => {
+module.exports = async (client, guild) => {
   if (client.config.channels.logs){
+    const owner = await client.users.fetch(guild.ownerID);
     const channel = client.channels.cache.get(client.config.channels.logs);
     if (!channel){
       return;
     } else {
-      channel.send(
-        new MessageEmbed()
-        .setTimestamp()
-        .setColor('GREY')
-        .setFooter(`ID: ${guild.id}`)
-        .setTitle(`Left ${guild.name}!`)
-        .setThumbnail(guild.iconURL({ format: 'png' }))
-        .addFields([
-          { name: '❯\u2000\u2000Members', value: guild.memberCount, inline: true },
-          { name: '❯\u2000\u2000Owner', value: guild.owner?.user?.tag || 'Uncached', inline: true }
-        ])
-      );
+      channel.send(`**LEAVE** \`[ ${guild.id} ]\` **${guild.name}** (Owned by **${owner.tag}**): ${text.commatize(guild.memberCount)} members.`)
+      .catch(() => {});
     };
   };
 }
