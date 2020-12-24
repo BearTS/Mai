@@ -70,7 +70,7 @@ module.exports = async (client, message) => {
     'DISABLED_ON_CHANNEL', // The message was sent on a blacklisted channel
     'RECENTLY_TALKED', // The message author recently talked
   ].includes(response.reason)){
-    message.client.logs.push(`XP error: ${response.reason} on ${message.guild.id}<${message.guild.id}> by ${mesage.author.tag}<${message.author.id}> at ${new Date()}`);
+    message.client.logs.push(`XP error: ${response.reason} on ${message.guild.id}<${message.guild.id}> by ${message.author.tag}<${message.author.id}> at ${new Date()}`);
   };
   /*============================================================*/
 
