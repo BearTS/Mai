@@ -130,5 +130,16 @@
     "assets": {
       "link": "https://i.imgur.com/bnLhXeW.jpg"
     }
+  },{
+    "id": 12,
+    "name": "Mai Approves Emblem",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 0,
+    "assets": {
+      "link": "https://i.imgur.com/5ncD8Hz.png"
+    }
   }
 ]
