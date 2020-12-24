@@ -3,8 +3,8 @@ const { createCanvas, loadImage } = require('canvas');
 const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
-  name: 'level',
-  aliases: [ 'rank', 'lvl', 'xp' ],
+  name: 'profile',
+  aliases: [ 'rank', 'lvl', 'xp', 'level' ],
   guildOnly: true,
   rankcommand: true,
   cooldown: { time: 30000 },
