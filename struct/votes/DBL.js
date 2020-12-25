@@ -25,7 +25,7 @@ module.exports = class DiscordBotList{
   post(){
     const params = new URLSearchParams();
     params.append('guilds', this.client.guilds.cache.size);
-    params.append('users', this.client.users.cache.size);
+    params.append('users', this.client.guilds.cache.reduce((a,b) => a + b.memberCount, 0));
 
     fetch(`https://top.gg/api/bots/${this.client.user.id}/stats`, {
       method: 'post',
