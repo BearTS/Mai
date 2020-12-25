@@ -482,5 +482,27 @@
     "assets": {
       "link": "https://i.imgur.com/ddSbnUP.png"
     }
+  },{
+    "id": 44,
+    "name": "Santa Hat",
+    "description": "Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/rg52vLS.png"
+    }
+  },{
+    "id": 45,
+    "name": "Bunny Ears",
+    "description": "Super Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/wJ4wuxL.png"
+    }
   }
 ]

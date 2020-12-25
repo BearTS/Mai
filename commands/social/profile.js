@@ -49,6 +49,7 @@ module.exports = {
       const ctx = canvas.getContext('2d');
       const color = doc.data.profile.color || 'rgb(255,182,193)'
 
+      const hat = doc.data.profile.hat ? await loadImage(doc.data.profile.hat) : null;
       const emblem = doc.data.profile.emblem ? await loadImage(doc.data.profile.emblem) : null;
       const wreath = doc.data.profile.wreath ? await loadImage(doc.data.profile.wreath) :  null;
       const def = await loadImage(doc.data.profile.background || 'https://i.imgur.com/57eRI6H.jpg');
@@ -307,6 +308,11 @@ module.exports = {
         ctx.restore()
         ctx.beginPath();
         ctx.drawImage(wreath,60,145,180,180);
+      };
+
+      if (hat){
+        ctx.beginPath();
+        ctx.drawImage(hat,0,0,300,300);
       };
 
       message.channel.send({
