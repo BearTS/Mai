@@ -313,7 +313,7 @@
     "type": "background",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 16000,
     "assets": {
       "link": "https://i.imgur.com/5P1H76f.png"
     }
@@ -379,9 +379,75 @@
     "type": "background",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 16000,
     "assets": {
       "link": "https://i.imgur.com/qQ4bFJg.png"
+    }
+  },{
+    "id": 35,
+    "name": "Monkey D. Ruffie",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/a8u2Am3.png"
+    }
+  },{
+    "id": 36,
+    "name": "Nezuko",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/gSXFVff.png"
+    }
+  },{
+    "id": 37,
+    "name": "2turu",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/Ngamnoy.png"
+    }
+  },{
+    "id": 38,
+    "name": "PotatoGirl",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/UwNj1X3.png"
+    }
+  },{
+    "id": 39,
+    "name": "Bam",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/fAeG65b.png"
+    }
+  },{
+    "id": 40,
+    "name": "Raughh",
+    "description": "Super Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 32000,
+    "assets": {
+      "link": "https://i.imgur.com/bmlGTTC.png"
     }
   }
 ]
