@@ -30,13 +30,10 @@ module.exports = {
       return message.channel.send(`\\❌ **${message.author.tag}**, You may only have 1 free item at a time.`);
     } else if (doc.data.economy.wallet < total){
       return message.channel.send(`\\❌ **${message.author.tag}**, You do not have enough credits to proceed with this transaction! You need ${text.commatize(total)} for **${amt}x ${item.name}**`);
-    } else if (doc.data.profile.inventory.find(x => x.id === item.id)){
-      if (!item.price){
-        return message.channel.send(`\\❌ **${message.author.tag}**, You may only have 1 free item at a time.`);
-      } else {
-        // Do nothing...
-      };
+    } else if (doc.data.profile.inventory.find(x => x.id === item.id) && !item.price){
+      return message.channel.send(`\\❌ **${message.author.tag}**, You may only have 1 free item at a time.`);
     } else {
+      console.log(id)
 
       const old = doc.data.profile.inventory.find(x => x.id === item.id);
       if (old){
