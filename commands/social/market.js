@@ -33,7 +33,7 @@ module.exports = {
             item.description,
             `Type: *${item.type}*`,
             `Price: *${text.commatize(item.price)}*`,
-            `[*Check Preview*](${item.assets?.link})`,
+            `Check Preview : \`${client.prefix}previewitem ${item.id}\``,
             `Purchase: \`${client.prefix}buy ${item.id} [amount]\``
           ].join('\n')
         };
