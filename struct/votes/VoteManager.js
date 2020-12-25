@@ -1,5 +1,5 @@
 const { URLSearchParams } = require('url');
-const Top = require('dblapi.js');
+const Top = require('@top-gg/sdk');
 const Dbl = require(`${process.cwd()}/struct/votes/DBL`);
 
 module.exports = class VoteManager{
@@ -22,38 +22,36 @@ module.exports = class VoteManager{
     };
 
     if (typeof process.env.TOP_GG_AUTH === 'string'){
-      this.top_gg = new Top(process.env.TOP_GG_AUTH, client);
 
-      const webhookPort = process.env.PORT;
-      const webhookAuth = process.env.TOP_GG_AUTH;
+      const app = require('express')();
 
-      this.top_gg_wh = new Top(process.env.TOP_GG_AUTH, { webhookPort, webhookAuth });
+      this.top_gg = {
+        api: new Top.Api(process.env.TOP_GG_AUTH),
+        webhook: new Top.Webhook('MaiBestWaifu')
+      };
 
-      this.top_gg_wh.webhook.on('ready', hook => {
-         console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+      app.post('/dblwebhook', this.top_gg.webhook.middleware(), (req,res) => {
+        console.log(req)
       });
 
-      this.top_gg_wh.webhook.on('vote', vote => {
-        console.log(vote)
-      });
+      app.listen(3000);
     } else {
       // Do nothing..
     };
   };
 
-  init(loop = {}){
-    if (this.dbl){
-      this.dbl.post();
-    } else {
-      // Do nothing..
-    };
+  _post(){
+    const serverCount = this.client.guilds.cache.size;
+    this.dbl?.post();
+    this.top_gg?.api.postStats({ serverCount });
+  };
 
-    if (this.dbl && loop.dbl){
-      this.dbl.loopPost(loop.dbl);
+  init(loop){
+    if (loop){
+      this._post(); setTimeout(function(){ this._post() }, 1800000);
     } else {
-      return;
+      this._post();
     };
-
     return;
   };
 };
