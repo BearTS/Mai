@@ -29,11 +29,11 @@ module.exports = class VoteManager{
 
       this.top_gg_wh = new Top(process.env.TOP_GG_AUTH, { webhookPort, webhookAuth });
 
-      this.top_gg_wh.on('ready', hook => {
+      this.top_gg_wh.webhook.on('ready', hook => {
          console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
       });
 
-      this.top_gg_wh.on('vote', vote => {
+      this.top_gg_wh.webhook.on('vote', vote => {
         console.log(vote)
       });
     } else {
