@@ -2,6 +2,7 @@ const _ = require('lodash');
 const { MessageEmbed } = require('discord.js');
 const Pages = require(`${process.cwd()}/struct/Paginate`);
 const market = require(`${process.cwd()}/assets/json/market.json`);
+const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
   name: 'market',
@@ -31,7 +32,7 @@ module.exports = {
           value: [
             item.description,
             `Type: *${item.type}*`,
-            `Price: *${item.price}*`,
+            `Price: *${text.commatize(item.price)}*`,
             `[*Check Preview*](${item.assets?.link})`,
             `Purchase: \`${client.prefix}buy ${item.id} [amount]\``
           ].join('\n')

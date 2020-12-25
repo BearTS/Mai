@@ -30,7 +30,7 @@
     "type": "wreath",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 6000,
     "assets": {
       "link": "https://i.imgur.com/xsZHQcW.png"
     }
@@ -42,7 +42,7 @@
     "type": "wreath",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 3500,
     "assets": {
       "link": "https://i.imgur.com/NmpP8oU.png"
     }
@@ -54,7 +54,7 @@
     "type": "wreath",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 2750,
     "assets": {
       "link": "https://i.imgur.com/bzhoYpa.png"
     }
@@ -66,7 +66,7 @@
     "type": "wreath",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 1500,
     "assets": {
       "link": "https://i.imgur.com/NSEbnek.png"
     }
@@ -78,7 +78,7 @@
     "type": "background",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 10000,
     "assets": {
       "link": "https://i.imgur.com/JXZRmRt.png"
     }
@@ -90,7 +90,7 @@
     "type": "background",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 16000,
     "assets": {
       "link": "https://i.imgur.com/gSfM6CM.jpg"
     }
@@ -102,7 +102,7 @@
     "type": "background",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 16000,
     "assets": {
       "link": "https://i.imgur.com/upIlJZ8.png"
     }
@@ -114,7 +114,7 @@
     "type": "background",
     "deletable": true,
     "giftable": false,
-    "price": 0,
+    "price": 22000,
     "assets": {
       "link": "https://i.imgur.com/NsMXWyL.jpg"
     }
@@ -126,7 +126,7 @@
     "type": "pattern",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 15000,
     "assets": {
       "link": "https://i.imgur.com/bnLhXeW.jpg"
     }
@@ -137,7 +137,7 @@
     "type": "emblem",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 20000,
     "assets": {
       "link": "https://i.imgur.com/5ncD8Hz.png"
     }
