@@ -92,11 +92,11 @@ const settings = {
   // websites affiliated with the bot, can be accessed through
   // Client#config#websites
   websites: {
-    "repository":"https://maisans-maid/Mai#readme/",
+    "repository":"https://github.com/maisans-maid/Mai#readme/",
     "website": "https://mai-san.ml/",
     "invite": "https://invite.mai-san.ml/",
     "support": "https://support.mai-san.ml/",
-    "docs": "https://mai-san.ml/getting%20started/welcome/",
+    "docs": "https://mai-san.ml/docs/getting%20started/welcome/",
     "top.gg": "https://top.gg/bot/702074452317307061/",
     "DBL": "https://discordbotlist.com/bots/mai-3909/"
   }
