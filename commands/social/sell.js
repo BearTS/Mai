@@ -31,6 +31,8 @@ module.exports = {
       return message.channel.send(`\\❌ **${message.author.tag}**, You do not have the necessary amount of **${item.name}** to sell.`);
     } else if (!item.price){
       return message.channel.send(`\\❌ **${message.author.tag}**, Unable to sell ${item.name}.`);
+    } else if (doc.data.economy.bank === null){
+      return message.channel.send(`\\❌ **${message.author.tag}**, You cannot sell items yet without a bank. Create one before selling items.`)
     } else {
 
       const inv = doc.data.profile.inventory;
@@ -44,18 +46,9 @@ module.exports = {
         // Do nothing
       };
 
-      let overflow = false, excess = null;
-      if (doc.data.economy.wallet + total > 50000){
-        overflow = true;
-        excess = doc.data.economy.wallet + total - 50000
-      };
-
-      doc.data.economy.wallet = overflow ? 50000 : doc.data.economy.wallet + total;
+      doc.data.economy.bank = doc.data.economy.bank + total;
       return doc.save()
-      .then(() => message.channel.send([
-        `\\✔️ **${message.author.tag}**, successfully sold **${amt}x ${item.name}** for **${text.commatize(total)}**`,
-        overflow ? `\n⚠️Overflow warning! Please deposit some of your account to your **bank**. You only received ${text.commatize(total - excess)} for this one!` :'',
-      ].join('\n')))
+      .then(() => message.channel.send(`\\✔️ **${message.author.tag}**, successfully sold **${amt}x ${item.name}** for **${text.commatize(total)}**`))
       .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
     };
   })
