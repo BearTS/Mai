@@ -20,11 +20,11 @@ module.exports = {
       return message.channel.send(`\\❌ | ${message.author}, Please provide me a word to get the definition of.`);
     };
 
-    const res = await fetch(`https://jisho.org/api/v1/search/words?keyword=${query}`)
+    const res = await fetch(`https://jisho.org/api/v1/search/words?keyword=${encodeURI(query)}`)
     .then(res => res.json())
     .catch(() => { return {}});
 
-    if (res.meta.status !== 200){
+    if (res?.meta.status !== 200){
       return message.channel.send(`\\❌ | ${message.author}, Could not connect to JISHO.`);
     };
 
