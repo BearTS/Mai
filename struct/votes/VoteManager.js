@@ -16,7 +16,7 @@ module.exports = class VoteManager{
     this.top_gg = null;
 
     if ('DBL_AUTH' in process.env && process.env.DBL_AUTH){
-      this.dbl = new DiscordBotList(client);
+      this.dbl = new Dbl(client);
     } else {
       // Do nothing..
     };
