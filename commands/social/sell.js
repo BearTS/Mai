@@ -28,7 +28,7 @@ module.exports = {
     const itemcount = doc.data.profile.inventory.find(x => x.id === item.id)?.amount;
 
     if (!itemcount || itemcount < amt){
-      return message.channel.send();
+      return message.channel.send(`\\❌ **${message.author.tag}**, You do not have the necessary amount of items to sell.`);
     } else if (!item.price){
       return message.channel.send(`\\❌ **${message.author.tag}**, Unable to sell ${item.name}.`);
     } else {
