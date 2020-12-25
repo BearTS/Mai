@@ -14,17 +14,17 @@ module.exports = {
   get examples(){ return [this.name, ...this.aliases ];},
   run: (client, message) => {
 
-    const { exceptions, active } = client.guildProfiles.get(message.guild.id).xp;
+    const { exceptions, isActive } = client.guildProfiles.get(message.guild.id).xp;
     const embed = new MessageEmbed()
     .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
     .setThumbnail('https://i.imgur.com/qkBQB8V.png')
     .setColor('RED');
 
-    if (!active){
+    if (!isActive){
       return message.channel.send(
         embed.setDescription([
           `**${message.member.displayName}**, XP is currently disabled in this server.\n`,
-          `If you are the server Administrator, you may enable it by typing \`${client.config.prefix}xptoggle\`.`
+          `If you are the server Administrator, you may enable it by typing \`${client.config.prefix}xptoggle\`.`,
           `[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai's XP System.`
         ].join('\n'))
         .setAuthor('XP Systems Disabled','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
