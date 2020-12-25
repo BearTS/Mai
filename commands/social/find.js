@@ -39,7 +39,7 @@ module.exports = {
 
     return doc.save()
     .then(() => message.channel.send([
-      `✔️ **${message.member.displayName}**, You found **${amount}** from all that searching.`,
+      `\\✔️ **${message.member.displayName}**, You found **${amount}** from all that searching.`,
       overflow ? `\n⚠️Overflow warning! Please deposit some of your account to your **bank**. You only received ${amount-excess} for this one!` :'',
       `\nTo Check your balance, type \`${client.prefix}bal\`\n`,
       `Keep your wallet from *overflowing* --> <https://github.com/maisans-maid/Mai/wiki/Economy#Overflow)>`
