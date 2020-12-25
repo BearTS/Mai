@@ -37,9 +37,11 @@ module.exports = {
           ` You only have **${text.commatize(doc.data.economy.bank)}** left, **${text.commatize(amount - doc.data.economy.bank + Math.ceil(amount * 0.05))}** less than the amount you want to withdraw (Transaction fee of 5% included)`,
           `To deposit all credits instead, please type \`${client.prefix}deposit all\`.`
         ].join('\n'));
+      } else if (amount + doc.data.economy.wallet > 50000){
+        return message.channel.send(`\\❌ **${message.member.displayName}**, You can't withdraw this large sum of money (Overflow imminent)!`)
       };
 
-      doc.data.economy.bank = doc.data.economy.bank - amount;
+      doc.data.economy.bank = Math.round(doc.data.economy.bank - amount);
       doc.data.economy.wallet = doc.data.economy.wallet + Math.round(amount * 0.95);
 
       return doc.save()
