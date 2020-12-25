@@ -154,8 +154,20 @@
     "assets": {
       "link": "https://i.imgur.com/zSoq16l.jpg"
     }
-  },{
+  },
+    {
     "id": 14,
+    "name": "Kawaii Bear Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 0,
+    "assets": {
+      "link": "https://i.imgur.com/U03ENfb.png"
+    }
+  },{
+    "id": 15,
     "name": "Mai Approves Emblem",
     "description": "Uncommon Profile Emblem",
     "type": "emblem",
