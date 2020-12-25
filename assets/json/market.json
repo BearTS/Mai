@@ -130,8 +130,32 @@
     "assets": {
       "link": "https://i.imgur.com/bnLhXeW.jpg"
     }
-  },{
+  },
+   {
     "id": 12,
+    "name": "Cat Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 0,
+    "assets": {
+      "link": "https://i.imgur.com/kUVw5S4.png"
+    }
+  },
+   {
+    "id": 13,
+    "name": "Bunny Stars Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 0,
+    "assets": {
+      "link": "https://i.imgur.com/zSoq16l.jpg"
+    }
+  },{
+    "id": 14,
     "name": "Mai Approves Emblem",
     "description": "Uncommon Profile Emblem",
     "type": "emblem",
