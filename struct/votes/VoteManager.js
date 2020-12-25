@@ -22,7 +22,7 @@ module.exports = class VoteManager{
     };
 
     if ('TOP_GG_AUTH' in process.env && process.env.TOP_GG_AUTH){
-      this.top_gg = new Top(process.env.top_GG_AUTH, client);
+      this.top_gg = new Top(process.env.TOP_GG_AUTH, client);
     } else {
       // Do nothing..
     };
