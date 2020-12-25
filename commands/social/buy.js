@@ -33,7 +33,6 @@ module.exports = {
     } else if (doc.data.profile.inventory.find(x => x.id === item.id) && !item.price){
       return message.channel.send(`\\❌ **${message.author.tag}**, You may only have 1 free item at a time.`);
     } else {
-      console.log(id)
 
       const old = doc.data.profile.inventory.find(x => x.id === item.id);
       if (old){
