@@ -15,14 +15,27 @@ module.exports = class VoteManager{
     this.dbl = null;
     this.top_gg = null;
 
-    if ('DBL_AUTH' in process.env && process.env.DBL_AUTH){
+    if (typeof process.env.DBL_AUTH === 'string'){
       this.dbl = new Dbl(client);
     } else {
       // Do nothing..
     };
 
-    if ('TOP_GG_AUTH' in process.env && process.env.TOP_GG_AUTH){
+    if (typeof process.env.TOP_GG_AUTH === 'string'){
       this.top_gg = new Top(process.env.TOP_GG_AUTH, client);
+
+      const webhookPort = process.env.PORT;
+      const webhookAuth = process.env.TOP_GG_AUTH;
+
+      this.top_gg_wh = new Top(process.env.TOP_GG_AUTH, { webhookPort, webhookAuth });
+
+      this.top_gg_wh.on('ready', hook => {
+         console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+      });
+
+      this.top_gg_wh.on('vote', vote => {
+        console.log(vote)
+      });
     } else {
       // Do nothing..
     };
