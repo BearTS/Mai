@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, GuildEmoji } = require('discord.js');
 const Pages = require(`${process.cwd()}/struct/Paginate`);
 const market = require(`${process.cwd()}/assets/json/market.json`);
 const text = require(`${process.cwd()}/util/string`);
@@ -19,7 +19,7 @@ module.exports = {
       selected = market;
     };
 
-    const pages = new Pages(_.chunk(selected, 25).map((chunk, i, o) => {
+    const pages = new Pages(_.chunk(selected, 24).map((chunk, i, o) => {
       return new MessageEmbed()
       .setColor('GREY')
       .setTitle('Mai\'s Market')
