@@ -101,11 +101,13 @@ module.exports = {
     ctx.fillText('Received Messages', 200, 110, 100);
     ctx.fillText('Sent Messages', 200, 140, 100);
     ctx.fillText('Server Count', 200, 170, 100);
+    ctx.fillText('Commands',200, 200, 100);
     ctx.font = 'bold 13px sans-serif';
     ctx.fillStyle = 'rgba(48, 4, 110, 0.9)';
     ctx.fillText(text.commatize(client.messages.received), 200, 125, 100);
     ctx.fillText(text.commatize(client.messages.sent), 200, 155, 100);
     ctx.fillText(text.commatize(client.guilds.cache.size), 200, 185, 100);
+    ctx.fillText(text.commatize(client.commands.size), 200, 215, 100);
 
 //===================================================
 
@@ -125,7 +127,7 @@ module.exports = {
     ctx.font = 'bold 32px arial';
     ctx.fillStyle = 'rgba(48, 4, 110, 0.8)';
     ctx.textAlign = 'center';
-    ctx.fillText(Math.round(100 - ((messages_cached / (client.channels.cache.size * client.options.messageCacheMaxSize)) * 100)) , 75, 150, 100);
+    ctx.fillText(Math.round(100 - ((messages_cached / (client.channels.cache.size * client.options.messageCacheMaxSize)) * 100)) , 75, 150, 40);
     ctx.font = '10px arial';
     ctx.fillText('Free Space', 75, 162, 50);
     ctx.font = '10px arial';
@@ -155,7 +157,7 @@ module.exports = {
     ctx.font = 'bold 32px arial';
     ctx.fillStyle = 'rgba(48, 4, 110, 0.8)';
     ctx.textAlign = 'center';
-    ctx.fillText(Math.round(100 - (heapTotal/ Math.pow(1024,2) / MemoryLimit * 100)) , 320, 150, 100);
+    ctx.fillText(Math.round(100 - (heapTotal/ Math.pow(1024,2) / MemoryLimit * 100)) , 320, 150, 40);
     ctx.font = '10px arial';
     ctx.fillText('Free Space', 320, 162, 50);
     ctx.font = '10px arial';
