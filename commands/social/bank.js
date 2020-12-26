@@ -18,7 +18,7 @@ module.exports = {
     } else if (doc.data.economy.bank !== null){
       return message.channel.send(`\\❌ **${message.member.displayName}**, You already have a bank account.\n`);
     } else if (doc.data.economy.wallet < 2500){
-      return message.channel.send(`\\❌ **${message.member.displayName}**,  it seems like you don't have enough coins to register in a bank ((***${tex.commatize(2500 - doc.data.economy.wallet)}** more coins are needed*).`)
+      return message.channel.send(`\\❌ **${message.member.displayName}**,  it seems like you don't have enough coins to register in a bank ((***${text.commatize(2500 - doc.data.economy.wallet)}** more coins are needed*).`)
     } else {
       doc.data.economy.wallet = doc.data.economy.wallet - 2500;
       doc.data.economy.bank = 2500;
