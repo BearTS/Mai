@@ -8,11 +8,10 @@ const consoleUtil = require(`${process.cwd()}/util/console`);
  */
 function unhandledRejection([ error, ...args], client){
 
-  const channel = client.channels.cache.get(client.config.debug);
+  const channel = client.channels.cache.get(client.config.channels.debug);
   const timezone = 9;
   const offset = 60000 * (new Date().getTimezoneOffset() - (-timezone * 60));
   const time = parseDate(new Date(Date.now() + offset).toLocaleString('ja-JP',{ timezone: 'Asia/Tokyo'}).split(/:|\s|\//));
-  const stacklength = error.stack.split('\n').length;
 
   if (!channel){
     return Promise.resolve(console.log(error));
@@ -20,7 +19,7 @@ function unhandledRejection([ error, ...args], client){
     // do nothing
   };
 
-  return channel.send(`\\🛠 ${error.name} caught!\n${time}\n\`\`\`xl\n${
+  return channel.send(`\\🛠 ${error.name} caught!\n\`${time}\`\n\`\`\`xl\n${
     error.stack.split('\n').splice(0,5)
     .join('\n').split(process.cwd()).join('MAIN_PROCESS')
   }\n.....\n\`\`\``);
@@ -33,11 +32,10 @@ function unhandledRejection([ error, ...args], client){
  * @returns {Promise<Message|undefined>}
  */
 function uncaughtException([ error, ...args ], client){
-  const channel = client.channels.cache.get(client.config.debug);
+  const channel = client.channels.cache.get(client.config.channels.debug);
   const timezone = 9;
   const offset = 60000 * (new Date().getTimezoneOffset() - (-timezone * 60));
   const time = parseDate(new Date(Date.now() + offset).toLocaleString('ja-JP',{ timezone: 'Asia/Tokyo'}).split(/:|\s|\//));
-  const stacklength = error.stack.split('\n').length;
 
   if (!channel){
     return Promise.resolve(console.log(error));
@@ -45,11 +43,11 @@ function uncaughtException([ error, ...args ], client){
     // do nothing
   };
 
-  return channel.send(`\\🛠 ${error.name} caught!\n${time}\n\`\`\`xl\n${
+  return channel.send(`\\🛠 ${error.name} caught!\n\`${time}\`\n\`\`\`xl\n${
     error.stack.split('\n').splice(0,5)
     .join('\n').split(process.cwd()).join('MAIN_PROCESS')
   }\n.....\n\`\`\``);
-}
+};
 
 /**
  * parse Date
