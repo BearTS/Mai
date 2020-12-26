@@ -48,7 +48,7 @@ module.exports = class VoteManager{
 
   init(loop){
     if (loop){
-      this._post(); setTimeout(function(){ this._post() }, 1800000);
+      this._post(); setInterval(() =>  this._post() , 1800000);
     } else {
       this._post();
     };
