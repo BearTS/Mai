@@ -1,6 +1,4 @@
-const { MongooseModels: { guildProfileSchema }} = require('../../helper')
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
+const guilds = require(`${process.cwd()}/models/GuildProfile`);
 
 module.exports = {
   name: 'setprefix',
@@ -9,60 +7,36 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Set up custom prefix for this server.',
-  examples: ['setprefix -'],
-  parameters: ['prefix'],
-  run: async (client, message, [prefix]) => {
+  requiresDatabase: true,
+  parameters: [ 'prefix' ],
+  get examples(){ return [this.name].map(x => `${x} !?`)},
+  run: (client, message, [prefix]) => guilds.findById(message.guild.id, (err, doc) => {
 
-    if (!prefix)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'Please tell me the prefix you want me to listen to.'
-      ).setColor('RED')
-    )
+    if (!prefix){
+      return message.channel.send(`\\❌ **${message.author.tag}**, No new prefix detected! Please type the new prefix.`);
+    } else if (prefix.length > 5){
+      return message.channel.send(`\\❌ **${message.author.tag}**, Invalid prefix. Prefixes cannot be longer than 5 characters!`);
+    } else {
 
-    if (prefix.length > 5)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'Prefix are supposed to be short! \n\n Please supply prefix not exceeding 5 characters in length.'
-      ).setColor('RED')
-    )
+      if (err){
+        return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+      } else if (!doc){
+        doc = new guilds({ _id: message.guild.id });
+      };
 
-    let data = await guildProfileSchema.findOne({
-      guildID: message.guild.id
-    }).catch(() => null)
-    || await new guildProfileSchema({
-      guildID: message.guild.id
-    }).save().catch(err => err)
+      doc.prefix = [prefix, null][Number(!!prefix.match(/clear|reset/i))];
 
-    if (data instanceof MongooseError)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-      ).setColor('RED')
-    )
-
-    data.prefix = ['clear','reset'].includes(prefix) ? null : prefix
-
-    return data.save()
-    .then(data => {
-      client.guildsettings.get(message.guild.id).prefix = data.prefix
-      return message.channel.send(
-       new MessageEmbed().setDescription(
-           '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-           + `Successfully ${data.prefix ? `set this server's prefix to ${prefix}!` : `removed this server's prefix!` }!
-           \n${data.prefix ? `To remove the prefix, just pass in \`reset\` or \`clear\` as parameter.` : `To add prefix, simply pass the desired prefix as parameter.`}`
-         ).setColor('GREEN').setFooter('Custom Prefix | ©️2020 Mai')
-       )
-    }).catch(()=>
-    message.channel.send(
-      new MessageEmbed().setDescription(
-        `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
-      `).setColor('RED')
-    )
-  )
-
-  }
-}
+      return doc.save()
+      .then(() => {
+        client.guildProfiles.get(message.guild.id).prefix = doc.prefix;
+        return message.channel.send([
+          `\\✔️ **${message.author.tag}**, Successfully`,
+          [
+            'removed this server\'s prefix!\nTo add prefix, simply pass the desired prefix as parameter.',
+            `set this server's prefix to \` ${doc.prefix} \`!\nTo remove the prefix, just pass in \`reset\` or \`clear\` as parameter.`
+          ][Number(!!doc.prefix)]
+        ].join(' '));
+      }).catch(()=> message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
+    };
+  })
+};

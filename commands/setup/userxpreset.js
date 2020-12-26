@@ -1,6 +1,4 @@
-const { MongooseModels: model } = require('../../helper')
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
+const profile = require(`${process.cwd()}/models/Profile`);
 
 module.exports = {
   name: 'userxpreset',
@@ -9,81 +7,57 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Reset the xp of a particular user in this server.',
-  examples: [],
-  parameters: [],
-  run: async (client, message) => {
+  requiresDatabase: true,
+  run: async (client, message ) => {
+    const match = message.content.match(/\d{17,19}/)?.[0];
 
-    const match = message.content.match(/\d{17,19}/) || ['undefined'];
+    if (!match){
+      return message.channel.send(`\\❌ **${message.author.tag}**, Please mention the user whose xp needs resetting.`);
+    };
 
-    let member = await message.guild.members.fetch(match[0]).catch(()=> null)
+    const member = await message.guild.members.fetch(match).catch(() => {});
 
-    if (!member)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-        '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'Couldn\'t find that member in this server!'
-      ).setColor('RED')
-    )
+    if (!member){
+      return message.channel.send(`\\❌ **${message.author.tag}**, Couldn't find that member in this server!`);
+    } else if (member.user.bot){
+      return message.channel.send(`\\❌ **${message.author.tag}**, A bot cannot earn experience points!`);
+    };
 
-    if (member.user.bot)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-        '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'A bot cannot earn experience points!'
-      ).setColor('RED')
-    )
+    await message.channel.send(`This will **reset** **${member.displayName}**\'s experience points in this server (Action irreversible). Continue?`);
+    const collector = message.channel.createMessageCollector( res => message.author.id === res.author.id );
 
-  await message.channel.send(`This will **reset** **${member.displayName}**\'s experience points in this server (Action irreversible). Continue?`)
-  collector = message.channel.createMessageCollector( res => message.author.id === res.author.id )
+    const continued = await new Promise( resolve => {
+      const timeout = setTimeout(()=> collector.stop('TIMEOUT'), 30000)
+      collector.on('collect', (message) => {
+        if (['y','yes'].includes(message.content.toLowerCase())) return resolve(true)
+        if (['n','no'].includes(message.content.toLowerCase())) return resolve(false)
+      });
+      collector.on('end', () => resolve(false));
+    });
 
-  const continued = await new Promise( resolve => {
-    const timeout = setTimeout(()=> collector.stop('TIMEOUT'), 30000)
-    collector.on('collect', (message) => {
-      if (['y','yes'].includes(message.content.toLowerCase())) return resolve(true)
-      if (['n','no'].includes(message.content.toLowerCase())) return resolve(false)
-    })
-    collector.on('end', () => resolve(false))
-  })
+    if (!continued){
+      return message.channel.send(`\\❌ **${message.author.tag}**, cancelled the userxpreset command!`);
+    };
 
-  if (!continued)
-    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cancelled the userxpreset command!`)
+    return profile.findById(member.id, (err, doc) => {
 
-  const data = await model.xpSchema.findOne({ guildID: message.guild.id, userID: member.id})
+      if (err){
+        return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+      } else if (!doc){
+        return message.channel.send(`\\❌ **${message.author.tag}**, **${member.user.tag}** has not started earning xp!`);
+      };
 
-  if (!data)
-  return message.channel.send(
-    new MessageEmbed().setColor('RED')
-    .setDescription(
-      '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-      + `**${member.displayName}** has not started earning experience points!`
-    )
-  )
+      const index = doc.data.xp.findIndex(x => x.id === message.guild.id);
 
-  if (data instanceof MongooseError)
-  return message.channel.send(
-    new MessageEmbed().setColor('RED')
-      .setDescription(
-        '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-      + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-    )
-  )
+      if (index < 0){
+        return message.channel.send(`\\❌ **${message.author.tag}**, **${member.user.tag}** has not started earning xp!`);
+      };
 
-  return data.remove().then(()=>
-    message.channel.send(
-      new MessageEmbed().setColor('GREEN')
-      .setDescription(
-        '\u2000\u2000<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-        + `**${member.displayName}**'s experience points has been **reset**.`
-      )
-    )
-  ).catch(()=>
-  message.channel.send(
-    new MessageEmbed().setColor('GREEN')
-    .setDescription(
-      '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-      + `**${member.displayName}**'s experience points **reset attempt** has failed.`
-      )
-    )
-  )
+      doc.data.xp.splice(index, 1);
+
+      return doc.save()
+      .then(() => message.channel.send(`\\✔️ **${member.user.tag}**'s Experience Points has been sucessfully reset!`))
+      .catch(() => message.channel.send(`\\❌ **${member.user.tag}**'s Experience Points reset attempt failed!`))
+    });
   }
-}
+};

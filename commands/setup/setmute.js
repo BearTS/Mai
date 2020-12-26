@@ -1,63 +1,59 @@
-const { MongooseModels: { guildProfileSchema }} = require('../../helper')
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
+const guilds = require(`${process.cwd()}/models/GuildProfile`);
 
 module.exports = {
   name: 'setmute',
-  aliases: ['setmuterole'],
+  aliases: [ 'setmuterole' ],
   guildOnly: true,
   adminOnly: true,
   group: 'setup',
   description: 'Set up the mute role.',
-  examples: ['setmute muted'],
-  parameters: ['Role ID', 'Role Mention', 'Role Name'],
-  run: async ( client, message, [ role ] ) => {
+  requiresDatabase: true,
+  parameters: ['Role <ID/Mention/Name>'],
+  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <role>`)},
+  run: (client, message, [ role ]) => guilds.findById(message.guild.id, (err, doc) => {
 
-    if (!role) {
+    if (err){
+      return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+    } else if (!doc){
+      doc = new guilds({ _id: message.guild.id });
+    };
 
-      const guildsetting = client.guildsettings.get(message.guild.id)
+    const guildprofile = client.guildProfiles.get(message.guild.id);
 
-      if (!guildsetting || !guildsetting.roles || !guildsetting.roles.muted) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Muterole not set!`)
+    if (!role){
+      if (!guildprofile?.roles?.muted){
+        return message.channel.send(`\\❌ **${message.author.tag}**, Muterole not set!`);
+      } else {
+        const role = message.guild.roles.cache.get(guildprofile.roles.muted);
+        if (!role){
+          return message.channel.send(`\\❌ **${message.author.tag}**, Could not find this server's designated muterole!`);
+        } else {
+          return message.channel.send(`**${message.author.tag}**, the current muterole is ${role}`);
+        };
+      };
+    } else {
+      role = message.guild.roles.cache.get((role.match(/\d{17,19}/)||[])[0]) ||
+      messge.guild.roles.cache.find(r => r.name === role);
 
-      const muterole = message.guild.roles.cache.get(guildsetting.roles.muted)
+      if (!role){
+        return message.channel.send(`\\❌ **${message.author}**, Invalid Role - Please supply the mention of the role, the ID of the role, or its Role Name.`)
+      } else {
 
-      if (!muterole) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The previous Muterole was either removed or deleted.`)
+        if (!guildprofile){
+          client.guildProfiles.set(message.guild.id, doc);
+        } else {
+          // do nothing..
+        };
 
-      return message.channel.send(`The current muterole is ${muterole}`)
-    }
+        doc.roles.muted = role.id;
 
-  role = message.mentions.roles.size ? message.mentions.roles.first() : message.guild.roles.cache.get(role) || message.guild.roles.cache.find( r => r.name === role)
-
-  if (!role)
-    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Invalid Role - Please supply the mention of the role, the ID of the role, or its Role Name.`)
-
-  let data = await guildProfileSchema.findOne({
-    guildID: message.guild.id
-  }).catch((err)=> err)
-
-  if (!data) data = await new guildData({
-    guildID: message.guild.id
-  }).save()
-      .catch((err)=> err)
-
-  if (data instanceof MongooseError)
-  return message.channel.send(
-    new MessageEmbed().setDescription(
-        '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-      + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-      + '\u2000\u2000\n\n\u200b'
-    )
-  )
-
-  data.muterole = role.id
-
-  client.guildsettings.get(message.guild.id) || guildsettings.set(message.guild.id, data).get(message.guild.id)
-
-  return data.save()
-    .then((data)=>{
-      client.guildsettings.get(message.guild.id).roles.muted = data.muterole
-      return message.channel.send(`Successfully set the mutrole to ${role}!`)
-    }).catch(()=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`))
-
-  }
-}
+        return doc.save()
+        .then(() => {
+          client.guildProfiles.get(message.guild.id).roles.muted = doc.roles.muted;
+          return message.channel.send(`\\✔️ **${message.author.tag}**, Successfully set the muterole to ${role}!`);
+        }).catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`))
+      };
+    };
+  })
+};

@@ -1,34 +1,35 @@
 module.exports = {
-  name: 'triggered'
-  , aliases: []
-  , guildOnly: true
-  , group: 'fun'
-  , description: 'Triggered users'
-  , clientPermissions: [
-    'ATTACH_FILES'
-  ]
-  , examples: []
-  , parameters: []
-  , run: async ( client, message ) => {
+  name: 'triggered',
+  aliases: [],
+  group: 'fun',
+  description: 'Triggered users',
+  clientPermissions: [ 'ATTACH_FILES' ],
+  parameters: [ 'User ID', 'User Mention' ],
+  get examples(){ return [ this.name, ...this.aliases]
+    .map(x => x + ' ' + '<User>'); },
+  run: async (client, message ) => {
 
     const match = message.content.match(/\d{17,19}/);
+    let user;
 
-    let member = match
-                ? await message.guild.members.fetch(match[0]).catch(()=> null)
-                : null
+    if (message.guild){
+      const member = await message.guild.members
+      .fetch((match || [message.author.id])[0])
+      .catch(() => message.member);
 
-    if (!member)
-      return message.channel.send('だれ?')
+      user = member.user;
+    } else {
+      user = message.author;
+    };
 
     return message.channel.send({
-      files: [
-        {
-          attachment:
-          'https://some-random-api.ml/canvas/triggered?avatar='
-          + member.user.displayAvatarURL({format: 'png', size: 1024})
-          , name: 'triggered.gif'
-        }
-      ]
-    })
+      files: [{
+        name: 'triggered.gif',
+        attachment: [
+          'https://some-random-api.ml/canvas/triggered?avatar=',
+          user.displayAvatarURL({ format: 'png', size: 1024 })
+        ].join('')
+      }]
+    });
   }
-}
+};

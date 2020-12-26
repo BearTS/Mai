@@ -1,20 +1,16 @@
-const { TextHelpers: { commatize }} = require('../../helper')
+const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
-  name: 'roll'
-  , aliases: []
-  , group: "fun"
-  , description: 'Generate a random number from 1-[selected number]'
-  , examples: [
-    'roll 150'
-  ]
-  , parameters: []
-  , run: async ( client, message, [ tail ]) => {
+  name: 'roll',
+  aliases: [],
+  group: 'fun',
+  description: 'Generate a random number from 1-[selected number]',
+  get examples(){ return [this.name, ...this.aliases].map(x => x + ' ' + '<num>')},
+  run: (client, message, [tail]) => {
 
-    tail = parseInt(parseInt(tail) ? tail : (Math.round(Math.random()*999) + 1))
-    const rand = (Math.random())
+    const rand = Math.random();
+    tail = Math.round(tail) || Math.round(Math.random() * 999) + 1;
 
-    message.channel.send(`**${commatize(Math.round(rand * tail))}** ---> [0 -> ${commatize(Math.round(tail))}]`)
-
+    return message.channel.send(`**${text.commatize(rand * tail)}** ---> [0 -> ${text.commatize(tail)}]`)
   }
-}
+};

@@ -1,29 +1,23 @@
-const { MessageEmbed } = require("discord.js")
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-  name: 'respect'
-  , aliases: [
-    'f'
-    , 'rep'
-    , '+rep'
-  ]
-  , group: 'fun'
-  , description: 'Show your respect, fella.'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , examples: []
-  , parameters: []
-  , run: async ( client, message, args ) => {
+  name: 'respect',
+  aliases: [ 'f', 'rp', '+rp' ],
+  group: 'fun',
+  description: 'Show thy respect.',
+  clientPermissions: [ 'EMBED_LINKS' ],
+  get examples(){ return [ this.name, ...this.aliases ];},
+  run: async (client, message, args) => {
 
-    const rep = await message.channel.send(new MessageEmbed()
-      .setDescription(`${message.member} has paid their respect${args.length ? ` to ${args.join(' ')}.` : ''}`)
+    const rep = await message.channel.send(
+      new MessageEmbed()
       .setColor('GREY')
       .setFooter(`Press F to pay respect | \©️${new Date().getFullYear()} Mai`)
-    )
+      .setDescription(`${message.member} has paid their respect${args.length ? ` to ${args.join(' ')}.` : ''}`)
+    );
 
-    if (!message.deleted) await message.delete()
+    await message.delete().catch(() => null);
 
     return rep.react("🇫")
   }
-}
+};

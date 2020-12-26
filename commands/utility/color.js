@@ -1,22 +1,22 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
   name: 'color',
-  aliases: ['colour','hex'],
+  aliases: [ 'colour', 'hex' ],
   group: 'utility',
-  description: "Shows a random color or a preview of the given color!",
-  examples: ["color [color]"],
-  parameters: ['color'],
-  run: async (client, message, args) => {
+  description: 'Shows a random color or a preview of the given color',
+  parameters: [ 'Hex' ],
+  get examples(){ [this.name, ...this.aliases].map(x => x + ' <hex>')},
+  run: (client, message, [ hex = '']) => {
 
-    const color = args.length && args.join('').startsWith('#') && /(0x)?[0-9a-f]{6}/.test(args.join('').split('#').slice(1)[0])
-                  ? args.join('')
-                  : `#${ Math.floor(Math.random() * 16777215).toString(16) }`
+    const color = hex.match(/[0-9a-f]{6}/) ||
+    Math.floor(Math.random() * 16777215).toString(16)
 
-    return  message.channel.send( new MessageEmbed()
-              .setColor(color)
-              .setImage(`https://dummyimage.com/200/${color.slice(1)}`)
-              .setFooter(`Color ${color.slice(1)} | \©️${new Date().getFullYear()} Mai`)
-            )
+    return message.channel.send(
+      new MessageEmbed()
+      .setColor(`#${color}`)
+      .setImage('https://dummyimage.com/200/' + color)
+      .setFooter(`Color ${color} | \©️${new Date().getFullYear()} Mai`)
+    );
   }
-}
+};

@@ -1,45 +1,46 @@
-const nekos = require('nekos.life')
-const { sfw: { baka } } = new nekos()
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'baka'
-  , aliases: []
-  , guildOnly: true
-  , clientPermissions: [
+  name: 'baka',
+  aliases: [],
+  guildOnly: true,
+  clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
-  ]
-  , group: 'action'
-  , description: 'It\'s not like I want you to use my command.. ~Baka!'
-  , examples: [
-      'baka'
-  ]
-  , parameters: []
-  , run: async ( client, message, args ) => {
+  ],
+  group: 'action',
+  description: 'It\'s not like I want you to use my command.. ~Baka!',
+  examples: [ 'baka @user' ],
+  parameters: [ 'User Mention' ],
+  run: async ( client, message, args ) => {
 
-    const { url } = await baka().catch(()=>{})
+    // Filter out args so that args are only user-mention formats.
+    args = args.filter(x => /<@!?\d{17,19}>/.test(x))
 
-  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
+    const url = client.images.baka();
+    const embed = new MessageEmbed()
+    .setColor('GREY')
+    .setImage(url)
+    .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-  if (!message.mentions.members.size)
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+    if (!message.mentions.members.size){
 
-  if (message.mentions.members.first().id === client.user.id)
-  return message.react('💢')
+      return message.channel.send(embed);
 
-  if (message.mentions.members.first().id === message.author.id)
-  return message.channel.send(`<:cancel:767062250279927818> | No ${message.author}, you're not Baka!`)
+    } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setDescription(`${message.mentions.members.first()} B~baka!`)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+      return message.react('💢');
+
+    } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
+
+      return message.channel.send(`<:cancel:767062250279927818> | No ${message.author}, you're not Baka!`);
+
+    } else {
+
+      return message.channel.send(
+        embed.setDescription(`${args[0]} B~baka!`)
+      );
+
+    };
   }
-}
+};

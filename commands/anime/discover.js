@@ -1,35 +1,10 @@
 const { MessageEmbed, GuildEmoji } = require('discord.js');
+const { convert: toMarkdown } = require('html-to-markdown');
 const { decode } = require('he');
 
-const months = [
-  '', 'January', 'February', 'March',
-  'April', 'May', 'June', 'July',
-  'August', 'September', 'October',
-  'November', 'December'
-];
-
-const defaultgenres = [
-  'Action', 'Adventure', 'Comedy',
-  'Drama', 'Sci-Fi', 'Mystery',
-  'Supernatural', 'Fantasy', 'Sports',
-  'Romance', 'Slice of Life', 'Horror',
-  'Psychological', 'Thriller', 'Ecchi',
-  'Mecha', 'Music', 'Mahou Shoujo'
-];
-
-const fm = {
-    TV: 'TV', TV_SHORT: 'TV Shorts', MOVIE: 'Movie'
-  , SPECIAL: 'Special', ONA: 'ONA', OVA: 'OVA'
-  , MUSIC: 'Music', MANGA: 'Manga', NOVEL: 'Light Novel'
-  , ONE_SHOT: 'One Shot Manga'
-};
-
-const {
-  TextHelpers: { textTrunctuate, joinArray },
-  LocalDatabase: { animeDB, mangaDB },
-  Classes: { Paginate },
-  AniListQuery: query
-} = require('../../helper');
+const Paginate = require(`${process.cwd()}/struct/Paginate`);
+const Profile = require(`${process.cwd()}/struct/DiscoveryProfile`);
+const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
   name: 'discover',
@@ -37,181 +12,167 @@ module.exports = {
   guildOnly: true,
   group: 'anime',
   description: 'Generate a set of handpicked <Anime/Manga> recommendations for a user',
-  clientPermissions: [
-    'EMBED_LINKS',
-    'USE_EXTERNAL_EMOJIS',
-    'ADD_REACTIONS'
-  ],
-  examples: [
-    'discover a',
-    'discover manga'
-  ],
-  parameter: ['manga','anime'],
-  run: async ( client, message, [category] ) => {
+  clientPermissions: [ 'EMBED_LINKS', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS' ],
+  parameter: [ 'Manga', 'Anime' ],
+  get examples(){ return this.parameter.map(x => this.name + ' ' + x); },
+  run: async ( client, message, [category = '']) => {
 
-    if (!category || !['anime','manga','ani','a','m'].includes(category.toLowerCase()))
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-         `**${message.member.displayName}**, Please specify if it's \`ANIME\` or \`MANGA\`.`
-      ).setColor('RED').setFooter(`Discover | \©️${new Date().getFullYear()} Mai`)
-      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
-      .setAuthor('Unrecognized Category!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
-    )
+    category = category.toLowerCase();
 
-    let profile = {};
+    const embed = new MessageEmbed()
+    .setDescription(`**${message.member.displayName}**, Please specify if it's \`ANIME\` or \`MANGA\`.`)
+    .setAuthor('Unrecognized Category!','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+    .setThumbnail('https://i.imgur.com/qkBQB8V.png')
+    .setColor('RED')
+    .setFooter(`Discover | \©️${new Date().getFullYear()} Mai`);
 
-    const collection_name = ['a','anime','ani'].includes(category.toLowerCase())
-    ? 'anidailyrec'
-    : 'mangadailyrec'
+    if (!category || !['anime','manga'].includes(category)){
+      return message.channel.send(embed);
+    };
 
-    if (client.collections.exists(collection_name, message.author.id)){
+    if (!client.collections.exists('discovery', message.author.id)){
+      client.collections.setTo('discovery', message.author.id, new Profile(message.member));
+    };
 
-      profile = client.collections.getFrom(collection_name, message.author.id)
-      profile.timesviewed++
+    const profile = client.collections.getFrom('discovery', message.author.id);
+    let res;
 
-    } else {
-      message.channel.startTyping()
+    if (!profile.hasData){
+      res = await profile.generateList().fetch();
+    };
 
-      profile.selectedgenres = []
-      profile.data = []
-      profile.timesviewed = 1
+    if (profile.isExpired){
+      res = await profile.clearList().generateList().fetch();
+    };
 
-      for (let i = 0; i < 5; i++)
-      profile.selectedgenres.push(defaultgenres.splice(
-        Math.floor(Math.random() * defaultgenres.length), 1)[0]
-      )
-
-      const db = collection_name === 'anidailyrec' ? animeDB : mangaDB;
-
-      const ids = [];
-
-      for (const genre of profile.selectedgenres){
-        const selection = db.filter(media => media.genres.includes(genre) && !media.genres.includes('Hentai'))
-        ids.push(selection[Math.floor(Math.random() * selection.length)].ids.al)
-      }
-
-      const { data, errors } = await query(`query ($ids: [Int]) { Page{ media(id_in: $ids){ siteUrl id idMal isAdult format startDate { year month day } episodes duration chapters volumes genres studios(isMain:true){ nodes{ name siteUrl } } coverImage{ large color } description title { romaji english native userPreferred } } } }`,{ ids })
-
-      message.channel.stopTyping(true)
-
-      // If errored due to ratelimit error
-      if (errors && errors.some(x => x.status === 429))
+    if (res && res.errors.length){
       return message.channel.send(
-        new MessageEmbed()
-        .setAuthor('Oh no! Mai has been rate-limited', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
-        .setDescription(
-          `**${message.member.displayName}**, please try again in a minute.\n\n`
-          + `If this error occurs frequently, please contact **Sakurajimai#6742**.`
-        ).setColor('RED')
-        .setFooter(`Discover | \©️${new Date().getFullYear()} Mai`)
+        embed.setAuthor('Oops! An unexpected error occured!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setThumbnail(null)
+        .setDescription([
+          `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n`,
+          'This might be an issue on Anilist\'s end. Please try again in a minute\n',
+          'If this doesn\'t resolve in few hours, you may contact **Sakurajimai#6742**.',
+          `You can also make an issue on the [repository](${client.config.websites.github})`,
+          'or [join](https://support.mai-san.ml/) Mai\'s dev server instead.'
+        ].join(' '))
       );
+    };
 
-      // If errored due to validation errors
-      if (errors && errors.some(x => x.status === 400))
-      return message.channel.send(
-        new MessageEmbed()
-        .setAuthor('Oops! A wild bug 🐛 appeared!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
-        .setDescription(
-          `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n`
-          + `Please contact **Sakurajimai#6742** for a quick fix.\n`
-          + `You can make an issue on the [repository](${client.config.github}) or [join](https://support.mai-san.ml/) Mai's dev server instead.`
-        ).setColor('RED')
-        .setFooter(`Discover | \©️${new Date().getFullYear()} Mai`)
-      );
+    let index = 0;
+    const data = profile.get(category);
+    const topic = category.charAt(0).toUpperCase() + category.slice(1);
 
-      // If errored due to other reasons
-      if (errors)
-      return message.channel.send(
-        new MessageEmbed()
-        .setAuthor('Oops! An unexpected error occured!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
-        .setDescription(
-          `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n`
-          + `This might be an issue on Anilist's end. Please try again in a minute\n`
-          + `If this doesn't resolve in few hours, you may contact **Sakurajimai#6742**`
-          + `You can also make an issue on the [repository](${client.config.github}) or [join](https://support.mai-san.ml/) Mai's dev server instead.`
-        ).setColor('RED')
-        .setFooter(`Discover | \©️${new Date().getFullYear()} Mai`)
-      );
-
-      for (const id of ids){
-        profile.data.push(data.Page.media.find(x => x.id === id))
-      }
-
-      client.collections.setTo(collection_name, message.author.id, profile)
-
-    }
-
-    const discoveryPages = new Paginate().add(
+    const discoveryPages = new Paginate(
       new MessageEmbed()
-       .setColor('GREY')
-       .setTitle(`Get Random ${collection_name === 'anidailyrec' ? 'Anime' : 'Manga'} Recommendations with your Discovery Queue!`)
-       .setThumbnail(message.author.displayAvatarURL({format: 'png', dynamic: true}))
-       .setDescription(
-        `Your ${collection_name === 'anidailyrec' ? 'Anime' : 'Manga'} Recommendations Discovery Queue is unique and totally random generated.`
-        + `5 random genres out of 17 total genres are selected and random ${collection_name === 'anidailyrec' ? 'anime' : 'manga'} are picked out of those genres for you.`
-        + `You get a different ${collection_name === 'anidailyrec' ? 'anime' : 'manga'} recommendations daily so don\'t miss the chance to discover every day.`)
-      .addField('\u200b',`${profile.selectedgenres.map(g => `\\🟢 ${g}`).join('\n')}`)
-      .addField( profile.timesviewed > 1 ? `Times viewed today:\n${profile.timesviewed + 1}` : '\u200b', '\u200b' )
-      .addField('\u200b', 'Start Your Queue by clicking <:next:767062244034084865> below!!')
-      .setFooter(`Discover ${collection_name === 'anidailyrec' ? 'Anime' : 'Manga'} | \©️${new Date().getFullYear()} Mai`)
-    )
+      .setColor('GREY')
+      .setTitle(`Get Random ${topic} Recommendations with your Discovery Queue!`)
+      .setThumbnail(message.author.displayAvatarURL({ format: 'png', dynamic: true }))
+      .setDescription([
+        `Your ${topic} Recommendations Discovery Queue is unique and totally random generated.`,
+        `5 random genres out of 17 total genres are selected and random ${topic} are picked out`,
+        `of those genres for you. You get a different ${topic} recommendations daily so don't`,
+        'miss the chance to discover every day.'
+      ].join(' '))
+      .setFooter(`Discover ${topic}\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
+      .addFields([
+        {
+          name: '\u200b',
+          value: profile[category].genres.map(g => `\\🟢 ${g}`).join('\n')
+        },
+        {
+          name: ![true][profile[category].viewcount - 1] ? `Times Viewed Today:\u2000**${profile[category].viewcount}**` : '\u200b',
+          value: '\u200b'
+        },
+        {
+          name: '\u200b',
+          value: 'Start Your Queue by clicking <:next:767062244034084865> below!!'
+        }
+      ])
+    );
 
-    let index = 0
-
-    for (const info of profile.data){
+    for (const info of data){
       discoveryPages.add(
         new MessageEmbed()
         .setColor(info.coverImage.color || 'GREY')
-        .setAuthor(
-          `[${profile.selectedgenres[index]}] ${textTrunctuate(info.title.romaji || info.title.english || info.title.native)}`
-          + ` | ${fm[info.format]}`, null, info.siteUrl
-        )
+        .setAuthor([
+          profile[category].genres[index],
+          text.truncate(info.title.romaji || info.title.english || info.title.native),
+          client.anischedule.info.mediaFormat[info.format]
+        ].join('\u2000|\u2000'))
         .setDescription((info.studios.nodes || []).slice(0,1).map( x => `[${x.name}](${x.siteUrl})`).join(''))
-        .addField(
-          'Other Titles',
-          `**Native**: ${ info.title.native || 'None' }\n`
-          + `**Romanized**: ${ info.title.romaji || 'None' }\n`
-          + `**English**: ${ info.title.english || 'None' }`
-        )
-        .addField('Genres', (info.genres || ['','']).reduce((acc, curr, i) => {
-          if (!acc || !curr) return ''
-
-          if (info.genres.length === 2) return `${acc} and ${curr}.`
-
-          if (i === info.genres.length - 1) return `${acc}, and ${curr}.`
-
-          return `${acc}, ${curr}`
-        }) || '\u200b')
-        .addField('Started', `\u200b${months[info.startDate.month || 0]} ${info.startDate.day || ''} ${info.startDate.year}`, true)
-        .addField(collection_name === 'anidailyrec' ? 'Episodes' : 'Chapters', info.episodes || info.chapters || 'Unknown.', true)
-        .addField(collection_name === 'anidailyrec' ? 'Duration (in minutes)' : 'Volumes', info.duration || info.volumes || 'Unknown.', true)
-        .addField('\u200b', `\u200b${textTrunctuate(decode((info.description || '').replace(/<br><br>/g,'\n')), 1000, ` […Read More](https://myanimelist.net/anime/${info.idMal})`)}`)
         .setThumbnail(info.coverImage.large)
-        .setFooter(`Discover ${collection_name === 'anidailyrec' ? 'Anime' : 'Manga'} | \©️${new Date().getFullYear()} Mai`)
-      )
-      index++
-    }
+        .setFooter(`Discover ${topic}\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
+        .addFields([
+          {
+            name: 'Other Titles',
+            value: [
+              `•\u2000\**Native:**\u2000${info.title.native || 'None'}.`,
+              `•\u2000\**Romanized:**\u2000${info.title.romaji || 'None'}`,
+              `•\u2000\**English:**\u2000${info.title.english || 'None'}`
+            ]
+          },
+          {
+            name: 'Genres',
+            value: text.joinArray(info.genres) || 'MISSING_INFO'
+          },
+          {
+            name: 'Started',
+            value: [
+              client.anischedule.info.months[info.startDate.month - 1],
+              info.startDate.day,
+              info.startDate.year
+            ].filter(Boolean).join(' ') || 'Unknown',
+            inline: true
+          },
+          {
+            name: category === 'anime' ? 'Episodes' : 'Chapters',
+            value: info.episodes || info.chapters || 'Unknown',
+            inline: true
+          },
+          {
+            name: category === 'anime' ? 'Duration (in minutes)' : 'Volumes',
+            value: info.duration || info.volumes || 'Unknown',
+            inline: true
+          },
+          {
+            name: '\u200b',
+            value: text.truncate(toMarkdown(decode(info.description || '').replace(/<br>/g,'\n')), 1000, `[…Read More](https://myanimelist.net/anime/${info.idMal})`) || '\u200b'
+          }
+        ])
+      );
+      index++;
+    };
 
-    const discoveryPrompt = await message.channel.send(discoveryPages.currentPage)
-    const next = client.emojis.cache.get('767062244034084865') || '▶'
-    const collector = discoveryPrompt.createReactionCollector( (reaction, user) => user.id === message.author.id)
-    await discoveryPrompt.react(next)
-    let timeout = setTimeout(()=> collector.stop(), 90000)
+    const discoveryPrompt = await message.channel.send(discoveryPages.currentPage);
+    const next = client.emojis.cache.get('767062244034084865') || '▶';
+    const filter = (_, user) => user.id === message.author.id;
+    const collector = discoveryPrompt.createReactionCollector(filter);
 
-    collector.on('collect', async ({emoji, users}) => {
-      if (next === emoji.name || (next instanceof GuildEmoji && emoji.name === next.name))
-      await discoveryPrompt.edit(discoveryPages.next())
+    await discoveryPrompt.react(next);
+    let timeout = setTimeout(() => collector.stop(), 90000);
 
-      if (discoveryPages.currentIndex === discoveryPages.size - 1)
-      return collector.stop()
+    collector.on('collect', async (reaction) => {
+      if (next === reaction.emoji.name){
+        await discoveryPrompt.edit(discoveryPages.next());
+      } else if (next instanceof GuildEmoji){
+        if (reaction.emoji.name === next.name){
+          await discoveryPrompt.edit(discoveryPages.next());
+        } else {
+          // Do nothing
+        };
+      };
 
-      await users.remove(message.author.id)
-      timeout.refresh()
-    })
+      if (discoveryPages.currentIndex === discoveryPages.size - 1){
+        return collector.stop();
+      };
 
-    collector.on('end', () => discoveryPrompt.reactions.removeAll())
+      await reaction.users.remove(message.author.id);
+      return timeout.refresh();
+    });
+
+    collector.on('end', () => discoveryPrompt.reactions.removeAll());
 
     return;
-
   }
-}
+};

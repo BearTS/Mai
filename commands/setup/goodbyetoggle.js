@@ -1,6 +1,5 @@
-const { MongooseModels: { guildProfileSchema }} = require('../../helper')
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
+const guilds = require(`${process.cwd()}/models/GuildProfile`);
 
 module.exports = {
   name: 'goodbyetoggle',
@@ -9,43 +8,37 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Toggle the \`Leaving Member Announcer\` on and off.',
-  examples: [],
-  parameters: [],
-  run: async (client, message) => {
+  requiresDatabase: true,
+  run: (client, message) => guilds.findById(message.guild.id, (err, doc) => {
 
-    const guildProfile = client.guildsettings.get(message.guild.id)
+    if (err){
+      return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+    };
 
-    const data = await guildProfileSchema.findOne({ guildID: message.guild.id })
+    if (!doc){
+      doc = new guilds({ _id: message.guild.id });
+    };
 
-    if (data instanceof MongooseError)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-      ).setColor('RED')
-    )
+    doc.greeter.leaving.isEnabled = !doc.greeter.leaving.isEnabled;
 
-    data.goodbyeEnabled = !data.goodbyeEnabled
+    doc.save()
+    .then(() => {
+      const state = ['Disabled', 'Enabled'][Number(doc.greeter.leaving.isEnabled)];
+      const profile = client.guildProfiles.get(message.guild.id);
+      profile.greeter.leaving.isEnabled = doc.greeter.leaving.isEnabled;
 
-    return data.save()
-    .then(data => {
-      guildProfile.goodbye.enabled = data.goodbyeEnabled
       return message.channel.send(
-       new MessageEmbed().setDescription(
-           '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-           + `Leaving Member Announcer Feature has been successfully **${data.goodbyeEnabled ? 'enabled' : 'disabled'}**!
-           \nTo disable this feature, use the \`${client.config.prefix}goodbyetoggle\` command.
-           ${!guildProfile.goodbye.msg ? `\u2000\⚠ LMA Message has not been configured. [Learn](https://mai-san.ml/) how to customize one.` : ''}
-           ${!guildProfile.goodbye.channel ? `\u2000\⚠ LMA channel has not been set! Set one by using the \`${client.config.prefix}setgoodbyech\` command!` : ''}`
-         ).setColor('GREEN').setFooter('Leaving Member Announcer | ©️2020 Mai')
-       )
-    }).catch(()=>
-    message.channel.send(
-      new MessageEmbed().setDescription(
-        `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
-      `).setColor('RED')
-    )
-  )
-
-  }
-}
+        new MessageEmbed()
+        .setColor('GREEN')
+        .setFooter(`Leaving Member Announcer | \©️${new Date().getFullYear()} Mai`)
+        .setDescription([
+          '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+          `Leaving Member Announcer Feature has been successfully **${state}**!\n\n`,
+          `To **${!doc.greeter.leaving.isEnabled ? 're-enable' : 'disable'}** this`,
+          `feature, use the \`${client.prefix}goodbyetoggle\` command.`,
+          !profile.greeter.leaving.message ? '\n\u2000 \\⚠️ LMA Message has not been configured. [Learn](https://mai-san.ml/) how to customize one.' : '',
+          !profile.greeter.leaving.channel ? `\n\u2000 \\⚠️ LMA channel has not been set! Set one by using the \`${client.config.prefix}setgoodbyech\` command!` : ''
+        ].join(' '))
+      );}).catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
+  })
+};

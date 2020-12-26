@@ -1,33 +1,29 @@
-const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
 
 module.exports = {
-  name: "birdfacts"
-  , aliases: [
-    'birdfact'
-    , 'tori'
-    , 'bf'
-  ]
-  , group: 'fun'
-  , description: 'Generate a random useless bird facts'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , examples: []
-  , parameters: []
-  , run: async (client, message) => {
+  name: 'birdfacts',
+  aliases: [ 'birdfact', 'tori', 'bird' ],
+  group: 'fun',
+  description: 'Generate a random useless bird facts',
+  clientPermissions: [ 'EMBED_LINKS' ],
+  get examples(){ return [this.name, ...this.aliases]},
+  run: async (client, message) => {
 
-    const data = await fetch("https://some-random-api.ml/facts/bird").then(res => res.json()).catch(()=>null)
+    const data = await fetch('https://some-random-api.ml/facts/bird')
+    .then(res => res.json())
+    .catch(() => null);
 
-    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Birdfact API is currently down!`)
+    if (!data){
+      return message.channel.send(`Server Error 5xx: Birdfact API is currently down!`);
+    };
 
-    const { fact } = data
-
-    message.channel.send( new MessageEmbed()
-      .setThumbnail(`https://i.imgur.com/arkxS3f.gif`)
+    return message.channel.send(
+      new MessageEmbed()
+      .setThumbnail('https://i.imgur.com/arkxS3f.gif')
       .setColor('GREY')
-      .setDescription(fact)
+      .setDescription(data.fact)
       .setFooter(`Birdfact | \©️${new Date().getFullYear()} Mai`)
-    )
+    );
   }
-}
+};

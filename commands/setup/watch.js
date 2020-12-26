@@ -1,153 +1,122 @@
-const {
-    TextHelpers: {
-      ordinalize
-  }
-  , MongooseModels: {
-      guildWatchlistSchema
-  }
-  , AniListQuery: query
-} = require('../../helper')
-
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
-const { duration } = require('moment')
-require('moment-duration-format')
+const { duration } = require('moment');
+const { MessageEmbed } = require('discord.js');
+const text = require(`${process.cwd()}/util/string`)
+const list = require(`${process.cwd()}/models/GuildWatchlist`);
 
 module.exports = {
   name: 'watch',
-  aliases: [
-    'anischedadd'
-    , 'anischedwatch'
-    ],
+  aliases: [ 'anischedadd', 'anischedwatch' ],
   guildOnly: true,
   adminOnly: true,
   group: 'setup',
-  description: 'Adds a new anime to watch for new episodes of. You may provide an <:anilist:767062314121035806>AniList entry link or a <:mal:767062339177676800>MyAnimeList link.',
-  examples: ['watch https://myanimelist.net/anime/37450/Seishun_Buta_Yarou_wa_Bunny_Girl_Senpai_no_Yume_wo_Minai'],
-  parameters: ['AniList or MAL entry link'],
-  run: async ( client, message, args) => {
+  description: 'Adds a new anime to watch for new episodes of. You may provide an <:anilist:767062314121035806>AniList entry link or a <:mal:767062339177676800>MyAnimeList link. Supports multiple ids/links',
+  requiresDatabase: true,
+  parameters: [ 'Anilist/Mal link' ],
+  get examples(){ return [ this.name, ...this.aliases].map(x => `${x} <url>`)},
+  run: (client, message, links) => list.findById(message.guild.id, async (err, doc) => {
 
-    if (client.guildsettings.profiles.get(message.guild.id).featuredChannels.anisched === null)
-    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Anischedule Feature has been disabled in this server.`)
+    if (err){
+      return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+    };
 
+    // If there is no entry for the current guild, create a new one.
+    if (!doc){
+      doc = new list({ _id: message.guild.id });
+    };
 
-    let profile = await guildWatchlistSchema.findOne({
-      guildID: message.guild.id
-    }).catch(err => err)
+    const id = [];
+    const idMal = [];
+    for (const entry of links){
+      const mal = (entry.match(/(?<=myanimelist\.net\/anime\/)\d{1,}/gi)||[]);
+      const al = (entry.match(/(?<=anilist\.co\/anime\/)\d{1,}/gi)||[]);
+      const al_id = Number(entry);
 
-    if (!profile)
-      profile = await new guildWatchlistSchema({
-        guildID: message.guild.id
-      }).save()
-          .catch(err => err)
+      id.push(...[...al, al_id].map(x => Number(x)).filter(Boolean));
+      idMal.push(...mal.map(x => Number(x)).filter(Boolean));
+    };
 
-    if (profile instanceof MongooseError)
-    return message.channel.send(
-      new MessageEmbed().setColor('RED')
-        .setDescription(
-          '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-        + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-        + '\u2000\u2000\n\n\u200b'
-      )
-    )
+    const res = [];
 
-    if (!args.length)
-    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You need to provide the anime link(s) to watch for.`)
+    for (const [key, ids] of Object.entries({ id, idMal })){
+      if (!ids.length){
+        continue;
+      };
 
-    let mal = (/(?<=myanimelist\.net\/anime\/)(.\d*)/gi).test(args.join(' '))
-            ? args.join(' ').match(/(?<=myanimelist\.net\/anime\/)(.\d*)/gi)[0]
-            : null
-    let al  = (/(?<=anilist\.co\/anime\/)(.\d*)/gi).test(args.join(' '))
-            ? args.join(' ').match(/(?<=anilist\.co\/anime\/)(.\d*)/gi)[0]
-            : null
+      const query = await client.anischedule.fetch(`query($ids: [Int]){ Page(perPage: 25){ media(${key}_in: $ids type: ANIME){ id title { romaji english native userPreferred } status coverImage{ large color } siteUrl nextAiringEpisode{ episode timeUntilAiring } } } }`, { ids })
 
-    if (!mal && !al)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You need to provide the anime link(s) to watch for.`)
+      if (query.errors){
+        return message.channel.send(`\\❌ Unable to connect to AniList. Please try again later`);
+      };
 
-    const info = mal
-            ? await query('query ($Id: Int) {Media(idMal: $Id, type: ANIME) {id title { romaji english native } status coverImage { large color} nextAiringEpisode { episode timeUntilAiring}}}', { Id: mal })
-              .then(res => {
-                if (res.errors) return res
-                return res.data.Media
-              })
-            : await query('query ($watched: Int) { Media(id: $watched, type: ANIME) {id title { romaji english native } status coverImage{ large color } nextAiringEpisode{ episode timeUntilAiring}}}',{ watched:al })
-              .then(res => {
-                if (res.errors) return res
-                return res.data.Media
-              })
+      res.push(...query.data.Page.media);
+    };
 
-    if (info.errors && info.errors[0].status !== 404)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Couldn't contact Anilist.co. Please try again in a minute.`)
+    if (!res.length){
+      return message.channel.send(`\\❌ None of the provided links/ids matches anime from AniList!`);
+    };
 
-    if (info.errors && info.errors[0].status === 404)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The link you provided does not match any anime.`)
+    const valid_ids = res.filter(x => ['HIATUS','RELEASING','NOT_YET_RELEASED'].includes(x.status)).map(x => x.id);
+    const existing = valid_ids.filter(x => doc.data.includes(x));
+    doc.data = [...new Set(doc.data.concat(valid_ids))];
 
-    if (!info)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The link you provided does not match any anime.`)
-
-
-   if (!['RELEASING','NOT_YET_RELEASED'].includes(info.status))
-    return  message.channel.send(
+    doc.save()
+    .then(() => message.channel.send(
       new MessageEmbed()
-        .setColor('RED')
-        .setThumbnail(info.coverImage.large)
-        .setDescription(
-          '\u200b\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-        + `Unable to add **${
-          info.title.romaji
-          ? info.title.romaji
-            : info.title.english
-            ? info.title.english
-              : info.title.native
-          }** to the watchlist. This anime has already ended airing. \u2000\u2000\n\u200b`
-        )
-    )
+      .setColor(res.sort((A,B) => B.id - A.id)[0].coverImage.color)
+      .setThumbnail(res.sort((A,B) => B.id - A.id)[0].coverImage.large)
+      .setAuthor('Adding to watchlist')
+      .setFooter(`Watch | \©️${new Date().getFullYear()} Mai`)
+      .addFields(res.splice(0,25).sort((A,B) => B.id - A.id).map(entry => {
+        const filter = ['HIATUS','RELEASING','NOT_YET_RELEASED'].includes(entry.status)
+        && !existing.includes(entry.id);
+        const nextep = (entry.nextAiringEpisode||{}).episode;
+        const untilnextep = (entry.nextAiringEpisode||{}).timeUntilAiring;
+        let reason;
 
-   if (profile.data.includes(info.id))
-    return message.channel.send(
-      new MessageEmbed()
-      .setColor('RED')
-      .setThumbnail(info.coverImage.large)
-      .setDescription(
-        '\u200b\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-      + `The anime **${
-        info.title.romaji
-        ? info.title.romaji
-          : info.title.english
-          ? info.title.english
-            : info.title.native
-        }** is already on your watchlist. \u2000\u2000\n\u200b`
-      )
-    )
+        if (entry.status === 'FINISHED'){
+          reason = 'This anime has already finished airing.'
+        } else if (entry.status === 'CANCELLED'){
+          reason = 'This anime was already cancelled.'
+        } else if (entry.status === 'HIATUS'){
+          reason = [
+            'This anime is currently on hiatus.',
+            [
+              `Its **${text.ordinalize(nextep).replace('0th','') || 'next'}** episode`,
+              untilnextep
+              ? `is expected to air in **${duration(untilnextep, 'seconds')
+              .format('Y [year] M [month] D [day] H [hour] m [minute]')}**`
+              : 'airdate is still unknown'
+            ].join(' ')
+          ].join('\n')
+        }else if (existing.includes(entry.id)){
+          reason = [
+            'This anime is already on your watchlist!',
+            [
+              `Its **${text.ordinalize(nextep).replace('0th','') || 'next'}** episode`,
+              untilnextep
+              ? `is expected to air in **${duration(untilnextep, 'seconds')
+              .format('Y [year] M [month] D [day] H [hour] m [minute]')}**`
+              : 'airdate is still unknown'
+            ].join(' ')
+          ].join('\n')
+        } else {
+          reason = [
+            `This anime's **${text.ordinalize(nextep).replace('0th','') || 'next'}** episode`,
+            untilnextep
+            ? `is expected to air in **${duration(untilnextep, 'seconds')
+            .format('Y [year] M [month] D [day] H [hour] m [minute]')}**`
+            : 'airdate is still unknown'
+          ].join(' ')
+        };
 
-    profile.data.push(info.id)
-
-    return profile.save()
-      .then(()=> {
-        return message.channel.send(
-          new MessageEmbed()
-            .setColor(info.coverImage.color)
-            .setThumbnail(info.coverImage.large)
-            .setDescription(`Successfully added **${
-                info.title.romaji
-                ? info.title.romaji
-                : info.title.english
-                  ? info.title.english
-                  : info.title.native
-              }**!${
-                info.nextAiringEpisode
-                && info.nextAiringEpisode.timeUntilAiring
-                ? `\n\nThe anime's **${
-                    ordinalize(info.nextAiringEpisode.episode)
-                  } episode** is expected to air in **${
-                    duration(info.nextAiringEpisode.timeUntilAiring, 'seconds')
-                      .format('Y [year] M [month] D [day] H [hour] m [minute]')
-                  }**`
-                : '\n\nThe anime\'s next airdate is still unknown.'
-              }`)
-        )
-      })
-        .catch((err)=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`)
-    )
-  }
-}
+        return {
+          name: '\u200b', value: [
+            ['\\⚠️ Failed to add', '<a:animatedcheck:758316325025087500> Successfully added'][Number(filter)],
+            `[**${entry.title.romaji || entry.title.english || entry.title.native}**](${entry.siteUrl})`,
+            `\n${reason}`
+          ].join(' ')
+        };
+      }))
+    )).catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
+  })
+};

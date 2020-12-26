@@ -1,28 +1,28 @@
-const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
 
 module.exports = {
-  name: 'advice'
-  , aliases: [
-    'tips'
-    , 'advice'
-  ]
-  , group: 'fun'
-  , description: 'Generate a random useless advice'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , examples: []
-  , parameters: []
-  , run: async (client, message) => {
+  name: 'advice',
+  aliases: [ 'tip', 'tips', 'advise' ],
+  group: 'fun',
+  description: 'Generate a random useless advice',
+  clientPermissions: [ 'EMBED_LINKS' ],
+  get examples(){ return [ this.name, ...this.aliases ];},
+  run: async (client, message) => {
 
-    const data = await fetch("https://api.adviceslip.com/advice").then(res => res.json()).catch(()=>null)
+    const data = await fetch('https://api.adviceslip.com/advice')
+    .then(res => res.json())
+    .catch(() => null);
 
-    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Advice API is currently down!`)
+    if (!data){
+      return message.channel.send(`Server Error 5xx: Advice API is currently down!`);
+    };
 
-    const { slip : { advice } } = data
-
-    message.channel.send( new MessageEmbed().setColor('GREY').setDescription(`\u200B\n${advice}\n\u200B`).setFooter(`Advice | \©️${new Date().getFullYear()} Mai`))
-
+    return message.channel.send(
+      new MessageEmbed()
+      .setColor('GREY')
+      .setTitle(data.slip.advice)
+      .setFooter(`Advice | \©️${new Date().getFullYear()} Mai`)
+    );
   }
-}
+};

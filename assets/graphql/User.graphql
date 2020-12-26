@@ -1,0 +1,65 @@
+query($search: String){
+  User(search: $search){
+    name
+    about
+    avatar {
+      large
+      medium
+    }
+    bannerImage
+    options {
+      profileColor
+    }
+    siteUrl
+    favourites{
+      anime(perPage: 5) {
+        edges {
+          node{
+            title {
+              userPreferred
+            }
+            siteUrl
+          }
+        }
+      }
+      manga(perPage: 5) {
+        edges{
+          node{
+            title{
+              userPreferred
+            }
+            siteUrl
+          }
+        }
+      }
+      characters(perPage: 5) {
+        edges{
+          node{
+            name{
+              full
+            }
+            siteUrl
+          }
+        }
+      }
+      staff(perPage: 5) {
+        edges{
+          node{
+            name{
+              full
+            }
+            siteUrl
+          }
+        }
+      }
+      studios(perPage: 5) {
+        edges{
+          node{
+            name
+            siteUrl
+          }
+        }
+      }
+    }
+  }
+}

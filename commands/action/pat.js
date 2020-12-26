@@ -1,49 +1,46 @@
-const nekos = require('nekos.life')
-const { sfw: { pat } } = new nekos()
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'pat'
-  , aliases: ['headpat']
-  , guildOnly: true
-  , clientPermissions: [
+  name: 'pat',
+  aliases: ['headpat'],
+  guildOnly: true,
+  clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
-  ]
-  , group: 'action'
-  , description: 'It\'s not like I want you to use my command.. ~Baka!'
-  , examples: [
-      'pat @user'
-  ]
-  , parameters: ['User Mention']
-  , run: async ( client, message, args ) => {
+  ],
+  group: 'action',
+  description: 'It\'s not like I want you to use my command.. ~Baka!',
+  examples: [ 'pat @user' ],
+  parameters: [ 'User Mention' ],
+  run: async ( client, message, args ) => {
 
-    const { url } = await pat().catch(()=>{})
+    // Filter out args so that args are only user-mention formats.
+    args = args.filter(x => /<@!?\d{17,19}>/.test(x))
 
-  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
+    const url = client.images.pat();
+    const embed = new MessageEmbed()
+    .setColor('GREY')
+    .setImage(url)
+    .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-  if (!message.mentions.members.size || message.mentions.members.first().id === message.author.id)
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setDescription(`Here you go ${message.member}, \*pat* \*pat*`)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+    if (!message.mentions.members.size){
 
-  if (message.mentions.members.first().id === client.user.id)
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setDescription(`UwU <3! Thanks!`)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+      message.channel.send(embed.setDescription(`Here you go ${message.member}, \*pat* \*pat*`));
 
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setDescription(`${message.member} pats ${message.mentions.members.first()}`)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+    } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
+      return message.channel.send(embed.setDescription('UwU <3! Thanks!'));
+
+    } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
+
+      return message.channel.send(embed.setDescription(`Here you go ${message.member}, \*pat* \*pat*`));
+
+    } else {
+
+      return message.channel.send(
+        embed.setDescription(`${message.member} pats ${args[0]}!`)
+      );
+
+    };
   }
-}
+};

@@ -1,50 +1,29 @@
-const { MessageEmbed } = require("discord.js")
-const fetch = require('node-fetch')
+const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
 
 module.exports = {
-  name: 'meme'
-  , aliases: [
-    'humorme'
-  ]
-  , group: 'fun'
-  , description: 'Generate a random meme from a selected subreddit.'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , examples: [
-    'meme'
-  ]
-  , parameters: []
-  , run: async ( client, message ) => {
+  name: 'meme',
+  aliases: [ 'humorme' ],
+  group: 'fun',
+  description: 'Generate a random meme from a select subreddit.',
+  clientPermissions: [ 'EMBED_LINKS' ],
+  get examples(){ return [ this.name, ...this.aliases ];},
+  run: async (client, message) => {
 
     const data = await fetch(`https://meme-api.herokuapp.com/gimme`)
-            .then(res => res.json())
-              .catch(()=>null)
+    .then(res => res.json())
+    .catch(()=>null);
 
-    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Sorry, seems like i can't connect to memeAPI.`)
-
-    const {
-        title
-      , postLink
-      , url
-      , subreddit
-    } = data
+    if (!data){
+      return message.channel.send(`Server Error 5xx: Meme API is currently down!`);
+    };
 
     return message.channel.send(
-
       new MessageEmbed()
-      .setAuthor(
-          title
-        , null
-        , postLink
-      )
-
       .setColor('GREY')
-
-      .setImage(url)
-
-      .setFooter(`${subreddit}:Meme | \©️${new Date().getFullYear()} Mai`)
-
-    )
+      .setImage(data.url)
+      .setAuthor(data.title, null, data.postLink)
+      .setFooter(`${data.subreddit}:Meme | \©️${new Date().getFullYear()} Mai`)
+    );
   }
-}
+};

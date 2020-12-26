@@ -1,45 +1,11 @@
-const { AniListSchedule: startScheduledAnnouncement, VoteManager } = require('../helper')
-const { MessageEmbed } = require('discord.js')
+const consoleUtil = require(`${process.cwd()}/util/console`);
+const text = require(`${process.cwd()}/util/string`);
 
+module.exports = async client => {
 
-module.exports = client => {
+  consoleUtil.success(`${client.user.username} is now Online! (Loaded in ${client.bootTime} ms)\n\n`);
 
-  client.guildsettings.load()
-
-  console.log(`
-${client.user.username} is now online!
-
-    Startup Statistics:
-Servers:  ||  ${client.guilds.cache.size}
-Channels: ||  ${client.channels.cache.size}
-Users:    ||  ${client.users.cache.size}
-Commands: ||  ${client.commands.size}
-
-<=======BOT LOGS WILL SHOW HERE======>`)
-
-
-startScheduledAnnouncement(client)
-
-VoteManager.dblPost(client)
-
-const loggingchannel = client.channels.cache.get('761935856331128837')
-if (loggingchannel) loggingchannel.send(
-    new MessageEmbed()
-    .setColor('GREY')
-    .setThumbnail(client.user.displayAvatarURL())
-    .setDescription(
-        'Restarted **'
-      + client.user.tag
-      + '**. Up and ready to serve on '
-      + client.guilds.cache.size + ' servers, '
-      + client.channels.cache.size + ' channels, and '
-      + client.users.cache.size + ' unique users, with over '
-      + client.commands.size + ' commands readily available for use!'
-     )
-    .setFooter(
-        'Boot Time \u200b • \u200b '
-      + parseInt(client.readyAt - client.bootTimeStart)
-      + ' ms.\u2000\u2000\u2000 | \u2000\u2000\u2000Last Boot '
-    ).setTimestamp()
-  )
-}
+  const channel = client.channels.cache.get(client.config.channels.logs);
+  channel?.send(`**REBOOT**: **${client.user.tag}** Just booted!\nServerCount = \`${text.commatize(client.guilds.cache.size)}\`, MemberCount = \`${text.commatize(client.guilds.cache.reduce((a,b) => a + b.memberCount, 0))}\`, Commands = \`${client.commands.size}\`, Boot Time = \`${client.bootTime}ms\``)
+  .catch(() => {});
+};

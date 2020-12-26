@@ -1,41 +1,66 @@
 module.exports = {
-  name: 'hackban',
+  name: 'ban',
   aliases: [],
   guildOnly: true,
-  permissions: ['BAN_MEMBERS'],
-  clientPermissions: ['BAN_MEMBERS'],
+  permissions: [ 'BAN_MEMBERS' ],
+  clientPermissions: [ 'BAN_MEMBERS' ],
   group: 'moderation',
-  description: 'bans a user, whether or not they are in the server.',
-  examples: ['hackban 0123456789012345678'],
-  parameters: ['user ID'],
-  run: async (client, message, [ mention, ...reason]) => {
+  description: 'bans a user when they are not in the server.',
+  parameters: [ 'User ID', 'Ban Reason'],
+  get examples(){ return [ this.name + ' ' + '@user <reason>'];},
+  run: async (client, message, [user = '', ...reason] ) => {
 
-    if (!mention || !mention.match(/\d{17,19}/))
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please supply the ID of the user to ban.`)
+    if (!user.match(/\d{17,19}/)){
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please provide the ID of the user to ban.`);
+    };
 
-    let user = await client.users.fetch(mention.match(/\d{17,19}/)[0]).catch(()=>null)
+    user = await client.users
+    .fetch(user.match(/\d{17,19}/)[0])
+    .catch(() => null);
 
-    if (!user)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Invalid user ID. Please supply a valid Discord User ID.`)
+    if (!user){
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, User could not be found! Please ensure the supplied ID is valid.`);
+    };
 
-    if (user.id === message.author.id)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot ban yourself!`)
+    if (user.id === message.guild.ownerID){
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot ban a server owner!`);
+    };
 
-    if (user.id === client.user.id)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please don't ban me!`)
+    member = await message.guild.members
+    .fetch(user.id)
+    .catch(() => false);
 
-    if (user.id === message.guild.ownerID)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot ban a server owner!`)
+    if (!!member){
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Hackban will skip a role validation check! Please use \`ban\` command instead if the user is in your server.`);
+    };
 
-    if (client.config.owners.includes(user.id))
+    if (user.id === message.author.id){
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot ban yourself!`);
+    };
+
+    if (user.id === client.user.id){
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please don't ban me!`);
+    };
+
+    if (client.config.owners.includes(user.id)){
       return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, No, you can't ban my developers through me!`)
+    };
 
+    await message.channel.send(`Are you sure you want to ban **${user.tag}** from this server? (y/n)`)
 
-    reason = reason.length ? reason.join(' ') : 'None'
+    const filter = _message => message.author.id === _message.author.id && ['y','n','yes','no'].includes(_message.content.toLowerCase());
+    const options = { max: 1, time: 30000, errors: ['time'] };
 
-    message.guild.members.ban(user, { reason:  `MAI_HACK_BANS: ${message.author.tag}: ${reason}` })
-      .then(()=> message.channel.send(`Successfully hackbanned **${user.tag}**! (${user.id})${user.bot ? ' **(BOT)**':''}`))
-        .catch(()=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Unable to hackban **${user.tag}**! (${user.id})`))
+    const proceed = await message.channel.awaitMessages(filter, options)
+    .then(collected => ['y','yes'].includes(collected.first().content.toLowerCase()) ? true : false)
+    .catch(() => false);
 
+    if (!proceed){
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cancelled the hackban command!`);
+    };
+
+    return message.guild.members.ban(user, { reason: `MAI Hackban Command: ${message.author.tag}: ${reason.join(' ') || 'Unspecified'}`})
+    .then(_user => message.channel.send(`Successfully banned **${_user.tag}** from this server!`))
+    .catch(() => message.channel.send(`Failed to ban **${user.tag}**!`));
   }
-}
+};

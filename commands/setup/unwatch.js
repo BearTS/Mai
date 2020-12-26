@@ -1,11 +1,5 @@
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
-const {
-    MongooseModels: {
-      guildWatchlistSchema
-  }
-  , AniListQuery: query
-} = require('../../helper')
+const { MessageEmbed } = require('discord.js');
+const list = require(`${process.cwd()}/models/GuildWatchlist`);
 
 module.exports = {
   name: 'unwatch',
@@ -14,105 +8,77 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: ['Removes a watched anime from your watchlist'],
-  examples: ['unwatch https://myanimelist.net/anime/37450/Seishun_Buta_Yarou_wa_Bunny_Girl_Senpai_no_Yume_wo_Minai'],
-  parameters: ['Anilist or MAL entry link'],
-  run: async ( client, message, args ) => {
+  requiresDatabase: true,
+  parameters: [ 'Anilist/Mal link' ],
+  get examples(){ return [ this.name, ...this.aliases].map(x => `${x} <url>`)},
+  run: (client, message, links) => list.findById(message.guild.id, async (err, doc) => {
 
-    if (client.guildsettings.profiles.get(message.guild.id).featuredChannels.anisched === null)
-    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Anischedule Feature has been disabled in this server.`)
+    if (err){
+      return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+    };
 
+    // If there is no entry for the current guild, create a new one.
+    if (!doc){
+      doc = new list({ _id: message.guild.id });
+    };
 
-    let profile = await guildWatchlistSchema.findOne({
-      guildID: message.guild.id
-    }).catch(err => err)
+    const id = [];
+    const idMal = [];
+    for (const entry of links){
+      const mal = (entry.match(/(?<=myanimelist\.net\/anime\/)\d{1,}/gi)||[]);
+      const al = (entry.match(/(?<=anilist\.co\/anime\/)\d{1,}/gi)||[]);
+      const al_id = Number(entry);
 
+      id.push(...[...al, al_id].map(x => Number(x)).filter(Boolean));
+      idMal.push(...mal.map(x => Number(x)).filter(Boolean));
+    };
 
-    if (!profile)
-      profile = await new guildWatchlistSchema({
-        guildID: message.guild.id
-      }).catch(err => err)
+    const res = [];
 
-    if (profile instanceof MongooseError)
-      return message.channel.send(
-        new MessageEmbed().setColor('RED')
-          .setDescription(
-            '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-          + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-          + '\u2000\u2000\n\n\u200b'
-        )
-      )
+    for (const [key, ids] of Object.entries({ id, idMal })){
+      if (!ids.length){
+        continue;
+      };
 
-    if (!args.length)
-    return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You need to provide the anime link(s) to unwatch for.`)
+      const query = await client.anischedule.fetch(`query($ids: [Int]){ Page(perPage: 25){ media(${key}_in: $ids type: ANIME){ id title { romaji english native userPreferred } status coverImage{ large color } siteUrl nextAiringEpisode{ episode timeUntilAiring } } } }`, { ids })
 
-    let mal = (/(?<=myanimelist\.net\/anime\/)(.\d*)/gi).test(args.join(' '))
-            ? args.join(' ').match(/(?<=myanimelist\.net\/anime\/)(.\d*)/gi)[0]
-            : null
-    let al  = (/(?<=anilist\.co\/anime\/)(.\d*)/gi).test(args.join(' '))
-            ? args.join(' ').match(/(?<=anilist\.co\/anime\/)(.\d*)/gi)[0]
-            : null
+      if (query.errors){
+        return message.channel.send(`\\❌ Unable to connect to AniList. Please try again later`);
+      };
 
-    if (!mal && !al)
-        return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You need to provide the anime link(s) to unwatch for.`)
+      res.push(...query.data.Page.media);
+    };
 
-        const info = mal
-                ? await query('query ($Id: Int) {Media(idMal: $Id, type: ANIME) {id title { romaji english native } status coverImage { large color} nextAiringEpisode { episode timeUntilAiring}}}', { Id: mal })
-                  .then(res => {
-                    if (res.errors) return res
-                    return res.data.Media
-                  })
-                : await query('query ($watched: Int) { Media(id: $watched, type: ANIME) {id title { romaji english native } status coverImage{ large color } nextAiringEpisode{ episode timeUntilAiring}}}',{ watched:al })
-                  .then(res => {
-                    if (res.errors) return res
-                    return res.data.Media
-                  })
+    if (!res.length){
+      return message.channel.send(`\\❌ None of the provided links/ids matches anime from AniList!`);
+    };
 
-    if (info.errors && info.errors[0].status !== 404)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Couldn't contact Anilist.co. Please try again in a minute.`)
+    const tbd = res.filter(x => doc.data.includes(x.id)).map(x => x.id);
+    const exc = res.filter(x => !doc.data.includes(x.id)).map(x => x.id);
+    doc.data = doc.data.filter(d => !tbd.some(t => t === d));
 
-    if (info.errors && info.errors[0].status === 404)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The link you provided does not match any anime.`)
+    doc.save()
+    .then(() => message.channel.send(
+      new MessageEmbed()
+      .setColor(res.sort((A,B) => B.id - A.id)[0].coverImage.color)
+      .setThumbnail(res.sort((A,B) => B.id - A.id)[0].coverImage.large)
+      .setAuthor('Removing from watchlist')
+      .setFooter(`Unwatch | \©️${new Date().getFullYear()} Mai`)
+      .addFields(res.splice(0,25).sort((A,B) => B.id - A.id).map(entry => {
+        const mediatitle = entry.title.romaji || entry.title.english || entry.title.native;
+        const name = '\u200b';
+        let value = '\u200b';
 
-    if (!info)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The link you provided does not match any anime.`)
-
-    if (!profile.data.includes(info.id))
-      return message.channel.send(
-        new MessageEmbed()
-        .setColor('RED')
-        .setThumbnail(info.coverImage.large)
-        .setDescription(
-         '\u200b\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-        + `The anime **${
-         info.title.romaji
-         ? info.title.romaji
-           : info.title.english
-           ? info.title.english
-             : info.title.native
-         }** is currently not on your watchlist. \n[Use \`watch\` to watch for it instead. Note that finished airing anime cannot be added.]\u2000\u2000\n\u200b`
-       )
-     )
-
-    profile.data.splice(profile.data.indexOf(info.id), 1)
-
-    return profile.save()
-      .then(()=> {
-        return message.channel.send(
-          new MessageEmbed()
-            .setColor(info.coverImage.color)
-            .setThumbnail(info.coverImage.large)
-            .setDescription(`Successfully removed **${
-                info.title.romaji
-                ? info.title.romaji
-                : info.title.english
-                  ? info.title.english
-                  : info.title.native
-              }**!`)
-        )
-      })
-        .catch((err)=> message.channel.send(`<:cancel:767062250279927818> | ${message.author}, There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.`)
-    )
-
-
-  }
-}
+        if (tbd.includes(entry.id)){
+          value = `<a:animatedcheck:758316325025087500> Successfully removed [**${mediatitle}**](${entry.siteUrl})`;
+        } else {
+          value = [
+            `\\⚠️ Failed to remove [**${mediatitle}**](${entry.siteUrl})`,
+            'This entry is not on your list!'
+          ].join('\n')
+        };
+        return { name, value };
+      }))
+    )).catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
+  })
+};

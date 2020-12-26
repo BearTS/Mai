@@ -1,0 +1,508 @@
+[
+  {
+    "id": 1,
+    "name": "Default background",
+    "description": "Default background for profile command.",
+    "type": "background",
+    "deletable": false,
+    "giftable": false,
+    "price": 0,
+    "assets": {
+      "link": "https://i.imgur.com/57eRI6H.jpg"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Default Pattern",
+    "description": "Default pattern for profile command.",
+    "type": "pattern",
+    "deletable": false,
+    "giftable": false,
+    "price": 0,
+    "assets": {
+      "link": "https://i.imgur.com/nx5qJUb.png"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Midas' Golden Wreath",
+    "description": "Wreath touched by Midas'.",
+    "type": "wreath",
+    "deletable": true,
+    "giftable": true,
+    "price": 6000,
+    "assets": {
+      "link": "https://i.imgur.com/xsZHQcW.png"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Bronze Wreath",
+    "description": "An ancient wreath used to repel demons of ancient times. Not that it is useful for today.",
+    "type": "wreath",
+    "deletable": true,
+    "giftable": true,
+    "price": 3500,
+    "assets": {
+      "link": "https://i.imgur.com/NmpP8oU.png"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Green Wreath",
+    "description": "For Nature By Nature.",
+    "type": "wreath",
+    "deletable": true,
+    "giftable": true,
+    "price": 2750,
+    "assets": {
+      "link": "https://i.imgur.com/bzhoYpa.png"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Common Wreath",
+    "description": "Usual decorative wreaths found at homes' doors.",
+    "type": "wreath",
+    "deletable": true,
+    "giftable": true,
+    "price": 1500,
+    "assets": {
+      "link": "https://i.imgur.com/NSEbnek.png"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Blissful Mai",
+    "description": "Uncommon Profile background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 10000,
+    "assets": {
+      "link": "https://i.imgur.com/JXZRmRt.png"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Mai in Cherry Blossom",
+    "description": "Rare Profile background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/gSfM6CM.jpg"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Mai and Sakuta",
+    "description": "Rare Profile background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/upIlJZ8.png"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Dopey Mai",
+    "description": "Super Rare Profile background",
+    "type": "background",
+    "deletable": true,
+    "giftable": false,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/NsMXWyL.jpg"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Bunny Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/bnLhXeW.jpg"
+    }
+  },{
+    "id": 12,
+    "name": "Mai Approves Emblem",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/5ncD8Hz.png"
+    }
+  },{
+    "id": 13,
+    "name": "Boruto in Black",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 10000,
+    "assets": {
+      "link": "https://i.imgur.com/ihUUy81.png"
+    }
+  },{
+    "id": 14,
+    "name": "Frost Girl",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/6XnvjHM.png"
+    }
+  },{
+    "id": 15,
+    "name": "Hokage at Dawn",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 10000,
+    "assets": {
+      "link": "https://i.imgur.com/vNpxJtf.png"
+    }
+  },{
+    "id": 16,
+    "name": "Hunter Cha Hae-In",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/lHh6JTX.png"
+    }
+  },{
+    "id": 17,
+    "name": "Hunter Sung Jin-Woo",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 0,
+    "assets": {
+      "link": "https://i.imgur.com/qDij2SD.png"
+    }
+  },{
+    "id": 18,
+    "name": "Isla Plastic Memories",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 10000,
+    "assets": {
+      "link": "https://i.imgur.com/gpHh7Rj.png"
+    }
+  },{
+    "id": 19,
+    "name": "Kawaii Shoujo",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 10000,
+    "assets": {
+      "link": "https://i.imgur.com/dHZS2ko.png"
+    }
+  },{
+    "id": 20,
+    "name": "Ken Kaneki",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/kHMAeb2.png"
+    }
+  },{
+    "id": 21,
+    "name": "Megumin",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/lq4QeWB.png"
+    }
+  },{
+    "id": 22,
+    "name": "Mikasa Ackerman",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/M4v5XyW.png"
+    }
+  },{
+    "id": 23,
+    "name": "Miku Hatsune 01",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/Vx9euUN.png"
+    }
+  },{
+    "id": 24,
+    "name": "Miku Hatsune 02",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/b62wIhR.png"
+    }
+  },{
+    "id": 25,
+    "name": "Moon Dive",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/DV3ep4l.png"
+    }
+  },{
+    "id": 26,
+    "name": "Nekomimi",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 10000,
+    "assets": {
+      "link": "https://i.imgur.com/AWQ9krI.png"
+    }
+  },{
+    "id": 27,
+    "name": "Neon Lights Purple",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/sjpzBNi.png"
+    }
+  },{
+    "id": 28,
+    "name": "Red Demon Girl",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/5P1H76f.png"
+    }
+  },{
+    "id": 29,
+    "name": "Shadow Monarch's Pride",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/kLw1PIj.png"
+    }
+  },{
+    "id": 30,
+    "name": "Shana to Tsuki",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/CwaB6XQ.png"
+    }
+  },{
+    "id": 31,
+    "name": "Shinobu Kocho",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/miTkqJI.png"
+    }
+  },{
+    "id": 32,
+    "name": "Sukuna JJK",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/b6o232P.png"
+    }
+  },{
+    "id": 33,
+    "name": "Swordswoman",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/oFh8E17.png"
+    }
+  },{
+    "id": 34,
+    "name": "Violet Evergarden",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/qQ4bFJg.png"
+    }
+  },{
+    "id": 35,
+    "name": "Monkey D. Ruffie",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/a8u2Am3.png"
+    }
+  },{
+    "id": 36,
+    "name": "Nezuko",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/gSXFVff.png"
+    }
+  },{
+    "id": 37,
+    "name": "2turu",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/Ngamnoy.png"
+    }
+  },{
+    "id": 38,
+    "name": "PotatoGirl",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/UwNj1X3.png"
+    }
+  },{
+    "id": 39,
+    "name": "Bam",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/fAeG65b.png"
+    }
+  },{
+    "id": 40,
+    "name": "Raughh",
+    "description": "Super Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 32000,
+    "assets": {
+      "link": "https://i.imgur.com/bmlGTTC.png"
+    }
+  },{
+    "id": 41,
+    "name": "Cat Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/hErtLVO.png"
+    }
+  },{
+    "id": 42,
+    "name": "Kawaii Bear Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/myWPBD1.png"
+    }
+  },{
+    "id": 43,
+    "name": "Bunny Stars Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/ddSbnUP.png"
+    }
+  },{
+    "id": 44,
+    "name": "Santa Hat",
+    "description": "Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/rg52vLS.png"
+    }
+  },{
+    "id": 45,
+    "name": "Bunny Ears",
+    "description": "Super Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/wJ4wuxL.png"
+    }
+  }
+]
