@@ -1,6 +1,5 @@
-const { MongooseModels: { guildProfileSchema }} = require('../../helper')
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
+const guilds = require(`${process.cwd()}/models/GuildProfile`);
 
 module.exports = {
   name: 'setwelcomemsg',
@@ -9,377 +8,408 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Set up the welcome message. Supports Embeds!',
-  examples: ['[Learn how to set up your server greeter](https://mai-san.ml/)'],
-  parameters: [],
-  run: async (client, message, [stats, ...args]) => {
+  requiresDatabase: true,
+  run: (client, message, [stats = '', ...args]) => guilds.findById(message.guild.id, (err, doc) => {
 
-    if (!stats || !['default', 'msg=true', 'embed=true', 'msg=set', 'embed=set', 'test'].includes(stats))
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + `Please include the option parameter.
-        \n[Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-      ).setColor('RED')
-    )
+    stats = stats.toLowerCase();
+    const profile = client.guildProfiles.get(message.guild.id);
 
-    let data = await guildProfileSchema.findOne({guildID: message.guild.id})
-    let profile = client.guildsettings.get(message.guild.id)
+    if (err){
+      return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+    } else if (!doc){
+      doc = new guilds({ _id: message.guild.id });
+    };
 
-    if (!data || data instanceof MongooseError)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-      ).setColor('RED')
-    )
+    if (!stats || !stats.match(/default|(msg|embed)=true|(msg|embed)=set|test/)){
+      return message.channel.send(
+        new MessageEmbed()
+        .setColor('RED')
+        .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+        .setDescription([
+          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+          'Please include the option parameter\n\n',
+          '[Learn more](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+          'on how to configure Mai\'s Member Greeter feature.'
+        ].join(''))
+      )
+    };
 
-    //sets the welcome message to default
     if (stats === 'default'){
-      data.welcomeUse = 'default'
-      return data.save().then(data => {
-        profile.welcome.use = data.welcomeUse
+      doc.greeter.welcome.type = 'default';
+      return doc.save()
+      .then(() => {
+        profile.greeter.welcome.type =  'default';
         return message.channel.send(
-          new MessageEmbed().setDescription(
-            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-            + `Member Greeter Feature message has been successfully reverted to **default**!
-            \nIncoming members will now be greeted by Mai's default greet message.
-            To change the message, use \`${client.config.prefix}setwelcomemsg [options] [additional parameters]\`
-            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-          ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
-        ).catch(() =>
-           message.channel.send(
-            new MessageEmbed().setDescription(
-              `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
-            `).setColor('RED')
-          )
-        )
-      })
-    }
-
-    if (stats === 'msg=true'){
-      if (!data.welcomemsg)
-      return message.channel.send(
-        new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-          + `Unable to change the greet message to **text mode**!
-          \nMake sure you have already set a greet message (plain text) before you run this command.
-          To set  the message, use \`${client.config.prefix}setwelcomemsg msg=set [message content]\`
-          [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-        ).setColor('RED')
-      )
-
-      data.welcomeUse = 'msg'
-      return data.save().then(data => {
-        profile.welcome.use = data.welcomeUse
+          new MessageEmbed()
+          .setColor('GREEN')
+          .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+          .setDescription([
+            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+            'Member Greeter Feature message has been successfully reverted to **default**!\n\n',
+            'Incoming members will now be announced by Mai\'s default announce message.\n',
+            `To change the message, use \`${client.prefix}setwelcomemsg [options] [additional parameters]\`\n`,
+            '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+            'on how to configure Mai\'s Member Greeter feature.'
+          ].join(''))
+        );
+      }).catch(() => sendError(message));
+    } else if (stats === 'msg=true'){
+      if (!doc.greeter.welcome.message){
         return message.channel.send(
-          new MessageEmbed().setDescription(
-            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-            + `Member Greeter Feature message has been successfully changed to **text mode**!
-            \nIncoming members will now be greeted by your guild's configured greet message.
-            To change the message, use \`${client.config.prefix}setwelcomemsg [options] [additional parameters]\`
-            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-          ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
-        ).catch(() =>
-           message.channel.send(
-            new MessageEmbed().setDescription(
-              `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
-            `).setColor('RED')
-          )
-        )
-      })
-    }
-
-    if (stats === 'embed=true'){
-      if (!data.welcomeEmbed || isEmpty(data.welcomeEmbed))
-      return message.channel.send(
-        new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-          + `Unable to change the greet message to **embed mode**!
-          \nMake sure you have already set a greet message (embed) before you run this command.
-          To set the message, use \`${client.config.prefix}setwelcomemsg embed=set [embed details]\`
-          [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-        ).setColor('RED')
-      )
-
-      data.welcomeUse = 'embed'
-      return data.save().then(data => {
-        profile.welcome.use = data.welcomeUse
-        return message.channel.send(
-          new MessageEmbed().setDescription(
-            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-            + `Member Greeter Feature message has been successfully changed to **embed mode**!
-            \nIncoming members will now be greeted by your guild's configured greet message.
-            To change the message, use \`${client.config.prefix}setwelcomemsg [options] [additional parameters]\`
-            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-          ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
-        ).catch(() =>
-           message.channel.send(
-            new MessageEmbed().setDescription(
-              `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
-            `).setColor('RED')
-          )
-        )
-      })
-    }
-
-    if (stats === 'msg=set'){
-      if (!args.length)
-      return message.channel.send(
-        new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-          + `Please enter a greeter message after the \`[options]\` parameter!
-          \nYou can use modifiers too to use dynamic information like the incoming member's name, guild name, and guild membercount!
-          [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-        ).setColor('RED')
-      )
-
-      data.welcomemsg = args.join(' ')
-      return data.save().then(data => {
-        profile.welcome.message = data.welcomemsg
-        return message.channel.send(
-          new MessageEmbed().setDescription(
-            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-            + `Member Greeter Feature message has been set!
-            \nYou may now use this message on member joins via \`${client.config.prefix}setwelcomemsg msg=true\`
-            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-          ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
-        ).catch(() =>
-           message.channel.send(
-            new MessageEmbed().setDescription(
-              `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
-            `).setColor('RED')
-          )
-        )
-      })
-    }
-
-    if (stats === 'embed=set'){
-      if (!args.length)
-      return message.channel.send(
-        new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-          + `Please enter the embed options after the \`[options]\` parameter!
-          \nYou can use modifiers too to use dynamic information like the incoming member's name, guild name, and guild membercount!
-          [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-        ).setColor('RED')
-      )
-
-      //matches anything inside the bracket after -author=image:, -author=name:, etc
-      //matches "https://i.imgur.com/asdasx.png" in "-author=image:[https://i.imgur.com/asdasx.png]"
-      //returns undefined if matches nothing
-      function matchFor(option, str){
-        const regex = '(?<=' + option + ':\\[)[\\s\\S]+?(?=])';
-        const res = str.match(new RegExp (regex, 'g')) || [];
-        return res[0];
-      }
-
-      //tests if the passed string is a valid url format or not
-      //returns a Boolean
-      function websiteTest(str){
-        if (str.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
-        return true
-        return false
-      }
-
-      //temporarily removed support for Embed fields and timestamp
-      const embedProps = {
-        authorImageURL: matchFor('-author=image', args.join(' ')),
-        authorName: matchFor('-author=name', args.join(' ')),
-        authorURL: matchFor('-author=url', args.join(' ')),
-        title: matchFor('-title', args.join(' ')),
-        url: matchFor('-url', args.join(' ')),
-        description: matchFor('-description', args.join(' ')),
-        thumbnail: matchFor('-thumbnail', args.join(' ')),
-        color: matchFor('-color', args.join(' ')),
-        image: matchFor('-image', args.join(' ')),
-        footerText: matchFor('-footer=text', args.join(' ')),
-        footerImage: matchFor('-footer=image', args.join(' '))
-      }
-
-      const success = [] // Stores confirmation messages if embed values are succesfully saved
-      const fails = [] // Stores fail messages if embed values provided cannot be saved
-      const validModifiers =  ['{avatar}','{avatarDynamic}','{guildIcon}','{guildIconDynamic}','{guildOwnerAvatar}','{guildOwnerAvatarDynamic}','{userAvatar}','{userAvatarDynamic}']
-      //>>>>START>>>>>>>>*double checking variables**>>>>>>>>>//
-
-      //------------testing validity of URL-------------------//
-
-      for (let [key, value] of Object.entries(embedProps).filter(x => ['authorImageURL', 'authorURL', 'url', 'thumbnail', 'image', 'footerImage'].includes(x[0]))){
-
-        if (!value) continue
-
-        if (
-          !websiteTest(value)
-          && !(
-            ['authorImageURL', 'thumbnail', 'image', 'footerImage'].includes(key)
-            && validModifiers.includes(value)
-          )
-        ) {
-          embedProps[key] = undefined
-          fails.push(`The provided **${key}** is invalid. Please ensure the validity of the URL.`)
-        } else {
-        success.push(`**Embed#${key}** has successfully been set!`)
-        }
-      }
-
-      //-----------testing validity of color------------------//
-
-      if (embedProps.color && !embedProps.color.match(/#[a-f0-9]{6}/i)){
-        embedProps.color = undefined
-        fails.push('The provided **Color Hex Code** is invalid. Please make sure you are passing a valid Hex Code')
+          new MessageEmbed()
+          .setColor('RED')
+          .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+          .setDescription([
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+            'Unable to change the welcome message to **text mode**!\n\n',
+            'Make sure you have already set a welcome message (plain text) before you run this command.\n',
+            `To set the message, use \`${client.prefix}setwelcomemsg msg=set [message content]\`\n`,
+            '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+            'on how to configure Mai\'s Member Greeter feature.'
+          ].join(''))
+        );
       } else {
-        if (embedProps.color)
-        success.push('**Embed#color** has successfully been set!')
-      }
-
-
-      //----------testing string lengths-----------------------//
-
-      for (let [key, value] of Object.entries(embedProps)){
-        if (!['authorName', 'title', 'description', 'footerText'].includes(key) || !value)
-        continue;
-
-        const limits = {
-          title: 256,
-          description: 2048,
-          authorName: 256,
-          footerText: 2048
+        doc.greeter.welcome.type = 'msg';
+        return doc.save()
+        .then(() => {
+          profile.greeter.welcome.type = 'msg';
+          return message.channel.send(
+            new MessageEmbed()
+            .setColor('GREEN')
+            .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+            .setDescription([
+              '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+              'Member Greeter Feature message has been successfully changed to **text mode**!\n\n',
+              'Incoming members will now be announced through your guild\'s configured welcome message.\n',
+              `To change the message, use \`${client.prefix}setwelcomemsg [options] [additional parameters]\`\n`,
+              '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+              'on how to configure Mai\'s Member Greeter feature.'
+            ].join(''))
+          );
+        }).catch(() => sendError(message))
+      };
+    } else if (stats === 'embed=true'){
+      if (!doc.greeter.welcome.embed || !Object.entries(doc.greeter.welcome.embed).length){
+        return message.channel.send(
+          new MessageEmbed()
+          .setColor('RED')
+          .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+          .setDescription([
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+            'Unable to change the welcome message to **embed mode**!\n\n',
+            'Make sure you have already set a welcome message (embed) before you run this command.\n',
+            `To set the message, use \`${client.prefix}setwelcomemsg embed=set [embed details]\`\n`,
+            '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+            'on how to configure Mai\'s Member Greeter feature.'
+          ].join(''))
+        );
+      } else {
+        doc.greeter.welcome.type = 'embed'
+        return doc.save()
+        .then(() => {
+          profile.greeter.welcome.type = 'embed';
+          return message.channel.send(
+            new MessageEmbed()
+            .setColor('GREEN')
+            .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+            .setDescription([
+              '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+              'Member Greeter Feature message has been successfully changed to **embed mode**!\n\n',
+              'Incoming members will now be announced through your guild\'s configured welcome message.\n',
+              `To change the message, use \`${client.prefix}setwelcomemsg [options] [additional parameters]\`\n`,
+              '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+              'on how to configure Mai\'s Member Greeter feature.'
+            ].join(''))
+          );
+        }).catch(() => sendError(message))
+      };
+    } else if (stats === 'msg=set'){
+      if (!args.length){
+        return message.channel.send(
+          new MessageEmbed()
+          .setColor('RED')
+          .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+          .setDescription([
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+            'Please enter a welcome message after the \`[options]\` parameter!\n\n',
+            'You can use modifiers too to use dynamic information like the Incoming member\'s name, guild name, and guild membercount!\n',
+            '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+            'on how to configure Mai\'s Member Greeter feature.'
+          ].join(''))
+        )
+      } else {
+        doc.greeter.welcome.message = args.join(' ');
+        return doc.save()
+        .then(() => {
+          profile.greeter.welcome.message = doc.greeter.welcome.message;
+          return message.channel.send(
+            new MessageEmbed()
+            .setColor('GREEN')
+            .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+            .setDescription([
+              '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+              'Member Greeter Feature message has been set!\n\n',
+              `You may now use this message on member leaves via \`${client.prefix}setwelcomemsg msg=true\`\n`,
+              '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+              'on how to configure Mai\'s Member Greeter feature.'
+            ].join(''))
+          );
+        }).catch(() => sendError(message))
+      };
+    } else if (stats === 'embed=set') {
+      if (!args.length){
+        return message.channel.send(
+          new MessageEmbed()
+          .setColor('RED')
+          .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+          .setDescription([
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+            'Please enter the embed options after the \`[options]\` parameter!\n\n',
+            'You can use modifiers too to use dynamic information like the Incoming member\'s name, guild name, and guild membercount!\n',
+            '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+            'on how to configure Mai\'s Member Greeter feature.'
+          ].join(''))
+        );
+      } else {
+        //matches anything inside the bracket after -author=image:, -author=name:, etc
+        //matches "https://i.imgur.com/asdasx.png" in "-author=image:[https://i.imgur.com/asdasx.png]"
+        //returns undefined if matches nothing
+        function matchFor(option, str){
+          const regex = '(?<=' + option + ':\\[)[\\s\\S]+?(?=])';
+          const res = str.match(new RegExp (regex, 'g')) || [];
+          return res[0];
         }
 
-        if (value.length > limits[key]){
-          embedProps[key] = undefined
-          fails.push(`Embed **${key}** is only limited to ${limits[key]} characters. Yours have ${value.length}`)
-        } else {
-          success.push(`**Embed#${key}** has successfully been set!`)
+        //tests if the passed string is a valid url format or not
+        //returns a Boolean
+        function websiteTest(str){
+          if (str.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
+          return true
+          return false
         }
-      }
 
-      //>>>>>END>>>>>>>>>>*double checking variables*>>>>>>>>>>//
-      //>>>>>>>>>**Check if new incoming data are present>>>>>>//
+        //temporarily removed support for Embed fields and timestamp
+        const embedProps = {
+          authorImageURL: matchFor('-author=image', args.join(' ')),
+          authorName: matchFor('-author=name', args.join(' ')),
+          authorURL: matchFor('-author=url', args.join(' ')),
+          title: matchFor('-title', args.join(' ')),
+          url: matchFor('-url', args.join(' ')),
+          description: matchFor('-description', args.join(' ')),
+          thumbnail: matchFor('-thumbnail', args.join(' ')),
+          color: matchFor('-color', args.join(' ')),
+          image: matchFor('-image', args.join(' ')),
+          footerText: matchFor('-footer=text', args.join(' ')),
+          footerImage: matchFor('-footer=image', args.join(' '))
+        }
 
-      if (!success.length){
-        if (!fails.length) // no fails and success detected means improper args were passed
+        const success = [] // Stores confirmation messages if embed values are succesfully saved
+        const fails = [] // Stores fail messages if embed values provided cannot be saved
+        const validModifiers =  ['{avatar}','{avatarDynamic}','{guildIcon}','{guildIconDynamic}','{guildOwnerAvatar}','{guildOwnerAvatarDynamic}','{userAvatar}','{userAvatarDynamic}']
+
+        //>>>>START>>>>>>>>*double checking variables**>>>>>>>>>//
+
+        //------------testing validity of URL-------------------//
+
+        for (let [key, val] of Object.entries(embedProps)){
+          if (!['authorImageURL', 'authorURL', 'url', 'thumbnail', 'image', 'footerImage'].includes(key)){
+            continue;
+          } else if (!val){
+            continue;
+          } else {
+            if (!websiteTest(val) && !(
+              ['authorImageURL', 'thumbnail', 'image', 'footerImage'].includes(key)
+              && validModifiers.includes(val)
+            )){
+              embedProps[key] = undefined
+              fails.push(`The provided **${key}** is invalid. Please ensure the validity of the URL.`)
+            } else {
+              success.push(`**Embed#${key}** has successfully been set!`)
+            }
+          };
+        }
+
+        //-----------testing validity of color------------------//
+
+        if (embedProps.color && !embedProps.color.match(/#[a-f0-9]{6}/i)){
+          embedProps.color = undefined;
+          fails.push('The provided **Color Hex Code** is invalid. Please make sure you are passing a valid Hex Code');
+        } else if (embedProps.color){
+          success.push('**Embed#color** has successfully been set!')
+        };
+
+        //----------testing string lengths-----------------------//
+
+        for (let [key, val] of Object.entries(embedProps)){
+          if (!['authorName', 'title', 'description', 'footerText'].includes(key)){
+            continue;
+          } else if (!val){
+            continue;
+          } else {
+
+            const limits = {
+              title: 256,
+              description: 2048,
+              authorName: 256,
+              footerText: 2048
+            };
+
+            if (val.length > limits[key]){
+              embedProps[key] = undefined
+              fails.push(`Embed **${key}** is only limited to ${limits[key]} characters. Yours have ${val.length}`);
+            } else {
+              success.push(`**Embed#${key}** has successfully been set!`);
+            };
+
+            //>>>>>END>>>>>>>>>>*double checking variables*>>>>>>>>>>//
+            //>>>>>>>>>**Check if new Incoming data are present>>>>>>//
+
+            if (!success.length){
+              if (!fails.length){
+                return message.channel.send(
+                  new MessageEmbed()
+                  .setColor('RED')
+                  .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+                  .setDescription([
+                    '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+                    'Embed options not detected!\n\n',
+                    'Embed options such as \`-title:[]\`, \`-url:[]\`, or \`-description:[]\` are needed so I could know which is which!\n',
+                    '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+                    'on how to configure Mai\'s Member Greeter feature.'
+                  ].join(''))
+                );
+              } else {
+                return message.channel.send(
+                  new MessageEmbed()
+                  .setColor('RED')
+                  .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+                  .setDescription([
+                    '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+                    'All passed embed options are invalid!\n\n',
+                    fails.map(x => `\\⚠️ ${x}`).join('\n'),
+                    '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+                    'on how to configure Mai\'s Member Greeter feature.'
+                  ].join(''))
+                );
+              };
+            } else {
+
+              const embed = new MessageEmbed(doc.greeter.welcome.embed || {})
+              embed
+              .setAuthor(
+                embedProps.authorName || (embed.author ? embed.author.name : ''),
+                embedProps.authorImageURL || (embed.author ? embed.author.iconURL : null),
+                embedProps.authorURL || (embed.author ? embed.author.url : null)
+              )
+              .setTitle(
+                embedProps.title || embed.title
+              )
+              .setURL(
+                embedProps.url || embed.url
+              )
+              .setThumbnail(
+                embedProps.thumbnail || (embed.thumbnail ? embed.thumbnail.url : null)
+              )
+              .setDescription(
+                embedProps.description || (embed.description ? embed.description : '')
+              )
+              .setImage(
+                embedProps.image || (embed.image ? embed.image.url : null)
+              )
+              .setColor(
+                embedProps.color || embed.color
+              )
+              .setFooter(
+                embedProps.footerText || (embed.footer ? embed.footer.text : ''),
+                embedProps.footerImage || (embed.footer ? embed.footer.iconURL : null)
+              );
+
+              // checking for modifiers in replacement to urls
+              // modifiers are automatically converted to null because the class considers
+              // modifiers as non-valid URL
+              if (validModifiers.includes(embedProps.authorImageURL))
+              embed.author.iconURL = embedProps.authorImageURL;
+
+              if (validModifiers.includes(embedProps.thumbnail))
+              embed.thumbnail.url = embedProps.thumbnail
+
+              if (validModifiers.includes(embedProps.image))
+              embed.image.url = embedProps.image
+
+              if (validModifiers.includes(embedProps.footerImage))
+              embed.footer.iconURL = embedProps.footerImage;
+
+              doc.greeter.welcome.embed = embed
+
+              return doc.save()
+              .then(() => {
+                profile.greeter.welcome.embed = embed;
+                return message.channel.send(
+                  new MessageEmbed()
+                  .setColor('GREEN')
+                  .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+                  .setDescription([
+                    '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+                    'Leaving Member Embed Message has been updated!\n\n',
+                    success.map(x => `\\✔️ ${x}`).join('\n'),
+                    fails.map(x => `\\⚠️ ${x}`).join('\n'),
+                    `You may now use this embed on member leaves via \`${client.prefix}setwelcomemsg embed=true\``,
+                    '[Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai\'s Member Greeter feature.'
+                  ].join(' '))
+                );
+              }).catch(() => sendError(message));
+            };
+          };
+        };
+      };
+    } else {
+      if (!profile.greeter.welcome.isEnabled){
         return message.channel.send(
-          new MessageEmbed().setDescription(
-            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-            + `Embed options not detected!
-            \nEmbed options such as \`-title:[]\`, \`-url:[]\`, or \`-description:[]\` are needed so I could know which is which!
-            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature with Embeds!`
-          ).setColor('RED')
-        )
-
+          new MessageEmbed()
+          .setColor('RED')
+          .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+          .setDescription([
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+            'This feature is currently disabled on your server!\n\n',
+            `Enable it by typing \`${client.config.prefix}welcometoggle\`\n`,
+            '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+            'on how to configure Mai\'s Member Greeter feature.'
+          ].join(''))
+        );
+      } else if (!profile.greeter.welcome.channel || !message.guild.channels.cache.get(profile.greeter.welcome.channel)){
         return message.channel.send(
-          new MessageEmbed().setDescription(
-            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-            + `All passed embed options are invalid!
-            \n${fails.map(x => `\\⚠️ ${x}`).join('\n')}
-            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature with Embeds!`
-          ).setColor('RED')
-        )
-      }
-
-      //-------------------------------------------------------//
-
-      const newData = new MessageEmbed(data.welcomeEmbed || {})
-
-      newData
-      .setAuthor(
-        embedProps.authorName || (newData.author ? newData.author.name : ''),
-        embedProps.authorImageURL || (newData.author ? newData.author.iconURL : null),
-        embedProps.authorURL || (newData.author ? newData.author.url : null)
-      )
-      .setTitle(
-        embedProps.title || newData.title
-      )
-      .setURL(
-        embedProps.url || newData.url
-      )
-      .setThumbnail(
-        embedProps.thumbnail || (newData.thumbnail ? newData.thumbnail.url : null)
-      )
-      .setDescription(
-        embedProps.description || (newData.description ? newData.description : '')
-      )
-      .setImage(
-        embedProps.image || (newData.image ? newData.image.url : null)
-      )
-      .setColor(
-        embedProps.color || newData.color
-      )
-      .setFooter(
-        embedProps.footerText || (newData.footer ? newData.footer.text : ''),
-        embedProps.footerImage || (newData.footer ? newData.footer.iconURL : null)
-      )
-
-      // checking for modifiers in replacement to urls
-      // modifiers are automatically converted to null because the class considers
-      // modifiers as non-valid URL
-      if (validModifiers.includes(embedProps.authorImageURL))
-      newData.author.iconURL = embedProps.authorImageURL
-
-      if (validModifiers.includes(embedProps.thumbnail))
-      newData.thumbnail.url = embedProps.thumbnail
-
-      if (validModifiers.includes(embedProps.image))
-      newData.image.url = embedProps.image
-
-      if (validModifiers.includes(embedProps.footerImage))
-      newData.footer.iconURL = embedProps.footerImage
-
-      //---------------------------------------------//
-
-      data.welcomeEmbed = newData
-
-      return data.save()
-      .then(data => {
-        profile.welcome.embed = data.welcomeEmbed
+          new MessageEmbed()
+          .setColor('RED')
+          .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+          .setDescription([
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+            'No channel are set for sending these messages!\n\n',
+            `Set it by typing \`${client.prefix}setwelcomech [#channel Mention | channel ID]\`\n`,
+            '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+            'on how to configure Mai\'s Member Greeter feature.'
+          ].join(''))
+        );
+      } else if (!profile.greeter.welcome.type){
         return message.channel.send(
-          new MessageEmbed().setDescription(
-            '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-            + `Member Embedded message Feature has been updated!
-            \n${success.map(x => `\\✔️ ${x}`).join('\n')}${fails.length ? `\n${fails.map(x => `\\⚠️ ${x}`).join('\n')}` : ''}
-            You may now use this embed on member joins via \`${client.config.prefix}setwelcomemsg embed=true\`
-            [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-          ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
-        )
-      }).catch((err) =>
-      console.log(err)
-    )
-   }
+          new MessageEmbed()
+          .setColor('RED')
+          .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+          .setDescription([
+            '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000',
+            'Failure to detect use-case!\n\n',
+            `Please fix it by typing \`${client.config.prefix}setwelcomemsg default\`!`,
+            '[**Learn more**](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) ',
+            'on how to configure Mai\'s Member Greeter feature.'
+          ].join(''))
+        );
+      } else {
+        message.react('✅');
+        return client.emit('guildMemberAdd', message.member);
+      };
+    };
+  })
+};
 
-
-   if (!profile.welcome.enabled) //disabled channel
-   return message.channel.send(
-     new MessageEmbed().setDescription(
-       '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-       + `This feature is currently disabled on your server!
-       \nEnable it by typing \`${client.config.prefix}welcometoggle\`!
-       [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-     ).setColor('RED')
-   )
-
-   if (!profile.welcome.channel || !message.guild.channels.cache.get(profile.welcome.channel)) //No channel detected
-   return message.channel.send(
-     new MessageEmbed().setDescription(
-       '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-       + `No channel are set for sending these messages!
-       \nSet it by typing \`${client.config.prefix}setwelcomech [#channel Mention | channel ID]\`!
-       [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-     ).setColor('RED')
-   )
-
-   if (!profile.welcome.use) //use not set
-   return message.channel.send(
-     new MessageEmbed().setDescription(
-       '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-       + `Failure to detect use-case!
-       \nPlease fix it by typing \`${client.config.prefix}setwelcomemsg default\`!
-       [Learn More](https://mai-san.ml/docs/Getting%20Started/custom_welcome_message) on how to configure Mai's member greeter feature.`
-     ).setColor('RED')
-   )
-
-    return client.emit('guildMemberAdd', message.member)
-
- }
-}
-
- function isEmpty(object) { for(var i in object) { return false; } return true; }
+function sendError(message){
+  return message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`)
+};

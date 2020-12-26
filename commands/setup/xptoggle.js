@@ -1,6 +1,5 @@
-const { MongooseModels: model } = require('../../helper')
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
+const guilds = require(`${process.cwd()}/models/GuildProfile`);
 
 module.exports = {
   name: 'xptoggle',
@@ -9,47 +8,33 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Toggle the xp system on/off for the server.',
-  examples: [],
-  parameters: [],
-  run: async (client, message) => {
+  requiresDatabase: true,
+  run: (client, message) => guilds.findById(message.guild.id, (err, doc) => {
 
-  let data = await model.guildProfileSchema.findOne({
-    guildID: message.guild.id
-  }).catch(err => err)
+    if (err){
+      return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+    } else if (!doc){
+      doc = new guilds({ _id: message.guild.id });
+    };
 
-  if (!data) data = await new model.guildProfileSchema({
-    guildID: message.guild.id
-  }).save().catch(err => err)
+    doc.xp.isActive = !doc.xp.isActive;
 
-  if (data instanceof MongooseError)
-  return message.channel.send(
-    new MessageEmbed().setDescription(
-        '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-      + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-      + '\u2000\u2000\n\n\u200b'
-    ).setColor('RED')
-  )
+    doc.save()
+    .then(() => {
+      const state = ['Disabled', 'Enabled'][Number(doc.xp.isActive)];
+      const profile = client.guildProfiles.get(message.guild.id);
+      profile.xp.isActive = doc.xp.isActive;
 
-
-  if (data.isxpActive) {
-    data.isxpActive = false
-  } else {
-    data.isxpActive = true
-  }
-
-
-  return data.save().then(()=>{
-    client.guildsettings.profiles.get(message.guild.id).xp.active = data.isxpActive
-
-    message.channel.send(
-      new MessageEmbed().setDescription(
-          '\u2000\u2000<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-        + `XP [Experience Points System] has been **${data.isxpActive ? 'Enabled' : 'Disabled'}** `
-        + 'in this server.'
-      ).setColor('GREEN')
-    )
+      return message.channel.send(
+        new MessageEmbed()
+        .setColor('GREEN')
+        .setFooter(`XP | \©️${new Date().getFullYear()} Mai`)
+        .setDescription([
+          '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+          `XP Feature has been successfully **${state}**!\n\n`,
+          `To **${!doc.xp.isActive ? 're-enable' : 'disable'}** this`,
+          `feature, use the \`${client.prefix}xptoggle\` command.`
+        ].join(' '))
+      );}).catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
   })
-  .catch(()=> message.channel.send('<:cancel:767062250279927818> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.'))
-
-  }
-}
+};

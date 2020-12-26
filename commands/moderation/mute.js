@@ -1,53 +1,72 @@
-require('moment-duration-format')
-const { duration } = require('moment')
+const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
   name: 'mute',
-  aliases: ['deafen', 'silence', 'shut'],
+  aliases: [ 'deafen', 'silence', 'shut' ],
   guildOnly: true,
-  permissions: ['MANAGE_ROLES','KICK_MEMBERS'],
-  clientPermissions: ['MANAGE_ROLES','KICK_MEMBERS'],
+  permissions: [ 'MANAGE_ROLES' ],
   group: 'moderation',
-  description: 'Prevent a user from sending a message in the server.',
-  examples: ['mute [user] [time]'],
-  parameters: ['user mention','time'],
-  run: async (client, message, [ member ]) => {
+  description: 'Prevents a user from sending a message in this server',
+  parameters: [ 'User Mention | ID' ],
+  get examples(){ [this.name, ...this.aliases].map(x => `${x} [user]`)},
+  run: async (client, message, [member = ''] ) => {
 
-    const mute = client.guildsettings.has(message.guild.id) ? message.guild.roles.cache.get(client.guildsettings.get(message.guild.id).roles.muted) : undefined
+    const muteID = (client.guildProfiles
+    .get(message.guild.id) || {})
+    .roles.muted;
 
-    if (!mute)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Muterole has not yet been set! Do so by using \`setmute\` command.`)
+    if (!muteID){
+      return message.channel.send('\\❌ Muterole is yet to be set! Do so by using `setmute` command.');
+    };
 
+    const muted = message.guild.roles.cache.get(muteID);
 
-    if (!member || !member.match(/\d{17,19}/))
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please supply the ID or mention the member to mute!`)
+    if (!muted){
+      return message.channel.send('\\❌ The role set for muting members could not be found! Set a new one by using `setmute` command.');
+    };
 
-    member = await message.guild.members.fetch(member.match(/\d{17,19}/)[0]).catch(()=>null)
+    if (!member.match(/\d{17,19}/)){
+      return message.channel.send(`\\❌ Please provide the ID or mention the user to mute.`);
+    };
 
-    if (!member)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cannot mute an invalid user!`)
+    member = await message.guild.members
+    .fetch(member.match(/\d{17,19}/)[0])
+    .catch(() => null);
 
-    if (message.member.roles.highest.position < member.roles.highest.position)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, you cannot mute user whose roles are higher than yours!`)
+    if (!member){
+      return message.channel.send(`\\❌ Unable to mute user: User not found.`);
+    } else if (message.member.roles.highest.position < member.roles.highest.position){
+      return message.channel.send(`\\❌ ${message.author}, you cannot mute user whose roles are higher than yours!`)
+    } else if (member.id === client.user.id){
+      return message.channel.send(`\\❌ ${message.author}, no don't mute me!`);
+    } else if (member.user.bot){
+      return message.channel.send(`\\❌ ${message.author}, you cannot mute bots!`);
+    } else if (message.member.id === member.id){
+      return message.channel.send(`\\❌ ${message.author}, you cannot mute yourself!`);
+    } else if (member.roles.cache.has(muted.id)){
+      return message.channel.send(`\\❌ ${message.author}, **${member.user.tag}** is already muted!`)
+    };
 
-    if (member.id === client.user.id)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, no don't mute me!`)
+    let _warn = ''
+    // Checking if the muterole is a suitable muterole by checking if this disables
+    // the send message permission
+    if (muted.permissions.has('SEND_MESSAGES')){
+      _warn = _warn + '\\⚠️ The selected muted role does not disable users to send messages, please edit the role permission!\n'
+    };
 
-    if (member.user.bot)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, you cannot mute bots!`)
+    // Checking if every role above the position of the mute role the use has
+    // have a permission to send message, this will invalidate the function of
+    // the mute command if they have one.
+    let warns = member.roles.cache.filter(role => role.position > muted.position)
+    .filter(role => role.permissions.has('SEND_MESSAGES'))
+    .map(role => role.toString());
 
-    if (message.member.id === member.id)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, you cannot mute yourself!`)
+    if (warns.length){
+      _warn = _warn + `\\⚠️ **${member.user.tag}** may still be able to speak because he has the ${text.joinArray(warns)} role(s) which grant permissions to send messages.`;
+    };
 
-    if (member.roles.cache.has(mute.id))
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, **${member.user.tag}** is already muted!`)
-
-    return member.roles.add(mute)
-      .then((member) => {
-
-        return message.channel.send(`Successfully Muted **${member.user.tag}**`)
-
-      }).catch(() => message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I'm unable to mute **${member.user.tag}**. Make sure the muterole is at least below my highest role`))
-
+    return member.roles.add(muted)
+    .then(member => message.channel.send(`\\✔️ Successfully muted **${member.user.tag}**\n${_warn}`))
+    .catch(() => message.channel.send(`\\❌ Failed to mute **${member.user.tag}**.`))
   }
-}
+};

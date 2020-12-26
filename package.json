@@ -1,6 +1,6 @@
 {
   "name": "mai",
-  "version": "3.0.3",
+  "version": "4.0.0",
   "description": "Discordbot written in discord.js",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "12.x",
+    "node": "14.x",
     "npm": "*"
   },
   "repository": {
@@ -23,26 +23,30 @@
   "author": "Sakurajimai#6742",
   "license": "MIT",
   "dependencies": {
+    "@top-gg/sdk": "^3.0.5",
     "animequotes": "^1.1.2",
-    "bad-words": "^3.0.3",
-    "bufferutil": "^4.0.1",
+    "bad-words": "^3.0.4",
+    "bufferutil": "^4.0.2",
     "canvas": "^2.6.1",
-    "discord.js": "^12.4.1",
+    "discord.js": "github:monbrey/discord.js#inline-replies",
     "dotenv": "^8.2.0",
     "erlpack": "^0.1.3",
+    "express": "^4.17.1",
+    "hanime": "^1.1.2",
     "he": "^1.2.0",
+    "html-to-markdown": "^1.0.0",
     "html2markdown": "^1.1.0",
-    "mal-scraper": "^2.11.0",
-    "moment": "^2.26.0",
+    "lodash": "^4.17.20",
+    "mal-scraper": "^2.11.2",
+    "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.9.19",
-    "nekos.life": "^2.0.7",
+    "mongoose": "^5.11.8",
     "nhentai-api": "^3.0.2",
     "node-fetch": "^2.6.1",
     "node-kitsu": "^1.1.1",
     "relevant-urban": "^2.0.0",
     "require-text": "0.0.1",
-    "utf-8-validate": "^5.0.2",
+    "utf-8-validate": "^5.0.3",
     "wanakana": "^4.0.2",
     "zlib-sync": "^0.1.7"
   }

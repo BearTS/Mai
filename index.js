@@ -1,78 +1,36 @@
-const start = Date.now()
-console.log('Starting the bot...');
+// load env file (contains important keys)
 require('dotenv').config();
 
-const { readdirSync } = require('fs');
-const { join } = require('path');
-const { BugReporter } = require('./helper');
-const Client = require('./struct/Client');
+const Client = require(`${process.cwd()}/struct/Client`);
+const config = require(`${process.cwd()}/config`);
 
-const mai = new Client({
-	clientSettings: {
-			disableMentions: 'everyone'
-		,	presence: {
-				activity: {
-						name: 'Seishun Buta Yarou'
-					, type:'STREAMING'
-					, url: 'https://twitch.tv/sby'
-				}
-			}
-		,	restTimeOffset: 100
-	}
-	,	bootTimeStart: start
-	, chatbot: true
-	, debug: '764083507542491177'
-	,	enableDatabase: true
-	,	mongoSettings: {
-			useUnifiedTopology : true
-		, useNewUrlParser: true
-		, autoIndex: false
-		, poolSize: 5
-		, connectTimeoutMS: 10000
-		, family: 4
-	}
-	,	commandgroups: [
-			'action'
-		, 'anime'
-		, 'bot'
-		, 'core'
-		,	'economy'
-		, 'fun'
-//	, 'games'
-		, 'moderation'
-		, 'owner'
-		, 'setup'
-		, 'utility'
-	]
-	,	collections: [
-			'memes'
-		, 'anidailyrec'
-		,	'economy'
-		, 'mangadailyrec'
-		, 'quiz'
-		, 'xp'
-	]
-	,	prefix: 'm!'
-	,	uploadchannel: '728866550207086642'
-	,	owners: ['545427431662682112']
-	,	mongoPassword: process.env.MONGO
-	,	token: process.env.TOKEN,
-});
+const client = new Client(config);
 
-for (const dir of mai.config.commanddir) {
-	for (const file of readdirSync(join(__dirname, 'commands', dir)).filter(f => f.split('.').pop() === 'js'))
-		mai.commands.add(require(`./commands/${dir}/${file}`));
-}
+const options = {
+  bypass: true,
+  log: true,
+  paths: [
+    'action', 'anime', 'bot',
+    'core', 'fun', 'games',
+    'moderation', 'owner',
+    'setup', 'social','utility'
+  ]
+};
 
-for ( const event of readdirSync(join(__dirname, 'events')).filter( f => f.split('.').pop() === 'js'))
-  mai.on(event.split('.')[0], require(`./events/${event}`).bind(null, mai));
+client.database?.init();
 
+client.loadCommands({ parent: 'commands', ...options });
 
-process.on('unhandledRejection', (err) => process.emit('reportBugs', mai, err, null))
+client.loadEvents({ parent: 'events', ...options });
 
-process.on('reportBugs', (client, err, message, command) => BugReporter(mai, err, message, command))
+client.defineCollections([ 'discovery', 'economy', 'memes', 'xp' ]);
 
-//process.on('rejectionHandled', () => null)
+// let client listen to process events, setting ignore to true will
+// ignore errors and not execute the functions from util/processEvents.js.
+// Available process events on https://nodejs.org/api/process.html#process_process_events
+client.listentoProcessEvents([
+  'unhandledRejection',
+  'uncaughtException'
+], { ignore: false });
 
-
-mai.connect(); //login the bot and the database
+client.login();

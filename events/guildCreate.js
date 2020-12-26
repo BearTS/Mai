@@ -1,33 +1,27 @@
-const { MongooseModels: { guildProfileSchema }} = require('../helper')
-const { Error } = require('mongoose')
+const guilds = require(`${process.cwd()}/models/GuildProfile`);
+const consoleUtil = require(`${process.cwd()}/util/console`);
+const text = require(`${process.cwd()}/util/string`);
 
-module.exports = async (client, guild) => {
+module.exports = (client, guild) => guilds.findById(guild.id, async (err, doc) => {
 
+  const debug = client.channels.cache.get(client.config.channels.debug);
+  const owner = await client.users.fetch(guild.ownerID);
 
-  let data = await guildProfileSchema.findOne({
-    guildID: guild.id
-  }).catch((err)=> err)
+  if (err && debug){
+    return debug.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+  } else if (!doc){
+    doc = await new guilds({ _id: guild.id }).save();
+  };
 
-  if (!data) data = await new guildProfileSchema({
-    guildID: guild.id
-  }).save()
-      .catch((err)=> err)
+  client.guildProfiles.set(guild.id, doc);
 
-  if (data instanceof Error){
-    console.error(
-        'Unable to find/register guild '
-      + guild
-      + 'on/to mongo Database.\n'
-      + data.name
-    )
-  }
-
-  client.guildsettings.set(
-      guild.id
-    , data
-      ? data
-      : { guildID : guild.id }
-    )
-
-
-}
+  if (client.config.channels.logs){
+    const channel = client.channels.cache.get(client.config.channels.logs);
+    if (!channel){
+      return;
+    } else {
+      channel.send(`**JOIN** \`[ ${guild.id} ]\` **${guild.name}** (Owned by **${owner.tag}**): ${text.commatize(guild.memberCount)} members.`)
+      .catch(() => {});
+    };
+  };
+});

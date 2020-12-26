@@ -1,127 +1,48 @@
-const {
-    TextHelpers: {
-      ordinalize
-  }
-  , MongooseModels: {
-      guildWatchlistSchema
-  }
-  , AniListQuery: query
-} = require('../../helper')
-const { MessageEmbed } = require('discord.js')
-const { Error: MongooseError } = require('mongoose')
+// RATELIMIT NOTICE:
+// This command takes 2 api calls on MongoDB (Ratelimited at 100 cals per second)
+// and 1 api call on anilist (Ratelimited at 90 calls per minute)
+//
+const { MessageEmbed } = require('discord.js');
+const watchlist = require(`${process.cwd()}/models/GuildWatchlist`);
+const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
   name: 'cleanup',
   aliases: [],
-  ownerOnly: true,
+  guildOnly: true,
   group: 'owner',
-  description: 'Remove all finished Anime from Scheduler',
-  examples: [],
-  parameters: [],
-  run: async ( client, message) => {
+  description: 'Remove all finished anime from anilist scheduler. Regularly run once in 4 months to reduce id clutters on watchlist data.',
+  get examples(){ return [ this.name ];},
+  run: (client, message) => watchlist.find({}, async (err, docs) => {
 
-//-------------------GET THE DATA FROM THE DATABASE---------------------------//
+    if (err) {
+      return message.channel.send(`\\❌ An error occured while fetching documets from the database: \`${err.name}\``);
+    };
 
-    let profiles = await guildWatchlistSchema.find({})
-    .catch(err => err)
+    const status = [ 'FINISHED', 'CANCELLED' ];
+    const ids = [...new Set(docs.map(doc => [...doc.data]).flat(Infinity))];
+    const res = await client.anischedule.fetch(`query ($ids: [Int] $status: [MediaStatus]) { Page { media(id_in: $ids status_in: $status ) { id } } }`, {ids, status});
 
-//------------------RETURN ERROR IF CONNECTION FAILS-------------------------//
-//This prevents the bot from crashing altogether
+    if (res.errors){
+      return;
+    };
 
-    if (profiles instanceof MongooseError)
-    return message.channel.send(
-      new MessageEmbed().setColor('RED')
-        .setDescription(
-          '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-        + 'Unable to contact the database.'
-        + '\u2000\u2000\n\n\u200b'
-      )
-    )
+    const finished = res.data.Page.media.map(media => media.id);
 
-//--------------Get all the media Id from each server-----------------------//
+    if (!finished.length){
+      return message.channel.send(`\`❌ [ALL_UPDATED]:\` There's nothing to clean here.`);
+    };
 
-    const ids = []
-
-    for (const { data } of profiles){
-      for (const id of data){
-        if (!ids.includes(id))
-        ids.push(id)
-      }
-    }
-
-//-----------Check the airing status of these IDs---------------------------//
-
-//query from Anilist
-
-    const data = await query(`query ($ids: [Int]) { Page { media(id_in:$ids) { id status }}}`, {ids})
-
-//check for errors
-    if (data.errors)
-    return message.channel.send(
-      new MessageEmbed().setColor('RED')
-        .setDescription(
-          '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'AniList Returned (an) Error(s).\n\n'
-        + data.errors.map(e => `\\⚠️ \`[${e.status}]\` - *${e.message}*`).join('\n')
-      )
-    )
-
-    //extract metadata
-    const { data: { Page: { media }}} = data
-
-    //get ids with 'FINISHED STATUS o CANCELLED STATUS'
-    const finished = []
-
-    for (const info of media){
-      if (['CANCELLLED','FINISHED'].includes(info.status))
-      finished.push(info.id)
-    }
-
-    //iterate over server's schema and remove the ids from 'finished' Array
-
-    for (const i of profiles){
-
-      //get individual profile
-      let profile = await guildWatchlistSchema.findOne({
-        guildID: i.guildID
-      }).catch(err => err)
-
-      //check again for errors
-      if (profile instanceof MongooseError)
-      return message.channel.send(
-        new MessageEmbed().setColor('RED')
-          .setDescription(
-            '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-          + 'Unable to contact the database.'
-        )
-      )
-
-      //iterate over the server's list
-      for (const id of profile.data){
-        //compare ids
-        if (finished.includes(id))
-        profile.data.splice(profile.data.indexOf(id), 1)
-      }
-
-      //save info, then check if the data was actually saved
-      await profile.save().catch(()=> message.channel.send(
-        new MessageEmbed().setColor('RED')
-          .setDescription(
-            '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-          + 'Unable to save information for the server'
-          + profile.guildID
-          )
-        )
-      )
-    }
-
-    //send a confirmation message
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '\u2000\u2000<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-          + 'Cleaned Watchlists'
-      ).setColor('GREEN')
-    )
-
-  }
-}
+    return watchlist.updateMany({
+      data: { '$in': finished
+    }}, {
+      '$pull': { data: { '$in': finished }}
+    }, (err, upd) => {
+      if (err) {
+        return message.channel.send(`\\❌ An error occured while updating the list: \`${err.name}\``)
+      } else {
+        return message.channel.send(`\\✔️ Successfully removed **${upd.nModified}** entries from **${upd.n}** guilds!`);
+      };
+    });
+  })
+};

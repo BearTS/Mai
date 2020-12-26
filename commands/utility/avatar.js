@@ -1,40 +1,38 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
   name: 'avatar',
-  aliases: ['av','pfp'],
-  guildOnly: true,
+  aliases: [ 'av', 'pfp', 'displayprofile' ],
+  clientPermissions: [ 'EMBED_LINKS' ],
   group: 'utility',
-  description: "Shows avatar of a given user",
-  examples: ["avatar @user","avatar 521598384003395222"],
-  parameters: ['user mention','user id'],
-  run: async (client, message, args) => {
+  description: 'Shows avatar of the provided user, or yourself',
+  parameters: [ 'User Mention / ID' ],
+  get examples(){ [ this.name, ...this.aliases].map(x => x + ' @user')},
+  run: async (client, message, [user = '']) => {
 
-    const match = message.content.match(/\d{17,19}/);
+    let color;
 
-    let member = match
-                ? await message.guild.members.fetch(match[0]).catch(()=> null) || message.member
-                : message.member
+    if (message.guild){
+      const id = (user.match(/\d{17,19}/)||[])[0] || message.author.id;
 
-    return message.channel.send(new MessageEmbed()
+      member = await message.guild.members.fetch(id)
+      .catch(() => message.member);
 
-    .setDescription(`[${
-                      message.author.id === member.id
-                      ? `Your`
-                      : member.id === client.user.id
-                        ? 'Oh? Here\'s my'
-                        :`${member}'s`
-                    } avatar](${
-                      member.user.displayAvatarURL({format:'png',dynamic:true,size:1024})
-                    })`)
+      color = member.displayColor || 'GREY';
+      user = member.user;
+    } else {
+      color = 'GREY';
+      user = message.author;
+    };
 
-    .setColor(member.displayColor
-              ? member.displayColor
-              : 'GREY')
+    const avatar = user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 });
 
-    .setImage(member.user.displayAvatarURL({format:'png',dynamic:true,size:1024}))
-
-    .setFooter(`Avatar | \©️${new Date().getFullYear()} Mai`)
-    )
+    return message.channel.send(
+      new MessageEmbed()
+      .setColor(color)
+      .setImage(avatar)
+      .setFooter(`Avatar | \©️${new Date().getFullYear()} Mai`)
+      .setDescription(`[Avatar for **${user.tag}**](${avatar})`)
+    );
   }
-}
+};

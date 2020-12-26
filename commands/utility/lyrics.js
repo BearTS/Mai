@@ -1,57 +1,64 @@
-const fetch = require('node-fetch')
-const { MessageEmbed, GuildEmoji } = require('discord.js')
-const { TextHelpers: { textTrunctuate }, Classes: { Paginate: page }} = require('../../helper')
+const { MessageEmbed, GuildEmoji } = require('discord.js');
+const fetch = require('node-fetch');
+const text = require(`${process.cwd()}/util/string`);
+const Page = require(`${process.cwd()}/struct/Paginate`);
 
 module.exports = {
   name: 'lyrics',
   aliases: [],
   group: 'utility',
-  description: 'Searches for lyric info about a song from GeniusLyrics',
-  examples: ['lyrics Fukashigi No Karte'],
-  parameters: ['Search Query'],
+  description: 'Searches for lyric info about a song from GeniuslLyrics',
+  parameters: [ 'Search Query' ],
+  get examples(){ [this.name + ' Fukashigi no Karte' ];},
   run: async (client, message, args) => {
 
-    if (!args.length) args = [['Fukashigi no Carte'],['Kimi no Sei']][Math.floor(Math.random() * 2)]
+    const query =  args.join(' ') || 'Kimi no Sei';
 
-    const data = await fetch(`https://some-random-api.ml/lyrics?title=${encodeURI(args.join(' '))}`).then(res => res.json())
+    const data = await fetch(`https://some-random-api.ml/lyrics?title=${encodeURI(query)}`)
+    .then(res => res.json())
+    .catch(() => null);
 
-    if (data.error) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I couldn't find the lyrics for ${args.join(' ')}!`)
+    if (!data || data.error){
+      return message.channel.send(`\\\❌ | ${message.author}, I couldn't find the lyrics for ${args.join(' ')}!`)
+    };
 
-    const { title, author, lyrics, thumbnail, links } = data
+    if (data.lyrics.length < 2000){
+      return message.channel.send(
+        new MessageEmbed()
+        .setColor('GREY')
+        .setDescription(data.lyrics)
+        .setThumbnail(data.thumbnail.genius)
+        .setFooter(`Lyrics | \©️${new Date().getFullYear()} Mai`)
+        .setAuthor(`${data.title}\n${data.author}`, null, data.links.genius)
+      );
+    };
 
-    if (lyrics.length < 2000)
-    return message.channel.send( new MessageEmbed()
-      .setAuthor(`${title}\n${author}`, null, links.genius)
-      .setThumbnail(thumbnail.genius)
-      .setDescription(lyrics)
-      .setColor('GREY')
-    )
-
-
-    const lyrics_array = lyrics.split('\n')
-    let n = 0
-    const lyrics_subarray = ['']
+    const lyrics_array = data.lyrics.split('\n');
+    const lyrics_subarray = [ '' ];
+    let n = 0;
 
     for (const line of lyrics_array){
       if (lyrics_subarray[n].length + line.length < 2000){
         lyrics_subarray[n] = lyrics_subarray[n] + line + '\n'
       } else {
         n++
-        lyrics_subarray.push(line)
-      }
-    }
+        lyrics_subarray.push(line);
+      };
+    };
 
-    const pages = new page()
-
-    for (const element of lyrics_subarray){
-      pages.add( new MessageEmbed()
-        .setAuthor(`${title}\n${author}`, null, links.genius)
-        .setThumbnail(thumbnail.genius)
-        .setDescription(element)
+    const pages = new Page(
+      lyrics_subarray.map((x,i) =>
+        new MessageEmbed()
         .setColor('GREY')
-        .setFooter(`Page ${pages.size === null ? 1 : pages.size + 1} of ${lyrics_subarray.length}`)
+        .setDescription(x)
+        .setThumbnail(data.thumbnail.genius)
+        .setFooter([
+          `Page ${i+1} of ${lyrics_subarray.length}`,
+          `Lyrics | \©️${new Date().getFullYear()} Mai`
+        ].join( '\u2000•\u2000' ))
+        .setAuthor(`${data.title}\n${data.author}`, null, data.links.genius)
       )
-    }
+    );
 
     const msg = await message.channel.send(pages.currentPage)
 
@@ -83,9 +90,8 @@ module.exports = {
       await users.remove(message.author.id)
       timeout.refresh()
 
-    })
+    });
 
-    collector.on('end', async () => await msg.reactions.removeAll().catch(()=>null) ? null : null)
-
+    collector.on('end', async () => await msg.reactions.removeAll().catch(()=>null) ? null : null);
   }
-}
+};

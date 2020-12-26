@@ -1,6 +1,5 @@
-const { MongooseModels: model } = require('../../helper')
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
+const guilds = require(`${process.cwd()}/models/GuildProfile`);
 
 module.exports = {
   name: 'xpenable',
@@ -9,77 +8,57 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Enable collecting xp on **Disabled** mentioned channels',
-  examples: [],
-  parameters: [],
-  run: async (client, message) => {
+  requiresDatabase: true,
+  run: (client, message) => guilds.findById(message.guild.id, (err, doc) => {
 
-  const channels = message.mentions.channels.map( c => c.id)
+    if (err){
+      return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+    } else if (!doc){
+      doc = new guilds({ _id: message.guild.id });
+    };
 
-  if (!channels.length)
-  return message.channel.send(
-      new MessageEmbed().setDescription(
-          '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'Please mention the channel(s) you want me to collect xp from.'
-      ).setColor('RED')
-    )
+    const channels = message.mentions.channels.map( c => c.id);
 
-  let data = await model.guildProfileSchema.findOne({
-    guildID: message.guild.id
-  }).catch(err => err)
+    if (!channels.length){
+      return message.channel.send(`\\❌ **${message.member.displayName}**, Please mention the channel(s) you want me to collect xp from.`);
+    };
 
-  if (!data) data = await new model.guildProfileSchema({
-    guildID: message.guild.id
-  }).save().catch(err => err)
+    let nonavail = []
+    let avail = []
 
-  if (data instanceof MongooseError)
-  return message.channel.send(
-    new MessageEmbed().setDescription(
-        '\u200b\n\n\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
-      + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-      + '\u2000\u2000\n\n\u200b'
-    ).setColor('RED')
-  )
+    for (const channelID of channels) {
+      if (doc.xp.exceptions.includes(channelID)){
+        avail.push(channelID);
+      } else {
+        nonavail.push(channelID);
+      };
+    };
 
-  const nonavail = []
-  const avail = []
+    if (!avail.length){
+      oldch = oldch.map(c => client.channels.cache.get(c).toString().toString()).join(', ');
+      return message.channel.send(`\\❌ **${message.member.displayName}**, The mentioned channels ${oldch} are not in the excempt list.`);
+    };
 
-  for (const channelID of channels) {
-    if (data.xpExceptions.includes(channelID)){
-      avail.push(channelID)
-    } else {
-      nonavail.push(channelID)
-    }
-  }
+    for (const channel of avail){
+      const index = doc.xp.exceptions.indexOf(channel);
+      doc.xp.exceptions.splice(index, 1);
+    };
 
-  if (!avail.length)
-  return message.channel.send(
-      new MessageEmbed().setDescription(
-          '\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'The mentioned channel(s) '
-        + nonavail.map(c => client.channels.cache.get(c).toString().toString()).join(', ')
-        + ' are not on the excempt list. Xp System is still **enabled** there.'
-      ).setColor('RED')
-    )
-
-  for (const channel of avail){
-    data.xpExceptions.splice(data.xpExceptions.indexOf(channel), 1)
-  }
-
-  data.save()
-  .then(()=>{
-    client.guildsettings.profiles.get(message.guild.id).xp.exceptions = data.xpExceptions
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '\u2000\u2000<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-        + 'XP [Experience Points System] have been reenabled on '
-        + avail.map(c => client.channels.cache.get(c).toString()).join(', ')
-        + `${nonavail.length ? `\n\n⚠️\u2000\u2000|\u2000\u2000${nonavail.map(c => client.channels.cache.get(c).toString()).join(', ')} are not on excempted list.` : '' }`
-        + `\n\nTo see which channels do not give xp, use the command \`${client.config.prefix}nonxpchannels\``
-      ).setColor('GREEN')
-    )
+    return doc.save()
+    .then(() => {
+      client.guildProfiles.get(message.guild.id).xp.exceptions = doc.xp.exceptions;
+      return message.channel.send(
+        new MessageEmbed()
+        .setColor('GREEN')
+        .setFooter(`XP | \©️${new Date().getFullYear()} Mai`)
+        .setDescription([
+          '\u2000\u2000<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+          'XP [Experience Points System] have been reenabled on ',
+           avail.map(c => client.channels.cache.get(c).toString()).join(', '),
+           nonavail.length ? `\n\n⚠️\u2000\u2000|\u2000\u2000${nonavail.map(c => client.channels.cache.get(c).toString()).join(', ')} are not on excempted list.`: '',
+           '\n\nTo see which channels do not give xp, use the command `nonxpchannels`'
+        ].join(''))
+      );
+    }).catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
   })
-  .catch((err)=> message.channel.send('<:cancel:767062250279927818> | There was a problem saving your configuration. Please retry again in a minute. If you keep getting this message, contact my developer through the \`feedback\` command.')
-)
-
-  }
-}
+};

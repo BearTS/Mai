@@ -1,36 +1,29 @@
-const { MessageEmbed } = require("discord.js")
-const fetch = require('node-fetch')
+const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
 
 module.exports = {
-  name: 'pandafact'
-  , aliases: [
-    'pf'
-    , 'pandafact'
-  ]
-  , group: 'fun'
-  , description: 'Generate a random useless panda facts.'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , examples: [
-    'pandafact'
-  ]
-  , parameters: []
-  , run: async ( client, message ) => {
+  name: 'pandafacts',
+  aliases: [ 'pandafact', 'pf' ],
+  group: 'fun',
+  description: 'Generate a random useless pandaa facts',
+  clientPermissions: [ 'EMBED_LINKS' ],
+  get examples(){ return [this.name, ...this.aliases]},
+  run: async (client, message) => {
 
-    const data = await fetch("https://some-random-api.ml/facts/panda")
-            .then(res => res.json())
-              .catch(()=>null)
+    const data = await fetch('https://some-random-api.ml/facts/panda')
+    .then(res => res.json())
+    .catch(() => null);
 
-    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Pandafact API is currently down.`)
+    if (!data){
+      return message.channel.send(`Server Error 5xx: Pandafact API is currently down!`);
+    };
 
-    const { fact } = data
-
-    message.channel.send( new MessageEmbed()
-      .setThumbnail(`https://i.imgur.com/QUF4VQX.gif`)
+    return message.channel.send(
+      new MessageEmbed()
+      .setThumbnail('https://i.imgur.com/QUF4VQX.gif')
       .setColor('GREY')
-      .setDescription(fact)
+      .setDescription(data.fact)
       .setFooter(`Pandafact | \©️${new Date().getFullYear()} Mai`)
-    )
+    );
   }
-}
+};

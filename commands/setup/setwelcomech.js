@@ -1,6 +1,5 @@
-const { MongooseModels: { guildProfileSchema }} = require('../../helper')
-const { Error: MongooseError } = require('mongoose')
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
+const guilds = require(`${process.cwd()}/models/GuildProfile`);
 
 module.exports = {
   name: 'setwelcomech',
@@ -9,102 +8,45 @@ module.exports = {
   adminOnly: true,
   group: 'setup',
   description: 'Set up the welcome channel',
-  examples: ['setwelcomech #general'],
-  parameters: ['Channel ID, Channel Mention'],
-  run: async (client, message) => {
+  requiresDatabase: true,
+  parameters: ['Channel ID/Mention'],
+  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <Channel ID/Mention>`)},
+  run: (client, message, [channel='']) => guilds.findById(message.guild.id, (err, doc) => {
 
-    const channelID = message.content.match(/\d{17,19}/)
+    if (err){
+      return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+    } else if (!doc){
+      doc = new guilds({ _id: message.guild.id });
+    };
 
-    if (!channelID)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-        '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + `**${message.member.displayName}**, please provide a valid channel ID or channel mention`
-        + '\n\nYou can either mention the channel or just provide the channel ID.'
-      ).setColor('RED')
-      .setFooter(
-        `${client.guildsettings.get(message.guild.id).welcome.channel
-        ? client.channels.cache.get(client.guildsettings.get(message.guild.id).welcome.channel)
-          ? `The welcome channel is currently set to #${
-            message.guild.channels.cache.get(client.guildsettings.get(message.guild.id).welcome.channel).name
-          }`
-          : `The welcome channel has been set but was deleted.`
-        : 'The welcome channel for this guild is still unconfigured.'} | ©️2020 Mai`
-      )
-    )
+    const channelID = (channel.match(/\d{17,19}/)||[])[0];
+    channel = message.guild.channels.cache.get(channelID);
 
-    const channel = message.guild.channels.cache.get(channelID[0])
+    if (!channel || channel.type !== 'text'){
+      return message.channel.send(`\\❌ **${message.member.displayName}**, please provide a valid channel ID or channel mention.`);
+    } else if (!channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')){
+      return message.channel.send(`\\❌ **${message.member.displayName}**, I need you to give me permission to send messages on ${channel} and try again.`);
+    } else if (!channel.permissionsFor(message.guild.me).has('EMBED_LINKS')){
+      return message.channel.send(`\\❌ **${message.member.displayName}**, I need you to give me permission to embed links on ${channel} and try again.`);
+    };
 
-    if (!channel || channel.type !== 'text')
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-        '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + `**${message.member.displayName}**, the supplied channel id is not valid.`
-        + '\n\nPlease make sure that the channel ID is a valid channel id, and is it is of type `text`'
-      ).setColor('RED')
-      .setFooter(
-        `${client.guildsettings.get(message.guild.id).welcome.channel
-        ? client.channels.cache.get(client.guildsettings.get(message.guild.id).welcome.channel)
-          ? `The welcome channel is currently set to #${
-            message.guild.channels.cache.get(client.guildsettings.get(message.guild.id).welcome.channel).name
-          }`
-          : `The welcome channel has been set but was deleted.`
-        : 'The welcome channel for this guild is still unconfigured.'} | ©️2020 Mai`
-      )
-    )
+    doc.greeter.welcome.channel = channel.id;
+    return doc.save()
+    .then(() => {
+      const profile = client.guildProfiles.get(message.guild.id);
+      profile.greeter.welcome.channel = doc.greeter.welcome.channel;
 
-    if (!channel.permissionsFor(message.guild.me).has('SEND_MESSAGES'))
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-        '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + `**${message.member.displayName}**, I cannot type anything in ${channel}.`
-        + '\n\nPlease adjust the necessary permissions for me on that channel and try again.'
-      ).setColor('RED')
-      .setFooter(
-        `${client.guildsettings.get(message.guild.id).welcome.channel
-        ? client.channels.cache.get(client.guildsettings.get(message.guild.id).welcome.channel)
-          ? `The welcome channel is currently set to #${
-            message.guild.channels.cache.get(client.guildsettings.get(message.guild.id).welcome.channel).name
-          }`
-          : `The welcome channel has been set but was deleted.`
-        : 'The welcome channel for this guild is still unconfigured.'} | ©️2020 Mai`
-      )
-    )
-
-    let data = await guildProfileSchema.findOne({
-      guildID: message.guild.id
-    }).catch(() => null)
-    || await new guildProfileSchema({
-      guildID: message.guild.id
-    }).save().catch(err => err)
-
-    if (data instanceof MongooseError)
-    return message.channel.send(
-      new MessageEmbed().setDescription(
-          '<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000'
-        + 'Unable to contact the database. Please try again later or report this incident to my developer.'
-      ).setColor('RED')
-    )
-
-    data.welcomeChannel = channel.id
-
-    return data.save()
-    .then(data => {
-      client.guildsettings.get(message.guild.id).welcome.channel = data.welcomeChannel
       return message.channel.send(
-       new MessageEmbed().setDescription(
-           '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-           + `Successfully set the welcome channel to ${channel}!
-           \n${!client.guildsettings.get(message.guild.id).welcome.enabled ? `\u2000\⚠ Member Greeter Message has been disabled. [Learn](https://mai-san.ml/) how to customize one.` : ''}`
-         ).setColor('GREEN').setFooter('Member Greeter | ©️2020 Mai')
-       )
-    }).catch(()=>
-    message.channel.send(
-      new MessageEmbed().setDescription(
-        `<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000Failed to save configuration to Mongo Client [Database Provider]. Please try again later.
-      `).setColor('RED')
-    )
-  )
-
-  }
-}
+        new MessageEmbed()
+        .setColor('GREEN')
+        .setFooter(`Member Greeter | \©️${new Date().getFullYear()} Mai`)
+        .setDescription([
+          '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
+          `Successfully set the welcome channel to ${channel}!\n\n`,
+          !profile.greeter.welcome.isEnabled ? `\\⚠️ Welcome greeter is disabled! To enable, type \`${client.prefix}welcometoggle\`\n` :
+          `To disable this feature, use the \`${client.prefix}welcometoggle\` command.`
+        ].join(''))
+      );})
+    .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`))
+  })
+};

@@ -1,37 +1,52 @@
-require('moment-duration-format')
-const { duration } = require('moment')
-
 module.exports = {
   name: 'unmute',
-  aliases: ['undeafen','speak'],
+  aliases: [ 'undeafen', 'unsilence', 'speak' ],
   guildOnly: true,
-  permissions: ['MANAGE_ROLES','KICK_MEMBERS'],
-  clientPermissions: ['MANAGE_ROLES','KICK_MEMBERS'],
+  permissions: [ 'MANAGE_ROLES' ],
   group: 'moderation',
-  description: 'Unmutes a muted user from this server .',
-  examples: ['umute [user]'],
-  parameters: ['user mention'],
-  run: async (client, message, [ member ]) => {
+  description: 'Unmutes a muted user from this server.',
+  parameters: [ 'User Mention | ID' ],
+  get examples(){ [this.name, ...this.aliases].map(x => `${x} [user]`)},
+  run: async (client, message, [member = ''] ) => {
 
-    const mute = client.guildsettings.has(message.guild.id) ? message.guild.roles.cache.get(client.guildsettings.get(message.guild.id).roles.muted) : undefined
+    const muteID = (client.guildProfiles
+    .get(message.guild.id) || {})
+    .roles.muted;
 
-    if (!mute)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Muterole has not yet been set! Do so by using \`setmute\` command.`)
+    if (!muteID){
+      return message.channel.send('\\❌ Muterole is yet to be set! Do so by using `setmute` command.');
+    };
 
-    if (!member || !member.match(/\d{17,19}/))
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please supply the ID or mention the member to unmute!`)
+    const muted = message.guild.roles.cache.get(muteID);
 
-    member = await message.guild.members.fetch(member.match(/\d{17,19}/)[0]).catch(()=>null)
+    if (!muted){
+      return message.channel.send('\\❌ The role set for muting members could not be found! Set a new one by using `setmute` command.');
+    };
 
-    if (!member)
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, cannot unmute an invalid user!`)
+    if (!member.match(/\d{17,19}/)){
+      return message.channel.send(`\\❌ Please provide the ID or mention the user to unmute.`);
+    };
 
-    if (!member.roles.cache.has(mute.id))
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, **${member.user.tag}** is not muted!`)
+    member = await message.guild.members
+    .fetch(member.match(/\d{17,19}/)[0])
+    .catch(() => null);
 
-    return member.roles.remove(mute)
-      .then((member) => message.channel.send(`**${member.user.tag}** has been unmuted!`))
-        .catch(() => message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I'm unable to unmute **${member.user.tag}**`))
+    if (!member){
+      return message.channel.send(`\\❌ Unable to unmute user: User not found.`);
+    } else if (message.member.roles.highest.position < member.roles.highest.position){
+      return message.channel.send(`\\❌ ${message.author}, you cannot unmute user whose roles are higher than yours!`)
+    } else if (member.id === client.user.id){
+      return message.channel.send(`\\❌ ${message.author}, Yay, I've been unmuted!`);
+    } else if (member.user.bot){
+      return message.channel.send(`\\❌ ${message.author}, I cannot unmute bots!`);
+    } else if (message.member.id === member.id){
+      return message.channel.send(`\\❌ ${message.author}, why, you're already talking!`);
+    } else if (!member.roles.cache.has(muted.id)){
+      return message.channel.send(`\\❌ ${message.author}, **${member.user.tag}** is not muted!`);
+    };
 
+    return member.roles.remove(muted)
+    .then(member => message.channel.send(`\\✔️ **${member.user.tag}** has been unmuted!`))
+    .catch(() => messafe.channel.send(`\\❌ ${message.author}, I'm unable to unmute **${member.user.tag}**`));
   }
-}
+};

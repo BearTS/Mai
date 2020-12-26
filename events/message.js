@@ -1,167 +1,80 @@
-require('moment-duration-format')
-const { MessageEmbed, Collection } = require('discord.js')
-const CooldownManager = require('../struct/CooldownManager')
-const { duration } = require('moment')
-const { addXP, PermissionsCheck, CooldownsCheck, Chatbot } = require('../helper')
+const chatbot = require(`${process.cwd()}/util/chatbot`);
+const experience = require(`${process.cwd()}/util/xp`);
 
-module.exports = async ( client, message ) => {
+module.exports = async (client, message) => {
 
-  const {
-      user
-    , commands
-    , config: {
-        prefix
-      , owners
-    }
-    , collections
-    , guildsettings
-  } = client
+  // /*
+  // Test the bot's workability (v4) on support server. Remove this line on actual deployment
+  // */
+  // if (!['762542751522095124', '764041288084750366', '761940318488625202', '761940372976435220'].includes(message.channel.id)) return;
+  // /**/
 
-  const serverprefix = client.guildsettings.get((message.guild || {}).id) ? client.guildsettings.get(message.guild.id).prefix : null
+  //*=================WELCOME TO THE  MESSAGE EVENT===============*/
+  // This function everytime the bot receives a message payload from discord
+  //*=============================================================*/
 
+  // Ignore messages from botusers
+  if (message.author.bot){
+    return;
+  };
 
-  if (message.author.id === client.user.id) client.messages.sent++
-    else client.messages.received++
+  /*=============SHOW PREFIX WHEN USER TYPES PREFIX===============*/
+  // When a user types prefix on Discord where this bot has permissions to view
+  // channel and send message to, reply with the usable prefix for this bot.
+  // comment out to disable~
+  const serverprefix = client.guildProfiles.get(message.guild.id)?.prefix || 'Not set'
 
-  if (
-    ( message.content.startsWith(`<@${client.user.id}>`)
-    || message.content.startsWith(`<@!${client.user.id}>`))
-    && client.config.chatbot
-  ) {
-    message.channel.startTyping()
-    const response = await Chatbot(message.content.replace(new RegExp(`<@${client.user.id}>|<@!${client.user.id}>`),''))
-    setTimeout(()=> {
-      message.channel.stopTyping()
-      message.channel.send(response)
-    }, 1500)
-  }
+  if (message.content.toLowerCase() === 'prefix'){
+    return message.channel.send(`${message.author}, My prefix is \`${client.config.prefix}\`, The custom prefix is \`${serverprefix}\`.`)
+  } else {
+    // Do nothing..
+  };
+  /*==============================================================*/
 
-
-  if (
-        message.content.toLowerCase() === 'prefix'
-  ) return message.reply(`My prefix is **${prefix}**${serverprefix ? `, The custom prefix is (**${serverprefix}**).` : '.'}`)
+  /*===================CHATBOT FUNCTIONALITY======================*/
+  // When bot is mentioned or ?replied to, reply to user with a
+  // human precise response possible using external api
+  // if chatbot is used, use chatbot_successful as parameter
+  // to disable xp gaining and command execution
+  const { success: chatbot_successful } = chatbot(message);
+  /*===========================================================*/
 
 
-  try {
+  /*=====================HANDLE COMMANDS=======================*/
+  // Handle commands
+  // Returns executed<Boolean> and reason<string|undefined>
+  // True if the command has been executed
+  // False if otherwise
+  const { executed, reason } = client.commands.handle(message);
+  /*============================================================*/
 
-    if (
-      (!message.content.startsWith(prefix) && (serverprefix && !message.content.startsWith(serverprefix)))
-      && !message.author.bot
-      && message.channel.type !== 'dm'
-      ) {
+  /*=========================XP SYSTEM==========================*/
+  // IF the command is executed, do not execute the xp system.
+  // If the command did not execute but the termination of the
+  //  command execution proves access to command, do not execute
+  //  the xp system
+  //
+  // Returns xpAdded<Boolean> and reason<string|undefined>
+  // True if the xp has been added
+  // False if otherwise
+  const execute = Boolean(!['PERMISSION', 'TERMINATED', 'COOLDOWN'].includes(reason));
+  const response = await experience(message, executed, execute);
 
-        const XP = collections.exists(`xp`, message.guild.id)
-                    ? collections.getFrom('xp', message.guild.id)
-                    : collections.setTo('xp', message.guild.id, new Collection()).get(message.guild.id)
+  // Log errors not caused by the following reasons
+  if (!response.xpAdded && ![
+    'DISABLED', // The xp is disabled, requires `EXPERIENCE_POINTS` on client#features
+    'COMMAND_EXECUTED', // The command was executed successfully
+    'COMMAND_TERMINATED', // The command was fetched but was terminated
+    'DM_CHANNEL', // The message was sent on a dm
+    'DISABLED_ON_GUILD', // The message was disabled on guild (xp inactive)
+    'DISABLED_ON_CHANNEL', // The message was sent on a blacklisted channel
+    'RECENTLY_TALKED', // The message author recently talked
+  ].includes(response.reason)){
+    message.client.logs.push(`XP error: ${response.reason} on ${message.guild.id}<${message.guild.id}> by ${message.author.tag}<${message.author.id}> at ${new Date()}`);
+  };
+  /*============================================================*/
 
-        const gs = guildsettings.get(message.guild.id)
+  // add more functions on message event callback function...
 
-        if (
-          !XP.has(message.author.id)
-          || (
-            gs && (
-                  gs.xp.active
-              ||  !gs.xp.exceptions.includes(message.channel.id)
-            )
-          )
-        ) {
-          return addXP(
-              message.guild.id
-            , message.author.id
-            , {
-              random: true
-            , maxnum: 25
-            , minnum: 10
-            }
-          ).then(()=> {
-              XP.set(message.author.id, message.member.displayName)
-              return setTimeout(()=> XP.delete(message.author.id), 60000)
-            })
-            .catch(()=> null)
-        }
-      }
-  } catch (err) {
-      return null
-  }
-
-  if (
-    message.content.startsWith(prefix)
-  || (serverprefix && message.content.startsWith(serverprefix))
-  ){
-
-    if (
-      message.author.bot ||
-      message.guild &&
-      !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')
-    ) return
-
-
-    const [ commandName, ...arguments ] = message.content.slice(message.content.startsWith(prefix) ? prefix.length : serverprefix.length).split(/ +/)
-
-    const command = commands.get(commandName)
-
-    if (!command) return
-
-    const { name, cooldown, run } = command
-
-//------------------------PERMISSIONS_CHECK---------------------------//
-
-    try {
-
-      const { status, embed } = PermissionsCheck(message, command)
-
-      if (status === 'Denied')
-      return message.channel.send(
-        message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')
-        ? embed
-        : embed.description
-      )
-
-
-  //----------------------COOLDOWN CHECK--------------------------------//
-
-
-      const { accept, timeLeft } = CooldownsCheck(message, command)
-
-      if (!accept)
-      return message.channel.send(
-        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000${
-          message.author
-        }, ${
-          command.cooldown.message
-          ? command.cooldown.message
-          : 'You cannot use this command yet.'
-        }\n⏳\u2000\u2000|\u2000\u2000Time left: ${
-          duration(timeLeft,  'milliseconds')
-            .format('D [days] H [hours] m [minutes] s [seconds]')
-        }`
-      )
-
-      run(client, message, arguments)
-
-  //-------------------------------------------------------------------//
-
-    } catch (err) {
-
-      const embed = new MessageEmbed()
-        .setColor('RED')
-        .setDescription(
-          '<:cancel:767062250279927818> | An error has occured while executing this command!'
-         + '\n```xl\n'
-         + err.stack.split('\n').splice(0,5).join('\n').split(process.cwd()).join('MAIN_PROCESS')
-         + '\n\n...and '
-         + (err.stack.split('\n').length - 5).toFixed()
-         + 'lines more.\`\`\`\n'
-         + 'A message was automatically created regarding this error and has been sent to my Developer...'
-        )
-
-      await message.channel.send(
-        message.channel.permissionsFor(message.guild.me).has('EMBED_LINKS')
-        ? embed
-        : embed.description
-      )
-
-      return process.emit('reportBugs', client, err, message, command.name)
-    }
-  }
-}
+  return;
+};

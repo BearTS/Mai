@@ -1,50 +1,48 @@
-const nekos = require('nekos.life')
-const { sfw: { tickle } } = new nekos()
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'tickle'
-  , aliases: []
-  , guildOnly: true
-  , clientPermissions: [
+  name: 'tickle',
+  aliases: [],
+  guildOnly: true,
+  clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
-  ]
-  , group: 'action'
-  , description: 'Tickle your friends!'
-  , examples: [
-      'tickle @user'
-  ]
-  , parameters: ['User Mention']
-  , run: async ( client, message, args ) => {
+  ],
+  group: 'action',
+  description: 'Tickle your friends!',
+  examples: [ 'tickle @user' ],
+  parameters: ['User Mention'],
+  run: async ( client, message, args ) => {
 
-    const { url } = await tickle().catch(()=>{})
+    // Filter out args so that args are only user-mention formats.
+    args = args.filter(x => /<@!?\d{17,19}>/.test(x))
 
-  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
+    const url = client.images.tickle();
+    const embed = new MessageEmbed()
+    .setColor('GREY')
+    .setImage(url)
+    .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-  if (!message.mentions.members.size)
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+    if (!message.mentions.members.size){
 
-  if (message.mentions.members.first().id === client.user.id)
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setDescription(`Stop ${message.member}! It tickles~`)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+      return message.channel.send(embed);
 
-  if (message.mentions.members.first().id === message.author.id)
-  return message.channel.send(`<:cancel:767062250279927818> | Have fun tickling yourself ${message.author}!`)
+    } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
-  return message.channel.send(new MessageEmbed()
-      .setColor('GREY')
-      .setImage(url)
-      .setDescription(`${message.member} tickled ${message.mentions.members.first()}!`)
-      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
+      return message.channel.send(
+        embed.setDescription(`Stop ${message.member}! It tickles~`)
+      );
+
+    } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
+
+      return message.channel.send(`<:cancel:767062250279927818> | Have fun tickling yourself ${message.author}!`);
+
+    } else {
+
+      return message.channel.send(
+        embed.setDescription(`${message.member} tickled ${args[0]}`)
+      );
+
+    };
   }
-}
+};

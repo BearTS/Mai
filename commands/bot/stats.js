@@ -1,197 +1,191 @@
-require('moment-duration-format')
-const { duration } = require('moment');
-const { MessageEmbed, TextChannel, version: djsVersion } = require('discord.js')
-const { version, author} = require('../../package.json')
+const { MessageEmbed, version: discord_version } = require('discord.js');
+const { version, author } = require(`${process.cwd()}/package.json`);
+const { createCanvas, loadImage } = require('canvas');
 const { release, cpus } = require('os');
-const { TextHelpers: { timeZoneConvert, commatize }} = require('../../helper')
+const moment = require('moment');
+
+const text = require(`${process.cwd()}/util/string`);
+const MemoryLimit = 512; // Heroku only allows maximum of 512MB memory usage, change when changing hosting provider.
 
 module.exports = {
-  name: 'stats'
-  , aliases: [
-    'status'
-    , 'botstatus'
-  ]
-  , group: 'bot'
-  , description: 'Displays the bot status'
-  , clientPermissions: [
-    'EMBED_LINKS'
-  ]
-  , examples: []
-  , parameters: []
-  , run: async (client, message) => {
+  name: 'stats',
+  aliases: [ 'status', 'botstatus' ],
+  group: 'bot',
+  description: 'Displays the status of the current bot instance.',
+  clientPermissions: [ 'EMBED_LINKS', 'ATTACH_FILES' ],
+  parameters: [],
+  get examples(){ return [ this.name, ...this.aliases ]},
+  run: async (client, message) => {
 
-    const received = client.channels.cache
-                      .filter( c => c instanceof TextChannel )
-                        .reduce( (m,c) => m + c.messages.cache.filter( m => m.author.id !== client.user.id).size, 0)
+    const { heapUsed, heapTotal } = process.memoryUsage();
 
-    const sent = client.channels.cache
-                  .filter( c => c instanceof TextChannel )
-                    .reduce( (m,c) => m + c.messages.cache.filter( m => m.author.id === client.user.id).size, 0)
+    const messages_cached = client.channels.cache
+    .filter(x => x.send )
+    .reduce((m, c) => m + c.messages.cache.size, 0);
 
-    const mostUsedCommands = client.commands.registers
-                              .sort((a,b)=> b.used - a.used)
-                                .first(3)
+    const canvas = createCanvas(400,250);
+    const ctx = canvas.getContext('2d');
+    const avatar = await loadImage(client.user.displayAvatarURL({ format: 'png', size: 64 }));
 
-    const { heapUsed, heapTotal } = process.memoryUsage()
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(canvas.width,0);
+    ctx.lineTo(canvas.width, canvas.height);
+    ctx.lineTo(0, canvas.height);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.fill();
 
-    const colors = (percentage) => {
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(canvas.width,0);
+    ctx.lineTo(canvas.width,80);
+    ctx.lineTo(0,80);
+    ctx.closePath();
+    ctx.fillStyle = 'rgb(48, 4, 110)';
+    ctx.fill();
 
-      num = parseInt(percentage)
+    ctx.drawImage(avatar,20,20,50,50);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = 'rgba(255,255,255,0.8)'
+    ctx.font = 'bold 10px sans-serif'
+    ctx.fillText(`OS: ${process.platform} v${release}`, canvas.width - 10, 20, 100);
+    ctx.fillText(`Node ${process.version}`, canvas.width - 10, 35, 100);
+    ctx.fillText(`DiscordJS v${discord_version}`, canvas.width - 10, 50, 100);
+    ctx.fillText(cpus()[0].model, canvas.width - 10, 65, 180);
 
-      if (isNaN(num)) return 'No data'
+    ctx.textAlign = 'left';
+    ctx.beginPath();
+    ctx.font = 'bold 15px arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.fillText('Mai', 75, 45, 25);
+    ctx.font = 'bold 10px arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.fillText('#' + client.user.discriminator, 100, 45, 50);
 
-      let pitstop = false
+    ctx.beginPath();
+    ctx.moveTo(75, 50);
+    ctx.lineTo(125, 50);
+    ctx.lineTo(125, 65);
+    ctx.lineTo(75, 65);
+    ctx.closePath();
+    ctx.fillStyle = 'rgb(113, 30, 230)';
+    ctx.fill();
 
-      const emojis = [
-        '<a:loading:767062506471424040>',
-        '<a:loadingstop:767062512762880031>',
-        '<:blank:767062530983198730>',
-        '<:loadingend:767062525106978836>'
-      ]
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.fillText('v' + version, 100, 62, 50);
 
-      const limits = [ 20, 30, 40, 50, 60, 70, 80, 90, 100 ]
-      const array = [ '<a:loadingstart:767062518858121246>' ]
+    ctx.beginPath();
+    ctx.moveTo(0,canvas.height-17);
+    ctx.lineTo(canvas.width, canvas.height-17);
+    ctx.lineTo(canvas.width, canvas.height);
+    ctx.lineTo(0, canvas.height);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(48, 4, 110, 0.9)';
+    ctx.fill();
 
-      for ( const limit of limits ) {
-        if (percentage > limit) {
-          array.push(emojis[0])
-        } else {
-          array.push(array.length == 9
-                     ? emojis[3]
-                     : !pitstop
-                        ? emojis[1]
-                        : emojis[2])
-          pitstop = true
-        }
-      }
+    ctx.beginPath();
+    ctx.moveTo(150, 100);
+    ctx.lineTo(250,100);
+    ctx.lineTo(250, canvas.height - 30);
+    ctx.lineTo(150, canvas.height - 30);
+    ctx.closePath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(0,0,0,0.6)'
+    ctx.font = '10px sans-serif'
+    ctx.textAlign = 'center';
+    ctx.fillText('Received Messages', 200, 110, 100);
+    ctx.fillText('Sent Messages', 200, 140, 100);
+    ctx.fillText('Server Count', 200, 170, 100);
+    ctx.fillText('Commands',200, 200, 100);
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillStyle = 'rgba(48, 4, 110, 0.9)';
+    ctx.fillText(text.commatize(client.messages.received), 200, 125, 100);
+    ctx.fillText(text.commatize(client.messages.sent), 200, 155, 100);
+    ctx.fillText(text.commatize(client.guilds.cache.size), 200, 185, 100);
+    ctx.fillText(text.commatize(client.commands.size), 200, 215, 100);
 
-      return array.join('')
+//===================================================
 
-    }
+    ctx.beginPath();
+    ctx.arc(75,150,50,0, Math.PI * 2);
+    ctx.lineWidth = 15;
+    ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+    ctx.stroke();
 
+    ctx.beginPath();
+    ctx.lineWidth = 15;
+    ctx.arc(75,150,50, Math.PI * 1.5, Math.PI * 1.5 + (Math.PI * 2 * (messages_cached / (client.channels.cache.size * client.options.messageCacheMaxSize))));
+    ctx.strokeStyle = 'rgba(48, 4, 110, 0.8)';
+    ctx.stroke();
 
-    const platform = {
-      aix : '<:aix:767076079725707304> **IBM AIX**',
-      android: '<:android:767076085657108481> **Android**',
-      darwin: '<:mac:767062376440659978> **Darwin**',
-      freebsd: '<:freebsd:774185649975590932> **FreeBSD**',
-      linux: '<:linux:767062376440659978> **Linux**',
-      openbsd: '<:openbsd:767076087309926400> **OpenBSD**',
-      sunprocess: '<:sunOS:767076088827609088> **SunOS**',
-      win32: '<:windows:767062364042166321> **Windows**'
-    }
+    ctx.beginPath();
+    ctx.font = 'bold 32px arial';
+    ctx.fillStyle = 'rgba(48, 4, 110, 0.8)';
+    ctx.textAlign = 'center';
+    ctx.fillText(Math.round(100 - ((messages_cached / (client.channels.cache.size * client.options.messageCacheMaxSize)) * 100)) , 75, 150, 40);
+    ctx.font = '10px arial';
+    ctx.fillText('Free Space', 75, 162, 50);
+    ctx.font = '10px arial';
+    ctx.fillText(`[ ${text.commatize(messages_cached)} messages ]`, 75, 175, 120);
+    ctx.font = 'bold 15px sans-serif';
+    ctx.fillstyle = 'rgb(0,0,0)'
+    ctx.fillText('MESSAGE CACHE',75,225,90)
+    ctx.font = '15px arial';
+    ctx.textAlign = 'left';
+    ctx.fillText('%', 95, 150, 100);
 
+//===================================================
 
-    return message.channel.send( new MessageEmbed()
+    ctx.beginPath();
+    ctx.arc(320,150,50,0, Math.PI * 2);
+    ctx.lineWidth = 15;
+    ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+    ctx.stroke();
 
-    .setColor('GREY')
+    ctx.beginPath();
+    ctx.lineWidth = 15;
+    ctx.arc(320,150,50, Math.PI * 1.5, Math.PI * 1.5 + (Math.PI * 2 * (heapTotal / 1024 / 1024 / MemoryLimit)));
+    ctx.strokeStyle = 'rgba(48, 4, 110, 0.8)';
+    ctx.stroke();
 
-    .setAuthor( 'Bot Stats for Nerds',
-                client.user.displayAvatarURL() )
+    ctx.beginPath();
+    ctx.font = 'bold 32px arial';
+    ctx.fillStyle = 'rgba(48, 4, 110, 0.8)';
+    ctx.textAlign = 'center';
+    ctx.fillText(Math.round(100 - (heapTotal/ Math.pow(1024,2) / MemoryLimit * 100)) , 320, 150, 40);
+    ctx.font = '10px arial';
+    ctx.fillText('Free Space', 320, 162, 50);
+    ctx.font = '10px arial';
+    ctx.fillText(`[ ${(heapTotal/Math.pow(1024,2)).toFixed(2)} MB used ]`, 320, 175, 80);
+    ctx.font = 'bold 15px sans-serif';
+    ctx.fillstyle = 'rgb(0,0,0)'
+    ctx.fillText('MEMORY USAGE',320,225,90)
+    ctx.font = '15px arial';
+    ctx.textAlign = 'left';
+    ctx.fillText('%', 340, 150, 100);
 
+    //===================================
 
-    .addField('__**STATISTICS**__', `**Messages**\n\n•\u2000Received:\u2000\u2000 ${
-          commatize(client.messages.received)
-        }\n*${
-          (client.messages.received / (client.uptime / 3600000)).toFixed(2)
-        } \\📧 per hour*\n\n•\u2000\u2000Sent:\u2000\u2000${
-          client.messages.sent
-        }\n*${
-          (client.messages.sent / (client.uptime / 3600000)).toFixed(2)
-        } \\📧 per hour*\n\u200b`, true)
+    ctx.font = '8px sans-serif';
+    ctx.fillStyle = 'rgb(255,255,255)';
+    ctx.fillText(`Uptime: ${moment.duration(client.uptime, 'milliseconds').format('D [days] H [hours] m [minutes]')}`, 10, canvas.height - 5, 175);
+    ctx.textAlign = 'right';
+    ctx.fillText(`Created: ${moment(client.user.createdAt).format('dddd, Do MMMM YYYY')}` ,canvas.width - 10, canvas.height - 5, 220)
 
+    const attachment = canvas.toBuffer();
+    const name = 'bot_stats.png';
 
-    .addField('\u200b',     `**Data**\n\n•\u2000Server Count:\u2000\u2000${
-          commatize(client.guilds.cache.size)
-        }\n•\u2000Channel Count:\u2000\u2000${
-          commatize(client.channels.cache.size)
-        }\n•\u2000Unique Users:\u2000\u2000${
-          commatize(client.users.cache.size)
-        }\n•\u2000Emoji Count:\u2000\u2000${
-          commatize(client.emojis.cache.size)
-        }`, true)
-
-
-    .addField('\u200b',     `**Commands**\n\n•\u2000Command Count:\u2000\u2000${
-          client.commands.size
-        }\n•\u2000Command Used:\u2000\u2000${
-          client.commands.registers.reduce((acc, command) => acc + command.used, 0)
-        } x\n•\u2000Top Popular Command:\n\u2000\u2000\`[${
-          commatize(mostUsedCommands[0].used)
-        }]\` ${
-          mostUsedCommands[0].name
-        }\n\u2000\u2000\`[${
-          commatize(mostUsedCommands[1].used)
-        }]\` ${
-          mostUsedCommands[1].name
-        }\n\u2000\u2000\`[${
-          commatize(mostUsedCommands[2].used)
-        }]\` ${
-          mostUsedCommands[2].name
-        }`, true)
-
-
-    .addField('__**MEMORY**__',     `**Message Cache**\n${
-          colors((received + sent) / (client.channels.cache.size * client.options.messageCacheMaxSize) * 100)
-        }\u2000\u2000\u2000\u2000\u2000\n*Used ${
-          ((received + sent) / (client.channels.cache.size * client.options.messageCacheMaxSize) * 100).toFixed(2)
-        }% of the total cache capacity.*\n\`[ ${
-          received + sent
-        } / ${
-          client.channels.cache.size * client.options.messageCacheMaxSize
-        } ]\`\n\n**Current Channel's Cache**\n${
-          colors((message.channel.messages.cache.size / client.options.messageCacheMaxSize) * 100)
-        }\u2000\u2000\u2000\u2000\u2000\n*Used ${
-          ((message.channel.messages.cache.size / client.options.messageCacheMaxSize) * 100).toFixed(2)
-        }% of this channel's shared\ncache capacity.*\n\`[ ${
-          message.channel.messages.cache.size
-        } / ${
-          client.options.messageCacheMaxSize
-        } ]\`\n\u200b`, true)
-
-
-    .addField('\u200b',     `**Process Memory Usage**\n${
-          colors(((heapUsed / 1024 / 1024 ) / 512) * 100)
-        }\u2000\u2000\u2000\u2000\u2000\n*Used ${
-          (((heapUsed / 1024 / 1024 ) / 512 ) * 100).toFixed(2)
-        }% of the allocated memory limit*\n\`[ ${
-          (heapUsed / 1024 / 1024).toFixed(2)
-        } MB / 512.00 MB ]\`\n\n**Heap Memory Distribution**\n${
-          colors((heapUsed / (heapTotal + (20 * 1024 * 1024))) * 100)
-        }\u2000\u2000\u2000\u2000\u2000\n*Used ${
-          ((heapUsed / (heapTotal + (20 * 1024 * 1024))) * 100).toFixed(2)
-        }% of the total Heap*\n\`[ ${
-          (heapUsed / 1024 / 1024).toFixed(2)
-        } MB / ${
-          (20 + (heapTotal / 1024 / 1024)).toFixed(2)
-        } MB] \``, true)
-
-
-    .addField('__**SYSTEM**__',     `${
-      platform[process.platform]
-    } v${
-      release
-    }\n<:node:767076088248664095> **Node** ${
-      process.version
-    }\n<:djs:767076086445244459> **DiscordJS** v${
-      djsVersion
-    }\n<:intel:767076087599464459> **CPU**: ${
-      cpus()[0].model
-    } \`[ ${
-      cpus()[0].speed / 1000
-    } GHz ]\``)
-
-    .addField('\u200b',     `[Github](${client.config.github}) | [Website](${client.config.website})`, true)
-
-    .addField('\u200b',     `**Uptime**: ${duration(client.uptime).format('D [day] H [hour] m [minute]')}`, true)
-
-    .setFooter(`Created: ${
-      timeZoneConvert(client.user.createdAt).split(/ +/).splice(0,3).join(' ')
-    }, ${
-      duration(Date.now() - client.user.createdTimestamp, 'milliseconds').format('Y [year] M [month] d [day]')
-    } ago.`
-    , 'https://cdn.discordapp.com/emojis/729380844611043438')
-
-    )
+    return message.channel.send('Bot Stats for Nerds', {
+      embed: {
+        color: 3146862,
+        description: `[Github](${client.config.websites.repository})\u2000\u2000|\u2000\u2000[Website](${client.config.websites.website})`
+      },
+      files: [{ attachment, name }]
+    });
   }
-}
+};
