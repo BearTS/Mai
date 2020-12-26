@@ -53,7 +53,7 @@
     "utf-8-validate": "^5.0.3",
     "wanakana": "^4.0.2",
     "yt-search": "^2.5.1",
-    "ytdl-core": "^4.2.1",
+    "ytdl-core": "^4.1.1",
     "ytdl-core-discord": "^1.2.4",
     "ytpl": "^2.0.0-alpha.3",
     "youtube-sr": "^2.0.1",
