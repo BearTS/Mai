@@ -41,25 +41,25 @@ module.exports = {
         value: [
           `**Count**:\u2000${message.guild.emojis.cache.filter(x => !x.animated).size}`,
           `**Unused Slot**:\u2000${(50*(message.guild.premiumTier===3?5:message.guild.premiumTier+1))-message.guild.emojis.cache.filter(x=>!x.animated).size}`,
-          `**Percent Used**:\u2000${message.guild.emojis.cache.filter(x=>!x.animated).size/(50*(message.guild.premiumTier===3?5:message.guild.premiumTier+1))*100}`
+          `**Percent Used**:\u2000${message.guild.emojis.cache.filter(x=>!x.animated).size/(50*(message.guild.premiumTier===3?5:message.guild.premiumTier+1))*100}%`
         ].join('\n')
       },{
         name: '__**EMOJIS (Animated)**__', inline: true,
         value: [
           `**Count**:\u2000${message.guild.emojis.cache.filter(x => x.animated).size}`,
           `**Unused Slot**:\u2000${(50*(message.guild.premiumTier===3?5:message.guild.premiumTier+1))-message.guild.emojis.cache.filter(x=>x.animated).size}`,
-          `**Percent Used**:\u2000${message.guild.emojis.cache.filter(x=>x.animated).size/(50*(message.guild.premiumTier===3?5:message.guild.premiumTier+1))*100}`
+          `**Percent Used**:\u2000${message.guild.emojis.cache.filter(x=>x.animated).size/(50*(message.guild.premiumTier===3?5:message.guild.premiumTier+1))*100}%`
         ].join('\n')
       },{
         name: '__**Channels**__', inline: true,
         value: [
-          `**Count**:\u2000**Text**(${message.guild.channels.cache.filter(x=>x.type==='text').size})\u2000**Voice**(${message.guild.channels.cache.filter(x=>x.type==='voice').size})\u2000**Category**(${message.guild.channels.cache.filter(x=>x.type==='category').size}`,
+          `**Count**:\u2000**Text**(${message.guild.channels.cache.filter(x=>x.type==='text').size})\u2000**Voice**(${message.guild.channels.cache.filter(x=>x.type==='voice').size})\u2000**Category**(${message.guild.channels.cache.filter(x=>x.type==='category').size})`,
           `**Unused Slot**:\u2000${500-message.guild.channels.cache.size}`,
           `**Percent Used**:\u2000${(message.guild.emojis.cache.size/500*100).toFixed(2)}%`
         ].join('\n')
       },{
         name: 'Created',
-        value: moment(message.guild.createdTimestamp).format('dddd, do MMMM YYYY')
+        value: moment(message.guild.createdAt).format('dddd, do MMMM YYYY')
       }
     ])
   )
