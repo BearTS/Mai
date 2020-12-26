@@ -254,9 +254,9 @@ module.exports = {
               footerText: 2048
             };
 
-            if (value.length > limits[key]){
+            if (val.length > limits[key]){
               embedProps[key] = undefined
-              fails.push(`Embed **${key}** is only limited to ${limits[key]} characters. Yours have ${value.length}`);
+              fails.push(`Embed **${key}** is only limited to ${limits[key]} characters. Yours have ${val.length}`);
             } else {
               success.push(`**Embed#${key}** has successfully been set!`);
             };
