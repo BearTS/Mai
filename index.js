@@ -12,10 +12,12 @@ const options = {
   paths: [
     'action', 'anime', 'bot',
     'core', 'fun', 'games',
-    'moderation', 'owner',
+    'moderation', 'owner', 'music',
     'setup', 'social','utility'
   ]
 };
+
+client.queue = new Map();
 
 client.database?.init();
 
