@@ -75,7 +75,7 @@ module.exports = {
         .setColor('GREY')
         .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
         .setAuthor(`🏆 ${message.guild.name} Leaderboard`, message.guild.iconURL({format: 'png', dynamic: true }) || null)
-        .addField(`**${(members.get(docs[0].id)||{}).displayName || '<Unknown User>'}** ranked the highest with **${text.commatize(docs[0].data.xp)}**XP!`,
+        .addField(`**${members.get(docs[0].id)?.displayName || '<Unknown User>'}** ranked the highest with **${text.commatize(docs[0].data.xp)}**XP!`,
         [
           '```properties',
           '╭═══════╤═══════╤════════╤════════════════════════════╮',
@@ -87,13 +87,13 @@ module.exports = {
               '┃' + ' '.repeat(6-rank.length) + rank,
               ' '.repeat(5-String(u.data.level).length) + u.data.level,
               ' '.repeat(6-text.compactNum(u.data.xp).length) + text.compactNum(u.data.xp),
-              ((members.get(u.id)||{}).user||{}).tag || '<Unknown User>'
+              members.get(u.id)?.user.tag || '<Unknown User>'
             ].join(' ┃ ')
           }).join('\n'),
           '╞═══════╪═══════╪════════╪════════════════════════════╡',
           docs.filter(x => x.id === message.author.id).map((u,i,a) => {
             const user = a.find(x => x.id === message.author.id);
-            const rank = a.findIndex(x => x.id === message.author.id) + 1;
+            const rank = docs.findIndex(x => x.id === message.author.id) + 1;
             return [
               '┃' + ' '.repeat(6-text.ordinalize(rank).length) + text.ordinalize(rank),
               ' '.repeat(5-String(u.data.level).length) + u.data.level,
