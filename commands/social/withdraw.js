@@ -35,7 +35,7 @@ module.exports = {
         return message.channel.send([
           `\\❌ **${message.member.displayName}**, You don't have enough credits in your bank to proceed with this transaction.`,
           ` You only have **${text.commatize(doc.data.economy.bank)}** left, **${text.commatize(amount - doc.data.economy.bank + Math.ceil(amount * 0.05))}** less than the amount you want to withdraw (Transaction fee of 5% included)`,
-          `To deposit all credits instead, please type \`${client.prefix}deposit all\`.`
+          `To withdraw all credits instead, please type \`${client.prefix}withdraw all\`.`
         ].join('\n'));
       } else if (amount + doc.data.economy.wallet > 50000){
         return message.channel.send(`\\❌ **${message.member.displayName}**, You can't withdraw this large sum of money (Overflow imminent)!`)

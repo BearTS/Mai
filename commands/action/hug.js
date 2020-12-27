@@ -17,7 +17,7 @@ module.exports = {
     // Filter out args so that args are only user-mention formats.
     args = args.filter(x => /<@!?\d{17,19}>/.test(x))
 
-    const url = client.images.disgust();
+    const url = client.images.hug();
     const embed = new MessageEmbed()
     .setColor('GREY')
     .setImage(url)

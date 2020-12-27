@@ -9,6 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
+  nsfw: true,
   description: 'KYSL - KillYourSelfLol',
   examples: [ 'suicide', 'kms' ],
   parameters: [],
