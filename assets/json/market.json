@@ -374,6 +374,281 @@
     }
   },{
     "id": 34,
+    "name": "Tamako Market",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 10000,
+    "assets": {
+      "link": "https://i.imgur.com/H9fZmwi.png"
+    }
+  },{
+    "id": 35,
+    "name": "God Dera",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/uCWreZj.png"
+    }
+  },{
+    "id": 36,
+    "name": "Happy Tamako",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/dIUECtd.png"
+    }
+  },{
+    "id": 37,
+    "name": "Tamako and Friends",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/IBtldgE.png"
+    }
+  },{
+    "id": 38,
+    "name": "Tamako and Midori",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/GGVYzLX.png"
+    }
+  },{
+    "id": 39,
+    "name": "Tamako and Anko",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 24000,
+    "assets": {
+      "link": "https://i.imgur.com/IOeB3ne.png"
+    }
+  },{
+    "id": 40,
+    "name": "Dera annoying Tamako",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 12000,
+    "assets": {
+      "link": "https://i.imgur.com/NeWCy4v.png"
+    }
+  },{
+    "id": 41,
+    "name": "Tamako Smiling",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/hOblDlT.png"
+    }
+  },{
+    "id": 42,
+    "name": "Anko Teasing",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/ICE5VuD.png"
+    }
+  },{
+    "id": 43,
+    "name": "Tamako And Dera",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/Z5N5Tqg.png"
+    }
+  },{
+    "id": 44,
+    "name": "Tamako in Glasses",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 12000,
+    "assets": {
+      "link": "https://i.imgur.com/VgRzdlL.png"
+    }
+  },{
+    "id": 45,
+    "name": "Mochizou Shocked",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 14000,
+    "assets": {
+      "link": "https://i.imgur.com/v5Zs1Hy.png"
+    }
+  },{
+    "id": 46,
+    "name": "Mochizou and Tamako",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/ZF3mpMO.png"
+    }
+  },{
+    "id": 47,
+    "name": "Baby Mochizou and baby Tamako",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/5jzQMJu.png"
+    }
+  },{
+    "id": 48,
+    "name": "Kawaii Tamako",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/FNNWHkT.png"
+    }
+  },{
+    "id": 49,
+    "name": "Tamako and Mochizou together",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/D0YYFFd.png"
+    }
+  },{
+    "id": 50,
+    "name": "Blissful Tamako",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/wzuXLT0.png"
+    }
+  },{
+    "id": 51,
+    "name": "Shy Tamako",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/lgEdCTM.png"
+    }
+  },{
+    "id": 51,
+    "name": "Cheering Mochizou & Tamako",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/oPLQgb5.png"
+    }
+  },{
+    "id": 52,
+    "name": "Blissful Anko",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 19000,
+    "assets": {
+      "link": "https://i.imgur.com/N1ZE25n.png"
+    }
+  },{
+    "id": 53,
+    "name": "Bored Tamako",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 12000,
+    "assets": {
+      "link": "https://i.imgur.com/SkGVKeJ.png"
+    }
+  },{
+    "id": 54,
+    "name": "Tamako and Apple",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 14000,
+    "assets": {
+      "link": "https://i.imgur.com/3zvPdKb.png"
+    }
+  },{
+    "id": 55,
+    "name": "Dera kinda sus",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/ylJVphq.png"
+    }
+  },{
+    "id": 56,
+    "name": "Sleeping Dera",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/AilFbUl.png"
+    }
+  },{
+    "id": 57,
+    "name": "Blissful Dera",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/slTcy7x.png"
+    }
+  },{
+    "id": 58,
     "name": "Violet Evergarden",
     "description": "Rare Profile Background",
     "type": "background",
@@ -384,7 +659,7 @@
       "link": "https://i.imgur.com/qQ4bFJg.png"
     }
   },{
-    "id": 35,
+    "id": 59,
     "name": "Monkey D. Ruffie",
     "description": "Rare Profile Emblem",
     "type": "emblem",
@@ -395,7 +670,7 @@
       "link": "https://i.imgur.com/a8u2Am3.png"
     }
   },{
-    "id": 36,
+    "id": 60,
     "name": "Nezuko",
     "description": "Uncommon Profile Emblem",
     "type": "emblem",
@@ -406,7 +681,7 @@
       "link": "https://i.imgur.com/gSXFVff.png"
     }
   },{
-    "id": 37,
+    "id": 61,
     "name": "2turu",
     "description": "Rare Profile Emblem",
     "type": "emblem",
@@ -417,7 +692,7 @@
       "link": "https://i.imgur.com/Ngamnoy.png"
     }
   },{
-    "id": 38,
+    "id": 62,
     "name": "PotatoGirl",
     "description": "Rare Profile Emblem",
     "type": "emblem",
@@ -428,7 +703,7 @@
       "link": "https://i.imgur.com/UwNj1X3.png"
     }
   },{
-    "id": 39,
+    "id": 63,
     "name": "Bam",
     "description": "Rare Profile Emblem",
     "type": "emblem",
@@ -439,7 +714,7 @@
       "link": "https://i.imgur.com/fAeG65b.png"
     }
   },{
-    "id": 40,
+    "id": 64,
     "name": "Raughh",
     "description": "Super Rare Profile Emblem",
     "type": "emblem",
@@ -450,7 +725,7 @@
       "link": "https://i.imgur.com/bmlGTTC.png"
     }
   },{
-    "id": 41,
+    "id": 65,
     "name": "Cat Pattern",
     "description": "Uncommon Profile Pattern",
     "type": "pattern",
@@ -461,7 +736,7 @@
       "link": "https://i.imgur.com/hErtLVO.png"
     }
   },{
-    "id": 42,
+    "id": 66,
     "name": "Kawaii Bear Pattern",
     "description": "Uncommon Profile Pattern",
     "type": "pattern",
@@ -472,7 +747,7 @@
       "link": "https://i.imgur.com/myWPBD1.png"
     }
   },{
-    "id": 43,
+    "id": 67,
     "name": "Bunny Stars Pattern",
     "description": "Uncommon Profile Pattern",
     "type": "pattern",
@@ -483,7 +758,7 @@
       "link": "https://i.imgur.com/ddSbnUP.png"
     }
   },{
-    "id": 44,
+    "id": 68,
     "name": "Santa Hat",
     "description": "Rare Profile Hat",
     "type": "hat",
@@ -494,7 +769,7 @@
       "link": "https://i.imgur.com/rg52vLS.png"
     }
   },{
-    "id": 45,
+    "id": 69,
     "name": "Bunny Ears",
     "description": "Super Rare Profile Hat",
     "type": "hat",
