@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
   // When a user types prefix on Discord where this bot has permissions to view
   // channel and send message to, reply with the usable prefix for this bot.
   // comment out to disable~
-  const serverprefix = client.guildProfiles.get(message.guild.id)?.prefix || 'Not set'
+  const serverprefix = client.guildProfiles.get(message.guild?.id)?.prefix || 'Not set'
 
   if (message.content.toLowerCase() === 'prefix'){
     return message.channel.send(`${message.author}, My prefix is \`${client.config.prefix}\`, The custom prefix is \`${serverprefix}\`.`)
