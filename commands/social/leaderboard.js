@@ -4,7 +4,7 @@ const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
   name: 'leaderboard',
-  aliases: [ 'lb', 'top', 'topxp' ],
+  aliases: [ 'lb', 'topxp' ],
   guildOnly: true,
   rankcommand: true,
   group: 'social',
