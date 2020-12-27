@@ -504,5 +504,82 @@
     "assets": {
       "link": "https://i.imgur.com/wJ4wuxL.png"
     }
+  },{
+    "id": 46,
+    "name": "Tamako and Anko",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 16000,
+    "assets": {
+      "link": "https://i.imgur.com/IOeB3ne.png"
+    }
+  },{
+    "id": 47,
+    "name": "Dera annoying Tamako",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 10000,
+    "assets": {
+      "link": "https://i.imgur.com/NeWCy4v.png"
+    }
+  },{
+    "id": 48,
+    "name": "Tamako Smiling",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/hOblDlT.png"
+    }
+  },{
+    "id": 49,
+    "name": "Anko Teasing",
+    "description": "Super Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 22000,
+    "assets": {
+      "link": "https://i.imgur.com/ICE5VuD.png"
+    }
+  },{
+    "id": 50,
+    "name": "Tamako in Glasses",
+    "description": "Uncommon Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 12000,
+    "assets": {
+      "link": "https://i.imgur.com/VgRzdlL.png"
+    }
+  },{
+    "id": 51,
+    "name": "Tamako and Mochizou together",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/D0YYFFd.png"
+    }
+  },{
+    "id": 52,
+    "name": "Cheering Mochizou & Tamako",
+    "description": "Rare Profile Background",
+    "type": "background",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/oPLQgb5.png"
+    }
   }
 ]
