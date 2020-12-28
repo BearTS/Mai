@@ -42,8 +42,10 @@ module.exports = {
 
       if (data.amount > 0){
         doc.data.profile.inventory.push(data);
+      } else if (item.assets.link === doc.data.profile[item.type]?.link) {
+        doc.data.profile[item.type] === null;
       } else {
-        // Do nothing
+        // Do nothing...
       };
 
       doc.data.economy.bank = doc.data.economy.bank + total;
