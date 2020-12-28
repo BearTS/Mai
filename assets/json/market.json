@@ -192,7 +192,7 @@
     "type": "background",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 16000,
     "assets": {
       "link": "https://i.imgur.com/qDij2SD.png"
     }
@@ -580,6 +580,94 @@
     "price": 18000,
     "assets": {
       "link": "https://i.imgur.com/oPLQgb5.png"
+    }
+  },{
+    "id": 53,
+    "name": "Uncommon Profile Hat",
+    "description": "Bear Ears",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/8wabriL.png"
+    }
+  },{
+    "id": 54,
+    "name": "Uncommon Profile Hat",
+    "description": "Cat Ears",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/0lCGZU9.png"
+    }
+  },{
+    "id": 55,
+    "name": "Super Rare Profile Hat",
+    "description": "Elaine's Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/u64ReU3.png"
+    }
+  },{
+    "id": 56,
+    "name": "Rare Profile Hat",
+    "description": "Jotaro's Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/djHvCkN.png"
+    }
+  },{
+    "id": 57,
+    "name": "Rare Profile Hat",
+    "description": "Luffy's Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/Bec7MDK.png"
+    }
+  },{
+    "id": 58,
+    "name": "Super Rare Profile Hat",
+    "description": "Megumin's Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/CjAmivx.png"
+    }
+  },{
+    "id": 59,
+    "name": "Uncommon Profile Hat",
+    "description": "Platelet-chan's cap",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/ij1PW7l.png"
+    }
+  },{
+    "id": 60,
+    "name": "Uncommon Profile Hat",
+    "description": "Autism-meme cap",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/WzeZN42.png"
     }
   }
 ]
