@@ -23,7 +23,7 @@ module.exports = {
       return new MessageEmbed()
       .setColor('GREY')
       .setTitle('Mai\'s Market')
-      .setDescription('[ WIP ]')
+      .setDescription('You can view all of the items in the market at once on https://market.mai-san.ml/')
       .setFooter(`Market | \©️${new Date().getFullYear()} Mai\u2000\u2000•\u2000\u2000Page ${i+1} of ${o.length}`)
       .addFields(...chunk.map(item => {
         return {
