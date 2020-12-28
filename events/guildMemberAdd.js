@@ -15,8 +15,11 @@ module.exports = async ( client, member ) => {
   } else {
     // Do nothing..
   };
+  
+  const welcome = guildProfile.greeter.welcome;
+  const type = welcome.type === 'msg' && !welcome.message ? 'default' : welcome.type;
 
-  if (!guildProfile.greeter.welcome.message || guildProfile.greeter.welcome.type === 'default'){
+  if (type === 'default'){
     return client.channels.cache.get(guildProfile.greeter.welcome.channel).send(
       new MessageEmbed()
       .setColor('GREY')
@@ -28,7 +31,7 @@ module.exports = async ( client, member ) => {
   };
 
   //if message was text, send the text
-  if (guildProfile.greeter.welcome.type === 'msg'){
+   if (type === 'msg'){
     const message = await modifier.modify(guildProfile.greeter.welcome.message, member);
     return client.channels.cache.get(guildProfile.greeter.welcome.channel).send(message);
  };
