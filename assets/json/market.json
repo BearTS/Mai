@@ -583,8 +583,8 @@
     }
   },{
     "id": 53,
-    "name": "Uncommon Profile Hat",
-    "description": "Bear Ears",
+    "name": "Bear Ears",
+    "description": "Uncommon Profile Hat",
     "type": "hat",
     "deletable": true,
     "giftable": true,
@@ -594,8 +594,8 @@
     }
   },{
     "id": 54,
-    "name": "Uncommon Profile Hat",
-    "description": "Cat Ears",
+    "name": "Cat Ears",
+    "description": "Uncommon Profile Hat",
     "type": "hat",
     "deletable": true,
     "giftable": true,
@@ -605,8 +605,8 @@
     }
   },{
     "id": 55,
-    "name": "Super Rare Profile Hat",
-    "description": "Elaine's Hat",
+    "name": "Elaine's Hat",
+    "description": "Super Rare Profile Hat",
     "type": "hat",
     "deletable": true,
     "giftable": true,
@@ -616,8 +616,8 @@
     }
   },{
     "id": 56,
-    "name": "Rare Profile Hat",
-    "description": "Jotaro's Hat",
+    "name": "Jotaro's Hat",
+    "description": "Rare Profile Hat",
     "type": "hat",
     "deletable": true,
     "giftable": true,
@@ -627,8 +627,8 @@
     }
   },{
     "id": 57,
-    "name": "Rare Profile Hat",
-    "description": "Luffy's Hat",
+    "name": "Luffy's Hat",
+    "description": "Rare Profile Hat",
     "type": "hat",
     "deletable": true,
     "giftable": true,
@@ -638,8 +638,8 @@
     }
   },{
     "id": 58,
-    "name": "Super Rare Profile Hat",
-    "description": "Megumin's Hat",
+    "name": "Megumin's Hat",
+    "description": "Super Rare Profile Hat",
     "type": "hat",
     "deletable": true,
     "giftable": true,
@@ -649,8 +649,8 @@
     }
   },{
     "id": 59,
-    "name": "Uncommon Profile Hat",
-    "description": "Platelet-chan's cap",
+    "name": "Platelet-chan's Cap",
+    "description": "Uncommon Profile Hat",
     "type": "hat",
     "deletable": true,
     "giftable": true,
@@ -660,8 +660,8 @@
     }
   },{
     "id": 60,
-    "name": "Uncommon Profile Hat",
-    "description": "Autism-meme cap",
+    "name": "Autism-meme cap",
+    "description": "Uncommon Profile Hat",
     "type": "hat",
     "deletable": true,
     "giftable": true,
