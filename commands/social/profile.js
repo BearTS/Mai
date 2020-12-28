@@ -302,10 +302,10 @@ module.exports = {
       ctx.save();
       ctx.clip();
       ctx.drawImage(avatar,75,150,150,150);
+      ctx.restore();
 
       // add wreath
       if (wreath){
-        ctx.restore()
         ctx.beginPath();
         ctx.drawImage(wreath,60,145,180,180);
       };
