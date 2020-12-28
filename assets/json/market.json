@@ -1,5 +1,17 @@
 [
   {
+    "id": 1,
+    "name": "Default background",
+    "description": "Default background for profile command.",
+    "type": "background",
+    "deletable": false,
+    "giftable": false,
+    "price": 0,
+    "assets": {
+      "link": "https://i.imgur.com/57eRI6H.jpg"
+    }
+  },
+  {
     "id": 3,
     "name": "Midas' Golden Wreath",
     "description": "Wreath touched by Midas'.",
@@ -755,6 +767,94 @@
     "price": 25000,
     "assets": {
       "link": "https://i.imgur.com/Ngamnoy.png"
+    }
+  },{
+    "id": 71,
+    "name": "Bear Ears",
+    "description": "Uncommon Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/8wabriL.png"
+    }
+  },{
+    "id": 72,
+    "name": "Cat Ears",
+    "description": "Uncommon Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/0lCGZU9.png"
+    }
+  },{
+    "id": 73,
+    "name": "Elaine's Hat",
+    "description": "Super Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/u64ReU3.png"
+    }
+  },{
+    "id": 74,
+    "name": "Jotaro's Hat",
+    "description": "Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/djHvCkN.png"
+    }
+  },{
+    "id": 75,
+    "name": "Luffy's Hat",
+    "description": "Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/Bec7MDK.png"
+    }
+  },{
+    "id": 76,
+    "name": "Megumin's Hat",
+    "description": "Super Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/CjAmivx.png"
+    }
+  },{
+    "id": 77,
+    "name": "Platelet-chan's Cap",
+    "description": "Uncommon Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/ij1PW7l.png"
+    }
+  },{
+    "id": 78,
+    "name": "Autism-meme cap",
+    "description": "Uncommon Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/WzeZN42.png"
     }
   }
 ]
