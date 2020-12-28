@@ -28,7 +28,7 @@ module.exports = {
 
       doc.data.economy.wallet = data.data.wallet - Math.floor(amount);
 
-      return data.save()
+      return doc.save()
       .then(() => message.channel.send(`✔️ **${message.member.displayName}**, Your **${Math.floor(amount)}** has been placed in a bet. Please wait 1 minute for the result.\nOdds for winning the bet is 1/3, and amount won are twice as large up to 10x as large as the original bet!`))
       .then(async () => {
         await Util.delayFor(60000);
