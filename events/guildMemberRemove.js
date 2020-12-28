@@ -18,7 +18,7 @@ module.exports = async (client, member) => {
   const leaving = guildProfile.greeter.leaving;
   const type = leaving.type === 'msg' && !leaving.message ? 'default' : leaving.type;
 
-  if (type === 'default){
+  if (type === 'default'){
     return client.channels.cache.get(guildProfile.greeter.leaving.channel).send(
       new MessageEmbed()
       .setColor('GREY')
