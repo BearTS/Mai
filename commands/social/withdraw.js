@@ -10,7 +10,7 @@ module.exports = {
   requiresDatabase: true,
   parameters: [ 'Amount' ],
   get examples(){ return [this.name, ...this.aliases].map(x => x + ' 10000')},
-  run: (client, message, [amount]) => profile.findById(message.author.id, (err,doc) =>{
+  run: (client, message, [amount='']) => profile.findById(message.author.id, (err,doc) =>{
 
     if (err){
       return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
