@@ -13,9 +13,9 @@ module.exports = async message => {
   // Check the message if the bot's mention was the first on content
   // or the message was a reply from the bot's previous cached message
   if (!mentionregexp.test(message.content.split(/ +/).filter(Boolean)[0])){
-    const ref_id = (message.reference||{}).messageID;
+    const ref_id = message.reference?.messageID;
     const ref_msg = message.channel.messages.cache.get(ref_id);
-    if (!ref_msg || ref_msg.author.id !== message.client.user.id){
+    if (ref_msg?.author.id !== message.client.user.id){
       return Promise.resolve({ success: false });
     };
   };
@@ -41,7 +41,7 @@ module.exports = async message => {
   await new Promise(_ => setTimeout(() => _(), 3000))
 
   // check if we get proper response
-  if (res.cnt && !typeof res.cnt === 'string'){
+  if (typeof res.cnt !== 'string'){
     return message.channel.send('???', { replyTo: message })
     .then(() => {
       message.channel.stopTyping();
