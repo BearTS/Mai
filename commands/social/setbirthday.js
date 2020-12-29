@@ -22,7 +22,7 @@ module.exports = {
       date = moment(date, 'DD-MM');
 
       if (!date.isValid()){
-        return message.channel.send(`\\❌ **${message.author.tag}**, Please add the date in DD-MM-YYYY format`);
+        return message.channel.send(`\\❌ **${message.author.tag}**, Please add the date in DD-MM format`);
       };
 
       doc.data.profile.birthday = date.format('Do MMMM');
