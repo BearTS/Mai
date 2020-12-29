@@ -75,7 +75,7 @@ module.exports = {
       res.data.Staff.name.native
     ].filter(Boolean).join('\u2000•\u2000'), null, res.data.Staff.siteUrl)
     .setDescription([
-      (client.anischedule.info.langflags.find(f => f.lang.toLowerCase() === (res.data.Staff.language || '').toLowerCase()) || {}).flag,
+      client.anischedule.info.langflags.find(f => f.lang.toLowerCase() === res.data.Staff.language?.toLowerCase())?.flag,
       text.truncate(toMarkdown(decode(res.data.Staff.description || '\u200b')), 1000, `...[Read More](${res.data.Staff.siteUrl})`)
     ].join('\n'))
     .addFields([

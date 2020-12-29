@@ -10,7 +10,7 @@ function CommandHandler(manager, message){
     };
   };
 
-  const serverprefix = (message.client.guildProfiles.get((message.guild || {}).id) || {}).prefix || null;
+  const serverprefix = message.client.guildProfiles.get(message.guild?.id)?.prefix || null;
   let prefix;
 
   if (message.content.startsWith('mai')){
