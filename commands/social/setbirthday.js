@@ -19,16 +19,16 @@ module.exports = {
     if (!date){
       return message.channel.send(`\\❌ **${message.author.tag}**, Please add the date`);
     } else {
-      date = moment(date, 'DD-MM-YYYY');
+      date = moment(date, 'DD-MM');
 
       if (!date.isValid()){
         return message.channel.send(`\\❌ **${message.author.tag}**, Please add the date in DD-MM-YYYY format`);
       };
 
-      doc.data.profile.birthday = date.format('Do MMMM YYYY');
+      doc.data.profile.birthday = date.format('Do MMMM');
 
       return doc.save()
-      .then(() => message.channel.send(`\\✔️ **${message.author.tag}**, your birthday has been updated to **${date.format('Do MMMM YYYY')}**!`))
+      .then(() => message.channel.send(`\\✔️ **${message.author.tag}**, your birthday has been updated to **${date.format('Do MMMM')}**!`))
       .catch(() => message.channel.send(`\\❌ **${message.author.tag}**, your birthday update failed!`))
     };
   })
