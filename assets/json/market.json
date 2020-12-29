@@ -669,5 +669,82 @@
     "assets": {
       "link": "https://i.imgur.com/WzeZN42.png"
     }
+  },{
+    "id": 61,
+    "name": "Nezuko's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/vneCWt8.png"
+    }
+  },{
+    "id": 62,
+    "name": "Sabito's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/LBFaY9n.png"
+    }
+  },{
+    "id": 63,
+    "name": "Shinobu's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/SLMOftt.png"
+    }
+  },{
+    "id": 64,
+    "name": "Tanjiro's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/VIgE4Kk.png"
+    }
+  },{
+    "id": 65,
+    "name": "Zenitsu's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/gGtB7Ue.png"
+    }
+  },{
+    "id": 66,
+    "name": "Akatzuki Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/zIJ45ab.png"
+    }
+  },{
+    "id": 67,
+    "name": "Saitama's Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/H9W02iA.png"
+    }
   }
 ]
