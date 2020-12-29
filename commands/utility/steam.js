@@ -27,7 +27,7 @@ module.exports = {
       return message.channel.send(`\\❌ Could not find **${query}** on <:steam:767062357952167946> steam`);
     };
 
-    const body = await fetch (`https://store.steampowered.com/api/appdetails/?appids=${res.items[0].id}`)
+    const body = await fetch (`https://store.steampowered.com/api/appdetails/?cc=us&l=en&appids=${res.items[0].id}`)
     .then(res => res.json())
     .catch(() => null);
 
