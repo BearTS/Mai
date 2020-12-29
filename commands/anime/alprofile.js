@@ -13,7 +13,7 @@ module.exports = {
   description: 'Finds user profile on Anilist based on the provided query',
   parameters: [ 'User' ],
   get examples(){ return [this.name, ...this.aliases].map(x => `${x} <mal username>`)},
-  run: async ( client, message, args ) => {
+  run: function async ( client, message, args ) {
 
     const query = args.join(' ');
 
