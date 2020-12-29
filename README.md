@@ -2,7 +2,7 @@
 
 [![Online](https://img.shields.io/discord/703922441768009731?color=%237289DA&label=Support&logo=discord&logoColor=white)](https://support.mai-san.ml/)
 [![Current Version](https://img.shields.io/github/package-json/v/maisans-maid/mai/master?color=pink&label=Current%20Version)](https://github.com/maisans-maid/Mai)
-[![Node](https://img.shields.io/static/v1?label=node&message=>=14.0.0&color=success&logo=Node.js)](https://nodejs.org/dist/latest-v14.x/)
+[![Node](https://img.shields.io/static/v1?label=node&message=>=14.0.0&color=success&logo=Node.js&logoColor=white)](https://nodejs.org/dist/latest-v14.x/)
 [![DJS](https://img.shields.io/github/package-json/dependency-version/maisans-maid/Mai/discord.js?logo=github)](https://discord.js.org/)
 [![License](https://img.shields.io/github/license/maisans-maid/Mai?color=pink&label=License)](https://github.com/maisans-maid/Mai/blob/master/LICENSE)
 [![Dependencies Status](https://david-dm.org/maisans-maid/Mai/status.svg)](https://david-dm.org/maisans-maid/Mai)
