@@ -771,11 +771,11 @@
   },{
     "id": 70,
     "name": "Wholesome Anko",
-    "description": "Uncommon Profile Emblem",
+    "description": "Rare Profile Emblem",
     "type": "emblem",
     "deletable": true,
     "giftable": true,
-    "price": 12000,
+    "price": 25000,
     "assets": {
       "link": "https://i.imgur.com/p8RCriy.png"
     }
