@@ -753,7 +753,7 @@
     "type": "emblem",
     "deletable": true,
     "giftable": true,
-    "price": 20000,
+    "price": 12000,
     "assets": {
       "link": "https://i.imgur.com/UNWxceV.png"
     }
@@ -764,18 +764,18 @@
     "type": "emblem",
     "deletable": true,
     "giftable": true,
-    "price": 20000,
+    "price": 12000,
     "assets": {
       "link": "https://i.imgur.com/vtvGL9k.png"
     }
   },{
     "id": 70,
     "name": "Wholesome Anko",
-    "description": "Rare Profile Emblem",
+    "description": "Uncommon Profile Emblem",
     "type": "emblem",
     "deletable": true,
     "giftable": true,
-    "price": 25000,
+    "price": 12000,
     "assets": {
       "link": "https://i.imgur.com/p8RCriy.png"
     }
