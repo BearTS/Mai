@@ -746,5 +746,38 @@
     "assets": {
       "link": "https://i.imgur.com/H9W02iA.png"
     }
+  },{
+    "id": 68,
+    "name": "Tamako loves Flowers",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 12000,
+    "assets": {
+      "link": "https://i.imgur.com/UNWxceV.png"
+    }
+  },{
+    "id": 69,
+    "name": "Dera Mochmazzi",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 12000,
+    "assets": {
+      "link": "https://i.imgur.com/vtvGL9k.png"
+    }
+  },{
+    "id": 70,
+    "name": "Wholesome Anko",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/p8RCriy.png"
+    }
   }
 ]
