@@ -746,5 +746,16 @@
     "assets": {
       "link": "https://i.imgur.com/H9W02iA.png"
     }
+  },{
+    "id": 68,
+    "name": "Tamako loves Flowers",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/UNWxceV.png"
+    }
   }
 ]
