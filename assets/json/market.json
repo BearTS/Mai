@@ -934,4 +934,49 @@
       "link": "https://i.imgur.com/H9W02iA.png"
     }
   }
+  },{
+    "id": 85,
+    "name": "Saitama's Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/H9W02iA.png"
+    }
+  },{
+    "id": 86,
+    "name": "Tamako loves Flowers",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/UNWxceV.png"
+    }
+  },{
+    "id": 87,
+    "name": "Dera Mochmazzi",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/UNWxceV.png"
+    }
+  },{
+    "id": 88,
+    "name": "Wholesome Anko",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/UNWxceV.png"
+    }
+  }
 ]
