@@ -757,5 +757,27 @@
     "assets": {
       "link": "https://i.imgur.com/UNWxceV.png"
     }
+  },{
+    "id": 69,
+    "name": "Dera Mochmazzi",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/UNWxceV.png"
+    }
+  },{
+    "id": 70,
+    "name": "Wholesome Anko",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/UNWxceV.png"
+    }
   }
 ]
