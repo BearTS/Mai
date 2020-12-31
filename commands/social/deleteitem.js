@@ -22,8 +22,11 @@ module.exports = {
     };
 
     const itemcount = doc.data.profile.inventory.find(x => x.id === item.id)?.amount;
-
-    if (!itemcount || itemcount < amt){
+    amount = Math.round(amount || 1);
+    
+    if (!amount){
+       return message.channel.send(`\\❌ **${message.author.tag}**, Invalid amount of item to be deleted!`);
+    } else if (!itemcount || itemcount < amount){
       return message.channel.send(`\\❌ **${message.author.tag}**, You do not have the necessary amount of **${item.name}** to delete.`);
     };
 
@@ -40,8 +43,8 @@ module.exports = {
       // Do nothing...
     };
 
-    return message.channel.send(`This will delete **${amount}x** of your **${item.name}**, continue? [y/n]`, { max: 1 })
-    .then(() => message.channel.awaitMessages(x => x.author.id === message.author.id)
+    return message.channel.send(`This will delete **${amount}x** of your **${item.name}**, continue? [y/n]`)
+    .then(() => message.channel.awaitMessages(x => x.author.id === message.author.id, { max: 1 })
       .then((msg) => {
         if (msg.content.match(/n/i)?.[0]){
           return Promise.reject();
