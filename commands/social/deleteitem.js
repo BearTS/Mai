@@ -46,16 +46,20 @@ module.exports = {
     };
 
     return message.channel.send(`This will delete **${amount}x** of your **${item.name}**, continue? [y/n]`)
-    .then(() => message.channel.awaitMessages(x => x.author.id === message.author.id, { max: 1 })
-      .then((msg) => {
-        if (['y','yes'].includes(msg.content.toLowerCase())){
-           return doc.save()
-          .then(() => message.channel.send(`\\✔️ **${message.author.tag}**, Successfully deleted **${amount}x** of your **${item.name}!!**`))
-          .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
-        } else {
-          return message.channel.send(`\\❌ Cancelled operation!`);
-        }
-      }).catch(() => message.channel.send(`\\❌ Cancelled operation!`))
-    );
+    .then(async () => {
+       const filter = _message => message.author.id === _message.author.id && ['y','n','yes','no'].includes(_message.content.toLowerCase());
+       const options = { max: 1, time: 30000, errors: ['time'] };
+       const proceed = await message.channel.awaitMessages(filter, options);
+       .then(collected => ['y','yes'].includes(collected.first().content.toLowerCase()) ? true : false)
+       .catch(() => false);
+      
+      if (!proceed){
+         return message.channel.send(`\\❌ Cancelled operation!`);
+      };
+
+      return doc.save()
+      .then(() => message.channel.send(`\\✔️ **${message.author.tag}**, Successfully deleted **${amount}x** of your **${item.name}!!**`))
+      .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
+    });
   })
 };
