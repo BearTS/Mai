@@ -41,6 +41,8 @@ module.exports = {
 
     if (data.amount > 0){
       doc.data.profile.inventory.push(data);
+    } else if (item.assets.link === doc.data.profile[item.type]){
+      doc.data.profile[item.type] = null;
     } else {
       // Do nothing...
     };
