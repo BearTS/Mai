@@ -67,7 +67,7 @@ module.exports = {
       };
 
       return Promise.all([ doc.save(), fr.save() ])
-      .then(()=> message.channel.send(`\\✔️ **${message.member.displayName}**, successfully transferred **${amount}x ${item.name}**`))
+      .then(()=> message.channel.send(`\\✔️ **${message.member.displayName}**, successfully transferred **${amount}x ${item.name}** to **${friend.user.tag}**`))
       .catch(()=> message.channel.send(`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`))
     });
   })
