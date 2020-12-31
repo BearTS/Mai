@@ -50,28 +50,17 @@ module.exports = {
       return `[${entry.name}](${entry.url.split('/').splice(0,5).join('/')})`;
     }), 1000, ' • ');
 
-    const total = response.anime_stats.episodes_watched + response.manga_stats.volumes_read;
-    const thumb = total > 19999
-    ? 'MzmmlUG' : total > 14999
-    ? 'phrKQJI' : total > 9999
-    ? '01NgPDw' : total > 4999
-    ? 'rabLZqh' : total > 999
-    ? 'dZ8bNQW' : total > 499
-    ? 'DKHajgw' : 'YGLefI9';
-
     return message.channel.send(
       new MessageEmbed()
       .setColor('GREY')
-      .setTimestamp()
-      .setThumbnail('https://i.imgur.com/' + thumb + '.png')
       .setFooter(`MALProfile | \©️${new Date().getFullYear()} Mai`)
       .setAuthor(`${response.username}'s Profile`, response.image_url, response.url)
       .setDescription([
         text.truncate((response.about || '').replace(/(<([^>]+)>)/ig, ''), 350, `...[Read More](${response.url})`),
         `• **Gender**:\u2000\u2000${response.gender || 'Unspecified'}`,
         `• **From**\u2000\u2000${response.location || 'Unspecified'}`,
-        `• **Joined MAL:**\u2000\u2000${moment(response.joined).format('dddd, do MMMM YYYY')}`,
-        `• **Last Seen:**\u2000\u2000${moment(response.last_online).format('dddd, do MMMM YYYY')}`
+        `• **Joined MAL:**\u2000\u2000${moment(response.joined).format('dddd, do MMMM YYYY')}, *${moment(response.joined).fromNow()}*`,
+        `• **Last Seen:**\u2000\u2000${moment(response.last_online).format('dddd, do MMMM YYYY')}, *${moment(response.last_online).fromNow()}*`
       ].join('\n'))
       .addFields([
         {
