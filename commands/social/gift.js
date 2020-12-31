@@ -55,15 +55,15 @@ module.exports = {
       data.amount -= amount;
 
       if (data.amount > 0){
-        doc.data.inventory.push(data)
+        doc.data.profile.inventory.push(data)
       } else {
         // Do nothing...
       };
 
-      if (fr.data.inventory.some(x => x.id === item.id)){
-        fr.data.inventory.find(x => x.id === item.id).amount += amount;
+      if (fr.data.profile.inventory.some(x => x.id === item.id)){
+        fr.data.profile.inventory.find(x => x.id === item.id).amount += amount;
       } else {
-        fr.data.inventory.push({ id: data.id, amount });
+        fr.data.profile.inventory.push({ id: data.id, amount });
       };
 
       return Promise.all([ doc.save(), fr.save() ])
