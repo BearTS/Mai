@@ -46,12 +46,12 @@ module.exports = {
     return message.channel.send(`This will delete **${amount}x** of your **${item.name}**, continue? [y/n]`)
     .then(() => message.channel.awaitMessages(x => x.author.id === message.author.id, { max: 1 })
       .then((msg) => {
-        if (msg.content.match(/n/i)?.[0]){
-          return Promise.reject();
-        } else {
-          return doc.save()
+        if (['y','yes'].includes(msg.content.toLowerCase())){
+           return doc.save()
           .then(() => message.channel.send(`\\✔️ **${message.author.tag}**, Successfully deleted **${amount}x** of your **${item.name}!!**`))
           .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
+        } else {
+          return message.channel.send(`\\❌ Cancelled operation!`);
         }
       }).catch(() => message.channel.send(`\\❌ Cancelled operation!`))
     );
