@@ -28,7 +28,10 @@ module.exports = {
 
     if (!item){
       return message.channel.send(`\\❌ **${message.author.tag}**, Could not find the item with id ${id}!`);
+    } else if (!item.giftable){
+      return message.channel.send(`\\❌ **${message.author.tag}**, item **${item.name}** is not giftable!`);
     };
+    
 
     return profile.findById(friend.id, (err, fr) => {
 
