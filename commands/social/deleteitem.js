@@ -19,6 +19,8 @@ module.exports = {
 
     if (!item){
       return message.channel.send(`\\❌ **${message.author.tag}**, Could not find the item with id ${id}!`);
+    } else if (!item.deletable){
+      return message.channel.send(`\\❌ **${message.author.tag}**, item **${item.name}** is not deletable!`);
     };
 
     const itemcount = doc.data.profile.inventory.find(x => x.id === item.id)?.amount;
