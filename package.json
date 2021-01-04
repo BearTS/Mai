@@ -11,10 +11,6 @@
     "type": "git",
     "url": "https://github.com/maisans-maid"
   },
-    "engines": {
-    "node": "14.x",
-    "npm": "*"
-  },
   "keywords": [
     "discord",
     "discord.js",
