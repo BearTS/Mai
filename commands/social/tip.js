@@ -37,8 +37,6 @@ module.exports = {
 
         const tipper = await profile.findById(message.author.id).catch(() => {}) || new profile({ _id: message.author.id});
 
-        console.log({doc: doc.data.tips, tipper: tipper.data.tips })
-
         const now = Date.now();
         const amount = 350;
         let overflow = false, excess = null;
