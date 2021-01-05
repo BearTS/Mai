@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 
 module.exports = {
   name: 'advice',
-  aliases: [ 'tip', 'tips', 'advise' ],
+  aliases: [ 'tips', 'advise' ],
   group: 'fun',
   description: 'Generate a random useless advice',
   clientPermissions: [ 'EMBED_LINKS' ],
