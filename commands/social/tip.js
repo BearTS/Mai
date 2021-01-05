@@ -42,7 +42,7 @@ module.exports = {
         let overflow = false, excess = null;
 
         if (tipper.data.tips.timestamp !== 0 && tipper.data.tips.timestamp - now > 0){
-          return message.channel.send(`\\❌ **${message.author.tag}**, you already used your tip. You can wait for ${moment.duration(doc.data.tips.timestamp - now).format('H [hours,] m [minutes, and] s [seconds]')} to tip someone again.`);
+          return message.channel.send(`\\❌ **${message.author.tag}**, you already used your tip. You can wait for ${moment.duration(tipper.data.tips.timestamp - now).format('H [hours,] m [minutes, and] s [seconds]')} to tip someone again.`);
         };
 
         if (doc.data.economy.wallet + amount > 50000){
