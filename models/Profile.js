@@ -28,7 +28,8 @@ module.exports = model('user_profiles', Schema({
     },
     tips: {
       given: {type: Number, default: 0},
-      received: {type: Number, default: 0}
+      received: {type: Number, default: 0},
+      timestamp: {type: Number, default: 0}
     },
     xp: {type: Array, default: []}
   }
