@@ -26,7 +26,7 @@ module.exports = {
       const _id = Math.random().toString(36).slice(-7);
       const uploadch = client.channels.cache.get(client.config.channels.uploads);
 
-      messages = messages.map(message => {
+      messages = messages.filter(Boolean).map(message => {
         return [
           `[${moment(message.createdAt).format('dddd, do MMMM YYYY hh:mm:ss')}]`,
           `${message.author.tag} : ${message.content}\r\n\r\n`
