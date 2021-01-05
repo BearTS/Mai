@@ -34,7 +34,7 @@ module.exports = {
       };
     } else {
       role = message.guild.roles.cache.get((role.match(/\d{17,19}/)||[])[0]) ||
-      messge.guild.roles.cache.find(r => r.name === role);
+      message.guild.roles.cache.find(r => r.name === role);
 
       if (!role){
         return message.channel.send(`\\❌ **${message.author}**, Invalid Role - Please supply the mention of the role, the ID of the role, or its Role Name.`)
