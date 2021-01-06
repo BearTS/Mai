@@ -42,7 +42,7 @@ module.exports = {
         Object.keys(client.player.getQueue(message).filters).forEach((filterName) => client.player.getQueue(message).filters[filterName]) ? filters.push(filterName) : false;
 
         const nowplaying = new MessageEmbed()
-        .setAuthor("Now Playing", "https://i.imgur.com/VE7LTIP.gif")
+        .setAuthor("Now Playing", "https://i.imgur.com/2UOMwYK.gif")
         .setColor(`#ffb6c1`)
         .setTitle(track.title)
         .addField('From Playlist', track.fromPlaylist ? 'Yes' : 'No', true)
