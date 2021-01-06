@@ -7,7 +7,7 @@ module.exports = {
   permissions: [],
   clientPermissions: [],
   group: 'music',
-  description: 'Toggle Loop of the Music system of Tamako',
+  description: 'Toggle Loop of the Music system of Mai',
   examples: ['loop'],
   parameters: [],
   run:  async function (client, message, args) {
