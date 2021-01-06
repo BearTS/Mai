@@ -11,20 +11,55 @@ module.exports = {
   examples: ['volume 50'],
   parameters: ['volume'],
   run:  async function (client, message, args) {
-    const channel = message.member.voice.channel;
-      if (!channel)return message.channel.send("I'm sorry but you need to be in a voice channel to play music!");
-      const serverQueue = message.client.queue.get(message.guild.id);
-      if (!serverQueue) return message.channel.send("There is nothing playing in this server.");
-      if (!args[0])return message.channel.send(`The current volume is: **${serverQueue.volume}**`);
-       if(isNaN(args[0])) return message.channel.send(':notes: Numbers only!').catch(err => console.log(err));
-      if(parseInt(args[0]) > 150 ||(args[0]) < 0) return message.channel.send('You can\'t set the volume more than 150. or lower than 0').catch(err => console.log(err));
-      serverQueue.volume = args[0];
-      serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 100);
-      let sakuvol = new MessageEmbed()
-      .setDescription(`I set the volume to: **${args[0]/1}/100**`)
-      .setAuthor("Mai Volume Manager", "https://i.imgur.com/A0H2KZ6.png")
-      .setColor(`#ffb6c1`)
-      .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`)
-      return message.channel.send(sakuvol);
+
+    const samevc = new MessageEmbed()
+    .setAuthor("You Must be in the same voice channel")
+    .setColor(`#ffb6c1`)
+    .setDescription("Baka Baka Baka")
+    .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+    const joinvc = new MessageEmbed()
+    .setAuthor("You Must be in a voice channel")
+    .setColor(`#ffb6c1`)
+    .setDescription("Where will I even play songs!!?! ")
+    .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+    const nomusic = new MessageEmbed()
+    .setAuthor("There is no music playing")
+    .setColor(`#ffb6c1`)
+    .setDescription("Baka")
+    .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+    const validno = new MessageEmbed()
+    .setAuthor("Enter a Valid number")
+    .setColor(`#ffb6c1`)
+    .setDescription("Baka")
+    .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+    const valid = new MessageEmbed()
+    .setAuthor("Enter a Valid number")
+    .setColor(`#ffb6c1`)
+    .setDescription("Baka! It should be between 1 to 100")
+    .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+  if (!message.member.voice.channel) return message.channel.send(joinvc);
+
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(samevc);
+
+    if (!client.player.getQueue(message)) return message.channel.send(nomusic);
+
+        if (!args[0] || isNaN(args[0]) || args[0] === 'Infinity') return message.channel.send(validno);
+
+        if (Math.round(parseInt(args[0])) < 1 || Math.round(parseInt(args[0])) > 100) return message.channel.send(valid);
+
+        client.player.setVolume(message, parseInt(args[0]));
+
+        const success = new MessageEmbed()
+        .setAuthor(`Volume Changed Successfully`)
+        .setColor(`#ffb6c1`)
+        .setDescription(`Current Volume **${parseInt(args[0])}%**`)
+        .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+        message.channel.send(success);
     },
-  };
+};

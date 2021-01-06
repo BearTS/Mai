@@ -10,22 +10,40 @@ module.exports = {
   description: 'Shuffle the queue',
   examples: ['shuffle'],
   parameters: [],
-  run:  async function (client, message, args) {
-    const serverQueue = message.client.queue.get(message.guild.id);
-       if (!serverQueue) return sendError("There is no queue.",message.channel).catch(console.error);
-   try{
-       let songs = serverQueue.songs;
-       for (let i = songs.length - 1; i > 1; i--) {
-         let j = 1 + Math.floor(Math.random() * i);
-         [songs[i], songs[j]] = [songs[j], songs[i]];
-       }
-       serverQueue.songs = songs;
-       message.client.queue.set(message.guild.id, serverQueue);
-       message.react("✅")
-         } catch (error) {
-           message.guild.me.voice.channel.leave();
-           message.client.queue.delete(message.guild.id);
-           return message.channel.send(`Music System of Mai has stopped.: \`${error}\``);
-        }
-     },
-   };
+  run:  async function (client, message) {
+
+          const samevc = new MessageEmbed()
+          .setAuthor("You Must be in the same voice channel")
+          .setColor(`#ffb6c1`)
+          .setDescription("Baka Baka Baka")
+          .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+          const joinvc = new MessageEmbed()
+          .setAuthor("You Must be in a voice channel")
+          .setColor(`#ffb6c1`)
+          .setDescription("Where will I even play songs!!?! ")
+          .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+          const nomusic = new MessageEmbed()
+          .setAuthor("There is no music playing")
+          .setColor(`#ffb6c1`)
+          .setDescription("Baka")
+          .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+          const success = new MessageEmbed()
+          .setAuthor("Queue Shuffled")
+          .setColor(`#ffb6c1`)
+          .setDescription("Yay Don't Forget to [vote for me](https://top.gg/702074452317307061/vote)")
+          .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
+
+     if (!message.member.voice.channel) return message.channel.send(joinvc);
+
+          if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(samevc);
+
+          if (!client.player.getQueue(message)) return message.channel.send(nomusic);
+
+        client.player.shuffle(message);
+
+        return message.channel.send(success);
+    },
+};

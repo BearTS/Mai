@@ -1,16 +1,16 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-  name: 'pause',
-  aliases: [],
+  name: 'clearqueue',
+  aliases: ['clear-queue'],
   guildOnly: true,
   permissions: [],
   clientPermissions: [],
   group: 'music',
-  description: 'Pause the current music playing',
-  examples: ['pause'],
+  description: 'Add Filter to the current song',
+  examples: ['clearqueue'],
   parameters: [],
-  run:  async function (client, message, args) {
+  run:  async function (client, message) {
 
     const samevc = new MessageEmbed()
     .setAuthor("You Must be in the same voice channel")
@@ -30,27 +30,27 @@ module.exports = {
     .setDescription("Baka")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
-    const paused = new MessageEmbed()
-    .setAuthor("Player is already Pause")
+    const onesong = new MessageEmbed()
+    .setAuthor("There is only one song playing")
     .setColor(`#ffb6c1`)
-    .setDescription("Use `resume` to resume the music")
+    .setDescription("use `stop` or `skip` to **stop** the music")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const success = new MessageEmbed()
-    .setAuthor("Player Paused")
+    .setAuthor("Music Queue Cleared")
     .setColor(`#ffb6c1`)
     .setDescription("Yay Don't Forget to [vote for me](https://top.gg/702074452317307061/vote)")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
-     if (!message.member.voice.channel) return message.channel.send(joinvc);
+             if (!message.member.voice.channel) return message.channel.send(joinvc);
 
         if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(samevc);
 
         if (!client.player.getQueue(message)) return message.channel.send(nomusic);
 
-        if (client.player.getQueue(message).paused) return message.channel.send(paused);
+        if (client.player.getQueue(message).tracks.length <= 1) return message.channel.send(onesong);
 
-        client.player.pause(message);
+        client.player.clearQueue(message);
 
         message.channel.send(success);
     },

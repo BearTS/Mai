@@ -1,16 +1,16 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-  name: 'pause',
+  name: 'resume',
   aliases: [],
   guildOnly: true,
   permissions: [],
   clientPermissions: [],
   group: 'music',
-  description: 'Pause the current music playing',
-  examples: ['pause'],
-  parameters: [],
-  run:  async function (client, message, args) {
+  description: 'Resume the Pause Player',
+  examples: ['Resume'],
+  parameters: ['Song name or URl of the song'],
+  run:  async function (client, message) {
 
     const samevc = new MessageEmbed()
     .setAuthor("You Must be in the same voice channel")
@@ -30,27 +30,27 @@ module.exports = {
     .setDescription("Baka")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
-    const paused = new MessageEmbed()
-    .setAuthor("Player is already Pause")
+    const resume = new MessageEmbed()
+    .setAuthor("Player is already Playing")
     .setColor(`#ffb6c1`)
     .setDescription("Use `resume` to resume the music")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const success = new MessageEmbed()
-    .setAuthor("Player Paused")
+    .setAuthor("Player Resumed")
     .setColor(`#ffb6c1`)
     .setDescription("Yay Don't Forget to [vote for me](https://top.gg/702074452317307061/vote)")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
-     if (!message.member.voice.channel) return message.channel.send(joinvc);
+          if (!message.member.voice.channel) return message.channel.send(joinvc);
 
         if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(samevc);
 
         if (!client.player.getQueue(message)) return message.channel.send(nomusic);
 
-        if (client.player.getQueue(message).paused) return message.channel.send(paused);
+        if (!client.player.getQueue(message).paused) return message.channel.send(resume);
 
-        client.player.pause(message);
+        client.player.resume(message);
 
         message.channel.send(success);
     },

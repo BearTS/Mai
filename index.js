@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const Client = require(`${process.cwd()}/struct/Client`);
 const config = require(`${process.cwd()}/config`);
+const fs = require('fs');
 
 const client = new Client(config);
 
@@ -17,7 +18,17 @@ const options = {
   ]
 };
 
-client.queue = new Map();
+///music system
+const { Player } = require('discord-player');
+client.player = new Player(client);
+client.music = require('./config');
+client.filters = client.music.filters;
+const player = fs.readdirSync('./util/player').filter(file => file.endsWith('.js'));
+for (const file of player) {
+        console.log(`Loading discord-player event ${file}`);
+    const event = require(`./util/player/${file}`);
+    client.player.on(file.split(".")[0], event.bind(null, client));
+};
 
 client.database?.init();
 
