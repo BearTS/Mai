@@ -46,22 +46,27 @@ module.exports = {
       };
 
       const amount = 350;
-      let overflow = false, excess = null;
+      let overflow = false, excess = null, unregistered = false;
 
-      if (doc.data.economy.wallet + amount > 50000){
+      if (doc.data.economy.wallet === null){
+        unregistered = true;
+      } else if (doc.data.economy.wallet + amount > 50000){
         overflow = true;
         excess = doc.data.economy.wallet + amount - 50000;
+        doc.data.economy.wallet = 50000;
+      } else {
+        doc.data.economy.wallet += amount;
       };
 
       tipper.data.tips.timestamp = now + 432e5;
       tipper.data.tips.given++;
       doc.data.tips.received++;
-      doc.data.economy.wallet = overflow ? 50000 : doc.data.economy.wallet + amount;
 
       return Promise.all([ doc.save(), tipper.save() ])
       .then(() => message.channel.send([
         `\\✔️ **${message.author.tag}**, tipped **${amount}** to **${member.user.tag}**.`,
         overflow ? `\n\\⚠️ **Overflow Warning**: **${member.user.tag}**'s wallet just overflowed! You need to transfer some of your credits to your bank!` : '',
+        unregistered ? `\n\\⚠️ **Unregistered**: **${member.user,tag}** is unregistered, the bonus credits will not be added.` : ''
       ].join('')))
       .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`))
     });
