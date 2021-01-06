@@ -1,16 +1,16 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = (client, message, query, tracks, content, collector) => {
-  
+
   const embed = new MessageEmbed()
   .setAuthor("Search Cancelled")
-  .setColor(`#ffb6c1`)
+  .setColor(`#b01e0b`)
   .setDescription(`The Search has been **cancelled**`)
   .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
   const embed2 = new MessageEmbed()
           .setAuthor("Invalid Selection")
-          .setColor(`#ffb6c1`)
+          .setColor(`#b01e0b`)
           .setDescription(`Must be a valid number between **1** and **${tracks.length}** !`)
           .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 

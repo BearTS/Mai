@@ -14,31 +14,31 @@ module.exports = {
     // embeds
     const samevc = new MessageEmbed()
     .setAuthor("You Must be in the same voice channel")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Baka Baka Baka")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const joinvc = new MessageEmbed()
     .setAuthor("You Must be in a voice channel")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Where will I even play songs!!?! ")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const nomusic = new MessageEmbed()
     .setAuthor("There is no music playing")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Baka")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const specifyfilter = new MessageEmbed()
     .setAuthor("Specify a valid filter to Toggle")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Do `filters` to check all the filters available")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const nofilterexist = new MessageEmbed()
     .setAuthor("The Filter doesn't Exist")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Example are `8d` `nightcore`. To Get a list of Filters, do `filters`")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 

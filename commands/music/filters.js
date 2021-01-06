@@ -12,19 +12,19 @@ module.exports = {
 
     const samevc = new MessageEmbed()
     .setAuthor("You Must be in the same voice channel")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Baka Baka Baka")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const joinvc = new MessageEmbed()
     .setAuthor("You Must be in a voice channel")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Where will I even play songs!!?! ")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const nomusic = new MessageEmbed()
     .setAuthor("There is no music playing")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Baka")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
@@ -42,8 +42,8 @@ if (!client.player.getQueue(message)) return message.channel.send(nomusic);
         });
 
         const filters = new MessageEmbed()
-        .setAuthor("You Must be in the same voice channel")
-        .setColor(`#ffb6c1`)
+        .setAuthor("List Of Filters")
+        .setColor(`#4afcff`)
         .setDescription("List of all filters enabled or disabled.\nUse \`t!filter [filter name]\` to add a filter to a song.")
         .addField('Filters', filtersStatuses[0].join('\n'), true)
         .addField('** **', filtersStatuses[1].join('\n'), true)

@@ -14,25 +14,25 @@ module.exports = {
 
     const samevc = new MessageEmbed()
     .setAuthor("You Must be in the same voice channel")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Baka Baka Baka")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const joinvc = new MessageEmbed()
     .setAuthor("You Must be in a voice channel")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Where will I even play songs!!?! ")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const nomusic = new MessageEmbed()
     .setAuthor("There is no music playing")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Baka")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
     const paused = new MessageEmbed()
     .setAuthor("Player is already Pause")
-    .setColor(`#ffb6c1`)
+    .setColor(`#f04e48`)
     .setDescription("Use `resume` to resume the music")
     .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
