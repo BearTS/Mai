@@ -7,7 +7,7 @@ module.exports = {
   permissions: [],
   clientPermissions: [],
   group: 'music',
-  description: 'Play songs from Soundcloud,Spotify or Youtube',
+  description: 'Play songs from Soundcloud, Spotify or Youtube',
   examples: ['play Why by Sabrina Carpenter', 'play https://www.youtube.com/watch?v=fhH4pbRJh0k'],
   parameters: ['Song name or URl of the song or playlist'],
   run:  async function (client, message, args) {
