@@ -10,7 +10,7 @@ module.exports = {
   description: 'Give tip to your friends!',
   requiresDatabase: true,
   get examples(){ return [this.name, ...this.aliases];},
-  run: (client, message, user) => profile.findById(message.author.id, async (err, tipper) => {
+  run: (client, message, [user='']) => profile.findById(message.author.id, async (err, tipper) => {
 
     if (err){
       return message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`);
