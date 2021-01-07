@@ -7,7 +7,7 @@ module.exports = {
   aliases: [ 'rank', 'lvl', 'xp', 'level' ],
   guildOnly: true,
   rankcommand: true,
-  cooldown: { time: 30000 },
+  cooldown: { time: 8000 },
   clientPermissions: [ 'ATTACH_FILES' ],
   group: 'social',
   description: 'Shows the current xp, level, rank, and other details of a user',

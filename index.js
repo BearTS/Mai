@@ -11,9 +11,8 @@ const options = {
   log: true,
   paths: [
     'action', 'anime', 'bot',
-    'core', 'fun', 'games',
-    'moderation', 'owner',
-    'setup', 'social','utility'
+    'core', 'fun', 'moderation',
+    'owner', 'setup', 'social','utility'
   ]
 };
 

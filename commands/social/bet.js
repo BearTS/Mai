@@ -26,10 +26,10 @@ module.exports = {
       return message.channel.send(`\\❌ **${message.member.displayName}**, You don't have enough coins in your wallet to proceed with that bet.\nGet more coins from your bank by typing \`${client.prefix}withdraw\`.`);
     } else {
 
-      doc.data.economy.wallet = data.data.wallet - Math.floor(amount);
+      doc.data.economy.wallet = doc.data.economy.wallet - Math.floor(amount);
 
       return doc.save()
-      .then(() => message.channel.send(`✔️ **${message.member.displayName}**, Your **${Math.floor(amount)}** has been placed in a bet. Please wait 1 minute for the result.\nOdds for winning the bet is 1/3, and amount won are twice as large up to 10x as large as the original bet!`))
+      .then(() => message.channel.send(`\\✔️ **${message.member.displayName}**, Your **${Math.floor(amount)}** has been placed in a bet. Please wait 1 minute for the result.\nOdds for winning the bet is 1/3, and amount won are twice as large up to 10x as large as the original bet!`))
       .then(async () => {
         await Util.delayFor(60000);
 
@@ -43,7 +43,7 @@ module.exports = {
 
         doc.data.economy.bank = doc.data.economy.bank + prize;
         return doc.save()
-        .then(() => message.channel.send(`✔️ **${message.member.displayName}**, You won **${text.commatize(amount)}** coins from your previous bet!\nYour bet **${Math.floor(amount)}** coins have multiplied by **${multiplier}**.\nYou'll receive **${text.commatize(prize)}** coins as the prize. Your winnings has been transferred to your bank!`))
+        .then(() => message.channel.send(`\\✔️ **${message.member.displayName}**, You won **${text.commatize(amount)}** coins from your previous bet!\nYour bet **${Math.floor(amount)}** coins have multiplied by **${multiplier}**.\nYou'll receive **${text.commatize(prize)}** coins as the prize. Your winnings has been transferred to your bank!`))
         .catch(() => message.channel.send(`\`❌ Oh no! ${message.member.displayName}, The betting machine just broke! You lost **${text.commatize(amount)}** coins from your previous bet.\nThis doesn't usually happen. Please contact my developer if you receive this message.`))
       }).catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
     };
