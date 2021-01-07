@@ -10,7 +10,7 @@ await message.channel.send([
   'Guess the succeeding country by its flag in under 30 seconds:',
   '- First question grants you 300 credits',
   '- Answering succeeding flags earns 100 credits',
-  '- You only have 1 attempt per question'
+  '- You only have 1 attempt per question',
   '- Game begins in 5 seconds...'
 ].join('\n'))
 
