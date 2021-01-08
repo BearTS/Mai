@@ -1,11 +1,6 @@
-const Client = require(`${process.cwd()}/struct/Client`);
-const config = require(`${process.cwd()}/config`);
-
-const client = new Client(config);
+// NOTE: ./struct not included on test
 
 const options = {
-  bypass: true,
-  log: true,
   paths: [
     'action', 'anime', 'bot',
     'core', 'fun', 'moderation',
@@ -13,13 +8,43 @@ const options = {
   ]
 };
 
-client.database?.init();
+const { readdir } = require('fs');
 
-// Test errors on commands#load
-client.loadCommands({ parent: 'commands', ...options });
+// Test events
+for (const path of options.paths){
+  readdir(`./commands/${path}`, (err, files) => {
+    files.filter(file => file.split('.').pop === 'js').forEach(file => {
+      require(`./commands/${path}/${file}`);
+    });
+  });
+};
 
-// Test errors on events#load
-client.loadEvents({ parent: 'events', ...options });
+// Test events
+readdir(`./events`, (err, files) => {
+  files.filter(file => file.split('.').pop() === 'js').forEach(file => {
+    require(`./events/${file}`);
+  });
+});
 
-// Test errors on client#precollections
-client.defineCollections([ 'discovery', 'economy', 'memes', 'xp' ]);
+// Test JSON assets
+readdir('./assets/json', (err, files) => {
+  files.filter(file => file.split('.').pop() === 'json').forEach(file => {
+    require(`./assets/json/${file}`);
+  });
+});
+
+// Test utils
+readdir('./util', (err, files) => {
+  files.filter(file => file.split('.').pop() === 'js').forEach(file => {
+    require(`./util/${file}`);
+  });
+});
+
+// Test ./utils/games
+readdir('./util/games', (err, files) => {
+  files.filter(file => file.split('.').pop() === 'js').forEach(file => {
+    require(`./util/games/${file}`);
+  });
+});
+
+// End of Test
