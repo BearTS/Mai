@@ -25,7 +25,8 @@ module.exports = {
 
     const user = member.user;
     const userFlags = await user.fetchFlags()
-    .then(flags => flags.toArray().map(x => client.emojis.cache.find(x)).filter(Boolean))
+    .then(flags => Promise.resolve(Object.entries(flags.serialize()).filter(([_, val]) => !!val)))
+    .then(flags => flags.map(([key, _]) => client.emojis.cache.find(x => x.name === key)?.toString() || key))
     .catch(() => []);
 
     if (message.guild.ownerID === user.id){
@@ -43,7 +44,7 @@ module.exports = {
         { name: 'Username', value: `**${user.username}**#${user.discriminator}`, inline: true },
         { name: 'Type', value: user.bot ? 'Bot' : 'User', inline: true },
         { name: 'Joined Discord', value: moment(user.createdAt).format('dddd, do MMMM YYYY') },
-        { name: `Roles [${member.roles.cache.size - 1}]`, value: member.roles.cache.filter(r => r.id !== message.guild.id).map(x => `${x}`).splice(0,50).join(' ')}
+        { name: `Roles [${member.roles.cache.size - 1}]`, value: member.roles.cache.filter(r => r.id !== message.guild.id).map(x => `${x}`).splice(0,50).join(' ') || '\u200b'}
       ])
     );
   }

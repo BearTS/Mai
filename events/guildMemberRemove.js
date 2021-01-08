@@ -7,13 +7,18 @@ module.exports = async (client, member) => {
 
   if (!guildProfile.greeter.leaving.isEnabled){
     return;
+  } else if (!guildProfile.greeter.leaving.channel) {
+    return;
   } else if (!member.guild.channels.cache.get(guildProfile.greeter.leaving.channel)){
     return;
   } else {
     // Do nothing..
   };
+  
+  const leaving = guildProfile.greeter.leaving;
+  const type = leaving.type === 'msg' && !leaving.message ? 'default' : leaving.type;
 
-  if (!guildProfile.greeter.leaving.message || guildProfile.greeter.leaving.type === 'default'){
+  if (type === 'default'){
     return client.channels.cache.get(guildProfile.greeter.leaving.channel).send(
       new MessageEmbed()
       .setColor('GREY')
@@ -24,7 +29,7 @@ module.exports = async (client, member) => {
     );
   };
 
-  if (guildProfile.greeter.leaving.type === 'msg'){
+  if (type === 'msg'){
     const message = await modifier.modify(guildProfile.greeter.leaving.message, member)
     return client.channels.cache.get(guildProfile.greeter.leaving.channel).send(message);
  };

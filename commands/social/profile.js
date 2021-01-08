@@ -7,7 +7,7 @@ module.exports = {
   aliases: [ 'rank', 'lvl', 'xp', 'level' ],
   guildOnly: true,
   rankcommand: true,
-  cooldown: { time: 30000 },
+  cooldown: { time: 8000 },
   clientPermissions: [ 'ATTACH_FILES' ],
   group: 'social',
   description: 'Shows the current xp, level, rank, and other details of a user',
@@ -302,10 +302,10 @@ module.exports = {
       ctx.save();
       ctx.clip();
       ctx.drawImage(avatar,75,150,150,150);
+      ctx.restore();
 
       // add wreath
       if (wreath){
-        ctx.restore()
         ctx.beginPath();
         ctx.drawImage(wreath,60,145,180,180);
       };

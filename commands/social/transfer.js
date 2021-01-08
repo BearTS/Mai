@@ -9,7 +9,7 @@ module.exports = {
   requiresDatabase: true,
   parameters: [ 'User Mention', 'Amount' ],
   get examples(){ return [this.name, ...this.aliases];},
-  run: (client, message, [ friend='', amount ]) => profile.findById(message.author.id, async (err, doc) => {
+  run: (client, message, [ friend='', amount='' ]) => profile.findById(message.author.id, async (err, doc) => {
 
     const fr = friend;
     friend = await message.guild.members.fetch(friend.match(/\d{17,19}/)||[][0]||' ')

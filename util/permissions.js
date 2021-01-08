@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 function check(message, command){
   const reasons = [];
-  const guildProfile = message.client.guildProfiles.get((message.guild || {}).id);
+  const guildProfile = message.client.guildProfiles.get(message.guild?.id);
 
   if (command.guildOnly){
     if (message.channel.type === 'dm'){

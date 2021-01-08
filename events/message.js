@@ -3,12 +3,6 @@ const experience = require(`${process.cwd()}/util/xp`);
 
 module.exports = async (client, message) => {
 
-  // /*
-  // Test the bot's workability (v4) on support server. Remove this line on actual deployment
-  // */
-  // if (!['762542751522095124', '764041288084750366', '761940318488625202', '761940372976435220'].includes(message.channel.id)) return;
-  // /**/
-
   //*=================WELCOME TO THE  MESSAGE EVENT===============*/
   // This function everytime the bot receives a message payload from discord
   //*=============================================================*/
@@ -22,7 +16,7 @@ module.exports = async (client, message) => {
   // When a user types prefix on Discord where this bot has permissions to view
   // channel and send message to, reply with the usable prefix for this bot.
   // comment out to disable~
-  const serverprefix = client.guildProfiles.get(message.guild.id)?.prefix || 'Not set'
+  const serverprefix = client.guildProfiles.get(message.guild?.id)?.prefix || 'Not set'
 
   if (message.content.toLowerCase() === 'prefix'){
     return message.channel.send(`${message.author}, My prefix is \`${client.config.prefix}\`, The custom prefix is \`${serverprefix}\`.`)

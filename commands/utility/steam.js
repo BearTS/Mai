@@ -27,7 +27,7 @@ module.exports = {
       return message.channel.send(`\\❌ Could not find **${query}** on <:steam:767062357952167946> steam`);
     };
 
-    const body = await fetch (`https://store.steampowered.com/api/appdetails/?appids=${res.items[0].id}`)
+    const body = await fetch (`https://store.steampowered.com/api/appdetails/?cc=us&l=en&appids=${res.items[0].id}`)
     .then(res => res.json())
     .catch(() => null);
 
@@ -38,8 +38,8 @@ module.exports = {
     const data = body[res.items[0].id].data;
     const platformLogo = { windows: '<:windows:767062364042166321>' , mac: '<:mac:767062376440659978>', linux: '<:linux:767062376440659978>' };
     const platformrequirements = { windows: 'pc_requirements', mac: 'mac_requirements', linux: 'linux_requirements' };
-    const current = ((data.price_overview || {}).final || 'Free').toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    const original = ((data.price_overview || {}).initial || 'Free').toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    const current = (data.price_overview?.final || 'Free').toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    const original = (data.price_overview?.initial || 'Free').toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     const price = current === original ? current : `~~~${original}~~~ ${current}`;
     const platforms = Object.entries(data.platforms).filter(([platform, has]) => has)
     .map(([platform]) => { return {
@@ -57,8 +57,8 @@ module.exports = {
       .setFooter(`Steam @ Steam.Inc©️  | \©️${new Date().getFullYear()} Mai`)
       .addFields([
         { name: 'Price', value: `•\u2000 ${price}`, inline: true },
-        { name: 'Metascore', value: `•\u2000 ${(data.metacritic||{}).score||'???'}`, inline: true },
-        { name: 'Release Date', value: `•\u2000 ${(data.release_date||{}).data||'???'}`, inline: true },
+        { name: 'Metascore', value: `•\u2000 ${data.metacritic?.score||'???'}`, inline: true },
+        { name: 'Release Date', value: `•\u2000 ${data.release_date?.data||'???'}`, inline: true },
         { name: 'Developers', value: data.developers.map(m => `• ${m}`).join('\n'), inline: true },
         { name: 'Categories', value: data.categories.map(m => `• ${m.description}`).join('\n'), inline: true },
         { name: 'Genres', value: data.genres.map(m => `• ${m.description}`).join('\n'), inline: true },

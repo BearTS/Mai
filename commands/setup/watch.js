@@ -69,8 +69,8 @@ module.exports = {
       .addFields(res.splice(0,25).sort((A,B) => B.id - A.id).map(entry => {
         const filter = ['HIATUS','RELEASING','NOT_YET_RELEASED'].includes(entry.status)
         && !existing.includes(entry.id);
-        const nextep = (entry.nextAiringEpisode||{}).episode;
-        const untilnextep = (entry.nextAiringEpisode||{}).timeUntilAiring;
+        const nextep = entry.nextAiringEpisode?.episode;
+        const untilnextep = entry.nextAiringEpisode?.timeUntilAiring;
         let reason;
 
         if (entry.status === 'FINISHED'){

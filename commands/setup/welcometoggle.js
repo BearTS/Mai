@@ -35,7 +35,7 @@ module.exports = {
           '<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000',
           `Member Greeter Feature has been successfully **${state}**!\n\n`,
           `To **${!doc.greeter.welcome.isEnabled ? 're-enable' : 'disable'}** this`,
-          `feature, use the \`${client.prefix}goodbyetoggle\` command.`,
+          `feature, use the \`${client.prefix}welcometoggle\` command.`,
           !profile.greeter.welcome.message ? '\n\u2000 \\⚠️ Welcome Message has not been configured. [Learn](https://mai-san.ml/) how to customize one.' : '',
           !profile.greeter.welcome.channel ? `\n\u2000 \\⚠️ Welcome channel has not been set! Set one by using the \`${client.config.prefix}setwelcomech\` command!` : ''
         ].join(' '))

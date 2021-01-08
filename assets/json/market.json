@@ -192,7 +192,7 @@
     "type": "background",
     "deletable": true,
     "giftable": true,
-    "price": 0,
+    "price": 16000,
     "assets": {
       "link": "https://i.imgur.com/qDij2SD.png"
     }
@@ -580,6 +580,204 @@
     "price": 18000,
     "assets": {
       "link": "https://i.imgur.com/oPLQgb5.png"
+    }
+  },{
+    "id": 53,
+    "name": "Bear Ears",
+    "description": "Uncommon Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/8wabriL.png"
+    }
+  },{
+    "id": 54,
+    "name": "Cat Ears",
+    "description": "Uncommon Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/0lCGZU9.png"
+    }
+  },{
+    "id": 55,
+    "name": "Elaine's Hat",
+    "description": "Super Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/u64ReU3.png"
+    }
+  },{
+    "id": 56,
+    "name": "Jotaro's Hat",
+    "description": "Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/djHvCkN.png"
+    }
+  },{
+    "id": 57,
+    "name": "Luffy's Hat",
+    "description": "Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/Bec7MDK.png"
+    }
+  },{
+    "id": 58,
+    "name": "Megumin's Hat",
+    "description": "Super Rare Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/CjAmivx.png"
+    }
+  },{
+    "id": 59,
+    "name": "Platelet-chan's Cap",
+    "description": "Uncommon Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/ij1PW7l.png"
+    }
+  },{
+    "id": 60,
+    "name": "Autism-meme cap",
+    "description": "Uncommon Profile Hat",
+    "type": "hat",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/WzeZN42.png"
+    }
+  },{
+    "id": 61,
+    "name": "Nezuko's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/vneCWt8.png"
+    }
+  },{
+    "id": 62,
+    "name": "Sabito's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/LBFaY9n.png"
+    }
+  },{
+    "id": 63,
+    "name": "Shinobu's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/SLMOftt.png"
+    }
+  },{
+    "id": 64,
+    "name": "Tanjiro's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/VIgE4Kk.png"
+    }
+  },{
+    "id": 65,
+    "name": "Zenitsu's Haori Pattern",
+    "description": "Rare Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/gGtB7Ue.png"
+    }
+  },{
+    "id": 66,
+    "name": "Akatzuki Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/zIJ45ab.png"
+    }
+  },{
+    "id": 67,
+    "name": "Saitama's Pattern",
+    "description": "Uncommon Profile Pattern",
+    "type": "pattern",
+    "deletable": true,
+    "giftable": true,
+    "price": 15000,
+    "assets": {
+      "link": "https://i.imgur.com/H9W02iA.png"
+    }
+  },{
+    "id": 68,
+    "name": "Tamako loves Flowers",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 12000,
+    "assets": {
+      "link": "https://i.imgur.com/UNWxceV.png"
+    }
+  },{
+    "id": 69,
+    "name": "Dera Mochmazzi",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 12000,
+    "assets": {
+      "link": "https://i.imgur.com/vtvGL9k.png"
+    }
+  },{
+    "id": 70,
+    "name": "Wholesome Anko",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 25000,
+    "assets": {
+      "link": "https://i.imgur.com/p8RCriy.png"
     }
   }
 ]

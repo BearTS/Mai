@@ -13,7 +13,7 @@ module.exports = {
   description: 'Finds user profile on Anilist based on the provided query',
   parameters: [ 'User' ],
   get examples(){ return [this.name, ...this.aliases].map(x => `${x} <mal username>`)},
-  run: async ( client, message, args ) => {
+  run: async function ( client, message, args ) {
 
     const query = args.join(' ');
 
@@ -44,7 +44,7 @@ module.exports = {
       .setImage(response.data.User.bannerImage)
       .setThumbnail(response.data.User.avatar.medium)
       .setAuthor(response.data.User.name, null, response.data.User.siteUrl)
-      .setDescription(text.truncate(decode(response.data.User.about.replace(/(<([^>]+)>)/ig,'')), 250)||'')
+      .setDescription(text.truncate(decode(response.data.User.about?.replace(/(<([^>]+)>)/ig,'') || ''), 250))
       .setFooter(`ALProfile | \©️${new Date().getFullYear()} Mai`)
       .addFields(Object.entries(response.data.User.favourites).map(([topic, target]) => {
         topic = topic.charAt(0).toUpperCase() + topic.slice(1);
