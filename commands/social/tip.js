@@ -66,7 +66,7 @@ module.exports = {
       .then(() => message.channel.send([
         `\\✔️ **${message.author.tag}**, tipped **${amount}** to **${member.user.tag}**.`,
         overflow ? `\n\\⚠️ **Overflow Warning**: **${member.user.tag}**'s wallet just overflowed! You need to transfer some of your credits to your bank!` : '',
-        unregistered ? `\n\\⚠️ **Unregistered**: **${member.user,tag}** is unregistered, the bonus credits will not be added.` : ''
+        unregistered ? `\n\\⚠️ **Unregistered**: **${member.user.tag}** is unregistered, the bonus credits will not be added.` : ''
       ].join('')))
       .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`))
     });

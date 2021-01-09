@@ -25,13 +25,13 @@ module.exports = {
       new MessageEmbed().setDescription(
         `\u200B\n💰 **${
           text.commatize(doc.data.economy.wallet)
-        }** coins in posession.\n\n${
+        }** credits in posession.\n\n${
           doc.data.economy.bank !== null
-          ? `💰 **${text.commatize(doc.data.economy.bank)}** coins in bank!`
+          ? `💰 **${text.commatize(doc.data.economy.bank)}** credits in bank!`
           : `Seems like you don't have a bank yet. Create one now by typing \`${
             client.config.prefix
           }bank\``
-        }`
+        }\n\nDaily Streak: **${doc.data.economy.streak.current}** (All time best: **${doc.data.economy.streak.alltime}**)`
       ).setAuthor(`${message.member.displayName}'s wallet`)
       .setColor('GREY')
       .setThumbnail(message.author.displayAvatarURL({dynamic: 'true'}))

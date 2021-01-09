@@ -3,12 +3,12 @@ const profile = require(`${process.cwd()}/models/Profile`);
 const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
-  name: 'leaderboard',
-  aliases: [ 'lb', 'topxp' ],
+  name: 'creditslb',
+  aliases: [ 'richlb', 'richleaderboard', 'creditsleaderboard' ],
   guildOnly: true,
   rankcommand: true,
   group: 'social',
-  description: 'Shows the top xp earners for this server',
+  description: 'Shows the top credit earners for this server',
   requiresDatabase: true,
   clientPermissions: [ 'EMBED_LINKS' ],
   get examples(){ return [this.name, ...this.aliases ];},
@@ -51,18 +51,20 @@ module.exports = {
         );
       };
 
-      docs = docs.map(x => { return { id: x._id, data: x.data.xp.find(x => x.id === message.guild.id)};})
-      .sort((A,B) => B.data.xp - A.data.xp) // Arrange by points, descending.
-      .filter(x => x.data.xp); // Remove document where xp is 0.
+      docs = docs.map(x => { return { id: x._id, wallet: x.data.economy.wallet, bank: x.data.economy.bank};})
+      .sort((A,B) => ((B.wallet || 0) + (B.bank || 0)) - ((A.wallet || 0) + (A.bank || 0))) // Arrange by credits, descending.
+      .filter(x => Boolean(x.wallet || 0 + x.bank || 0)); // Remove document where total credits is 0.
+
+      console.log(docs)
 
       if (!docs.length){
         return message.channel.send(
           embed.setDescription([
-            `**${message.member.displayName}**, No XP found.\n\n`,
-            'Users in this server have not started earning XP yet!\n',
-            '[Learn More](https://mai-san.ml/docs/features/XP_System) about Mai\'s XP System.'
+            `**${message.member.displayName}**, No credit documents found.\n\n`,
+            'Users in this server have not started earning credits yet!\n',
+            '[Learn More](https://mai-san.ml/) about Mai\'s Economy System.'
           ].join('\n'))
-          .setAuthor('No XP','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+          .setAuthor('No Credits','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         );
       };
 
@@ -73,35 +75,35 @@ module.exports = {
       return message.channel.send(
         new MessageEmbed()
         .setColor('GREY')
-        .setFooter(`XP Leaderboard | \©️${new Date().getFullYear()} Mai`)
-        .setAuthor(`🏆 ${message.guild.name} Leaderboard`, message.guild.iconURL({format: 'png', dynamic: true }) || null)
-        .addField(`**${members.get(docs[0].id)?.displayName || '<Unknown User>'}** ranked the highest with **${text.commatize(docs[0].data.xp)}**XP!`,
+        .setFooter(`Credits Leaderboard | \©️${new Date().getFullYear()} Mai`)
+        .setAuthor(`🏆 ${message.guild.name} Credits Leaderboard`, message.guild.iconURL({format: 'png', dynamic: true }) || null)
+        .addField(`**${members.get(docs[0].id)?.displayName || '<Unknown User>'}** ranked the highest with **${text.commatize(docs[0].wallet + docs[0].bank)} **Credits!`,
         [
           '```properties',
-          '╭═══════╤═══════╤════════╤════════════════════════════╮',
-          '┃  Rank ┃ Level ┃     XP ┃ User                       ┃',
-          '╞═══════╪═══════╪════════╪════════════════════════════╡',
+          '╭═══════╤════════╤═════════╤════════════════════════════╮',
+          '┃  Rank ┃ Wallet ┃    Bank ┃ User                       ┃',
+          '╞═══════╪════════╪═════════╪════════════════════════════╡',
           docs.slice(0,10).map((u,i) => {
             const rank = String(i+1);
             return [
               '┃' + ' '.repeat(6-rank.length) + rank,
-              ' '.repeat(5-String(u.data.level).length) + u.data.level,
-              ' '.repeat(6-text.compactNum(u.data.xp).length) + text.compactNum(u.data.xp),
+              ' '.repeat(6-text.compactNum(u.wallet).length) + text.compactNum(u.wallet),
+              ' '.repeat(7-text.compactNum(u.bank).length) + text.compactNum(u.bank),
               members.get(u.id)?.user.tag || '<Unknown User>'
             ].join(' ┃ ')
           }).join('\n'),
-          '╞═══════╪═══════╪════════╪════════════════════════════╡',
+          '╞═══════╪════════╪═════════╪════════════════════════════╡',
           docs.filter(x => x.id === message.author.id).map((u,i,a) => {
             const user = a.find(x => x.id === message.author.id);
             const rank = docs.findIndex(x => x.id === message.author.id) + 1;
             return [
               '┃' + ' '.repeat(6-text.ordinalize(rank).length) + text.ordinalize(rank),
-              ' '.repeat(5-String(u.data.level).length) + u.data.level,
-              ' '.repeat(6-text.compactNum(u.data.xp).length) + text.compactNum(u.data.xp),
+              ' '.repeat(6-text.compactNum(u.wallet).length) + text.compactNum(u.wallet),
+              ' '.repeat(7-text.compactNum(u.bank).length) + text.compactNum(u.bank),
               text.truncate('You (' + message.author.tag + ')', 26) + ' '.repeat(27-text.truncate('You (' + message.author.tag + ')', 26).length) + '┃'
             ].join(' ┃ ')
           }).join(''),
-          '╰═══════╧═══════╧════════╧════════════════════════════╯',
+          '╰═══════╧════════╧═════════╧════════════════════════════╯',
           '```'
         ].join('\n'))
       );
