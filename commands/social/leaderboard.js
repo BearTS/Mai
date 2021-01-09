@@ -98,7 +98,7 @@ module.exports = {
               '┃' + ' '.repeat(6-text.ordinalize(rank).length) + text.ordinalize(rank),
               ' '.repeat(5-String(u.data.level).length) + u.data.level,
               ' '.repeat(6-text.compactNum(u.data.xp).length) + text.compactNum(u.data.xp),
-              text.truncate('You (' + message.author.tag + ')', 27) + ' '.repeat(27-text.truncate('You (' + message.author.tag + ')', 27).length) + '┃'
+              text.truncate('You (' + message.author.tag + ')', 26) + ' '.repeat(27-text.truncate('You (' + message.author.tag + ')', 26).length) + '┃'
             ].join(' ┃ ')
           }).join(''),
           '╰═══════╧═══════╧════════╧════════════════════════════╯',

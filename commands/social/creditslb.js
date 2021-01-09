@@ -100,7 +100,7 @@ module.exports = {
               '┃' + ' '.repeat(6-text.ordinalize(rank).length) + text.ordinalize(rank),
               ' '.repeat(6-text.compactNum(u.wallet).length) + text.compactNum(u.wallet),
               ' '.repeat(7-text.compactNum(u.bank).length) + text.compactNum(u.bank),
-              text.truncate('You (' + message.author.tag + ')', 27) + ' '.repeat(26-text.truncate('You (' + message.author.tag + ')', 27).length) + '┃'
+              text.truncate('You (' + message.author.tag + ')', 26) + ' '.repeat(27-text.truncate('You (' + message.author.tag + ')', 26).length) + '┃'
             ].join(' ┃ ')
           }).join(''),
           '╰═══════╧════════╧═════════╧════════════════════════════╯',
