@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const consoleUtil = require(`${process.cwd()}/util/console`);
-
+require('dotenv').config();
+const { MONGO_URI } = process.env;
 module.exports = class Mongoose{
   constructor(client, options = {}){
 
@@ -19,7 +20,7 @@ module.exports = class Mongoose{
     if (typeof options.connector === 'string'){
       this.connector = options.connector;
     } else {
-      this.connector = `mongodb://botAdmin:${options.password}@botdev-shard-00-00-pblka.mongodb.net:27017,botdev-shard-00-01-pblka.mongodb.net:27017,botdev-shard-00-02-pblka.mongodb.net:27017/MaiDocs?replicaSet=BotDev-shard-0&ssl=true&authSource=admin`;
+      this.connector = MONGO_URI;
     };
 
     /**
