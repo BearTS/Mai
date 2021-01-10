@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const consoleUtil = require(`${process.cwd()}/util/console`);
-require('dotenv').config();
-const { MONGO_URI } = process.env;
 module.exports = class Mongoose{
   constructor(client, options = {}){
 
@@ -20,7 +18,7 @@ module.exports = class Mongoose{
     if (typeof options.connector === 'string'){
       this.connector = options.connector;
     } else {
-      this.connector = MONGO_URI;
+      this.connector = `${options.uri}`;
     };
 
     /**
