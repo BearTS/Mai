@@ -23,7 +23,7 @@ module.exports = {
       .setThumbnail('https://i.imgur.com/oTVVqHQ.gif')
       .setColor('GREY')
       .setDescription(data.facts)
-      .setFooter(`Catfact | \©️${new Date().getFullYear()} Mai`)
+      .setFooter(`Dogfact | \©️${new Date().getFullYear()} Mai`)
     );
   }
 };
