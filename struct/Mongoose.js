@@ -18,7 +18,7 @@ module.exports = class Mongoose{
     if (typeof options.connector === 'string'){
       this.connector = options.connector;
     } else {
-      this.connector = `${options.uri}`;
+      this.connector = options.uri;
     };
 
     /**
