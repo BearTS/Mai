@@ -74,7 +74,7 @@ const settings = {
   database: {
     enable: true,
     connector: null,
-    password: process.env.MONGO,
+    uri: process.env.MONGO_URI,
     config: {
       useUnifiedTopology: true,
       useNewUrlParser: true,
