@@ -1,0 +1,2489 @@
+[
+  {
+    "name": "baka",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "It's not like I want you to use my command.. ~Baka!",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "baka @user"
+    ]
+  },
+  {
+    "name": "cry",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "UWAA~!",
+    "parameters": [],
+    "examples": [
+      "cry"
+    ]
+  },
+  {
+    "name": "disgust",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Mazui! Kimoi!",
+    "parameters": [],
+    "examples": [
+      "User Mention"
+    ]
+  },
+  {
+    "name": "feed",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Yummy!",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "feed @user"
+    ]
+  },
+  {
+    "name": "happy",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Happy!",
+    "parameters": [],
+    "examples": [
+      "happy"
+    ]
+  },
+  {
+    "name": "hug",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Hug someone special.",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "hug @user"
+    ]
+  },
+  {
+    "name": "kill",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Kill someone.",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "kill @user"
+    ]
+  },
+  {
+    "name": "kiss",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Show your love to someone special! Not me lol",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "kiss @user"
+    ]
+  },
+  {
+    "name": "lick",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Lick Lick Lick Lick Lick Lick Lick.",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "lick @user"
+    ]
+  },
+  {
+    "name": "midfing",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "nsfw": true,
+    "description": "Use this to throw someone off. No seriously, it's a joke!",
+    "parameters": [],
+    "examples": [
+      ""
+    ]
+  },
+  {
+    "name": "pat",
+    "aliases": [
+      "headpat"
+    ],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "It's not like I want you to use my command.. ~Baka!",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "pat @user"
+    ]
+  },
+  {
+    "name": "poke",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Poke your friends!",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "poke @user"
+    ]
+  },
+  {
+    "name": "slap",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Slap them friends!~",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "slap @user"
+    ]
+  },
+  {
+    "name": "smug",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "The epitome of arguments: smug anime girls",
+    "parameters": [],
+    "examples": [
+      "smug"
+    ]
+  },
+  {
+    "name": "suicide",
+    "aliases": [
+      "kms"
+    ],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "nsfw": true,
+    "description": "KYSL - KillYourSelfLol",
+    "parameters": [],
+    "examples": [
+      "suicide",
+      "kms"
+    ]
+  },
+  {
+    "name": "tickle",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Tickle your friends!",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "tickle @user"
+    ]
+  },
+  {
+    "name": "alprofile",
+    "aliases": [
+      "al-of",
+      "alof",
+      "alstat",
+      "aluser"
+    ],
+    "cooldown": {
+      "time": 10000
+    },
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "group": "anime",
+    "description": "Finds user profile on Anilist based on the provided query",
+    "parameters": [
+      "User"
+    ],
+    "examples": [
+      "alprofile <mal username>",
+      "al-of <mal username>",
+      "alof <mal username>",
+      "alstat <mal username>",
+      "aluser <mal username>"
+    ]
+  },
+  {
+    "name": "anime",
+    "aliases": [
+      "ani",
+      "as",
+      "anisearch"
+    ],
+    "cooldown": {
+      "time": 10000,
+      "message": "You are going too fast. Please slow down to avoid getting rate-limited!"
+    },
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "group": "anime",
+    "description": "Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \"Homepage\")",
+    "parameters": [
+      "Search Query"
+    ],
+    "examples": [
+      "anime",
+      "ani aobuta",
+      "as seishun buta yarou",
+      "anisearch bunnygirl senpai"
+    ]
+  },
+  {
+    "name": "animeme",
+    "aliases": [
+      "ameme",
+      "animememe",
+      "animemes",
+      "animememes",
+      "amemes"
+    ],
+    "guildOnly": true,
+    "group": "anime",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "description": "Generate an anime meme fetched from selected <:reddit:767062345422864394> [Subreddits](https://reddit.com \"Homepage\"). Include `reload` parameter to reload meme cache. Memes generated are in order by default, add `r`, `random`, or `randomize` to randomize meme.",
+    "parameters": [
+      "Reload tag",
+      "Randomization tag"
+    ],
+    "examples": [
+      "animeme",
+      "ameme reload",
+      "animememe random",
+      "animemes ",
+      "animememes reload",
+      "amemes random"
+    ]
+  },
+  {
+    "name": "aniquote",
+    "aliases": [
+      "aq",
+      "animequote"
+    ],
+    "group": "anime",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "description": "Generate a random anime quote",
+    "parameters": [],
+    "examples": [
+      "aniquote",
+      "aq",
+      "animequote"
+    ]
+  },
+  {
+    "name": "anirandom",
+    "aliases": [
+      "anirand",
+      "anirecommend"
+    ],
+    "cooldown": {
+      "time": 15000,
+      "message": "You are going too fast. Please slow down to avoid getting rate-limited!"
+    },
+    "group": "anime",
+    "description": "Generates a random anime recommendation. Recommends a Hentai if used on a nsfw channel.",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "parameter": [],
+    "examples": [
+      "anirandom",
+      "anirand",
+      "anirecommend"
+    ]
+  },
+  {
+    "name": "character",
+    "aliases": [
+      "anichar",
+      "char",
+      "c"
+    ],
+    "cooldown": {
+      "time": 10000,
+      "message": "You are going too fast. Please slow down to avoid getting rate-limited!"
+    },
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "group": "anime",
+    "description": "Searches for a character in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \"Homepage\")",
+    "parameters": [
+      "Search Query"
+    ],
+    "examples": [
+      "character",
+      "anichar Mai Sakurajima,Mai-san,mai",
+      "char undefined",
+      "c undefined"
+    ]
+  },
+  {
+    "name": "discover",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "anime",
+    "description": "Generate a set of handpicked <Anime/Manga> recommendations for a user",
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "USE_EXTERNAL_EMOJIS",
+      "ADD_REACTIONS"
+    ],
+    "parameter": [
+      "Manga",
+      "Anime"
+    ],
+    "examples": [
+      "discover Manga",
+      "discover Anime"
+    ]
+  },
+  {
+    "name": "hanime",
+    "aliases": [
+      "searchhentai",
+      "hanisearch",
+      "hs"
+    ],
+    "cooldown": {
+      "time": 10000,
+      "message": "You are going too fast! Please slow down to avoid getting ratelimited."
+    },
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "MANAGE_MESSAGES"
+    ],
+    "group": "anime",
+    "nsfw": true,
+    "description": "Queries hanime.tv for a specific hentai. Returns a maximum of 10 results",
+    "parameters": [
+      "Search Query"
+    ],
+    "examples": [
+      "hanime Saimin Seishidou 1",
+      "searchhentai Saimin Seishidou 2",
+      "hanisearch Saimin Seishidou 3",
+      "hs Saimin Seishidou 4"
+    ]
+  },
+  {
+    "name": "malprofile",
+    "aliases": [
+      "mal-of",
+      "malof",
+      "malstat",
+      "maluser"
+    ],
+    "cooldown": {
+      "time": 10000
+    },
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "group": "anime",
+    "description": "Finds user profile on myanimelist based on the provided query",
+    "parameters": [
+      "User"
+    ],
+    "examples": [
+      "malprofile <mal username>",
+      "mal-of <mal username>",
+      "malof <mal username>",
+      "malstat <mal username>",
+      "maluser <mal username>"
+    ]
+  },
+  {
+    "name": "manga",
+    "aliases": [
+      "comic",
+      "manhwa",
+      "manhua"
+    ],
+    "guildOnly": true,
+    "cooldown": {
+      "time": 10000,
+      "message": "Oops! You are going too fast! Please slow down to avoid being rate-limited!"
+    },
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "USE_EXTERNAL_EMOJIS",
+      "ADD_REACTIONS"
+    ],
+    "group": "anime",
+    "description": "Searches for a Manga / Manhwa / Manhua in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net.co \"Homepage\").",
+    "parameters": [
+      "Search Query"
+    ],
+    "examples": [
+      "manga",
+      "comic aobuta",
+      "manhwa solo leveling",
+      "manhua king's avatar"
+    ]
+  },
+  {
+    "name": "mangarandom",
+    "aliases": [
+      "mangarand"
+    ],
+    "cooldown": {
+      "time": 15000,
+      "message": "You are going too fast. Please slow down to avoid getting rate-limited!"
+    },
+    "group": "anime",
+    "description": "Generates a random manga recommendation. Recommends a Hentai if used on a nsfw channel.",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "parameter": [],
+    "examples": [
+      "mangarandom",
+      "mangarand"
+    ]
+  },
+  {
+    "name": "nextairdate",
+    "aliases": [
+      "nextairing",
+      "nextair",
+      "nextep",
+      "nextepisode"
+    ],
+    "cooldown": {
+      "time": 10000,
+      "message": "You are going too fast! Please slow down to avoid being rate-limited!"
+    },
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "group": "anime",
+    "description": "Returns remaining time for the next episode of given anime. Returns this day's schedule, if no anime is specified",
+    "parameters": [
+      "search query"
+    ],
+    "examples": [
+      "nextairdate",
+      "nextairing aobuta",
+      "nextair seishun buta yarou",
+      "nextep bunnygirl senpai",
+      "nextepisode rascal does not dream"
+    ]
+  },
+  {
+    "name": "sauce",
+    "aliases": [
+      "gimmesauce",
+      "finddoujin",
+      "doujin",
+      "nhentai",
+      "saucefor"
+    ],
+    "guildOnly": true,
+    "cooldown": {
+      "time": 30000,
+      "message": "You are going too fast! Please slow down to avoid being rate-limited!"
+    },
+    "nsfw": true,
+    "group": "anime",
+    "description": "Fetch doujin information from <:nhentai:767062351169323039> [nHentai](https://nhentai.net \"nHentai Homepage\")",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "parameters": [
+      "Media ID"
+    ],
+    "examples": [
+      "sauce 263492",
+      "gimmesauce 166258",
+      "finddoujin 177013",
+      "doujin 245212",
+      "nhentai 337864",
+      "saucefor 337879"
+    ]
+  },
+  {
+    "name": "schedule",
+    "aliases": [
+      "anitoday",
+      "airinglist",
+      "airing"
+    ],
+    "guildOnly": true,
+    "cooldown": {
+      "time": 60000,
+      "message": "You are going too fast! Please slow down to avoid being rate-limited!"
+    },
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS",
+      "USE_EXTERNAL_EMOJIS"
+    ],
+    "group": "anime",
+    "description": "Displays the list of currently airing anime for today's date or given weekday.",
+    "parameters": [],
+    "examples": [
+      "schedule",
+      "anitoday sunday",
+      "airinglist monday",
+      "airing tuesday"
+    ]
+  },
+  {
+    "name": "seiyuu",
+    "aliases": [
+      "voice",
+      "va"
+    ],
+    "cooldown": {
+      "time": 10000,
+      "msg": "Oops! You are going to fast! Please slow down to avoid being rate-limited!"
+    },
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "group": "anime",
+    "description": "Search for seiyuu's on your favorite anime characters!",
+    "parameters": [
+      "search query"
+    ],
+    "examples": [
+      "seiyuu",
+      "voice Takahashi Rie",
+      "va Amamiya Sora"
+    ]
+  },
+  {
+    "name": "top",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "anime",
+    "description": "",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "parameters": [
+      "rank or range",
+      "type",
+      "subtype"
+    ],
+    "examples": [
+      "top 1 manga",
+      "top 1-12 anime bypopularity",
+      "top 56-60 characters",
+      "top 10 anime favorite",
+      "top 1-10 anime airing"
+    ]
+  },
+  {
+    "name": "upcoming",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS",
+      "USE_EXTERNAL_EMOJIS"
+    ],
+    "cooldown": {
+      "time": 15000
+    },
+    "group": "anime",
+    "description": "Displays the list of upcoming anime.",
+    "parameters": [],
+    "examples": [
+      "upcoming",
+      "upcoming tv",
+      "upcoming ona",
+      "upcoming ova",
+      "upcoming movie",
+      "upcoming special",
+      "upcoming -"
+    ]
+  },
+  {
+    "name": "waifu",
+    "aliases": [],
+    "group": "anime",
+    "description": "Generates random waifu.",
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ATTACH_FILES",
+      "READ_MESSAGE_HISTORY"
+    ],
+    "parameters": [],
+    "examples": [
+      "waifu"
+    ]
+  },
+  {
+    "name": "feedback",
+    "aliases": [],
+    "guildOnly": true,
+    "cooldown": {
+      "time": 30000
+    },
+    "clientPermissions": [],
+    "group": "bot",
+    "description": "Sends support message to this bot's owner (Sakurajimai#6742)",
+    "parameters": [
+      "Feedback Message"
+    ],
+    "examples": [
+      "feedback [complaints, bugs, issues, feature requests, etc]"
+    ]
+  },
+  {
+    "name": "invite",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "bot",
+    "description": "Gives you the invite link",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "invite"
+    ]
+  },
+  {
+    "name": "ping",
+    "aliases": [
+      "latency"
+    ],
+    "group": "bot",
+    "description": "Display various pings this bot is connected to.",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "parameters": [],
+    "examples": [
+      "ping",
+      "latency"
+    ]
+  },
+  {
+    "name": "stats",
+    "aliases": [
+      "status",
+      "botstatus"
+    ],
+    "group": "bot",
+    "description": "Displays the status of the current bot instance.",
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ATTACH_FILES"
+    ],
+    "parameters": [],
+    "examples": [
+      "stats",
+      "status",
+      "botstatus"
+    ]
+  },
+  {
+    "name": "support",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "bot",
+    "description": "Support for Mai",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "parameters": [],
+    "examples": [
+      "support"
+    ]
+  },
+  {
+    "name": "commands",
+    "aliases": [
+      "cmd",
+      "command"
+    ],
+    "group": "core",
+    "description": "Sends a list of all commands from each specific command groups",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "parameters": [],
+    "examples": [
+      "commands",
+      "cmd",
+      "command"
+    ]
+  },
+  {
+    "name": "help",
+    "aliases": [],
+    "group": "core",
+    "description": "Displays basic information or a help for a command",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "parameters": [
+      "Command Name/Alias"
+    ],
+    "examples": [
+      "help anime",
+      "help discover",
+      "help upcoming",
+      "help commands"
+    ]
+  },
+  {
+    "name": "mai",
+    "aliases": [
+      "bestgirl"
+    ],
+    "group": "core",
+    "description": "Mai is the best girl and there's no denying it!",
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ATTACH_FILES"
+    ],
+    "examples": [
+      "mai",
+      "bestgirl"
+    ]
+  },
+  {
+    "name": "suggest",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "core",
+    "description": "Suggest something for the server. If you have suggestion for the bot instead please use the feedback command or join our support server",
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "parameters": [
+      "Suggestion Message"
+    ],
+    "examples": "suggest Please remove some inactive members... "
+  },
+  {
+    "name": "watching",
+    "aliases": [
+      "watchlist",
+      "list"
+    ],
+    "guildOnly": true,
+    "cooldown": {
+      "time": 60000
+    },
+    "group": "core",
+    "description": "View list of anime this server is subscribed to.",
+    "requiresDatabase": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "MANAGE_MESSAGES"
+    ],
+    "examples": [
+      "watching",
+      "watchlist",
+      "list"
+    ]
+  },
+  {
+    "name": "8ball",
+    "aliases": [
+      "🎱",
+      "8b",
+      "8-ball",
+      "eightball"
+    ],
+    "group": "fun",
+    "description": "Ask anything on the magic 8-ball",
+    "parameters": [
+      "Question answerable by Yes/No"
+    ],
+    "examples": [
+      "8ball Is mai a good bot?",
+      "🎱 Is FMA worth of it's top spot?",
+      "8b Is BNHA good?",
+      "8-ball Do you want to play Among Us?",
+      "eightball Have you been in a thight spot before?"
+    ]
+  },
+  {
+    "name": "advice",
+    "aliases": [
+      "tips",
+      "advise"
+    ],
+    "group": "fun",
+    "description": "Generate a random useless advice",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "advice",
+      "tips",
+      "advise"
+    ]
+  },
+  {
+    "name": "birdfacts",
+    "aliases": [
+      "birdfact",
+      "tori",
+      "bird"
+    ],
+    "group": "fun",
+    "description": "Generate a random useless bird facts",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "birdfacts",
+      "birdfact",
+      "tori",
+      "bird"
+    ]
+  },
+  {
+    "name": "catfacts",
+    "aliases": [
+      "catfact",
+      "neko",
+      "cf"
+    ],
+    "group": "fun",
+    "description": "Generate a random useless cat facts",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "catfacts",
+      "catfact",
+      "neko",
+      "cf"
+    ]
+  },
+  {
+    "name": "comment",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "fun",
+    "description": "Comment something and return a youtube-like comment",
+    "clientPermissions": [
+      "ATTACH_FILES"
+    ],
+    "examples": [
+      "comment"
+    ]
+  },
+  {
+    "name": "dogfacts",
+    "aliases": [
+      "dogfact",
+      "inu",
+      "df"
+    ],
+    "group": "fun",
+    "description": "Generate a random useless dog facts",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "dogfacts",
+      "dogfact",
+      "inu",
+      "df"
+    ]
+  },
+  {
+    "name": "flip",
+    "aliases": [
+      "coinflip",
+      "coin",
+      "tosscoin",
+      "tc"
+    ],
+    "group": "fun",
+    "description": "Win or Lose, Flip a Coin [Head or Tails]",
+    "examples": [
+      "flip",
+      "coinflip",
+      "coin",
+      "tosscoin",
+      "tc"
+    ]
+  },
+  {
+    "name": "fortune",
+    "aliases": [
+      "ft",
+      "fortunecookies",
+      "fortunecookie"
+    ],
+    "group": "fun",
+    "description": "Generate a random fortune",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "fortune",
+      "ft",
+      "fortunecookies",
+      "fortunecookie"
+    ]
+  },
+  {
+    "name": "horoscope",
+    "aliases": [],
+    "group": "fun",
+    "description": "Find out your horoscope for today!",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "horoscope"
+    ]
+  },
+  {
+    "name": "invert",
+    "aliases": [],
+    "group": "fun",
+    "description": "Invert the colors on user avatar",
+    "clientPermissions": [
+      "ATTACH_FILES"
+    ],
+    "parameters": [
+      "User ID",
+      "User Mention"
+    ],
+    "examples": [
+      "invert <User>"
+    ]
+  },
+  {
+    "name": "joke",
+    "aliases": [
+      "haha"
+    ],
+    "group": "fun",
+    "description": "Generate a random joke from a joke API",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "joke",
+      "haha"
+    ]
+  },
+  {
+    "name": "meme",
+    "aliases": [
+      "humorme"
+    ],
+    "group": "fun",
+    "description": "Generate a random meme from a select subreddit.",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "meme",
+      "humorme"
+    ]
+  },
+  {
+    "name": "pandafacts",
+    "aliases": [
+      "pandafact",
+      "pf"
+    ],
+    "group": "fun",
+    "description": "Generate a random useless pandaa facts",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "pandafacts",
+      "pandafact",
+      "pf"
+    ]
+  },
+  {
+    "name": "pokemon",
+    "aliases": [
+      "pokedex",
+      "pokémon",
+      "pokédex"
+    ],
+    "group": "fun",
+    "description": "Find a specific pokemon using the pokédex",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "pokemon snorlax",
+      "pokedex meowth",
+      "pokémon pikachu",
+      "pokédex clefairy"
+    ]
+  },
+  {
+    "name": "rate",
+    "aliases": [],
+    "group": "fun",
+    "description": "Rates the provided argument",
+    "parameters": [
+      "something to rate with"
+    ]
+  },
+  {
+    "name": "respect",
+    "aliases": [
+      "f",
+      "rp",
+      "+rp"
+    ],
+    "group": "fun",
+    "description": "Show thy respect.",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "respect",
+      "f",
+      "rp",
+      "+rp"
+    ]
+  },
+  {
+    "name": "reverse",
+    "aliases": [],
+    "group": "fun",
+    "description": "Reverses the supplied text",
+    "examples": [
+      "reverse"
+    ]
+  },
+  {
+    "name": "roll",
+    "aliases": [],
+    "group": "fun",
+    "description": "Generate a random number from 1-[selected number]",
+    "examples": [
+      "roll <num>"
+    ]
+  },
+  {
+    "name": "triggered",
+    "aliases": [],
+    "group": "fun",
+    "description": "Triggered users",
+    "clientPermissions": [
+      "ATTACH_FILES"
+    ],
+    "parameters": [
+      "User ID",
+      "User Mention"
+    ],
+    "examples": [
+      "triggered <User>"
+    ]
+  },
+  {
+    "name": "addemoji",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_EMOJIS"
+    ],
+    "clientPermissions": [
+      "MANAGE_EMOJIS"
+    ],
+    "group": "moderation",
+    "description": "Add an emoji to the server using the supplied image URL",
+    "parameters": [
+      "Image URL",
+      "Emoji Name"
+    ],
+    "examples": "addemoji https://some-url/path-to-image.format name_of_emoji"
+  },
+  {
+    "name": "addroles",
+    "aliases": [
+      "addrole"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_ROLES"
+    ],
+    "clientPermissions": [
+      "MANAGE_ROLES"
+    ],
+    "group": "moderation",
+    "description": "Adds the mentioned roles and/or supplied role IDs to the mentioned user",
+    "example": [
+      "addroles <user> <role> <...role>",
+      "addrole <user> <role> <...role>"
+    ]
+  },
+  {
+    "name": "ban",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [
+      "BAN_MEMBERS"
+    ],
+    "clientPermissions": [
+      "BAN_MEMBERS"
+    ],
+    "group": "moderation",
+    "description": "Ban mentioned user from this server.",
+    "parameters": [
+      "User Mention | ID",
+      "Ban Reason"
+    ],
+    "examples": [
+      "ban @user <reason>"
+    ]
+  },
+  {
+    "name": "clear",
+    "aliases": [
+      "delete",
+      "slowprune",
+      "sd",
+      "slowdelete"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_MESSAGES"
+    ],
+    "clientPermissions": [
+      "MANAGE_MESSAGES",
+      "EMBED_LINKS"
+    ],
+    "group": "moderation",
+    "description": "Delete messages from this channel. Will not delete messages older than two (2) weeks.",
+    "parameters": [
+      "Quantity of Message"
+    ],
+    "examples": [
+      "clear 30",
+      "delete 30",
+      "slowprune 30",
+      "sd 30",
+      "slowdelete 30"
+    ]
+  },
+  {
+    "name": "ban",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [
+      "BAN_MEMBERS"
+    ],
+    "clientPermissions": [
+      "BAN_MEMBERS"
+    ],
+    "group": "moderation",
+    "description": "bans a user when they are not in the server.",
+    "parameters": [
+      "User ID",
+      "Ban Reason"
+    ],
+    "examples": [
+      "ban @user <reason>"
+    ]
+  },
+  {
+    "name": "kick",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [
+      "KICK_MEMBERS"
+    ],
+    "clientPermissions": [
+      "KICK_MEMBERS"
+    ],
+    "group": "moderation",
+    "description": "Kick mentioned user from this server.",
+    "parameters": [
+      "User Mention | ID",
+      "Kick Reason"
+    ],
+    "examples": [
+      "kick @user <reason>"
+    ]
+  },
+  {
+    "name": "lockdown",
+    "aliases": [
+      "lock",
+      "ld",
+      "lockchannel"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_MESSAGES",
+      "MANAGE_CHANNELS"
+    ],
+    "clientPermissions": [
+      "MANAGE_CHANNELS"
+    ],
+    "group": "moderation",
+    "description": "[Prevent/Allow] users from sending messages in the current channel. Permission Overwrites will be lost.",
+    "examples": [
+      "lockdown",
+      "lock",
+      "ld",
+      "lockchannel"
+    ]
+  },
+  {
+    "name": "mute",
+    "aliases": [
+      "deafen",
+      "silence",
+      "shut"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_ROLES"
+    ],
+    "group": "moderation",
+    "description": "Prevents a user from sending a message in this server",
+    "parameters": [
+      "User Mention | ID"
+    ]
+  },
+  {
+    "name": "nuke",
+    "aliases": [
+      "clearall"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_MESSAGES",
+      "MANAGE_CHANNELS"
+    ],
+    "clientPermissions": [
+      "MANAGE_CHANNELS"
+    ],
+    "group": "moderation",
+    "description": "Removes all messages in the channel (Deletes the old channel and makes a copy of it with permissions intact)",
+    "examples": [
+      "nuke",
+      "clearall"
+    ]
+  },
+  {
+    "name": "resetchannel",
+    "aliases": [
+      "resetch"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_CHANNELS"
+    ],
+    "clientPermissions": [
+      "MANAGE_CHANNELS"
+    ],
+    "group": "moderation",
+    "description": "Removes all permission overwrites and resets @everyone permissions to `unset`",
+    "examples": [
+      "resetchannel",
+      "resetch"
+    ]
+  },
+  {
+    "name": "resetroles",
+    "aliases": [
+      "resetrole",
+      "removeroles",
+      "removerole",
+      "purgerole"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_ROLES"
+    ],
+    "clientPermissions": [
+      "MANAGE_ROLES"
+    ],
+    "group": "moderation",
+    "description": "Removes **all** custom roles from a user. (@everyone will be excluded)",
+    "parameters": [
+      "User Mention | ID"
+    ],
+    "examples": [
+      "resetroles",
+      "resetrole",
+      "removeroles",
+      "removerole",
+      "purgerole"
+    ]
+  },
+  {
+    "name": "respond",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "moderation",
+    "description": "Respond to user suggestion",
+    "parameters": [
+      "Message ID",
+      "accept/deny",
+      "reason"
+    ],
+    "examples": [
+      "r",
+      "e",
+      "s",
+      "p",
+      "o",
+      "n",
+      "d",
+      " ",
+      "6",
+      "9",
+      "0",
+      "1",
+      "0",
+      "5",
+      "1",
+      "7",
+      "3",
+      "0",
+      "8",
+      "7",
+      "2",
+      "2",
+      "3",
+      "8",
+      "1",
+      "2",
+      " ",
+      "d",
+      "e",
+      "n",
+      "y",
+      " ",
+      "D",
+      "o",
+      "e",
+      "s",
+      "n",
+      "'",
+      "t",
+      " ",
+      "m",
+      "a",
+      "k",
+      "e",
+      " ",
+      "m",
+      "u",
+      "c",
+      "h",
+      " ",
+      "s",
+      "e",
+      "n",
+      "s",
+      "e",
+      " ",
+      "t",
+      "o",
+      " ",
+      "d",
+      "o",
+      " ",
+      "t",
+      "h",
+      "i",
+      "s"
+    ]
+  },
+  {
+    "name": "softban",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [
+      "BAN_MEMBERS"
+    ],
+    "clientPermissions": [
+      "BAN_MEMBERS"
+    ],
+    "group": "moderation",
+    "description": "Kicks a user and deletes all their messages in the past 7 days",
+    "parameters": [
+      "user Mention/ID"
+    ],
+    "examples": [
+      "softban 0123456789012345678"
+    ]
+  },
+  {
+    "name": "softlockdown",
+    "aliases": [
+      "softlock",
+      "softld",
+      "softlockchannel"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_MESSAGES",
+      "MANAGE_CHANNELS"
+    ],
+    "clientPermissions": [
+      "MANAGE_CHANNELS"
+    ],
+    "group": "moderation",
+    "description": "[Prevent/Allow] users without special permissions from sending messages in the current channel. Permission Overwrites will be kept.",
+    "examples": [
+      "softlockdown",
+      "softlock",
+      "softld",
+      "softlockchannel"
+    ]
+  },
+  {
+    "name": "softmute",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_ROLES"
+    ],
+    "group": "moderation",
+    "description": "Toggle to prevent a user from sending a message in this channel",
+    "parameters": [
+      "User Mention | ID"
+    ]
+  },
+  {
+    "name": "unban",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [
+      "BAN_MEMBERS"
+    ],
+    "clientPermissions": [
+      "BAN_MEMBERS"
+    ],
+    "group": "moderation",
+    "description": "Unbans a user from this server",
+    "parameters": [
+      "user Mention/ID",
+      "Unban Reason"
+    ],
+    "examples": [
+      "unban 0123456789012345678 <reason>"
+    ]
+  },
+  {
+    "name": "unmute",
+    "aliases": [
+      "undeafen",
+      "unsilence",
+      "speak"
+    ],
+    "guildOnly": true,
+    "permissions": [
+      "MANAGE_ROLES"
+    ],
+    "group": "moderation",
+    "description": "Unmutes a muted user from this server.",
+    "parameters": [
+      "User Mention | ID"
+    ]
+  },
+  {
+    "name": "addcredits",
+    "aliases": [],
+    "guildOnly": true,
+    "ownerOnly": true,
+    "group": "owner",
+    "description": "Add credits to users! Append negative sign to remove credits from users!",
+    "requiresDatabase": true,
+    "examples": [
+      "addcredits"
+    ]
+  },
+  {
+    "name": "cleanup",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "owner",
+    "description": "Remove all finished anime from anilist scheduler. Regularly run once in 4 months to reduce id clutters on watchlist data.",
+    "examples": [
+      "cleanup"
+    ]
+  },
+  {
+    "name": "eval",
+    "aliases": [],
+    "ownerOnly": true,
+    "group": "owner",
+    "description": "Evaluate arbitrary Javascript",
+    "parameters": [
+      "Javascript Code"
+    ],
+    "examples": [
+      "eval 1 + 1"
+    ]
+  },
+  {
+    "name": "fleave",
+    "aliases": [
+      "forceleave",
+      "leaveguild",
+      "removeguild",
+      "leaveserver"
+    ],
+    "ownerOnly": true,
+    "group": "owner",
+    "description": "Force Mai to leave a server",
+    "parameters": [
+      "server ID",
+      "Reason"
+    ]
+  },
+  {
+    "name": "reload",
+    "aliases": [],
+    "ownerOnly": true,
+    "group": "owner",
+    "description": "Reloads a command",
+    "parameters": [
+      "command name/alias"
+    ],
+    "examples": [
+      "reload anime"
+    ]
+  },
+  {
+    "name": "disableanisched",
+    "aliases": [
+      "anischedoff"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Disable the anisched feature for this server",
+    "requiresDatabase": true
+  },
+  {
+    "name": "goodbyetoggle",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Toggle the `Leaving Member Announcer` on and off.",
+    "requiresDatabase": true
+  },
+  {
+    "name": "setanischedch",
+    "aliases": [
+      "setanischedulechannel",
+      "setanischedulech",
+      "setanischedchannel"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Where will i post the announcement for recently aired anime?",
+    "requiresDatabase": true,
+    "parameters": [
+      "Channel ID/Mention"
+    ],
+    "examples": [
+      "setanischedch <Channel ID/Mention>",
+      "setanischedulechannel <Channel ID/Mention>",
+      "setanischedulech <Channel ID/Mention>",
+      "setanischedchannel <Channel ID/Mention>"
+    ]
+  },
+  {
+    "name": "setgoodbyech",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Set up the goodbye channel",
+    "requiresDatabase": true,
+    "parameters": [
+      "Channel ID/Mention"
+    ],
+    "examples": [
+      "setgoodbyech <Channel ID/Mention>"
+    ]
+  },
+  {
+    "name": "setgoodbyemsg",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Set up the goodbye message. Supports Embeds! [Learn how to set up your Leaving Member Announcer](https://mai-san.ml/)",
+    "requiresDatabase": true
+  },
+  {
+    "name": "setmute",
+    "aliases": [
+      "setmuterole"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Set up the mute role.",
+    "requiresDatabase": true,
+    "parameters": [
+      "Role <ID/Mention/Name>"
+    ],
+    "examples": [
+      "setmute <role>",
+      "setmuterole <role>"
+    ]
+  },
+  {
+    "name": "setprefix",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Set up custom prefix for this server.",
+    "requiresDatabase": true,
+    "parameters": [
+      "prefix"
+    ],
+    "examples": [
+      "setprefix !?"
+    ]
+  },
+  {
+    "name": "setsuggestch",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Set up the suggestion channel",
+    "requiresDatabase": true,
+    "parameters": [
+      "Channel ID/Mention"
+    ],
+    "examples": [
+      "setsuggestch <Channel ID/Mention>"
+    ]
+  },
+  {
+    "name": "setwelcomech",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Set up the welcome channel",
+    "requiresDatabase": true,
+    "parameters": [
+      "Channel ID/Mention"
+    ],
+    "examples": [
+      "setwelcomech <Channel ID/Mention>"
+    ]
+  },
+  {
+    "name": "setwelcomemsg",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Set up the welcome message. Supports Embeds!",
+    "requiresDatabase": true
+  },
+  {
+    "name": "unwatch",
+    "aliases": [
+      "anischedremove",
+      "anischedunwatch"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": [
+      "Removes a watched anime from your watchlist"
+    ],
+    "requiresDatabase": true,
+    "parameters": [
+      "Anilist/Mal link"
+    ],
+    "examples": [
+      "unwatch <url>",
+      "anischedremove <url>",
+      "anischedunwatch <url>"
+    ]
+  },
+  {
+    "name": "userxpreset",
+    "aliases": [
+      "resetuserxp",
+      "resetxpuser"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Reset the xp of a particular user in this server.",
+    "requiresDatabase": true
+  },
+  {
+    "name": "watch",
+    "aliases": [
+      "anischedadd",
+      "anischedwatch"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Adds a new anime to watch for new episodes of. You may provide an <:anilist:767062314121035806>AniList entry link or a <:mal:767062339177676800>MyAnimeList link. Supports multiple ids/links",
+    "requiresDatabase": true,
+    "parameters": [
+      "Anilist/Mal link"
+    ],
+    "examples": [
+      "watch <url>",
+      "anischedadd <url>",
+      "anischedwatch <url>"
+    ]
+  },
+  {
+    "name": "welcometoggle",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Toggle the `Member Greeter` on and off.",
+    "requiresDatabase": true
+  },
+  {
+    "name": "xpenable",
+    "aliases": [
+      "enablexp",
+      "enablexpon",
+      "xpenableon"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Enable collecting xp on **Disabled** mentioned channels",
+    "requiresDatabase": true
+  },
+  {
+    "name": "xpexcempt",
+    "aliases": [
+      "excemptxp",
+      "disablexpon",
+      "xpdisableon"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Disable collecting xp on mentioned channels",
+    "requiresDatabase": true
+  },
+  {
+    "name": "xpreset",
+    "aliases": [
+      "resetxp",
+      "resetserverxp"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "rankcommand": true,
+    "group": "setup",
+    "description": "Resets the xp of all users for this server",
+    "requiresDatabase": true,
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "xpreset",
+      "resetxp",
+      "resetserverxp"
+    ]
+  },
+  {
+    "name": "xptoggle",
+    "aliases": [
+      "togglexp"
+    ],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "setup",
+    "description": "Toggle the xp system on/off for the server.",
+    "requiresDatabase": true
+  },
+  {
+    "name": "bal",
+    "aliases": [
+      "balance",
+      "credits"
+    ],
+    "guildOnly": true,
+    "group": "social",
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "description": "Check your wallet, how much have you earned?",
+    "requiresDatabase": true,
+    "examples": [
+      "bal",
+      "balance",
+      "credits"
+    ]
+  },
+  {
+    "name": "bank",
+    "aliases": [
+      "registerbank"
+    ],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Check your wallet, how much have you earned?",
+    "requiresDatabase": true,
+    "examples": [
+      "bank",
+      "registerbank"
+    ]
+  },
+  {
+    "name": "beg",
+    "aliases": [
+      "plead",
+      "gimme"
+    ],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Want to earn money some more? Why don't you try begging, maybe someone will give you.",
+    "requiresDatabase": true,
+    "examples": [
+      "beg",
+      "plead",
+      "gimme"
+    ]
+  },
+  {
+    "name": "bet",
+    "aliases": [
+      "gamble"
+    ],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Rely on fate to increase your balance... or lower it.",
+    "requiresDatabase": true,
+    "examples": [
+      "bet",
+      "gamble"
+    ]
+  },
+  {
+    "name": "buy",
+    "aliases": [],
+    "rankcommand": true,
+    "clientPermissions": [
+      "MANAGE_MESSAGES"
+    ],
+    "group": "social",
+    "description": "Check what you can buy from the shop."
+  },
+  {
+    "name": "creditslb",
+    "aliases": [
+      "richlb",
+      "richleaderboard",
+      "creditsleaderboard"
+    ],
+    "guildOnly": true,
+    "rankcommand": true,
+    "group": "social",
+    "description": "Shows the top credit earners for this server",
+    "requiresDatabase": true,
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "creditslb",
+      "richlb",
+      "richleaderboard",
+      "creditsleaderboard"
+    ]
+  },
+  {
+    "name": "daily",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Retrieve your daily reward <3",
+    "requiresDatabase": true,
+    "examples": [
+      "daily"
+    ]
+  },
+  {
+    "name": "deleteitem",
+    "aliases": [],
+    "rankcommand": true,
+    "group": "social",
+    "description": "Deletes the item you own."
+  },
+  {
+    "name": "deposit",
+    "aliases": [
+      "dep"
+    ],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Deposit your credits to safeguard it!",
+    "parameters": [
+      "Amount"
+    ],
+    "requiresDatabase": true,
+    "examples": [
+      "deposit 10000",
+      "dep 10000"
+    ]
+  },
+  {
+    "name": "find",
+    "aliases": [
+      "search"
+    ],
+    "guildOnly": true,
+    "group": "social",
+    "description": "You can find hidden credits on your surrounding if you try!",
+    "requiresDatabase": true,
+    "examples": [
+      "find",
+      "search"
+    ]
+  },
+  {
+    "name": "game",
+    "aliases": [],
+    "database": true,
+    "group": "social",
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ATTACH_FILES"
+    ],
+    "description": "Play some games to earn credits.",
+    "examples": [
+      "gamecaptcha",
+      "gamecountry-flags",
+      "gamehangman",
+      "gamelogoquiz",
+      "gametypingquiz"
+    ]
+  },
+  {
+    "name": "gift",
+    "aliases": [
+      "transferitem",
+      "itemtransfer"
+    ],
+    "rankcommand": true,
+    "group": "social",
+    "description": "Give some of the items you own to a friend."
+  },
+  {
+    "name": "inventory",
+    "aliases": [],
+    "rankcommand": true,
+    "clientPermissions": [
+      "MANAGE_MESSAGES"
+    ],
+    "group": "social",
+    "description": "Check your items."
+  },
+  {
+    "name": "leaderboard",
+    "aliases": [
+      "lb",
+      "topxp"
+    ],
+    "guildOnly": true,
+    "rankcommand": true,
+    "group": "social",
+    "description": "Shows the top xp earners for this server",
+    "requiresDatabase": true,
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "examples": [
+      "leaderboard",
+      "lb",
+      "topxp"
+    ]
+  },
+  {
+    "name": "market",
+    "aliases": [],
+    "rankcommand": true,
+    "clientPermissions": [
+      "MANAGE_MESSAGES"
+    ],
+    "group": "social",
+    "description": "Check what you can buy from the shop."
+  },
+  {
+    "name": "nonxpchannels",
+    "aliases": [],
+    "guildOnly": true,
+    "adminOnly": true,
+    "group": "social",
+    "description": "See which channels do not give xp",
+    "requiresDatabase": true
+  },
+  {
+    "name": "previewitem",
+    "aliases": [
+      "viewitem"
+    ],
+    "rankcommand": true,
+    "clientPermissions": [
+      "MANAGE_MESSAGES",
+      "ATTACH_FILES"
+    ],
+    "group": "social",
+    "description": "Check what you can buy from the shop."
+  },
+  {
+    "name": "profile",
+    "aliases": [
+      "rank",
+      "lvl",
+      "xp",
+      "level"
+    ],
+    "guildOnly": true,
+    "rankcommand": true,
+    "cooldown": {
+      "time": 8000
+    },
+    "clientPermissions": [
+      "ATTACH_FILES"
+    ],
+    "group": "social",
+    "description": "Shows the current xp, level, rank, and other details of a user",
+    "requiresDatabase": true,
+    "parameters": [
+      "<User Mention|ID>"
+    ],
+    "examples": [
+      "profile <User Mention>",
+      "rank <User Mention>",
+      "lvl <User Mention>",
+      "xp <User Mention>",
+      "level <User Mention>"
+    ]
+  },
+  {
+    "name": "register",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Start earning credits. Register to keep track of your earned credits!",
+    "requiresDatabase": true,
+    "examples": [
+      "register"
+    ]
+  },
+  {
+    "name": "sell",
+    "aliases": [],
+    "rankcommand": true,
+    "clientPermissions": [
+      "MANAGE_MESSAGES"
+    ],
+    "group": "social",
+    "description": "Sell some of your items to the shop."
+  },
+  {
+    "name": "setbio",
+    "aliases": [],
+    "rankcommand": true,
+    "clientPermissions": [],
+    "group": "social",
+    "description": "Sets the profile bio for your profile card.",
+    "requiresDatabase": true
+  },
+  {
+    "name": "setbirthday",
+    "aliases": [],
+    "rankcommand": true,
+    "clientPermissions": [],
+    "group": "social",
+    "description": "Sets the profile birthday for your profile card."
+  },
+  {
+    "name": "setcolor",
+    "aliases": [],
+    "rankcommand": true,
+    "clientPermissions": [],
+    "group": "social",
+    "description": "Sets the color for your profile card."
+  },
+  {
+    "name": "tip",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Give tip to your friends!",
+    "requiresDatabase": true,
+    "examples": [
+      "tip"
+    ]
+  },
+  {
+    "name": "transfer",
+    "aliases": [
+      "give"
+    ],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Transfer some of your credits to your friends!",
+    "requiresDatabase": true,
+    "parameters": [
+      "User Mention",
+      "Amount"
+    ],
+    "examples": [
+      "transfer",
+      "give"
+    ]
+  },
+  {
+    "name": "unequip",
+    "aliases": [],
+    "rankcommand": true,
+    "clientPermissions": [
+      "MANAGE_MESSAGES"
+    ],
+    "group": "social",
+    "description": "Check what you can buy from the shop."
+  },
+  {
+    "name": "use",
+    "aliases": [
+      "equip"
+    ],
+    "rankcommand": true,
+    "clientPermissions": [
+      "MANAGE_MESSAGES"
+    ],
+    "group": "social",
+    "description": "Check what you can buy from the shop."
+  },
+  {
+    "name": "withdraw",
+    "aliases": [],
+    "guildOnly": true,
+    "group": "social",
+    "description": "Withdraw some of your money from the bank.",
+    "requiresDatabase": true,
+    "parameters": [
+      "Amount"
+    ],
+    "examples": [
+      "withdraw 10000"
+    ]
+  },
+  {
+    "name": "avatar",
+    "aliases": [
+      "av",
+      "pfp",
+      "displayprofile"
+    ],
+    "clientPermissions": [
+      "EMBED_LINKS"
+    ],
+    "group": "utility",
+    "description": "Shows avatar of the provided user, or yourself",
+    "parameters": [
+      "User Mention / ID"
+    ]
+  },
+  {
+    "name": "color",
+    "aliases": [
+      "colour",
+      "hex"
+    ],
+    "group": "utility",
+    "description": "Shows a random color or a preview of the given color",
+    "parameters": [
+      "Hex"
+    ]
+  },
+  {
+    "name": "define",
+    "aliases": [
+      "urban",
+      "ud"
+    ],
+    "group": "utility",
+    "description": "Searches for your query on Urban Dictionary.\nNote: Using this on a nsfw channel disables the word profanity filter feature.",
+    "parameters": [
+      "search query"
+    ],
+    "examples": [
+      "define [term]",
+      "urban [term]",
+      "ud [term]"
+    ]
+  },
+  {
+    "name": "emoji",
+    "aliases": [],
+    "group": "utility",
+    "desciption": "Display the larger version of the supplied emoji",
+    "parameters": [
+      "emoji"
+    ],
+    "examples": [
+      "emoji <emoji>"
+    ]
+  },
+  {
+    "name": "jisho",
+    "aliases": [
+      "weebify",
+      "kanji",
+      "nipponify"
+    ],
+    "cooldown": {
+      "time": 10000,
+      "message": "Accessing Jisho has been rate limited to 1 use per user per 10 seconds"
+    },
+    "group": "utility",
+    "description": "Searches for Japanese words and Kanji on Jisho!",
+    "parameters": [
+      "word <kana/romaji>"
+    ]
+  },
+  {
+    "name": "listrole",
+    "aliases": [
+      "roles"
+    ],
+    "group": "utility",
+    "guildOnly": true,
+    "description": "Displays in list all of the roles this server has",
+    "examples": [
+      "listrole",
+      "roles"
+    ]
+  },
+  {
+    "name": "lyrics",
+    "aliases": [],
+    "group": "utility",
+    "description": "Searches for lyric info about a song from GeniuslLyrics",
+    "parameters": [
+      "Search Query"
+    ]
+  },
+  {
+    "name": "permissionsfor",
+    "aliases": [
+      "permsfor"
+    ],
+    "group": "utility",
+    "guildOnly": true,
+    "description": "List the server permissions of mentioned user or provided ID",
+    "parameters": [
+      "User ID/Mention"
+    ],
+    "examples": [
+      "permissionsfor <user>",
+      "permsfor <user>"
+    ]
+  },
+  {
+    "name": "reddit",
+    "aliases": [
+      "rdt",
+      "subreddit",
+      "redd.it",
+      "fetchreddit"
+    ],
+    "cooldown": {
+      "time": 10000,
+      "message": "Accessing Reddit has been rate limited to 1 use per user per 10 seconds"
+    },
+    "group": "utility",
+    "description": "Fetch a random image from the supplied subreddit",
+    "examples": [
+      "reddit <subreddit>",
+      "rdt <subreddit>",
+      "subreddit <subreddit>",
+      "redd.it <subreddit>",
+      "fetchreddit <subreddit>"
+    ]
+  },
+  {
+    "name": "serverinfo",
+    "aliases": [
+      "guild",
+      "server",
+      "serverstat",
+      "serverstats",
+      "guildstat",
+      "guildstats"
+    ],
+    "group": "utility",
+    "guildOnly": true,
+    "examples": [
+      "serverinfo",
+      "guild",
+      "server",
+      "serverstat",
+      "serverstats",
+      "guildstat",
+      "guildstats"
+    ]
+  },
+  {
+    "name": "steam",
+    "aliases": [],
+    "cooldown": {
+      "time": 10000,
+      "message": "Accessing Steam has been rate limited to 1 use per user per 10 seconds"
+    },
+    "group": "utility",
+    "description": "Searches <:steam:767062357952167946> [Steam](https://store.steampowered.com/ 'Steam Homepage') for games!",
+    "parameters": [
+      "Search Query"
+    ]
+  },
+  {
+    "name": "time",
+    "aliases": [
+      "clock"
+    ],
+    "group": "utility",
+    "description": "Shows the time for the given location!",
+    "parameters": [
+      "query<city>"
+    ],
+    "examples": [
+      "undefined [city]",
+      "clock [city]"
+    ]
+  },
+  {
+    "name": "userinfo",
+    "aliases": [
+      "whois"
+    ],
+    "guildOnly": true,
+    "group": "utility",
+    "description": "Fetch User Information (As of May 20, 2020 - The global function has been removed due to a possible violation to Discord ToS).",
+    "parameters": [
+      "User ID"
+    ],
+    "examples": [
+      "userinfo 124556789123456789",
+      "whois 124556789123456789"
+    ]
+  }
+]
