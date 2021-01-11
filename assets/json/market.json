@@ -8,7 +8,7 @@
     "giftable": false,
     "price": 0,
     "assets": {
-      "link": "https://i.imgur.com/57eRI6H.jpg"
+      "link": "https://i.imgur.com/bd88Zkk.png"
     }
   },
   {
@@ -856,7 +856,7 @@
     "assets": {
       "link": "https://i.imgur.com/WzeZN42.png"
     }
-  },{
+        },{
     "id": 79,
     "name": "Nezuko's Haori Pattern",
     "description": "Rare Profile Pattern",
@@ -921,17 +921,6 @@
     "price": 15000,
     "assets": {
       "link": "https://i.imgur.com/zIJ45ab.png"
-    }
-  },{
-    "id": 85,
-    "name": "Saitama's Pattern",
-    "description": "Uncommon Profile Pattern",
-    "type": "pattern",
-    "deletable": true,
-    "giftable": true,
-    "price": 15000,
-    "assets": {
-      "link": "https://i.imgur.com/H9W02iA.png"
     }
   },{
     "id": 85,
