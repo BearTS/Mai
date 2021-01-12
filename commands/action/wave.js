@@ -1,6 +1,4 @@
 const { MessageEmbed } = require('discord.js')
-const { wave } = require('../../assets/json/images.json')
-
 module.exports = {
     name: 'wave'
   , aliases: []
@@ -20,7 +18,7 @@ module.exports = {
     return message.channel.send( new MessageEmbed()
     .setColor('GREY')
     .setDescription(`wave.`)
-    .setImage(`https://i.imgur.com/${wave[Math.ceil(Math.random() * wave.length)]}.gif`)
+    .setImage(client.images.wave())
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
     )
   }

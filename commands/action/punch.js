@@ -1,6 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const { punch } = require("../../assets/json/images.json");
-
 module.exports = {
   name: "punch",
   aliases: [],
@@ -15,12 +13,8 @@ module.exports = {
       new MessageEmbed()
         .setColor("GREY")
         .setDescription(`${message.mentions.members.first()} got punched by ${message.member}! rip!`)
-        .setImage(
-          `https://i.imgur.com/${
-            punch[Math.ceil(Math.random() * punch.length)]
-          }.gif`
-        )
-        .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`))
+        .setImage(client.images.punch())
+        .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`
         )
     );
   }
