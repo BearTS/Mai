@@ -73,7 +73,6 @@ const settings = {
   // all commands and features that requires database if disabled.
   database: {
     enable: true,
-    connector: null,
     uri: process.env.MONGO_URI,
     config: {
       useUnifiedTopology: true,
