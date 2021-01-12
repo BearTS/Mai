@@ -19,8 +19,8 @@ module.exports = {
 
     return message.channel.send( new MessageEmbed()
     .setColor('GREY')
-    .setDescription(`nom.`)
-    .setImage(`https://i.imgur.com/${nom[Math.ceil(Math.random() * nom.length)]}.gif`)
+    .setDescription(`nom nom`)
+    .setImage(`client.images.nom())`)
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
     )
   }
