@@ -29,7 +29,7 @@ module.exports = {
 
     } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
-      return message.channel.send(embed.setDescription(`Mai Smiles Back`));
+      return message.channel.send(embed.setDescription(`${message.member} smiles back`));
 
     } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
 
