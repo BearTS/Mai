@@ -59,6 +59,14 @@ module.exports = class ImageGenerator{
   };
 
   /**
+  * Grab an action image of type `dance`
+  * @returns {URL} An image url
+  */
+  dance(){
+    return this._action('dance');
+  };
+
+  /**
   * Grab an action image of type `disgust`
   * Has an imgur hash `cCFIVPt`
   * @returns {URL} An image url
