@@ -16,11 +16,8 @@ module.exports = class Mongoose{
      * The connection URI for this instance
      * @type {string}
      */
-    if (typeof options.connector === 'string'){
-      this.connector = options.connector;
-    } else {
+
       this.connector = options.uri;
-    };
 
     /**
      * The connection settings for this instance
