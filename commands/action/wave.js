@@ -21,7 +21,7 @@ module.exports = {
     .setColor('GREY')
     .setDescription(`wave.`)
     .setImage(`https://i.imgur.com/${wave[Math.ceil(Math.random() * wave.length)]}.gif`)
-    .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL())
+    .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }
