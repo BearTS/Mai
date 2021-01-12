@@ -10,13 +10,13 @@ module.exports = {
     'ADD_REACTIONS'
   ]
   , group: 'action'
-  , description: 'UWAA~!'
+  , description: 'Have a little dance  ♪┏(・o･)┛♪┗ ( ･o･) ┓♪'
   , examples: [
       'dance'
   ]
   , parameters: []
   , run: async ( client, message, args ) => {
-      
+
     return message.channel.send(
       new MessageEmbed()
       .setColor('GREY')
