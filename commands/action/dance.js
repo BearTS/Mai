@@ -1,22 +1,17 @@
-const { MessageEmbed } = require('discord.js')
-const { dance } = require('../../assets/json/images.json')
-
+const { MessageEmbed } = require('discord.js');
 module.exports = {
-    name: 'dance'
-  , aliases: []
-  , guildOnly: true
-  , clientPermissions: [
+  name: 'dance',
+  aliases: [],
+  guildOnly: true,
+  clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
-  ]
-  , group: 'action'
-  , description: 'Have a little dance  ♪┏(・o･)┛♪┗ ( ･o･) ┓♪'
-  , examples: [
-      'dance'
-  ]
-  , parameters: []
-  , run: async ( client, message, args ) => {
-
+  ],
+  group: 'action',
+  description: 'UWAA~!',
+  examples: [ 'dance' ],
+  parameters: [],
+  run: async ( client, message, args ) => {
     return message.channel.send(
       new MessageEmbed()
       .setColor('GREY')
