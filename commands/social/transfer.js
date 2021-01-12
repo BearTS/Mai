@@ -1,4 +1,5 @@
 const profile = require(`${process.cwd()}/models/Profile`);
+const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
   name: 'transfer',

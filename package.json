@@ -1,11 +1,12 @@
 {
   "name": "mai",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Discordbot written in discord.js",
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "node build.js"
   },
   "engines": {
     "node": "14.x",
