@@ -20,6 +20,5 @@ module.exports = {
     .setDescription(`nom nom`)
     .setImage(client.images.nom()))
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
-    )
   }
 }
