@@ -10,7 +10,7 @@ module.exports = {
     'ADD_REACTIONS'
   ]
   , group: 'action'
-  , description: 'UWAA~!'
+  , description: 'nom nom'
   , examples: [
       'nom'
   ]
