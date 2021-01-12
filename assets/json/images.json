@@ -6,6 +6,7 @@
     "tSGDGRS", "8ndgFuN", "r8rEQgH", "ZyaJNIV", "1CGujwz", "kWRnK3F",
     "3eSRCmQ", "I2kj8mC"
   ],
+  "blush":[],
   "cry":[
     "B1REi0W", "hAdb8CE", "K1rabup", "akTsUty", "BOOM0Os", "LUvKlUa",
     "4sUlQ3f", "uaYKEOO", "I9SR8SS", "Ug74IEz", "1RtCcIx", "s7qnBiL",
@@ -39,6 +40,7 @@
     "JwmKLWg", "xvoAhQ1", "4HQQCpF", "bbfsMC3", "0nCCqnu", "zkqutM9",
     "JGipzNn", "4kjCccc", "Gkp9M4T"
   ],
+  "holdhands":[],
   "hug":[
     "tvNBTu2", "vFmpgg0", "viVO3di", "wNp3Sxy", "qak7ZRU", "1z6AF8B",
     "skHy0II", "4XI3Z5Q", "OTmRNMZ", "qdlXpQq", "PqzJ9mM", "fq6XGpz",
@@ -126,6 +128,8 @@
     "xAFPVC7", "2BJIDZr", "XhmnueL", "zQ6y1Oz", "UFtUfov", "8reDxXO",
     "JgXas5t", "1Gvoguw", "dr3xQvW", "1eRiC4c"
   ],
+  "sleep":[],
+  "smile":[],
   "smug": [
     "n3gxIKM", "kKsgxSo", "cJlVdVQ", "JiI9zNR", "lvmorNN", "hnRqttQ",
     "0ztmxKQ", "Cbmf4mA", "u7QEzHS", "R1MPUr2", "zMrapUE", "iUebBwc",
@@ -150,5 +154,7 @@
     "gfu2VBV", "WQFBtb6", "2oEN7SF", "8AFOrgf", "CqylXCq", "X6wGn3y",
     "C4MmaER", "171EHxa", "ILfm1EP", "bKcgwHW", "nmYqS8l", "IcAP19n",
     "pENMORd"
-  ]
+  ],
+  "wave":[],
+  "wink":[]
 }
