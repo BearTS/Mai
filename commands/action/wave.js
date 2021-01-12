@@ -10,7 +10,7 @@ module.exports = {
     'ADD_REACTIONS'
   ]
   , group: 'action'
-  , description: 'UWAA~!'
+  , description: 'Say hi or goodbye'
   , examples: [
       'wave'
   ]
