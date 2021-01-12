@@ -15,11 +15,7 @@ module.exports = {
       new MessageEmbed()
         .setColor("GREY")
         .setDescription(`${message.mentions.members.first()} got punched by ${message.member}! rip!`)
-        .setImage(
-          `https://i.imgur.com/${
-            punch[Math.ceil(Math.random() * punch.length)]
-          }.gif`
-        )
+        .setImage(`client.images.punch())`)
         .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`
         )
     );
