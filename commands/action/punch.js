@@ -7,7 +7,7 @@ module.exports = {
   guildOnly: true,
   clientPermissions: ["EMBED_LINKS", "ADD_REACTIONS"],
   group: "action",
-  description: "UWAA~!",
+  description: "Punch someone in the face",
   examples: ["punch"],
   parameters: [],
   run: async (client, message, args) => {
@@ -20,7 +20,7 @@ module.exports = {
             punch[Math.ceil(Math.random() * punch.length)]
           }.gif`
         )
-        .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
+        .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`))
         )
     );
   }
