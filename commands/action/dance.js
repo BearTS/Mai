@@ -21,7 +21,7 @@ module.exports = {
     .setColor('GREY')
     .setDescription(`${message.member} started danceing!`)
     .setImage(`https://i.imgur.com/${dance[Math.ceil(Math.random() * dance.length)]}.gif`)
-    .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
+    .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }
