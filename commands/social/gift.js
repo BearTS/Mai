@@ -24,14 +24,14 @@ module.exports = {
     };
 
     const item = market.find(x => x.id == id);
-    const itemcount = doc.data.profile.inventory.find(x => x.id === item.id)?.amount;
+    const itemcount = doc.data.profile.inventory.find(x => x.id === item?.id)?.amount;
 
     if (!item){
       return message.channel.send(`\\❌ **${message.author.tag}**, Could not find the item with id ${id}!`);
     } else if (!item.giftable){
       return message.channel.send(`\\❌ **${message.author.tag}**, item **${item.name}** is not giftable!`);
     };
-    
+
 
     return profile.findById(friend.id, (err, fr) => {
 
