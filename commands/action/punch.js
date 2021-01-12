@@ -20,7 +20,7 @@ module.exports = {
             punch[Math.ceil(Math.random() * punch.length)]
           }.gif`
         )
-        .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`))
+        .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`
         )
     );
   }
