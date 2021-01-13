@@ -33,6 +33,7 @@
     "dotenv": "^8.2.0",
     "erlpack": "^0.1.3",
     "express": "^4.17.1",
+    "figlet": "^1.5.0",
     "hanime": "^1.1.2",
     "he": "^1.2.0",
     "html-to-markdown": "^1.0.0",
