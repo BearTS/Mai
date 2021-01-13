@@ -8,7 +8,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Dance dance untill youe dead',
+  description: 'Dance dance untill your dead',
   examples: [ 'dance' ],
   parameters: [],
   run: async ( client, message, args ) => {
