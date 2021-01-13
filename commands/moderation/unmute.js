@@ -47,6 +47,6 @@ module.exports = {
 
     return member.roles.remove(muted)
     .then(member => message.channel.send(`\\✔️ **${member.user.tag}** has been unmuted!`))
-    .catch(() => messafe.channel.send(`\\❌ ${message.author}, I'm unable to unmute **${member.user.tag}**`));
+    .catch(() => message.channel.send(`\\❌ ${message.author}, I'm unable to unmute **${member.user.tag}**`));
   }
 };
