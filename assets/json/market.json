@@ -26,7 +26,7 @@
   {
     "id": 3,
     "name": "Midas' Golden Wreath",
-    "description": "Wreath touched by Midas'.",
+    "description": "Rare profile wreath.",
     "type": "wreath",
     "deletable": true,
     "giftable": true,
@@ -38,7 +38,7 @@
   {
     "id": 4,
     "name": "Bronze Wreath",
-    "description": "An ancient wreath used to repel demons of ancient times. Not that it is useful for today.",
+    "description": "Uncommon profile wreath.",
     "type": "wreath",
     "deletable": true,
     "giftable": true,
@@ -50,7 +50,7 @@
   {
     "id": 5,
     "name": "Green Wreath",
-    "description": "For Nature By Nature.",
+    "description": "Uncommon profile wreath.",
     "type": "wreath",
     "deletable": true,
     "giftable": true,
@@ -62,7 +62,7 @@
   {
     "id": 6,
     "name": "Common Wreath",
-    "description": "Usual decorative wreaths found at homes' doors.",
+    "description": "Common profile wreath.",
     "type": "wreath",
     "deletable": true,
     "giftable": true,
@@ -139,7 +139,7 @@
     "giftable": true,
     "price": 20000,
     "assets": {
-      "link": "https://i.imgur.com/5ncD8Hz.png"
+      "link": "https://i.imgur.com/akIFviF.png"
     }
   },{
     "id": 13,
@@ -392,7 +392,7 @@
     "giftable": true,
     "price": 25000,
     "assets": {
-      "link": "https://i.imgur.com/a8u2Am3.png"
+      "link": "https://i.imgur.com/CmdVWzS.png"
     }
   },{
     "id": 36,
@@ -403,7 +403,7 @@
     "giftable": true,
     "price": 20000,
     "assets": {
-      "link": "https://i.imgur.com/gSXFVff.png"
+      "link": "https://i.imgur.com/Flmb0gd.png"
     }
   },{
     "id": 37,
@@ -414,7 +414,7 @@
     "giftable": true,
     "price": 25000,
     "assets": {
-      "link": "https://i.imgur.com/Ngamnoy.png"
+      "link": "https://i.imgur.com/kKOIJjk.png"
     }
   },{
     "id": 38,
@@ -425,7 +425,7 @@
     "giftable": true,
     "price": 25000,
     "assets": {
-      "link": "https://i.imgur.com/UwNj1X3.png"
+      "link": "https://i.imgur.com/DSpPTsG.png"
     }
   },{
     "id": 39,
@@ -436,7 +436,7 @@
     "giftable": true,
     "price": 25000,
     "assets": {
-      "link": "https://i.imgur.com/fAeG65b.png"
+      "link": "https://i.imgur.com/kzoCRtJ.png"
     }
   },{
     "id": 40,
@@ -447,7 +447,7 @@
     "giftable": true,
     "price": 32000,
     "assets": {
-      "link": "https://i.imgur.com/bmlGTTC.png"
+      "link": "https://i.imgur.com/7Of98fM.png"
     }
   },{
     "id": 41,
@@ -755,7 +755,7 @@
     "giftable": true,
     "price": 12000,
     "assets": {
-      "link": "https://i.imgur.com/UNWxceV.png"
+      "link": "https://i.imgur.com/s0OYPpx.png"
     }
   },{
     "id": 69,
@@ -766,7 +766,7 @@
     "giftable": true,
     "price": 12000,
     "assets": {
-      "link": "https://i.imgur.com/vtvGL9k.png"
+      "link": "https://i.imgur.com/FI0gqMF.png"
     }
   },{
     "id": 70,
@@ -775,34 +775,89 @@
     "type": "emblem",
     "deletable": true,
     "giftable": true,
-    "price": 25000,
+    "price": 20000,
     "assets": {
-      "link": "https://i.imgur.com/p8RCriy.png"
+      "link": "https://i.imgur.com/rfIOHrG.png"
     }
   },{
-    "id": 71,
-    "name": "Megumin Smug",
+     "id": 71,
+    "name": "Megumin Angwry",
     "description": "Uncommon Profile Emblem",
     "type": "emblem",
     "deletable": true,
     "giftable": true,
     "price": 12000,
     "assets": {
-      "link": "https://i.imgur.com/X7RFkI9.png"
+      "link": "https://i.imgur.com/rgtr8De.png"
     }
   },{
     "id": 72,
-    "name": "Megumin Aprooves",
-    "description": "Rare Profile Emblem",
+    "name": "Megumin Point Up",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 18000,
+    "assets": {
+      "link": "https://i.imgur.com/v7fybxn.png"
+    }
+  },{
+    "id": 73,
+    "name": "Megumin Lazygumin",
+    "description": "Uncommon Profile Emblem",
     "type": "emblem",
     "deletable": true,
     "giftable": true,
     "price": 20000,
     "assets": {
-      "link": "https://i.imgur.com/znfJUSz.png"
+      "link": "https://i.imgur.com/v9ZaGGI.png"
     }
   },{
-    "id": 73,
+    "id": 74,
+    "name": "Megumin Kawaii",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/VDZ3ppW.png"
+    }
+  },{
+    "id": 75,
+    "name": "Megumin Kawaii",
+    "description": "Uncommon Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 20000,
+    "assets": {
+      "link": "https://i.imgur.com/VDZ3ppW.png"
+    }
+  },{
+    "id": 76,
+    "name": "Megumin Smug",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 30000,
+    "assets": {
+      "link": "https://i.imgur.com/UnjCkMd.png"
+    }
+  },{
+    "id": 77,
+    "name": "Megumin - Chuuni na Majo",
+    "description": "Super Rare Profile Emblem",
+    "type": "emblem",
+    "deletable": true,
+    "giftable": true,
+    "price": 35000,
+    "assets": {
+      "link": "https://i.imgur.com/v7fybxn.png"
+    }
+  },{
+    "id": 78,
     "name": "Violet evergarden",
     "description": "Rare Profile Background",
     "type": "background",
@@ -813,7 +868,7 @@
       "link": "https://i.imgur.com/b7SQkTJ.png"
     }
   },{
-    "id": 74,
+    "id": 79,
     "name": "World End",
     "description": "Uncommon Profile Background",
     "type": "background",
@@ -824,7 +879,7 @@
       "link": "https://i.imgur.com/MCb6UYl.png"
     }
   },{
-    "id": 75,
+    "id": 80,
     "name": "Shelter",
     "description": "Rare Profile Background",
     "type": "background",
@@ -835,7 +890,7 @@
       "link": "https://i.imgur.com/djQUKcd.png"
     }
   },{
-    "id": 76,
+    "id": 81,
     "name": "Rory Mercury Gate",
     "description": "Rare Profile Background",
     "type": "background",
@@ -846,8 +901,8 @@
       "link": "https://i.imgur.com/BxA2YSg.png"
     }
   },{
-    "id": 77,
-    "name": "NGNL",
+    "id": 82,
+    "name": "Shiro NGNL",
     "description": "Uncommon Profile Background",
     "type": "background",
     "deletable": true,
@@ -857,7 +912,7 @@
       "link": "https://i.imgur.com/YFy1CAV.png"
     }
   },{
-    "id": 78,
+    "id": 83,
     "name": "Made in Abyss",
     "description": "Rare Profile Background",
     "type": "background",
@@ -868,7 +923,7 @@
       "link": "https://i.imgur.com/fT1MO8I.png"
     }
   },{
-    "id": 79,
+    "id": 84,
     "name": "Assassination classroom",
     "description": "Uncommon Profile Background",
     "type": "background",
@@ -879,7 +934,7 @@
       "link": "https://i.imgur.com/LukCj9s.png"
     }
   },{
-    "id": 80,
+    "id": 85,
     "name": "Anohana",
     "description": "Rare Profile Background",
     "type": "background",
@@ -890,7 +945,7 @@
       "link": "https://i.imgur.com/EprdGpe.png"
     }
   },{
-    "id": 81,
+    "id": 86,
     "name": "Symphogear",
     "description": "Rare Profile Background",
     "type": "background",
@@ -901,8 +956,8 @@
       "link": "https://i.imgur.com/h8NIocv.png"
     }
   },{
-    "id": 82,
-    "name": "Lie in april",
+    "id": 87,
+    "name": "Your Lie in april",
     "description": "Rare Profile Background",
     "type": "background",
     "deletable": true,
@@ -912,7 +967,7 @@
       "link": "https://i.imgur.com/DrmbNka.png"
     }
   },{
-    "id": 83,
+    "id": 88,
     "name": "Date a Live",
     "description": "Uncommon Profile Background",
     "type": "background",
@@ -923,7 +978,7 @@
       "link": "https://i.imgur.com/78z5pAX.png"
     }
   },{
-    "id": 84,
+    "id": 89,
     "name": "Angel Beats",
     "description": "Rare Profile Background",
     "type": "background",
@@ -934,7 +989,7 @@
       "link": "https://i.imgur.com/tpxTwp9.png"
     }
   },{
-    "id": 85,
+    "id": 90,
     "name": "Tanya the Loli",
     "description": "Rare Profile Background",
     "type": "background",
@@ -945,8 +1000,8 @@
       "link": "https://i.imgur.com/jFKGy5x.png"
     }
   },{
-    "id": 86,
-    "name": "girl looking at night sky",
+    "id": 91,
+    "name": "Girl looking at night sky",
     "description": "Rare Profile Background",
     "type": "background",
     "deletable": true,
@@ -956,7 +1011,7 @@
       "link": "https://i.imgur.com/IRfgxvl.png"
     }
   },{
-    "id": 87,
+    "id": 92,
     "name": "eclipse",
     "description": "Rare Profile Background",
     "type": "background",
@@ -967,7 +1022,7 @@
       "link": "https://i.imgur.com/hl7VJ0I.png"
     }
   },{
-    "id": 88,
+    "id": 93,
     "name": "Girl Drawing",
     "description": "Uncommon Profile Background",
     "type": "background",
@@ -978,7 +1033,7 @@
       "link": "https://i.imgur.com/2qrW1rK.png"
     }
   },{
-    "id": 89,
+    "id": 94,
     "name": "Space",
     "description": "Rare Profile Background",
     "type": "background",
@@ -989,7 +1044,7 @@
       "link": "https://i.imgur.com/899JaFT.png"
     }
   },{
-    "id": 90,
+    "id": 95,
     "name": "Aldnoah zero",
     "description": "Uncommon Profile Background",
     "type": "background",
