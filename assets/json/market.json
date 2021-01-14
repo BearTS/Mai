@@ -935,7 +935,7 @@
     }
   },{
     "id": 85,
-    "name": "Symphogear",
+    "name": "Taki and Mitsuha",
     "description": "Rare Profile Background",
     "type": "background",
     "deletable": true,
@@ -1034,14 +1034,14 @@
     }
   },{
     "id": 94,
-    "name": "Aldnoah zero",
-    "description": "Uncommon Profile Background",
-    "type": "background",
+    "name": "SL Ahjin Emblem",
+    "description": "Rare Profile Emblem",
+    "type": "emblem",
     "deletable": true,
     "giftable": true,
-    "price": 15000,
+    "price": 30000,
     "assets": {
-      "link": "https://i.imgur.com/899JaFT.png"
+      "link": "https://i.imgur.com/ffH9gnI.png"
     }
   }
 ]
