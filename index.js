@@ -15,7 +15,6 @@ const options = {
     'owner', 'setup', 'social','utility'
   ]
 };
-
 client.database?.init();
 
 client.loadCommands({ parent: 'commands', ...options });
