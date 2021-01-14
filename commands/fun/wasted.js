@@ -1,10 +1,10 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-  name: 'triggered',
+  name: 'wasted',
   aliases: [],
   group: 'fun',
-  description: 'Triggered users',
+  description: 'Wasted users',
   clientPermissions: [ 'ATTACH_FILES' ],
   parameters: [ 'User ID', 'User Mention' ],
   get examples(){ return [ this.name, ...this.aliases]
@@ -26,16 +26,15 @@ module.exports = {
 
     const embed = new MessageEmbed()
                 .setColor('GREY')
-                .setDescription('Yikes! Triggered')
-                .setImage("attachment://triggered.gif")
+                .setDescription('Wasted!')
+                .setImage("attachment://wasted")
                 .setFooter(`Fun Commands | \©️${new Date().getFullYear()} Mai`);
 
     return message.channel.send({
-      embed: embed,
       files: [{
-        name: 'triggered.gif',
+        name: 'wasted.png',
         attachment: [
-          'https://some-random-api.ml/canvas/triggered?avatar=',
+          'https://some-random-api.ml/canvas/wasted?avatar=',
           user.displayAvatarURL({ format: 'png', size: 1024 })
         ].join('')
       }]

@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
   name: 'invert',
   aliases: [],
@@ -22,7 +24,14 @@ module.exports = {
       user = message.author;
     };
 
+    const embed = new MessageEmbed()
+                .setColor('GREY')
+                .setDescription('Inverted Avatar!')
+                .setImage("attachment://inverted.png")
+                .setFooter(`Fun Commands | \©️${new Date().getFullYear()} Mai`);
+
     return message.channel.send({
+      embed: embed,
       files: [{
         name: 'inverted.png',
         attachment: [
