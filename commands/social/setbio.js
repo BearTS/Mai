@@ -8,6 +8,10 @@ module.exports = {
   group: 'social',
   description: 'Sets the profile bio for your profile card.',
   requiresDatabase: true,
+  paramters: [ 'bio' ],
+  examples: [
+    'setbio The coolest person in town'
+  ],
   run: async (client, message, args ) => profile.findById(message.author.id, (err, doc) => {
 
     if (err){

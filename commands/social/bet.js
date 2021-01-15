@@ -9,7 +9,11 @@ module.exports = {
   group: 'social',
   description: 'Rely on fate to increase your balance... or lower it.',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  parameters: [ 'Amount' ],
+  examples: [
+    'bet 5000',
+    'gamble 500'
+  ],
   run: (client, message, [amount]) => profile.findById(message.author.id, (err,doc) => {
 
     if (err){

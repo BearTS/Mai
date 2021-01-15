@@ -12,7 +12,9 @@ module.exports = {
   group: 'social',
   description: 'Retrieve your daily reward <3',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  examples: [
+    'daily'
+  ],
   run: (client, message) => profile.findById(message.author.id, (err,doc) => {
 
     if (err){

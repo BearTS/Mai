@@ -8,7 +8,10 @@ module.exports = {
   group: 'social',
   description: 'You can find hidden credits on your surrounding if you try!',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  examples: [
+    'find',
+    'search'
+  ],
   run: (client, message) => profile.findById(message.author.id, (err, doc) => {
 
     if (err){

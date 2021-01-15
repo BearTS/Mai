@@ -8,6 +8,11 @@ module.exports = {
   clientPermissions: [],
   group: 'social',
   description: 'Sets the profile birthday for your profile card.',
+  requiresDatabase: true,
+  parameters: [ 'Date <DD-MM format>' ],
+  examples: [
+    'setbirthday 02-12'
+  ],
   run: async (client, message, [date] ) => profile.findById(message.author.id, (err, doc) => {
 
     if (err){

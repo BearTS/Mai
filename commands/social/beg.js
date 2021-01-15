@@ -9,7 +9,11 @@ module.exports = {
   group: 'social',
   description: 'Want to earn money some more? Why don\'t you try begging, maybe someone will give you.',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  examples: [
+    'beg',
+    'plead',
+    'gimme'
+  ],
   run: (client, message) => profile.findById(message.author.id, (err,doc) => {
 
     if (err){

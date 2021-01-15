@@ -8,6 +8,12 @@ module.exports = {
   clientPermissions: [ 'MANAGE_MESSAGES', 'ATTACH_FILES' ],
   group: 'social',
   description: 'Check what you can buy from the shop.',
+  requiresDatabase: true,
+  parameters: [ 'item ID' ],
+  examples: [
+    'previewitem 13',
+    'viewitem 4'
+  ],
   run: async (client, message, [id]) => {
 
     if (!id){

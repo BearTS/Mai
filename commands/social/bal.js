@@ -10,7 +10,11 @@ module.exports = {
   clientPermissions: [ 'EMBED_LINKS' ],
   description: 'Check your wallet, how much have you earned?',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  examples: [
+    'bal',
+    'balance',
+    'credits'
+  ],
   run: (client, message) => profile.findById(message.author.id, (err, doc) => {
 
     if (err){

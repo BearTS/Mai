@@ -6,7 +6,13 @@ module.exports = {
   aliases: [ ],
   rankcommand: true,
   group: 'social',
-  description: 'Deletes the item you own.',
+  description: 'Deletes an item you own.',
+  requiresDatabase: true,
+  parameters: [ 'item ID', 'amount' ],
+  examples: [
+    'deleteitem 10',
+    'deleteitem 18 2'
+  ],
   run: (client, message, [id, amount]) => profile.findById(message.author.id, (err,doc) => {
 
     if (err){
@@ -25,7 +31,7 @@ module.exports = {
 
     const itemcount = doc.data.profile.inventory.find(x => x.id === item.id)?.amount;
     amount = Math.round(amount || 1);
-    
+
     if (!amount){
        return message.channel.send(`\\❌ **${message.author.tag}**, Invalid amount of item to be deleted!`);
     } else if (!itemcount || itemcount < amount){
@@ -54,7 +60,7 @@ module.exports = {
        const proceed = await message.channel.awaitMessages(filter, options)
        .then(collected => ['y','yes'].includes(collected.first().content.toLowerCase()) ? true : false)
        .catch(() => false);
-      
+
       if (!proceed){
          return message.channel.send(`\\❌ Cancelled operation!`);
       };
