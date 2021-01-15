@@ -19,7 +19,9 @@ module.exports = {
   group: 'bot',
   description: 'Gives you the invite link',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [ this.name, ...this.aliases ]; },
+  examples: [
+    'invite'
+  ],
   run: async (client, message) => {
 
     const guild_invite = await message.guild.fetchInvites().then(g => {

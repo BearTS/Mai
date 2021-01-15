@@ -6,10 +6,10 @@ module.exports = {
   aliases: [],
   guildOnly: true,
   group: 'bot',
-  description: 'Support for Mai',
+  description: 'Displays various ways to show support for Mai',
   clientPermissions: [ 'EMBED_LINKS' ],
   parameters: [ ],
-  get examples(){ return [ this.name, ...this.aliases ]; },
+  examples: [ 'support' ],
   run: async (client, message) => {
 
     return message.channel.send(

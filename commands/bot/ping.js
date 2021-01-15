@@ -9,7 +9,10 @@ module.exports = {
   description: 'Display various pings this bot is connected to.',
   clientPermissions: [ 'EMBED_LINKS' ],
   parameters: [],
-  get examples(){ return [ this.name, ...this.aliases ]},
+  examples: [
+    'ping',
+    'latency'
+  ],
   run: async (client, message) => {
 
     const prompt = await message.channel.send('Pinging...');

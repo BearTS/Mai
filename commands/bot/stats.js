@@ -14,7 +14,11 @@ module.exports = {
   description: 'Displays the status of the current bot instance.',
   clientPermissions: [ 'EMBED_LINKS', 'ATTACH_FILES' ],
   parameters: [],
-  get examples(){ return [ this.name, ...this.aliases ]},
+  examples: [
+    'stats',
+    'status',
+    'botstatus'
+  ],
   run: async (client, message) => {
 
     const { heapUsed, heapTotal } = process.memoryUsage();

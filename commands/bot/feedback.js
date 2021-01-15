@@ -9,8 +9,10 @@ module.exports = {
   clientPermissions: [ ],
   group: 'bot',
   description: 'Sends support message to this bot\'s owner (Sakurajimai#6742)',
-  parameters: ['Feedback Message'],
-  get examples(){ return [ this.name, ...this.aliases ].map(x => x + ' ' + '[complaints, bugs, issues, feature requests, etc]'); },
+  parameters: [ 'Feedback Message' ],
+  examples: [
+    'feedback this command is not working bla bla..'
+  ],
   run: async function run(client, message, args ){
 
     if (!args.length){
