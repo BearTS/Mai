@@ -16,7 +16,7 @@ module.exports = {
 
     return message.channel.send(
       new MessageEmbed()
-      .setColor(nsfw ? 'RED' : 'GREY')
+      .setColor('GREY')
       .setFooter(`Mai Images | \©️${new Date().getFullYear()} Mai`)
       .setImage(image)
     );
