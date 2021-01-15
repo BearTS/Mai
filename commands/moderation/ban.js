@@ -7,7 +7,11 @@ module.exports = {
   group: 'moderation',
   description: 'Ban mentioned user from this server.',
   parameters: [ 'User Mention | ID', 'Ban Reason'],
-  get examples(){ return [ this.name + ' ' + '@user <reason>'];},
+  examples: [
+    'ban @user breaking server rules',
+    'ban @user',
+    'ban 7827342137832612783'
+  ],
   run: async (client, message, [member = '', ...reason] ) => {
 
     if (!member.match(/\d{17,19}/)){

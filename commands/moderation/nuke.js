@@ -6,7 +6,10 @@ module.exports = {
   clientPermissions: [ 'MANAGE_CHANNELS' ],
   group: 'moderation',
   description: 'Removes all messages in the channel (Deletes the old channel and makes a copy of it with permissions intact)',
-  get examples(){ return [ this.name, ...this.aliases]; },
+  examples: [
+    'nuke',
+    'clearall'
+  ],
   run: async (client, message) => {
 
     await message.channel.send(`This will remove all conversation in this channel and may cause conflict for bots using ID to track channels. Continue?`);

@@ -6,7 +6,10 @@ module.exports = {
   group: 'moderation',
   description: 'Toggle to prevent a user from sending a message in this channel',
   parameters: [ 'User Mention | ID' ],
-  get examples(){ [this.name, ...this.aliases].map(x => `${x} [user]`)},
+  examples: [
+    'softmute @user',
+    'softmute 728374657483920192'
+  ],
   run: async (client, message, [member = '']) => {
 
     const muteID = (client.guildProfiles

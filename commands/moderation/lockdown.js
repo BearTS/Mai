@@ -6,7 +6,12 @@ module.exports = {
   clientPermissions: [ 'MANAGE_CHANNELS' ],
   group: 'moderation',
   description: `[Prevent/Allow] users from sending messages in the current channel. Permission Overwrites will be lost.`,
-  get examples(){ return [ this.name, ...this.aliases ]},
+  examples: [
+    'lockdown',
+    'lock',
+    'ld',
+    'lockchannel'
+  ],
   run: (client, message) => message.channel.overwritePermissions([
     {
       id: message.guild.roles.everyone.id,

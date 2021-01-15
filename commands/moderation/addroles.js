@@ -6,7 +6,10 @@ module.exports = {
   clientPermissions: [ 'MANAGE_ROLES' ],
   group: 'moderation',
   description: 'Adds the mentioned roles and/or supplied role IDs to the mentioned user',
-  get example(){return [ this.name, ...this.aliases].map(x => `${x} <user> <role> <...role>`)},
+  examples: [
+    'addroles @user @role1 @role2 @role3',
+    'addrole @user @role'
+  ],
   run: async (client, message, [member = '', ...rawRoles] ) => {
 
     if (!member.match(/\d{17,19}/)){

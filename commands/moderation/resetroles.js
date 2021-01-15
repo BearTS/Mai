@@ -7,7 +7,10 @@ module.exports = {
   group: 'moderation',
   description: 'Removes **all** custom roles from a user. (@everyone will be excluded)',
   parameters: [ 'User Mention | ID' ],
-  get examples(){ return [ this.name, ...this.aliases ]},
+  examples: [
+    'resetroles @user',
+    'resetrole 7283746571920016374'
+  ],
   run: async (client, message, [member = '']) => {
 
     if (!member.match(/\d{17,19}/)){

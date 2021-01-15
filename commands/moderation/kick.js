@@ -7,7 +7,11 @@ module.exports = {
   group: 'moderation',
   description: 'Kick mentioned user from this server.',
   parameters: [ 'User Mention | ID', 'Kick Reason'],
-  get examples(){ return [ this.name + ' ' + '@user <reason>'];},
+  examples: [
+    'kick @user breaking server rules',
+    'kick @user',
+    'kick 7827342137832612783'
+  ],
   run: async (client, message, [member = '', ...reason] ) => {
 
     if (!member.match(/\d{17,19}/)){

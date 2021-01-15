@@ -6,7 +6,10 @@ module.exports = {
   clientPermissions: [ 'MANAGE_CHANNELS' ],
   group: 'moderation',
   description: `Removes all permission overwrites and resets @everyone permissions to \`unset\``,
-  get examples(){ return [ this.name, ...this.aliases ]},
+  examples: [
+    'resetchannel',
+    'resetch'
+  ],
   run: (client, message) => message.channel.overwritePermissions([
     { id: message.guild.roles.everyone.id }
   ])

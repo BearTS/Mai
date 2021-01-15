@@ -5,9 +5,11 @@ module.exports = {
   permissions: [ 'MANAGE_EMOJIS' ],
   clientPermissions: [ 'MANAGE_EMOJIS' ],
   group: 'moderation',
-  description: 'Add an emoji to the server using the supplied image URL',
+  description: 'Add an emoji to the server using the supplied image URL and name (optional)',
   parameters: [ 'Image URL', 'Emoji Name' ],
-  get examples(){ return `${this.name} https://some-url/path-to-image.format name_of_emoji`},
+  examples: [
+    'addemoji https://some-url/path-to-image.format emojiname'
+  ],
   run: (client, message, [url, name] ) => {
 
     if (!url || !/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/.test(url)){

@@ -10,7 +10,11 @@ module.exports = {
   group: 'moderation',
   description: 'Delete messages from this channel. Will not delete messages older than two (2) weeks.',
   parameters: [ 'Quantity of Message' ],
-  get examples(){ return [this.name, ...this.aliases].map(x => x + ' ' + '30')},
+  examples: [
+    'clear 10',
+    'delete 99',
+    'slowprune 50'
+  ],
   run: async (client, message, [quantity]) => {
 
     quantity = Math.round(quantity);
