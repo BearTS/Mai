@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Lick Lick Lick Lick Lick Lick Lick.',
+  description: 'Sends a roleplay gif `lick` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been licked (lero lero lero lero lero) 」. Use to indicate that you are / wanted to lick the mentioned user (context may vary).',
   examples: [ 'lick @user' ],
   parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {

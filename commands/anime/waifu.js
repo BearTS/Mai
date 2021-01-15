@@ -8,7 +8,9 @@ module.exports = {
   description: 'Generates random waifu.',
   clientPermissions: [ 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY' ],
   parameters: [],
-  get examples(){ return [ this.name, ...this.aliases ]; },
+  examples: [
+    'waifu'
+  ],
   run: (client, message) => {
 
 //---------------------------------WORK IN PROGRESS-----------------------------------//

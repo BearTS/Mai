@@ -11,7 +11,10 @@ module.exports = {
   description: 'Shows the top credit earners for this server',
   requiresDatabase: true,
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [this.name, ...this.aliases ];},
+  examples: [
+    'creditslb',
+    'richlb'
+  ],
   run: (client, message) => {
 
     const { exceptions, isActive } = client.guildProfiles.get(message.guild.id).xp;

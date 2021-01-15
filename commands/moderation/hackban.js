@@ -1,13 +1,16 @@
 module.exports = {
-  name: 'ban',
+  name: 'hackban',
   aliases: [],
   guildOnly: true,
   permissions: [ 'BAN_MEMBERS' ],
   clientPermissions: [ 'BAN_MEMBERS' ],
   group: 'moderation',
-  description: 'bans a user when they are not in the server.',
+  description: 'bans a user even if they are not in the server.',
   parameters: [ 'User ID', 'Ban Reason'],
-  get examples(){ return [ this.name + ' ' + '@user <reason>'];},
+  examples: [
+    'hackban 7823713678123123123',
+    'hackban 2345678765423567817 not following discord tos'
+  ],
   run: async (client, message, [user = '', ...reason] ) => {
 
     if (!user.match(/\d{17,19}/)){

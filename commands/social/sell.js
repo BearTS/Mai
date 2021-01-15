@@ -9,6 +9,11 @@ module.exports = {
   clientPermissions: [ 'MANAGE_MESSAGES' ],
   group: 'social',
   description: 'Sell some of your items to the shop.',
+  parameters: [ 'item ID', 'amount' ],
+  examples: [
+    'sell 7 2',
+    'sell 18'
+  ],
   run: (client, message, [id, amt] ) => profile.findById(message.author.id, async (err, doc) => {
 
     if (err){

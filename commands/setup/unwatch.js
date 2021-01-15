@@ -10,7 +10,10 @@ module.exports = {
   description: ['Removes a watched anime from your watchlist'],
   requiresDatabase: true,
   parameters: [ 'Anilist/Mal link' ],
-  get examples(){ return [ this.name, ...this.aliases].map(x => `${x} <url>`)},
+  examples: [
+    'unwatch https://myanimelist.net/anime/45678',
+    'unwatch https://anilist.co/anime/10778'
+  ],
   run: (client, message, links) => list.findById(message.guild.id, async (err, doc) => {
 
     if (err){

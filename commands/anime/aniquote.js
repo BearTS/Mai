@@ -7,9 +7,9 @@ module.exports = {
   aliases: [ 'aq', 'animequote' ],
   group: 'anime',
   clientPermissions: [ 'EMBED_LINKS' ],
-  description: 'Generate a random anime quote',
+  description: 'Generate a random anime quote.',
   parameters: [],
-  get examples(){ return [this.name, ...this.aliases]; },
+  examples: [ 'aniquote', 'aq', 'animequote' ],
   run: async ( client, message) => {
 
     const { quote, anime, id, name } = randomQuote();

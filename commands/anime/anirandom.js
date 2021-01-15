@@ -15,6 +15,11 @@ module.exports = {
   description: 'Generates a random anime recommendation. Recommends a Hentai if used on a nsfw channel.',
   clientPermissions: [ 'EMBED_LINKS' ],
   parameter: [],
+  examples: [
+    'anirandom',
+    'anirand',
+    'anirecommend'
+  ],
   get examples(){ return [this.name, ...this.aliases]; },
   run: async ( client, message ) => {
 

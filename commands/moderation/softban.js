@@ -7,7 +7,10 @@ module.exports = {
   group: 'moderation',
   description: 'Kicks a user and deletes all their messages in the past 7 days',
   parameters: [ 'user Mention/ID' ],
-  get examples (){ return [ `${this.name} 0123456789012345678` ];},
+  examples: [
+    'softban @user',
+    'softban 7283746574829102938'
+  ],
   run: async (client, message, [ member = '' ]) => {
 
     if (!member.match(/\d{17,19}/)){

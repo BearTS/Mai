@@ -9,6 +9,9 @@ module.exports = {
   group: 'setup',
   description: 'Toggle the \`Leaving Member Announcer\` on and off.',
   requiresDatabase: true,
+  examples: [
+    'goodbyetoggle'
+  ],
   run: (client, message) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){

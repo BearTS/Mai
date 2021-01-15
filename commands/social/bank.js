@@ -6,9 +6,12 @@ module.exports = {
   aliases: [ 'registerbank' ],
   guildOnly: true,
   group: 'social',
-  description: 'Check your wallet, how much have you earned?',
+  description: 'Begin storing your credits on bank. Required because wallet maximum capacity is 50000.',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  examples: [
+    'bank',
+    'registerbank'
+  ],
   run: (client, message) => profile.findById(message.author.id, (err,doc) => {
 
     if (err){

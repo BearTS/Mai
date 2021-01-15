@@ -8,7 +8,11 @@ module.exports = {
   description: 'Sends a list of all commands from each specific command groups',
   clientPermissions: [ 'EMBED_LINKS' ],
   parameters: [],
-  get examples(){ return [ this.name, ...this.aliases ]; },
+  examples: [
+    'commands',
+    'cmd',
+    'command'
+  ],
   run: (client, message) => {
 
     const fields = [];

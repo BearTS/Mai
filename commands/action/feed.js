@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Yummy!',
+  description: 'Sends a roleplay gif `feed` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been fed 」. Use to indicate that you are / wanted to feed the user.',
   examples: [ 'feed @user' ],
   parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {

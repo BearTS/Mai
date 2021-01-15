@@ -8,7 +8,10 @@ module.exports = {
   group: 'moderation',
   description: 'Prevents a user from sending a message in this server',
   parameters: [ 'User Mention | ID' ],
-  get examples(){ [this.name, ...this.aliases].map(x => `${x} [user]`)},
+  examples: [
+    'mute @user',
+    'mute 798213718237181231'
+  ],
   run: async (client, message, [member = ''] ) => {
 
     const muteID = (client.guildProfiles

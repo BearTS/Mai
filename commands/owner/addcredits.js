@@ -8,7 +8,9 @@ module.exports = {
   group: 'owner',
   description: 'Add credits to users! Append negative sign to remove credits from users!',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  examples: [
+    'addcredits @user 1000'
+  ],
   run: async (client, message, [user, amount]) => {
 
     amount = Number(amount);

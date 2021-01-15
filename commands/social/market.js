@@ -11,6 +11,10 @@ module.exports = {
   clientPermissions: [ 'MANAGE_MESSAGES' ],
   group: 'social',
   description: 'Check what you can buy from the shop.',
+  requiresDatabase: true,
+  examples: [
+    'market'
+  ],
   run: async (client, message, [type] ) => {
 
     let selected = market.filter(x => x.type === type?.toLowerCase());

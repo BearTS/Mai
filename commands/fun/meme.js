@@ -7,7 +7,10 @@ module.exports = {
   group: 'fun',
   description: 'Generate a random meme from a select subreddit.',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [ this.name, ...this.aliases ];},
+  examples: [
+    'meme',
+    'humorme'
+  ],
   run: async (client, message) => {
 
     const data = await fetch(`https://meme-api.herokuapp.com/gimme`)

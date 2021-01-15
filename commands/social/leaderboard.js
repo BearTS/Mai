@@ -11,7 +11,11 @@ module.exports = {
   description: 'Shows the top xp earners for this server',
   requiresDatabase: true,
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [this.name, ...this.aliases ];},
+  examples: [
+    'leaderboard',
+    'lb',
+    'topxp'
+  ],
   run: (client, message) => {
 
     const { exceptions, isActive } = client.guildProfiles.get(message.guild.id).xp;

@@ -16,13 +16,13 @@ module.exports = {
   clientPermissions: [ 'EMBED_LINKS' , 'ADD_REACTIONS' , 'USE_EXTERNAL_EMOJIS' ],
   group: 'anime',
   description: 'Displays the list of currently airing anime for today\'s date or given weekday.',
-  parameters: [],
-  get examples(){
-    return [ this.name, ...this.aliases.map((x,i) => {
-      const queries = weekdays.map(x => ' ' + x);
-      return x + queries[i]
-    }) ];
-  },
+  parameters: [ 'Weekday' ],
+  examples: [
+    'schedule monday',
+    'anitoday',
+    'airinglist sunday',
+    'airing saturday'
+  ],
   run: async (client, message, [ day ]) => {
 
     if (!day || !weekdays.includes(day.toLowerCase())){

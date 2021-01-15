@@ -20,7 +20,11 @@ module.exports = {
   group: 'social',
   clientPermissions: [ 'EMBED_LINKS', 'ATTACH_FILES' ],
   description: 'Play some games to earn credits.',
-  get examples(){ return jsfiles.map(g => this.name + g.split('.')[0] )},
+  parameters: [ 'game title' ],
+  requiresDatabase: true,
+  examples: [
+    'game captcha'
+  ],
   run: (client, message, [ title, ...args]) => profile.findById(message.author.id, (err, doc) => {
 
     const categories = text.joinArray(jsfiles.map(x => x.split('.')[0]));

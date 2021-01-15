@@ -10,7 +10,9 @@ module.exports = {
   description: 'Resets the xp of all users for this server',
   requiresDatabase: true,
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [this.name, ...this.aliases ];},
+  examples: [
+    'xpreset'
+  ],
   run: async (client, message ) => {
 
     await message.channel.send(`This will **reset** all experience points in this server (Action irreversible). Continue?`);

@@ -7,7 +7,12 @@ module.exports = {
   group: 'fun',
   description: 'Generate a random useless dog facts',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [this.name, ...this.aliases]},
+  examples: [
+    'dogfacts',
+    'dogfact',
+    'inu',
+    'df'
+  ],
   run: async (client, message) => {
 
     const data = await fetch('https://dog-api.kinduff.com/api/facts')

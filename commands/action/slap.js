@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Slap them friends!~',
+  description: 'Sends a roleplay gif `slap` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been slapped 」. Use to indicate that you are / wanted to slap the mentioned user (context may vary).',
   examples: [ 'slap @user' ],
   parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {

@@ -6,11 +6,13 @@ module.exports = {
   group: 'core',
   description: 'Mai is the best girl and there\'s no denying it!',
   clientPermissions: [ 'EMBED_LINKS', 'ATTACH_FILES' ],
-  get examples(){ return [ this.name, ...this.aliases ]; },
+  examples: [
+    'mai',
+    'bestgirl'
+  ],
   run: (client, message) => {
 
-    const { nsfw } = message.channel;
-    const image = client.images.mai({ nsfw });
+    const image = client.images.mai();
 
     return message.channel.send(
       new MessageEmbed()

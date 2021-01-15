@@ -9,9 +9,15 @@ module.exports = {
   cooldown: { time: 10000 },
   clientPermissions: [ 'EMBED_LINKS' ],
   group: 'anime',
-  description: 'Finds user profile on myanimelist based on the provided query',
-  parameters: [ 'User' ],
-  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <mal username>`)},
+  description: 'Finds user profile on myanimelist based on the provided query.',
+  parameters: [ 'Myanimelist Username' ],
+  examples: [
+    'malprofile sakurajimai-san',
+    'mal-of sakurajimai-san',
+    'malof sakurajimai-san',
+    'malstat sakurajimai-san',
+    'maluser sakurajimai-san'
+  ],
   run: async function (client, message, args ){
 
     const query = args.join(' ');

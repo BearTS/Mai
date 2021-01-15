@@ -9,7 +9,10 @@ module.exports = {
   description: 'Withdraw some of your money from the bank.',
   requiresDatabase: true,
   parameters: [ 'Amount' ],
-  get examples(){ return [this.name, ...this.aliases].map(x => x + ' 10000')},
+  examples: [
+    'withdraw 17000',
+    'withdraw all'
+  ],
   run: (client, message, [amount='']) => profile.findById(message.author.id, (err,doc) =>{
 
     if (err){

@@ -7,7 +7,12 @@ module.exports = {
   group: 'fun',
   description: 'Generate a random fortune',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [ this.name, ...this.aliases]; },
+  examples: [
+    'fortune',
+    'ft',
+    'fortunecookies',
+    'fortunecookie'
+  ],
   run: (client, message) => message.channel.send(
     new MessageEmbed()
     .setColor('GREY')

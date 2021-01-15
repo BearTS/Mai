@@ -9,7 +9,9 @@ module.exports = {
   description: 'Set up custom prefix for this server.',
   requiresDatabase: true,
   parameters: [ 'prefix' ],
-  get examples(){ return [this.name].map(x => `${x} !?`)},
+  examples: [
+    'setprefix ?'
+  ],
   run: (client, message, [prefix]) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (!prefix){

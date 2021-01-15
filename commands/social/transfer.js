@@ -8,8 +8,11 @@ module.exports = {
   group: 'social',
   description: 'Transfer some of your credits to your friends!',
   requiresDatabase: true,
-  parameters: [ 'User Mention', 'Amount' ],
-  get examples(){ return [this.name, ...this.aliases];},
+  parameters: [ 'User ID/Mention', 'Amount' ],
+  examples: [
+    'transfer @user 5000',
+    'transfer 76859403847563546 10000'
+  ],
   run: (client, message, [ friend='', amount='' ]) => profile.findById(message.author.id, async (err, doc) => {
 
     const fr = friend;

@@ -10,7 +10,10 @@ module.exports = {
   description: 'Set up the welcome channel',
   requiresDatabase: true,
   parameters: ['Channel ID/Mention'],
-  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <Channel ID/Mention>`)},
+  examples: [
+    'setwelcomech 72838485961627384',
+    'setwelcomech #member-joins'
+  ],
   run: (client, message, [channel='']) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){

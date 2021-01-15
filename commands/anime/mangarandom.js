@@ -15,7 +15,10 @@ module.exports = {
   description: 'Generates a random manga recommendation. Recommends a Hentai if used on a nsfw channel.',
   clientPermissions: [ 'EMBED_LINKS' ],
   parameter: [],
-  get examples(){ return [ this.name, ...this.aliases ]; },
+  examples: [
+    'mangarandom',
+    'mangarand'
+  ],
   run: async ( client, message ) => {
 
     message.channel.startTyping()

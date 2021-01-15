@@ -9,10 +9,10 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Happy!',
+  description: 'Sends a roleplay gif `happy` to the chat. Usually interpreted as 「 The user who used this command is happy (shiawase da!!) 」. Use to indicate that you are currently happy (context may vary). May be used in a similar context to the emoji 😃.',
   examples: [ 'happy' ],
   parameters: [],
-  run: async ( client, message, args ) => {
+  run: async ( client, message ) => {
 
     return message.channel.send(
       new MessageEmbed()

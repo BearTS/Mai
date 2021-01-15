@@ -12,7 +12,11 @@ module.exports = {
   group: 'utility',
   description: 'Searches for Japanese words and Kanji on Jisho!',
   parameters: [ 'word <kana/romaji>' ],
-  get examples(){ [this.name, ...this.aliases].map(x => x + ' [word <kanji, katakana, hiragana, romaji>]')},
+  examples: [
+    'jisho nani',
+    'nipponify oyasumi',
+    'weebify wakarimashita'
+  ],
   run: async function run(client, message, [query]){
 
     if (!query){

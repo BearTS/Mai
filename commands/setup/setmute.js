@@ -10,7 +10,11 @@ module.exports = {
   description: 'Set up the mute role.',
   requiresDatabase: true,
   parameters: ['Role <ID/Mention/Name>'],
-  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <role>`)},
+  examples: [
+    'setmute @muted',
+    'setmute 73847566859304855',
+    'setmute muted'
+  ],
   run: (client, message, [ role ]) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){

@@ -7,7 +7,12 @@ module.exports = {
   group: 'fun',
   description: 'Generate a random useless bird facts',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [this.name, ...this.aliases]},
+  examples: [
+    'birdfacts',
+    'birdfact',
+    'tori',
+    'bird'
+  ],
   run: async (client, message) => {
 
     const data = await fetch('https://some-random-api.ml/facts/bird')

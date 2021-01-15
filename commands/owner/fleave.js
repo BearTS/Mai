@@ -7,7 +7,9 @@ module.exports = {
   group: 'owner',
   description: 'Force Mai to leave a server',
   parameters: [ 'server ID', 'Reason' ],
-  get examples(){ [ this.name, ...this.aliases ].map(x => x + ' 12345678901234567890')},
+  examples: [
+    'fleave 728374657483920374'
+  ],
   run: async (client, message, [id = '', ...reason]) => {
 
     if (!id.match(/\d{17,19}/)){

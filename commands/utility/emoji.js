@@ -6,6 +6,9 @@ module.exports = {
   group: 'utility',
   desciption: 'Display the larger version of the supplied emoji',
   parameters: [ 'emoji' ],
+  examples: [
+    'emoji :exampleonly:'
+  ],
   get examples(){ return [ this.name + ' <emoji>'];},
   run: (cient, message, [emoji = '']) => {
 

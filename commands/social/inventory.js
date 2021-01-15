@@ -6,11 +6,16 @@ const market = require(`${process.cwd()}/assets/json/market.json`);
 
 module.exports = {
   name: 'inventory',
-  aliases: [],
+  aliases: [ 'inv' ],
   rankcommand: true,
   clientPermissions: [ 'MANAGE_MESSAGES' ],
   group: 'social',
   description: 'Check your items.',
+  requiresDatabase: true,
+  examples: [
+    'inventory',
+    'inv'
+  ],
   run: async (client, message ) => profile.findById(message.author.id, async (err, doc) => {
 
     if (err){

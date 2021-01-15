@@ -7,7 +7,10 @@ module.exports = {
   group: 'fun',
   description: 'Generate a random joke from a joke API',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [ this.name, ...this.aliases ]},
+  examples: [
+    'joke',
+    'haha'
+  ],
   run: async (client, message) => {
 
     const data = await fetch('https://sv443.net/jokeapi/v2/joke/Programming,Miscellaneous?blacklistFlags=nsfw,religious,political,racist,sexist')

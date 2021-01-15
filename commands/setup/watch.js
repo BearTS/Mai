@@ -12,7 +12,10 @@ module.exports = {
   description: 'Adds a new anime to watch for new episodes of. You may provide an <:anilist:767062314121035806>AniList entry link or a <:mal:767062339177676800>MyAnimeList link. Supports multiple ids/links',
   requiresDatabase: true,
   parameters: [ 'Anilist/Mal link' ],
-  get examples(){ return [ this.name, ...this.aliases].map(x => `${x} <url>`)},
+  examples: [
+    'watch https://myanimelist.net/anime/45678',
+    'anischedadd https://anilist.co/anime/10778'
+  ],
   run: (client, message, links) => list.findById(message.guild.id, async (err, doc) => {
 
     if (err){

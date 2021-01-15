@@ -4,9 +4,13 @@ module.exports = {
   name: 'respect',
   aliases: [ 'f', 'rp', '+rp' ],
   group: 'fun',
-  description: 'Show thy respect.',
+  description: 'Show thy respect. Accepts arguments.',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [ this.name, ...this.aliases ];},
+  examples: [
+    'respect',
+    'f Kyoto Animation',
+    'rp @user',
+  ],
   run: async (client, message, args) => {
 
     const rep = await message.channel.send(

@@ -7,7 +7,9 @@ module.exports = {
   group: 'social',
   description: 'Start earning credits. Register to keep track of your earned credits!',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  examples: [
+    'register'
+  ],
   run: (client, message) => profile.findById(message.author.id, (err, doc) => {
 
     if (err){

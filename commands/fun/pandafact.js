@@ -7,7 +7,11 @@ module.exports = {
   group: 'fun',
   description: 'Generate a random useless pandaa facts',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [this.name, ...this.aliases]},
+  examples: [
+    'pandafacts',
+    'pandafact',
+    'pf'
+  ],
   run: async (client, message) => {
 
     const data = await fetch('https://some-random-api.ml/facts/panda')

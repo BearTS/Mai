@@ -10,16 +10,17 @@ module.exports = {
   cooldown: {
     time: 10000,
     message: 'You are going too fast. Please slow down to avoid getting rate-limited!'
-  }, clientPermissions: [ 'EMBED_LINKS' ],
-  group: 'anime',
-  description: 'Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage")',
-  parameters: ['Search Query'],
-  get examples(){
-    return [this.name, ...this.aliases.map((x,i) => {
-      const queries = [ 'aobuta' , 'seishun buta yarou' , 'bunnygirl senpai' ];
-      return x + ' ' + queries[i];
-    })];
   },
+  clientPermissions: [ 'EMBED_LINKS' ],
+  group: 'anime',
+  description: 'Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage"), or shows Mai\'s anime series information if no query is provided.',
+  parameters: [ 'Search Query' ],
+  examples: [
+    'anime',
+    'as seishun buta yarou',
+    'ani aobuta',
+    'anisearch bunnygirl senpai'
+  ],
   run: async ( client, message, args ) => {
 
     const query = args.join(' ') || 'Seishun Buta Yarou';
@@ -51,7 +52,7 @@ module.exports = {
     };
 
     message.channel.stopTyping();
-    
+
     return message.channel.send(
       new MessageEmbed()
       .setColor('GREY')

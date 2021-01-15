@@ -7,6 +7,13 @@ module.exports = {
   rankcommand: true,
   group: 'social',
   description: 'Give some of the items you own to a friend.',
+  requiresDatabase: true,
+  parameters: [ 'user ID/mention' ,'item ID', 'amount' ],
+  examples: [
+    'gift @user 10 2',
+    'transferitem 756475746465746576 21',
+    'itemtransfer @user 12' 
+  ],
   run: (client, message, [friend='', id, amount] ) => profile.findById(message.author.id, async (err, doc) => {
 
     if (err){

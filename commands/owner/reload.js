@@ -5,7 +5,9 @@ module.exports = {
   group: 'owner',
   description: 'Reloads a command',
   parameters: [ 'command name/alias' ],
-  examples: [ 'reload anime' ],
+  examples: [
+    'reload anime'
+  ],
   run: (client, message, [command] ) => {
 
     if (!command){

@@ -9,9 +9,9 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Mazui! Kimoi!',
-  examples: [ 'User Mention' ],
-  parameters: [],
+  description: 'Sends a roleplay gif `disgust` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to is digusting (Mazui!!, Kimoi!!) 」. Use to indicate that you are disgusted by their (ideas on their) previous chats. May be used in a similar context to the emoji 🤮.',
+  examples: [ 'disgust @user' ],
+  parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {
 
     // Filter out args so that args are only user-mention formats.

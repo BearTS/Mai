@@ -6,7 +6,10 @@ module.exports = {
   clientPermissions: [ 'MANAGE_CHANNELS' ],
   group: 'moderation',
   description: `[Prevent/Allow] users without special permissions from sending messages in the current channel. Permission Overwrites will be kept.`,
-  get examples(){ return [ this.name, ...this.aliases ]},
+  examples: [
+    'softlockdown',
+    'softlock'
+  ],
   run: (client, message) => message.channel.updateOverwrite(
     message.guild.roles.everyone,
     {

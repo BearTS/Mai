@@ -9,6 +9,9 @@ module.exports = {
   group: 'setup',
   description: 'Toggle the \`Member Greeter\` on and off.',
   requiresDatabase: true,
+  examples: [
+    'welcometoggle'
+  ],
   run: (client, message) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){

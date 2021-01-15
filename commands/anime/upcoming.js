@@ -15,8 +15,16 @@ module.exports = {
   },
   group: 'anime',
   description: 'Displays the list of upcoming anime.',
-  parameters: [],
-  get examples(){ return [ this.name, ...types.map(x => this.name + ' ' + x.toLowerCase()) ]; },
+  parameters: [ 'Anime Media Type' ],
+  examples: [
+    'upcoming',
+    'upcoming tv',
+    'upcoming ona',
+    'upcoming ova',
+    'upcoming movie',
+    'upcoming special',
+    'upcoming -'
+  ],
   run: async (client, message, [ type = '' ]) => {
 
     if (types.some( x => x.toLowerCase() === type.toLowerCase())){

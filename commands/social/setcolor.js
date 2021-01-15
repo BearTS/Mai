@@ -7,6 +7,11 @@ module.exports = {
   clientPermissions: [],
   group: 'social',
   description: 'Sets the color for your profile card.',
+  requiresDatabase: true,
+  parameters: [ 'hex code' ],
+  examples: [
+    'setcolor #e567da'
+  ],
   run: async (client, message, [color] ) => profile.findById(message.author.id, (err, doc) => {
 
     if (err){

@@ -12,8 +12,12 @@ module.exports = {
   group: 'social',
   description: 'Shows the current xp, level, rank, and other details of a user',
   requiresDatabase: true,
-  parameters: [ '<User Mention|ID>'],
-  get examples(){ return [this.name, ...this.aliases].map(x => x + ' <User Mention>')},
+  parameters: [ 'User Mention/ID' ],
+  examples: [
+    'profile',
+    'rank @user',
+    'lvl 78475628394857374'
+  ],
   run: async function (client, message, [member = '']){
 
     member = member.match(/\d{17,18}/)?.[0] || message.member.id;

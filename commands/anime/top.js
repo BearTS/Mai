@@ -9,14 +9,12 @@ module.exports = {
   aliases: [],
   guildOnly: true,
   group: 'anime',
-  description: '',
+  description: 'Shows top anime (\\🛠️ currently broken)',
   clientPermissions: [ 'EMBED_LINKS' ],
   parameters: [ 'rank or range', 'type', 'subtype' ],
-  get examples(){
-    return [ '1 manga', '1-12 anime bypopularity', '56-60 characters', '10 anime favorite', '1-10 anime airing' ].map(x => {
-      return this.name + ' ' + x;
-    });
-  },
+  examples: [
+    'top'
+  ],
   run: async (client, message, args) => {
 
     // disable access.. code needs further furnishing..

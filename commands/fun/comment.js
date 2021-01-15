@@ -5,7 +5,9 @@ module.exports = {
   group:'fun',
   description: 'Comment something and return a youtube-like comment',
   clientPermissions: [ 'ATTACH_FILES' ],
-  get examples(){ return [ this.name, ...this.aliases ]; },
+  examples: [
+    'comment I never thought this would be the effect.'
+  ],
   run: (client ,message, args) => message.channel.send({
     files: [{
       name: 'youtube.png',

@@ -9,7 +9,10 @@ module.exports = {
   description: 'Set up the suggestion channel',
   requiresDatabase: true,
   parameters: ['Channel ID/Mention'],
-  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <Channel ID/Mention>`)},
+  examples: [
+    'setsuggestch 6273849506948347573',
+    'setsuggestch #suggestions'
+  ],
   run: (client, message, [channel]) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){

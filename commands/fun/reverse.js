@@ -3,7 +3,9 @@ module.exports = {
   aliases: [],
   group: 'fun',
   description: 'Reverses the supplied text',
-  get examples(){ return [this.name, ...this.aliases];},
+  examples: [
+    'reverse This text will be reversed.'
+  ],
   run: (client, message, args) =>
   message.channel.send(args.join(' ').split('').reverse().join(' ') || 'No text to reverse.')
 };

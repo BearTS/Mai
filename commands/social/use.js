@@ -8,7 +8,13 @@ module.exports = {
   rankcommand: true,
   clientPermissions: [ 'MANAGE_MESSAGES' ],
   group: 'social',
-  description: 'Check what you can buy from the shop.',
+  description: 'Equips an item.',
+  requiresDatabase: true,
+  paramters: [ 'item ID' ],
+  examples: [
+    'equip 67',
+    'use 15'
+  ],
   run: (client, message, [id] ) => profile.findById(message.author.id, async (err, doc) => {
 
     if (err){

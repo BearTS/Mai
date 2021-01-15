@@ -8,7 +8,9 @@ module.exports = {
   group: 'moderation',
   description: 'Respond to user suggestion',
   parameters: [ 'Message ID', 'accept/deny', 'reason' ],
-  get examples(){ return [ ...this.name + ' 690105173087223812 deny Doesn\'t make much sense to do this']},
+  examples: [
+    'respond 690105173087223812 deny Doesn\'t make much sense to do this'
+  ],
   run: async (client, message, [id, action = '', ...reason]) => {
 
     const channelID = (client.guildProfiles

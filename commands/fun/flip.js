@@ -3,7 +3,10 @@ module.exports = {
   aliases: [ 'coinflip', 'coin', 'tosscoin', 'tc' ],
   group: 'fun',
   description: 'Win or Lose, Flip a Coin [Head or Tails]',
-  get examples(){ return [ this.name, ...this.aliases ]},
+  examples: [
+    'flip head',
+    'coinflip tail'
+  ],
   run: (client, message, [choice = ''] ) => {
 
     if (!choice || !['head', 'tail'].some(x => choice.toLowerCase() === x)){

@@ -6,10 +6,14 @@ module.exports = {
   name: 'pokemon',
   aliases: [ 'pokedex', 'pokémon', 'pokédex' ],
   group: 'fun',
-  description: 'Find a specific pokemon using the pokédex',
+  description: 'Find a specific pokemon using the pokédex, or pikachu if no query is provided.',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [ 'snorlax', 'meowth', 'pikachu', 'clefairy' ]
-  .map((x,i) => [this.name, ...this.aliases][i] + ' ' + x); },
+  examples: [
+    'pokemon',
+    'pokedex pikachu',
+    'pokémon clefairy',
+    'pokédex jigglypuff'
+  ],
   run: async (client, message, args) => {
 
     const query = args.join(' ') || 'Pikachu';

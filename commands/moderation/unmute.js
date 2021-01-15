@@ -6,7 +6,10 @@ module.exports = {
   group: 'moderation',
   description: 'Unmutes a muted user from this server.',
   parameters: [ 'User Mention | ID' ],
-  get examples(){ [this.name, ...this.aliases].map(x => `${x} [user]`)},
+  examples: [
+    'unmute @user',
+    'unmute 7283746574829102938'
+  ],
   run: async (client, message, [member = ''] ) => {
 
     const muteID = (client.guildProfiles

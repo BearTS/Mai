@@ -9,7 +9,11 @@ module.exports = {
   group: 'social',
   description: 'Give tip to your friends!',
   requiresDatabase: true,
-  get examples(){ return [this.name, ...this.aliases];},
+  parameters: [ 'User Mention/ID'],
+  examples: [
+    'tip @user',
+    'tip 78374756574839348'
+  ],
   run: (client, message, [user='']) => profile.findById(message.author.id, async (err, tipper) => {
 
     if (err){

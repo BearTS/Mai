@@ -8,7 +8,10 @@ module.exports = {
   group: 'fun',
   description: 'Find out your horoscope for today!',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [ this.name, ...this.aliases ];},
+  examples: [
+    'horoscope libra',
+    'horoscope sagittarius'
+  ],
   run: async (client, message, [sign] ) => {
 
     if (!sign){

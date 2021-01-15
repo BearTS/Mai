@@ -7,7 +7,9 @@ module.exports = {
   group: 'moderation',
   description: 'Unbans a user from this server',
   parameters: [ 'user Mention/ID', 'Unban Reason' ],
-  get examples (){ return [ `${this.name} 0123456789012345678 <reason>` ];},
+  examples: [
+    'unban 728374657483920192',
+  ],
   run: async (client, message, [ user = '', ...args ]) => {
 
     if (!user.match(/\d{17,19}/)){

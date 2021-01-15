@@ -10,7 +10,10 @@ module.exports = {
   description: 'Set up the goodbye channel',
   requiresDatabase: true,
   parameters: ['Channel ID/Mention'],
-  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <Channel ID/Mention>`)},
+  examples: [
+    'setgoodbyech #member-leaves',
+    'setgoodbyech 728374657482937465'
+  ],
   run: (client, message, [channel='']) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){
