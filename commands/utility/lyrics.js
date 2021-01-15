@@ -7,9 +7,12 @@ module.exports = {
   name: 'lyrics',
   aliases: [],
   group: 'utility',
-  description: 'Searches for lyric info about a song from GeniuslLyrics',
+  description: 'Searches for lyric info about a song from GeniuslLyrics, or Kimi no Sei, if no query are provided.',
   parameters: [ 'Search Query' ],
-  get examples(){ [this.name + ' Fukashigi no Karte' ];},
+  examples: [
+    'lyrics kimi no sei',
+    'lyrics fukashigi no karte'
+  ],
   run: async (client, message, args) => {
 
     const query =  args.join(' ') || 'Kimi no Sei';

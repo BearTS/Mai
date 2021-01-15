@@ -7,8 +7,11 @@ module.exports = {
   guildOnly: true,
   group: "utility",
   description: 'Fetch User Information (As of May 20, 2020 - The global function has been removed due to a possible violation to Discord ToS).',
-  parameters: ['User ID'],
-  get examples(){ return [this.name, ...this.aliases].map(x => x + ' 124556789123456789')},
+  parameters: [ 'User Mention/ID' ],
+  examples: [
+    'userinfo @user',
+    'whois 75869504958675123'
+  ],
   run: async(client, message, [member='']) => {
 
     if (!member.match(/\d{17,19}/)){

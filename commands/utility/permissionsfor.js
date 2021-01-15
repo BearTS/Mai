@@ -7,7 +7,10 @@ module.exports = {
   guildOnly: true,
   description: 'List the server permissions of mentioned user or provided ID',
   parameters: [ 'User ID/Mention' ],
-  get examples(){ return [ this.name, ...this.aliases].map(x => x + ' <user>');},
+  examples: [
+    'permissionsfor @user',
+    'permsfor 728394857675849399'
+  ],
   run: async(client, message, [member = '']) => {
 
     if (!member.match(/\d{17,19}/)){

@@ -12,7 +12,10 @@ module.exports = {
   group: 'utility',
   description: 'Searches for your query on Urban Dictionary.\nNote: Using this on a nsfw channel disables the word profanity filter feature.',
   parameters: [ 'search query' ],
-  get examples(){ return [this.name, ...this.aliases].map(x => x + ' [term]')},
+  examples: [
+    'define',
+    'urban anime'
+  ],
   run: async (client, message, args) => {
 
     if (!args.length) {

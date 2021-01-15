@@ -12,9 +12,12 @@ module.exports = {
     message: 'Accessing Steam has been rate limited to 1 use per user per 10 seconds'
   },
   group: 'utility',
-  description: 'Searches <:steam:767062357952167946> [Steam](https://store.steampowered.com/ \'Steam Homepage\') for games!',
+  description: 'Searches <:steam:767062357952167946> [Steam](https://store.steampowered.com/ \'Steam Homepage\') for games!, or Doki-doki literature club, if no query is provided.',
   parameters: [ 'Search Query' ],
-  examples(){ return [ this.name, ...this.aliases].map(x => x + ' <query>');},
+  examples: [
+    'steam dota2',
+    'steam'
+  ],
   run: async (client, message, args) => {
 
     const query = args.join(' ') || 'Doki Doki Literature Club';

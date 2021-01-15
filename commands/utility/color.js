@@ -5,8 +5,11 @@ module.exports = {
   aliases: [ 'colour', 'hex' ],
   group: 'utility',
   description: 'Shows a random color or a preview of the given color',
-  parameters: [ 'Hex' ],
-  get examples(){ [this.name, ...this.aliases].map(x => x + ' <hex>')},
+  parameters: [ 'hex code' ],
+  examples: [
+    'color',
+    'color #ffffff'
+  ],
   run: (client, message, [ hex = '']) => {
 
     const color = hex.match(/[0-9a-f]{6}/) ||

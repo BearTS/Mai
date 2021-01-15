@@ -10,7 +10,11 @@ module.exports = {
   },
   group: 'utility',
   description: 'Fetch a random image from the supplied subreddit',
-  get examples(){return [this.name, ...this.aliases].map(x => x + ' <subreddit>')},
+  parameters: [ 'subreddit' ],
+  examples: [
+    'reddit churchofmai',
+    'rdt seishunbutayarou'
+  ],
   run: async (client, message, [subreddit = 'oneTrueMai']) => {
 
     const embed = new MessageEmbed()

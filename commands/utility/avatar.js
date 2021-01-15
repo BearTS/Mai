@@ -7,7 +7,11 @@ module.exports = {
   group: 'utility',
   description: 'Shows avatar of the provided user, or yourself',
   parameters: [ 'User Mention / ID' ],
-  get examples(){ [ this.name, ...this.aliases].map(x => x + ' @user')},
+  examples: [
+    'avatar',
+    'av @user',
+    'pfp 728394857686950485'
+  ],
   run: async (client, message, [user = '']) => {
 
     let color;

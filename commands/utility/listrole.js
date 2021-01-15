@@ -7,7 +7,10 @@ module.exports = {
   group: 'utility',
   guildOnly: true,
   description: 'Displays in list all of the roles this server has',
-  get examples(){ return [this.name, ...this.aliases ];},
+  examples: [
+    'listrole',
+    'roles'
+  ],
   run: async (client, message) => message.channel.send(
     new MessageEmbed()
     .setColor('GREY')

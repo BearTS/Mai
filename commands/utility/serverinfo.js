@@ -7,7 +7,10 @@ module.exports = {
   aliases: [ 'guild', 'server', 'serverstat', 'serverstats', 'guildstat', 'guildstats' ],
   group: 'utility',
   guildOnly: true,
-  get examples(){ return [ this.name, ...this.aliases ];},
+  description: 'Displays the basic information of the server',
+  examples: [
+    'serverinfo'
+  ],
   run: async (client, message) => message.channel.send(
     new MessageEmbed()
     .setColor('GREY')
