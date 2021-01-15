@@ -9,7 +9,10 @@ module.exports = {
   description: 'Where will i post the announcement for recently aired anime?',
   requiresDatabase: true,
   parameters: ['Channel ID/Mention'],
-  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <Channel ID/Mention>`)},
+  examples: [
+    'setanischedch #anime-updates',
+    'setanischedulech 728394059683726123'
+  ],
   run: (client, message, [channel='']) => list.findById(message.guild.id, (err, doc) => {
 
     if (err){

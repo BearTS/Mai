@@ -8,6 +8,11 @@ module.exports = {
   group: 'setup',
   description: 'Disable the anisched feature for this server',
   requiresDatabase: true,
+  examples: [
+    'disableanisched',
+    'anischedoff'
+  ],
+  parameters: [],
   run: (client, message) => list.findById(message.guild.id, (err,doc) => {
 
     if (err){

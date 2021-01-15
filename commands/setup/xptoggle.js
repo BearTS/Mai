@@ -9,6 +9,9 @@ module.exports = {
   group: 'setup',
   description: 'Toggle the xp system on/off for the server.',
   requiresDatabase: true,
+  examples: [
+    'xptoggle'
+  ],
   run: (client, message) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){

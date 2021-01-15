@@ -9,6 +9,11 @@ module.exports = {
   group: 'setup',
   description: 'Disable collecting xp on mentioned channels',
   requiresDatabase: true,
+  parameters: [ 'channel ID/Mention' ],
+  examples: [
+    'xpexcempt 728374657483920192',
+    'disablexpon #spam'
+  ],
   run: (client, message) => guilds.findById(message.guild.id, (err, doc) => {
 
     if (err){

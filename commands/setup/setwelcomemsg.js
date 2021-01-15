@@ -7,8 +7,14 @@ module.exports = {
   guildOnly: true,
   adminOnly: true,
   group: 'setup',
-  description: 'Set up the welcome message. Supports Embeds!',
+  description: 'Set up the welcome message. Supports Embeds! [Learn how to set up your Welcome Message](https://guides.mai-san.ml/)',
   requiresDatabase: true,
+  parameters: [ 'options', 'other parameters' ],
+  examples: [
+    'setwelcomemsg default',
+    'setwelcomemsg embed=true',
+    'setwelcomemsg embed=set -author=image:[ <url> ]',
+  ],
   run: (client, message, [stats = '', ...args]) => guilds.findById(message.guild.id, (err, doc) => {
 
     stats = stats.toLowerCase();
