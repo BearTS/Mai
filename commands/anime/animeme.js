@@ -9,13 +9,14 @@ module.exports = {
   group: 'anime',
   clientPermissions: [ 'EMBED_LINKS' ],
   description: 'Generate an anime meme fetched from selected <:reddit:767062345422864394> [Subreddits](https://reddit.com "Homepage"). Include `reload` parameter to reload meme cache. Memes generated are in order by default, add `r`, `random`, or `randomize` to randomize meme.',
-  parameters: ['Reload tag','Randomization tag'],
-  get examples(){
-    return [this.name, ...this.aliases.map((x,i) => {
-      const queries = ['reload', 'random', '', 'reload', 'random'];
-      return x + ' ' + queries[i];
-    })];
-  },
+  parameters: [ 'Reload tag', 'Randomization tag' ],
+  examples: [
+    'animeme',
+    'ameme reload',
+    'animeme random',
+    'animemes reload',
+    'amemes'
+  ],
   run: async ( client, message, [parameter]) => {
 
     if (!client.collections.getFrom('memes', message.guild.id)) {

@@ -17,12 +17,14 @@ module.exports = {
   description: 'Fetch doujin information from <:nhentai:767062351169323039> [nHentai](https://nhentai.net "nHentai Homepage")',
   clientPermissions: [ 'EMBED_LINKS' ],
   parameters: [ 'Media ID' ],
-  get examples(){
-    return [ this.name, ...this.aliases ].map((x,i) => {
-      const queries = [ '263492', '166258', '177013', '245212', '337864', '337879' ];
-      return x + ' ' + queries[i];
-    });
-  },
+  examples: [
+    'sauce 263492',
+    'gimmesauce 166258',
+    'finddoujin 177013',
+    'doujin 245212',
+    'nhentai 337864',
+    'saucefor 337879'
+  ],
   run: async function run( client, message, [id] ){
 
     if (isNaN(id)) {

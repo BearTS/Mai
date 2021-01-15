@@ -14,14 +14,15 @@ module.exports = {
   },
   clientPermissions: [ 'EMBED_LINKS' ],
   group: 'anime',
-  description: 'Returns remaining time for the next episode of given anime. Returns this day\'s schedule, if no anime is specified',
-  parameters: [ 'search query' ],
-  get examples(){
-    return [ this.name, ...this.aliases.map((x,i) => {
-      const queries = [ 'aobuta', 'seishun buta yarou', 'bunnygirl senpai', 'rascal does not dream' ];
-      return x + ' ' + queries[i];
-    }) ];
-  },
+  description: 'Shows the remaining time for the next episode of given anime. Returns this day\'s schedule, if no anime is specified',
+  parameters: [ 'Search Query' ],
+  examples: [
+    'nextairdate',
+    'nextair boruto',
+    'nextairing black clover',
+    'nextep attack on titan',
+    'nextepisode tensura'
+  ],
   run: async ( client, message, args ) => {
 
     const search = args.join(' ') || null;

@@ -14,14 +14,13 @@ module.exports = {
   },
   clientPermissions: [ 'EMBED_LINKS' ],
   group: 'anime',
-  description: 'Search for seiyuu\'s on your favorite anime characters!',
+  description: 'Search for seiyuu\'s on your favorite anime characters, or Mai\'s seiyuu if no query is provided!',
   parameters: [ 'search query' ],
-  get examples(){
-    return [ this.name, ...this.aliases.map((x,i) => {
-      const queries = [ 'Takahashi Rie', 'Amamiya Sora' ];
-      return x + ' ' + queries[i];
-    }) ];
-  },
+  examples: [
+    'seiyuu',
+    'voice amamiya sora',
+    'va yuuki kaji'
+  ],
   run: async ( client, message, args) => {
 
     const search = args.join(' ') || 'Seto Asami';

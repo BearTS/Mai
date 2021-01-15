@@ -11,10 +11,13 @@ module.exports = {
   aliases: [],
   guildOnly: true,
   group: 'anime',
-  description: 'Generate a set of handpicked <Anime/Manga> recommendations for a user',
+  description: 'Generate a set of handpicked <Anime/Manga> recommendations for a user.',
   clientPermissions: [ 'EMBED_LINKS', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS' ],
   parameter: [ 'Manga', 'Anime' ],
-  get examples(){ return this.parameter.map(x => this.name + ' ' + x); },
+  examples: [
+    'discover anime',
+    'discover manga'
+  ],
   run: async ( client, message, [category = '']) => {
 
     category = category.toLowerCase();

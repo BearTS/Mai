@@ -19,9 +19,12 @@ module.exports = {
   nsfw: true,
   description: 'Queries hanime.tv for a specific hentai. Returns a maximum of 10 results',
   parameters: [ 'Search Query' ],
-  get examples(){ return [this.name, ...this.aliases].map((x,i) => {
-    return `${x} Saimin Seishidou ${i+1}`
-  })},
+  examples: [
+    'hanime saimin seishidou',
+    'searchhentai mankitsu happening',
+    'hanisearch dropout',
+    'hs tamashii insert'
+  ],
   run: async function (client, message, args){
 
     const query = args.join(' ');

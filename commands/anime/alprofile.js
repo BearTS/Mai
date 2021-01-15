@@ -10,9 +10,15 @@ module.exports = {
   cooldown: { time: 10000 },
   clientPermissions: [ 'EMBED_LINKS' ],
   group: 'anime',
-  description: 'Finds user profile on Anilist based on the provided query',
-  parameters: [ 'User' ],
-  get examples(){ return [this.name, ...this.aliases].map(x => `${x} <mal username>`)},
+  description: 'Finds user profile on [Anilist](https://anilist.co) based on the provided query.',
+  parameters: [ 'Anilist Username' ],
+  examples: [
+    'alprofile',
+    'al-of sakurajimai',
+    'alof sakurajimai',
+    'alstat sakurajimai',
+    'aluser sakurajimai'
+  ],
   run: async function ( client, message, args ) {
 
     const query = args.join(' ');

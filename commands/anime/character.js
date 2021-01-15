@@ -13,14 +13,15 @@ module.exports = {
   },
   clientPermissions: [ 'EMBED_LINKS' ],
   group: 'anime',
-  description: 'Searches for a character in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage")',
+  description: 'Searches for a character in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage"), or Mai\'s character information if no query is provided.',
   parameters: [ 'Search Query' ],
-  get examples(){
-    return [this.name, ...this.aliases.map((x, i) => {
-      const queries = ['Mai Sakurajima', 'Mai-san', 'mai'];
-      return x + ' ' + [queries][i];
-    })];
-  },
+  examples: [
+    'character',
+    'anichar Mai',
+    'anichar Sakuta Azusagawa',
+    'char Rio Futaba',
+    'c Kaede Azusagawa'
+  ],
   run: async (client, message, args) => {
 
     const query = args.join(' ') || 'Mai Sakurajima';

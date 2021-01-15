@@ -14,14 +14,14 @@ module.exports = {
   },
   clientPermissions: [ 'EMBED_LINKS', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS'],
   group: 'anime',
-  description: 'Searches for a Manga / Manhwa / Manhua in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net.co "Homepage").',
+  description: 'Searches for a Manga / Manhwa / Manhua in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net.co "Homepage"), or shows Seishun Buta Yarou if no query is provided.',
   parameters: [ 'Search Query' ],
-  get examples(){
-    return [ this.name, ...this.aliases.map((x,i) => {
-      const queries = [ 'aobuta', 'solo leveling', 'king\'s avatar' ];
-      return x + ' ' + queries[i];
-    }) ];
-  },
+  examples: [
+    'manga',
+    'comic rascal does not dream',
+    'manhwa solo leveling',
+    'manhua king\'s avatar'
+  ],
   run: async (client, message, args) => {
 
     const query = args.join(' ') || 'Seishun Buta Yarou';
