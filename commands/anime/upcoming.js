@@ -17,7 +17,7 @@ module.exports = {
   description: 'Displays the list of upcoming anime.',
   parameters: [ 'Anime Media Type' ],
   examples: [
-    'upcoming'
+    'upcoming',
     'upcoming tv',
     'upcoming ona',
     'upcoming ova',

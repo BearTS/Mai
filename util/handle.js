@@ -13,8 +13,8 @@ function CommandHandler(manager, message){
   const serverprefix = message.client.guildProfiles.get(message.guild?.id)?.prefix || null;
   let prefix;
 
-  if (message.content.startsWith('test')){
-    prefix = 'test'
+  if (message.content.startsWith('mai')){
+    prefix = 'mai'
   } else if (message.content.startsWith(message.client.prefix)){
     prefix = message.client.prefix;
   } else if (serverprefix && message.content.startsWith(serverprefix)){
