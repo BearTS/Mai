@@ -10,7 +10,9 @@ module.exports = {
   group: 'owner',
   description: 'Evaluate arbitrary Javascript',
   parameters: [ 'Javascript Code' ],
-  get examples(){ return [ this.name + ' 1 + 1'];},
+  examples: [
+    'eval 1+1'
+  ],
   run: async (client, message, args) => {
 
     try {

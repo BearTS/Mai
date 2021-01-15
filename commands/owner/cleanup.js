@@ -12,7 +12,9 @@ module.exports = {
   guildOnly: true,
   group: 'owner',
   description: 'Remove all finished anime from anilist scheduler. Regularly run once in 4 months to reduce id clutters on watchlist data.',
-  get examples(){ return [ this.name ];},
+  examples: [
+    'cleanup'
+  ],
   run: (client, message) => watchlist.find({}, async (err, docs) => {
 
     if (err) {
