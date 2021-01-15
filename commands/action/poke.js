@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Poke your friends!',
+  description: 'Sends a roleplay gif `poke` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The mentioned user ignores you, so you poke them 」. Use to indicate that you are in need of attention from the mentioned user (context may vary).',
   examples: [ 'poke @user' ],
   parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {

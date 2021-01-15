@@ -9,10 +9,10 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'UWAA~!',
+  description: 'Sends a roleplay gif `cry` to the chat. Usually interpreted as 「 The user who used this commnd is crying 」. Use to indicate that you are currently crying. May be used in a similar context to the emoji 😢.',
   examples: [ 'cry' ],
   parameters: [],
-  run: async ( client, message, args ) => {
+  run: async ( client, message ) => {
 
     return message.channel.send(
       new MessageEmbed()

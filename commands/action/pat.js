@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'It\'s not like I want you to use my command.. ~Baka!',
+  description: 'Sends a roleplay gif `pat` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user gave a headpat to the mentioned user 」. Use to indicate that you are / wanted to headpat the mentioned user (context may vary).',
   examples: [ 'pat @user' ],
   parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {

@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'The epitome of arguments: smug anime girls',
+  description: 'Sends a roleplay gif `smug` to the chat. Usually interpreted as 「 The user who used this command smugs at the previous chat 」. Use to indicate that you sense the ulterior motive the previous user sent in chat.',
   examples: [ 'smug' ],
   parameters: [],
   run: async ( client, message, args ) => {

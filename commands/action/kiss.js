@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Show your love to someone special! Not me lol',
+  description: 'Sends a roleplay gif `kiss` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been kissed 」. Use to indicate that you are / wanted to kiss the mentioned user (context may vary). May be used in a similar context to the emoji 😘.',
   examples: [ 'kiss @user' ],
   parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {

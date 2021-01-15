@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'Tickle your friends!',
+  description: 'Sends a roleplay gif `tickle` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been tickled 」. Use to indicate that you tickled the mentioned user (context may vary).',
   examples: [ 'tickle @user' ],
   parameters: ['User Mention'],
   run: async ( client, message, args ) => {

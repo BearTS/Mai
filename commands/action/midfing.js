@@ -10,9 +10,9 @@ module.exports = {
   ],
   group: 'action',
   nsfw: true,
-  description: 'Use this to throw someone off. No seriously, it\'s a joke!',
-  examples: [ '' ],
-  parameters: [],
+  description: 'Sends a roleplay gif `midfing` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user who used this command wants the mentioned user to **** off 」. Use to indicate that you are annoyed by the user (context may vary). This is a roleplay command and is meant to be used as a joke, however, this will be limited to a nsfw channel due to sensitive nature of this command.',
+  examples: [ 'midfing @user' ],
+  parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {
 
     args = args.filter(x => /<@!?\d{17,19}>/.test(x))
