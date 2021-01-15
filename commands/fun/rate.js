@@ -4,8 +4,11 @@ module.exports = {
   group: 'fun',
   description: 'Rates the provided argument',
   parameters: [ 'something to rate with' ],
-  get examples(){ [ 'Potato', 'Cheese', 'Bringles' ]
-  .map(x => this.name + ' ' + x);},
+  examples: [
+    'rate Potato',
+    'rate cheese',
+    'rate Bringles'
+  ],
   run: (client, message, args) => {
 
     if (!args.length){

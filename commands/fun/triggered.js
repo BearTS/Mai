@@ -5,8 +5,10 @@ module.exports = {
   description: 'Triggered users',
   clientPermissions: [ 'ATTACH_FILES' ],
   parameters: [ 'User ID', 'User Mention' ],
-  get examples(){ return [ this.name, ...this.aliases]
-    .map(x => x + ' ' + '<User>'); },
+  examples: [
+    'triggered @user',
+    'triggered 78213712536152371'
+  ],
   run: async (client, message ) => {
 
     const match = message.content.match(/\d{17,19}/);

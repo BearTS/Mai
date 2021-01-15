@@ -29,13 +29,13 @@ module.exports = {
   group: 'fun',
   description: 'Ask anything on the magic 8-ball',
   parameters: [ 'Question answerable by Yes/No' ],
-  get examples(){
-    return [
-      'Is mai a good bot?', 'Is FMA worth of it\'s top spot?',
-      'Is BNHA good?', 'Do you want to play Among Us?',
-      'Have you been in a thight spot before?'
-    ].map((x,i) => [this.name, ...this.aliases][i] + ' ' + x)
-  },
+  examples: [
+    '8ball is mai a good bot?',
+    '🎱 is FMA worth of it\'s top spot?',
+    '8b is BNHA good',
+    '8-ball Do you want to play Among us?',
+    'eightball Have you been in a tight spot before?'
+  ],
   run: (client, message, args) => {
 
     if (!args.length){

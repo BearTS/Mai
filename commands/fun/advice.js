@@ -7,7 +7,11 @@ module.exports = {
   group: 'fun',
   description: 'Generate a random useless advice',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [ this.name, ...this.aliases ];},
+  examples: [
+    'advice',
+    'tips',
+    'advise'
+  ],
   run: async (client, message) => {
 
     const data = await fetch('https://api.adviceslip.com/advice')

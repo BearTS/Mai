@@ -7,7 +7,12 @@ module.exports = {
   group: 'fun',
   description: 'Generate a random useless cat facts',
   clientPermissions: [ 'EMBED_LINKS' ],
-  get examples(){ return [this.name, ...this.aliases]},
+  examples: [
+    'catfacts',
+    'catfact',
+    'neko',
+    'cf'
+  ],
   run: async (client, message) => {
 
     const data = await fetch('https://catfact.ninja/facts')

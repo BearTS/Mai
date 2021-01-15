@@ -5,8 +5,10 @@ module.exports = {
   description: 'Invert the colors on user avatar',
   clientPermissions: [ 'ATTACH_FILES' ],
   parameters: [ 'User ID', 'User Mention' ],
-  get examples(){ return [ this.name, ...this.aliases]
-    .map(x => x + ' ' + '<User>'); },
+  examples: [
+    'invert @user',
+    'invert 721612345678987654456'
+  ],
   run: async (client, message ) => {
 
     const match = message.content.match(/\d{17,19}/);

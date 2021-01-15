@@ -5,12 +5,16 @@ module.exports = {
   aliases: [],
   group: 'fun',
   description: 'Generate a random number from 1-[selected number]',
-  get examples(){ return [this.name, ...this.aliases].map(x => x + ' ' + '<num>')},
+  examples: [
+    'roll 10',
+    'roll 100',
+    'roll 1234567'
+  ],
   run: (client, message, [tail]) => {
 
     const rand = Math.random();
     tail = Math.round(tail) || Math.round(Math.random() * 999) + 1;
 
-    return message.channel.send(`**${text.commatize(rand * tail)}** ---> [0 -> ${text.commatize(tail)}]`)
+    return message.channel.send(`**${text.commatize(Math.round(rand * tail))}** ---> [0 -> ${text.commatize(tail)}]`)
   }
 };
