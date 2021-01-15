@@ -8,7 +8,9 @@ module.exports = {
   description: 'Suggest something for the server. If you have suggestion for the bot instead please use the feedback command or join our support server',
   clientPermissions: [ 'EMBED_LINKS', 'ADD_REACTIONS' ],
   parameters: [ 'Suggestion Message' ],
-  get examples(){ return this.name + ' Please remove some inactive members... '},
+  examples: [
+    'suggest please remove some of the inactive members...'
+  ],
   run: async (client, message, args) => {
 
     const embed = new MessageEmbed()

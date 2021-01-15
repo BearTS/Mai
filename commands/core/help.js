@@ -6,15 +6,15 @@ module.exports = {
   name: 'help',
   aliases: [ ],
   group: 'core',
-  description: 'Displays basic information or a help for a command',
+  description: 'Displays basic information or a help for a command.',
   clientPermissions: [ 'EMBED_LINKS' ],
   parameters: [ 'Command Name/Alias' ],
-  get examples(){
-    return ['anime', 'discover', 'upcoming', 'commands' ].map(x => {
-      return this.name + ' ' + x;
-    });
-  },
-  run: (client, message, [query] ) => {
+  examples: [
+    'help anirand',
+    'help watching',
+    'help register'
+  ],
+  run: (client, message, [query]) => {
 
     const { websites } = client.config;
 
