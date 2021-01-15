@@ -8,7 +8,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "It's not like I want you to use my command.. ~Baka!",
+    "description": "Sends a roleplay gif `baka` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to is an idiot (in a kawaii-context) 」.",
     "parameters": [
       "User Mention"
     ],
@@ -25,10 +25,25 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "UWAA~!",
+    "description": "Sends a roleplay gif `cry` to the chat. Usually interpreted as 「 The user who used this commnd is crying 」. Use to indicate that you are currently crying. May be used in a similar context to the emoji 😢.",
     "parameters": [],
     "examples": [
       "cry"
+    ]
+  },
+  {
+    "name": "dance",
+    "aliases": [],
+    "guildOnly": true,
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Sends a roleplay gif `dance` to the chat. Usually interpreted as 「 The user who used this commnd is dancing (in joy) 」. Use to indicate that you are currently dancing (context may vary).",
+    "parameters": [],
+    "examples": [
+      "dance"
     ]
   },
   {
@@ -40,10 +55,12 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Mazui! Kimoi!",
-    "parameters": [],
-    "examples": [
+    "description": "Sends a roleplay gif `disgust` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to is digusting (Mazui!!, Kimoi!!) 」. Use to indicate that you are disgusted by their (ideas on their) previous chats. May be used in a similar context to the emoji 🤮.",
+    "parameters": [
       "User Mention"
+    ],
+    "examples": [
+      "disgust @user"
     ]
   },
   {
@@ -55,7 +72,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Yummy!",
+    "description": "Sends a roleplay gif `feed` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been fed 」. Use to indicate that you are / wanted to feed the user.",
     "parameters": [
       "User Mention"
     ],
@@ -72,7 +89,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Happy!",
+    "description": "Sends a roleplay gif `happy` to the chat. Usually interpreted as 「 The user who used this command is happy (shiawase da!!) 」. Use to indicate that you are currently happy (context may vary). May be used in a similar context to the emoji 😃.",
     "parameters": [],
     "examples": [
       "happy"
@@ -87,7 +104,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Hug someone special.",
+    "description": "Sends a roleplay gif `hug` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been hugged 」. Use to indicate that you are / wanted to hug the mentioned user (context may vary). May be used in a similar context to the emoji 🤗.",
     "parameters": [
       "User Mention"
     ],
@@ -99,12 +116,13 @@
     "name": "kill",
     "aliases": [],
     "guildOnly": true,
+    "nsfw": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Kill someone.",
+    "description": "Sends a roleplay gif `kill` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user who used this command wants to kill the mentioned user 」. Use to indicate that you are / wanted to kill the mentioned user (context may vary). This is a roleplay command and is meant to be used as a joke, however, this will be limited to a nsfw channel due to sensitive nature of this command. Context should not include real crimes.",
     "parameters": [
       "User Mention"
     ],
@@ -121,7 +139,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Show your love to someone special! Not me lol",
+    "description": "Sends a roleplay gif `kiss` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been kissed 」. Use to indicate that you are / wanted to kiss the mentioned user (context may vary). May be used in a similar context to the emoji 😘.",
     "parameters": [
       "User Mention"
     ],
@@ -138,7 +156,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Lick Lick Lick Lick Lick Lick Lick.",
+    "description": "Sends a roleplay gif `lick` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been licked (lero lero lero lero lero) 」. Use to indicate that you are / wanted to lick the mentioned user (context may vary).",
     "parameters": [
       "User Mention"
     ],
@@ -156,10 +174,12 @@
     ],
     "group": "action",
     "nsfw": true,
-    "description": "Use this to throw someone off. No seriously, it's a joke!",
-    "parameters": [],
+    "description": "Sends a roleplay gif `midfing` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user who used this command wants the mentioned user to **** off 」. Use to indicate that you are annoyed by the user (context may vary). This is a roleplay command and is meant to be used as a joke, however, this will be limited to a nsfw channel due to sensitive nature of this command.",
+    "parameters": [
+      "User Mention"
+    ],
     "examples": [
-      ""
+      "midfing @user"
     ]
   },
   {
@@ -173,7 +193,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "It's not like I want you to use my command.. ~Baka!",
+    "description": "Sends a roleplay gif `pat` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user gave a headpat to the mentioned user 」. Use to indicate that you are / wanted to headpat the mentioned user (context may vary).",
     "parameters": [
       "User Mention"
     ],
@@ -190,7 +210,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Poke your friends!",
+    "description": "Sends a roleplay gif `poke` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The mentioned user ignores you, so you poke them 」. Use to indicate that you are in need of attention from the mentioned user (context may vary).",
     "parameters": [
       "User Mention"
     ],
@@ -207,7 +227,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Slap them friends!~",
+    "description": "Sends a roleplay gif `slap` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been slapped 」. Use to indicate that you are / wanted to slap the mentioned user (context may vary).",
     "parameters": [
       "User Mention"
     ],
@@ -224,7 +244,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "The epitome of arguments: smug anime girls",
+    "description": "Sends a roleplay gif `smug` to the chat. Usually interpreted as 「 The user who used this command smugs at the previous chat 」. Use to indicate that you sense the ulterior motive the previous user sent in chat.",
     "parameters": [],
     "examples": [
       "smug"
@@ -236,13 +256,13 @@
       "kms"
     ],
     "guildOnly": true,
+    "nsfw": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "nsfw": true,
-    "description": "KYSL - KillYourSelfLol",
+    "description": "Sends a roleplay gif `suicide` to the chat. Usually interpreted as 「 The user who used this command wants to commit suicide (in a jokingly manner) 」. Use to indicate that you are stunned by the previous user's chats that it makes you want to kys. This is a roleplay command and is meant to be used as a joke, however, this will be limited to a nsfw channel due to sensitive nature of this command. Context should not include real crimes.",
     "parameters": [],
     "examples": [
       "suicide",
@@ -258,7 +278,7 @@
       "ADD_REACTIONS"
     ],
     "group": "action",
-    "description": "Tickle your friends!",
+    "description": "Sends a roleplay gif `tickle` to the chat, directed towards the mentioned user, if there is any. Usually interpreted as 「 The user whom this command is directed to has been tickled 」. Use to indicate that you tickled the mentioned user (context may vary).",
     "parameters": [
       "User Mention"
     ],
@@ -281,16 +301,16 @@
       "EMBED_LINKS"
     ],
     "group": "anime",
-    "description": "Finds user profile on Anilist based on the provided query",
+    "description": "Finds user profile on [Anilist](https://anilist.co) based on the provided query.",
     "parameters": [
-      "User"
+      "Anilist Username"
     ],
     "examples": [
-      "alprofile <mal username>",
-      "al-of <mal username>",
-      "alof <mal username>",
-      "alstat <mal username>",
-      "aluser <mal username>"
+      "alprofile",
+      "al-of sakurajimai",
+      "alof sakurajimai",
+      "alstat sakurajimai",
+      "aluser sakurajimai"
     ]
   },
   {
@@ -308,14 +328,14 @@
       "EMBED_LINKS"
     ],
     "group": "anime",
-    "description": "Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \"Homepage\")",
+    "description": "Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \"Homepage\"), or shows Mai's anime series information if no query is provided.",
     "parameters": [
       "Search Query"
     ],
     "examples": [
       "anime",
-      "ani aobuta",
       "as seishun buta yarou",
+      "ani aobuta",
       "anisearch bunnygirl senpai"
     ]
   },
@@ -341,10 +361,9 @@
     "examples": [
       "animeme",
       "ameme reload",
-      "animememe random",
-      "animemes ",
-      "animememes reload",
-      "amemes random"
+      "animeme random",
+      "animemes reload",
+      "amemes"
     ]
   },
   {
@@ -357,7 +376,7 @@
     "clientPermissions": [
       "EMBED_LINKS"
     ],
-    "description": "Generate a random anime quote",
+    "description": "Generate a random anime quote.",
     "parameters": [],
     "examples": [
       "aniquote",
@@ -402,15 +421,16 @@
       "EMBED_LINKS"
     ],
     "group": "anime",
-    "description": "Searches for a character in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \"Homepage\")",
+    "description": "Searches for a character in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \"Homepage\"), or Mai's character information if no query is provided.",
     "parameters": [
       "Search Query"
     ],
     "examples": [
       "character",
-      "anichar Mai Sakurajima,Mai-san,mai",
-      "char undefined",
-      "c undefined"
+      "anichar Mai",
+      "anichar Sakuta Azusagawa",
+      "char Rio Futaba",
+      "c Kaede Azusagawa"
     ]
   },
   {
@@ -418,7 +438,7 @@
     "aliases": [],
     "guildOnly": true,
     "group": "anime",
-    "description": "Generate a set of handpicked <Anime/Manga> recommendations for a user",
+    "description": "Generate a set of handpicked <Anime/Manga> recommendations for a user.",
     "clientPermissions": [
       "EMBED_LINKS",
       "USE_EXTERNAL_EMOJIS",
@@ -429,8 +449,8 @@
       "Anime"
     ],
     "examples": [
-      "discover Manga",
-      "discover Anime"
+      "discover anime",
+      "discover manga"
     ]
   },
   {
@@ -455,10 +475,10 @@
       "Search Query"
     ],
     "examples": [
-      "hanime Saimin Seishidou 1",
-      "searchhentai Saimin Seishidou 2",
-      "hanisearch Saimin Seishidou 3",
-      "hs Saimin Seishidou 4"
+      "hanime saimin seishidou",
+      "searchhentai mankitsu happening",
+      "hanisearch dropout",
+      "hs tamashii insert"
     ]
   },
   {
@@ -476,16 +496,16 @@
       "EMBED_LINKS"
     ],
     "group": "anime",
-    "description": "Finds user profile on myanimelist based on the provided query",
+    "description": "Finds user profile on myanimelist based on the provided query.",
     "parameters": [
-      "User"
+      "Myanimelist Username"
     ],
     "examples": [
-      "malprofile <mal username>",
-      "mal-of <mal username>",
-      "malof <mal username>",
-      "malstat <mal username>",
-      "maluser <mal username>"
+      "malprofile sakurajimai-san",
+      "mal-of sakurajimai-san",
+      "malof sakurajimai-san",
+      "malstat sakurajimai-san",
+      "maluser sakurajimai-san"
     ]
   },
   {
@@ -506,13 +526,13 @@
       "ADD_REACTIONS"
     ],
     "group": "anime",
-    "description": "Searches for a Manga / Manhwa / Manhua in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net.co \"Homepage\").",
+    "description": "Searches for a Manga / Manhwa / Manhua in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net.co \"Homepage\"), or shows Seishun Buta Yarou if no query is provided.",
     "parameters": [
       "Search Query"
     ],
     "examples": [
       "manga",
-      "comic aobuta",
+      "comic rascal does not dream",
       "manhwa solo leveling",
       "manhua king's avatar"
     ]
@@ -553,16 +573,16 @@
       "EMBED_LINKS"
     ],
     "group": "anime",
-    "description": "Returns remaining time for the next episode of given anime. Returns this day's schedule, if no anime is specified",
+    "description": "Shows the remaining time for the next episode of given anime. Returns this day's schedule, if no anime is specified",
     "parameters": [
-      "search query"
+      "Search Query"
     ],
     "examples": [
       "nextairdate",
-      "nextairing aobuta",
-      "nextair seishun buta yarou",
-      "nextep bunnygirl senpai",
-      "nextepisode rascal does not dream"
+      "nextair boruto",
+      "nextairing black clover",
+      "nextep attack on titan",
+      "nextepisode tensura"
     ]
   },
   {
@@ -616,12 +636,14 @@
     ],
     "group": "anime",
     "description": "Displays the list of currently airing anime for today's date or given weekday.",
-    "parameters": [],
+    "parameters": [
+      "Weekday"
+    ],
     "examples": [
-      "schedule",
-      "anitoday sunday",
-      "airinglist monday",
-      "airing tuesday"
+      "schedule monday",
+      "anitoday",
+      "airinglist sunday",
+      "airing saturday"
     ]
   },
   {
@@ -638,14 +660,14 @@
       "EMBED_LINKS"
     ],
     "group": "anime",
-    "description": "Search for seiyuu's on your favorite anime characters!",
+    "description": "Search for seiyuu's on your favorite anime characters, or Mai's seiyuu if no query is provided!",
     "parameters": [
       "search query"
     ],
     "examples": [
       "seiyuu",
-      "voice Takahashi Rie",
-      "va Amamiya Sora"
+      "voice amamiya sora",
+      "va yuuki kaji"
     ]
   },
   {
@@ -653,7 +675,7 @@
     "aliases": [],
     "guildOnly": true,
     "group": "anime",
-    "description": "",
+    "description": "Shows top anime (\\🛠️ currently broken)",
     "clientPermissions": [
       "EMBED_LINKS"
     ],
@@ -663,11 +685,7 @@
       "subtype"
     ],
     "examples": [
-      "top 1 manga",
-      "top 1-12 anime bypopularity",
-      "top 56-60 characters",
-      "top 10 anime favorite",
-      "top 1-10 anime airing"
+      "top"
     ]
   },
   {
@@ -684,7 +702,9 @@
     },
     "group": "anime",
     "description": "Displays the list of upcoming anime.",
-    "parameters": [],
+    "parameters": [
+      "Anime Media Type"
+    ],
     "examples": [
       "upcoming",
       "upcoming tv",
@@ -724,7 +744,7 @@
       "Feedback Message"
     ],
     "examples": [
-      "feedback [complaints, bugs, issues, feature requests, etc]"
+      "feedback this command is not working bla bla.."
     ]
   },
   {
@@ -780,7 +800,7 @@
     "aliases": [],
     "guildOnly": true,
     "group": "bot",
-    "description": "Support for Mai",
+    "description": "Displays various ways to show support for Mai",
     "clientPermissions": [
       "EMBED_LINKS"
     ],
@@ -811,7 +831,7 @@
     "name": "help",
     "aliases": [],
     "group": "core",
-    "description": "Displays basic information or a help for a command",
+    "description": "Displays basic information or a help for a command.",
     "clientPermissions": [
       "EMBED_LINKS"
     ],
@@ -819,10 +839,9 @@
       "Command Name/Alias"
     ],
     "examples": [
-      "help anime",
-      "help discover",
-      "help upcoming",
-      "help commands"
+      "help anirand",
+      "help watching",
+      "help register"
     ]
   },
   {
@@ -854,7 +873,9 @@
     "parameters": [
       "Suggestion Message"
     ],
-    "examples": "suggest Please remove some inactive members... "
+    "examples": [
+      "suggest please remove some of the inactive members..."
+    ]
   },
   {
     "name": "watching",
@@ -893,11 +914,11 @@
       "Question answerable by Yes/No"
     ],
     "examples": [
-      "8ball Is mai a good bot?",
-      "🎱 Is FMA worth of it's top spot?",
-      "8b Is BNHA good?",
-      "8-ball Do you want to play Among Us?",
-      "eightball Have you been in a thight spot before?"
+      "8ball is mai a good bot?",
+      "🎱 is FMA worth of it's top spot?",
+      "8b is BNHA good",
+      "8-ball Do you want to play Among us?",
+      "eightball Have you been in a tight spot before?"
     ]
   },
   {
@@ -965,7 +986,7 @@
       "ATTACH_FILES"
     ],
     "examples": [
-      "comment"
+      "comment I never thought this would be the effect."
     ]
   },
   {
@@ -998,11 +1019,8 @@
     "group": "fun",
     "description": "Win or Lose, Flip a Coin [Head or Tails]",
     "examples": [
-      "flip",
-      "coinflip",
-      "coin",
-      "tosscoin",
-      "tc"
+      "flip head",
+      "coinflip tail"
     ]
   },
   {
@@ -1033,7 +1051,8 @@
       "EMBED_LINKS"
     ],
     "examples": [
-      "horoscope"
+      "horoscope libra",
+      "horoscope sagittarius"
     ]
   },
   {
@@ -1049,7 +1068,8 @@
       "User Mention"
     ],
     "examples": [
-      "invert <User>"
+      "invert @user",
+      "invert 721612345678987654456"
     ]
   },
   {
@@ -1107,15 +1127,15 @@
       "pokédex"
     ],
     "group": "fun",
-    "description": "Find a specific pokemon using the pokédex",
+    "description": "Find a specific pokemon using the pokédex, or pikachu if no query is provided.",
     "clientPermissions": [
       "EMBED_LINKS"
     ],
     "examples": [
-      "pokemon snorlax",
-      "pokedex meowth",
-      "pokémon pikachu",
-      "pokédex clefairy"
+      "pokemon",
+      "pokedex pikachu",
+      "pokémon clefairy",
+      "pokédex jigglypuff"
     ]
   },
   {
@@ -1125,6 +1145,11 @@
     "description": "Rates the provided argument",
     "parameters": [
       "something to rate with"
+    ],
+    "examples": [
+      "rate Potato",
+      "rate cheese",
+      "rate Bringles"
     ]
   },
   {
@@ -1135,15 +1160,14 @@
       "+rp"
     ],
     "group": "fun",
-    "description": "Show thy respect.",
+    "description": "Show thy respect. Accepts arguments.",
     "clientPermissions": [
       "EMBED_LINKS"
     ],
     "examples": [
       "respect",
-      "f",
-      "rp",
-      "+rp"
+      "f Kyoto Animation",
+      "rp @user"
     ]
   },
   {
@@ -1152,7 +1176,7 @@
     "group": "fun",
     "description": "Reverses the supplied text",
     "examples": [
-      "reverse"
+      "reverse This text will be reversed."
     ]
   },
   {
@@ -1161,7 +1185,9 @@
     "group": "fun",
     "description": "Generate a random number from 1-[selected number]",
     "examples": [
-      "roll <num>"
+      "roll 10",
+      "roll 100",
+      "roll 1234567"
     ]
   },
   {
@@ -1177,7 +1203,8 @@
       "User Mention"
     ],
     "examples": [
-      "triggered <User>"
+      "triggered @user",
+      "triggered 78213712536152371"
     ]
   },
   {
@@ -1191,12 +1218,14 @@
       "MANAGE_EMOJIS"
     ],
     "group": "moderation",
-    "description": "Add an emoji to the server using the supplied image URL",
+    "description": "Add an emoji to the server using the supplied image URL and name (optional)",
     "parameters": [
       "Image URL",
       "Emoji Name"
     ],
-    "examples": "addemoji https://some-url/path-to-image.format name_of_emoji"
+    "examples": [
+      "addemoji https://some-url/path-to-image.format emojiname"
+    ]
   },
   {
     "name": "addroles",
@@ -1212,9 +1241,9 @@
     ],
     "group": "moderation",
     "description": "Adds the mentioned roles and/or supplied role IDs to the mentioned user",
-    "example": [
-      "addroles <user> <role> <...role>",
-      "addrole <user> <role> <...role>"
+    "examples": [
+      "addroles @user @role1 @role2 @role3",
+      "addrole @user @role"
     ]
   },
   {
@@ -1234,7 +1263,9 @@
       "Ban Reason"
     ],
     "examples": [
-      "ban @user <reason>"
+      "ban @user breaking server rules",
+      "ban @user",
+      "ban 7827342137832612783"
     ]
   },
   {
@@ -1259,15 +1290,13 @@
       "Quantity of Message"
     ],
     "examples": [
-      "clear 30",
-      "delete 30",
-      "slowprune 30",
-      "sd 30",
-      "slowdelete 30"
+      "clear 10",
+      "delete 99",
+      "slowprune 50"
     ]
   },
   {
-    "name": "ban",
+    "name": "hackban",
     "aliases": [],
     "guildOnly": true,
     "permissions": [
@@ -1277,13 +1306,14 @@
       "BAN_MEMBERS"
     ],
     "group": "moderation",
-    "description": "bans a user when they are not in the server.",
+    "description": "bans a user even if they are not in the server.",
     "parameters": [
       "User ID",
       "Ban Reason"
     ],
     "examples": [
-      "ban @user <reason>"
+      "hackban 7823713678123123123",
+      "hackban 2345678765423567817 not following discord tos"
     ]
   },
   {
@@ -1303,7 +1333,9 @@
       "Kick Reason"
     ],
     "examples": [
-      "kick @user <reason>"
+      "kick @user breaking server rules",
+      "kick @user",
+      "kick 7827342137832612783"
     ]
   },
   {
@@ -1345,6 +1377,10 @@
     "description": "Prevents a user from sending a message in this server",
     "parameters": [
       "User Mention | ID"
+    ],
+    "examples": [
+      "mute @user",
+      "mute 798213718237181231"
     ]
   },
   {
@@ -1407,11 +1443,8 @@
       "User Mention | ID"
     ],
     "examples": [
-      "resetroles",
-      "resetrole",
-      "removeroles",
-      "removerole",
-      "purgerole"
+      "resetroles @user",
+      "resetrole 7283746571920016374"
     ]
   },
   {
@@ -1427,72 +1460,7 @@
       "reason"
     ],
     "examples": [
-      "r",
-      "e",
-      "s",
-      "p",
-      "o",
-      "n",
-      "d",
-      " ",
-      "6",
-      "9",
-      "0",
-      "1",
-      "0",
-      "5",
-      "1",
-      "7",
-      "3",
-      "0",
-      "8",
-      "7",
-      "2",
-      "2",
-      "3",
-      "8",
-      "1",
-      "2",
-      " ",
-      "d",
-      "e",
-      "n",
-      "y",
-      " ",
-      "D",
-      "o",
-      "e",
-      "s",
-      "n",
-      "'",
-      "t",
-      " ",
-      "m",
-      "a",
-      "k",
-      "e",
-      " ",
-      "m",
-      "u",
-      "c",
-      "h",
-      " ",
-      "s",
-      "e",
-      "n",
-      "s",
-      "e",
-      " ",
-      "t",
-      "o",
-      " ",
-      "d",
-      "o",
-      " ",
-      "t",
-      "h",
-      "i",
-      "s"
+      "respond 690105173087223812 deny Doesn't make much sense to do this"
     ]
   },
   {
@@ -1511,7 +1479,8 @@
       "user Mention/ID"
     ],
     "examples": [
-      "softban 0123456789012345678"
+      "softban @user",
+      "softban 7283746574829102938"
     ]
   },
   {
@@ -1533,9 +1502,7 @@
     "description": "[Prevent/Allow] users without special permissions from sending messages in the current channel. Permission Overwrites will be kept.",
     "examples": [
       "softlockdown",
-      "softlock",
-      "softld",
-      "softlockchannel"
+      "softlock"
     ]
   },
   {
@@ -1549,6 +1516,10 @@
     "description": "Toggle to prevent a user from sending a message in this channel",
     "parameters": [
       "User Mention | ID"
+    ],
+    "examples": [
+      "softmute @user",
+      "softmute 728374657483920192"
     ]
   },
   {
@@ -1568,7 +1539,7 @@
       "Unban Reason"
     ],
     "examples": [
-      "unban 0123456789012345678 <reason>"
+      "unban 728374657483920192"
     ]
   },
   {
@@ -1586,6 +1557,10 @@
     "description": "Unmutes a muted user from this server.",
     "parameters": [
       "User Mention | ID"
+    ],
+    "examples": [
+      "unmute @user",
+      "unmute 7283746574829102938"
     ]
   },
   {
@@ -1597,7 +1572,7 @@
     "description": "Add credits to users! Append negative sign to remove credits from users!",
     "requiresDatabase": true,
     "examples": [
-      "addcredits"
+      "addcredits @user 1000"
     ]
   },
   {
@@ -1620,7 +1595,7 @@
       "Javascript Code"
     ],
     "examples": [
-      "eval 1 + 1"
+      "eval 1+1"
     ]
   },
   {
@@ -1637,6 +1612,9 @@
     "parameters": [
       "server ID",
       "Reason"
+    ],
+    "examples": [
+      "fleave 728374657483920374"
     ]
   },
   {
@@ -1661,7 +1639,12 @@
     "adminOnly": true,
     "group": "setup",
     "description": "Disable the anisched feature for this server",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "parameters": [],
+    "examples": [
+      "disableanisched",
+      "anischedoff"
+    ]
   },
   {
     "name": "goodbyetoggle",
@@ -1670,7 +1653,10 @@
     "adminOnly": true,
     "group": "setup",
     "description": "Toggle the `Leaving Member Announcer` on and off.",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "examples": [
+      "goodbyetoggle"
+    ]
   },
   {
     "name": "setanischedch",
@@ -1688,10 +1674,8 @@
       "Channel ID/Mention"
     ],
     "examples": [
-      "setanischedch <Channel ID/Mention>",
-      "setanischedulechannel <Channel ID/Mention>",
-      "setanischedulech <Channel ID/Mention>",
-      "setanischedchannel <Channel ID/Mention>"
+      "setanischedch #anime-updates",
+      "setanischedulech 728394059683726123"
     ]
   },
   {
@@ -1706,7 +1690,8 @@
       "Channel ID/Mention"
     ],
     "examples": [
-      "setgoodbyech <Channel ID/Mention>"
+      "setgoodbyech #member-leaves",
+      "setgoodbyech 728374657482937465"
     ]
   },
   {
@@ -1715,8 +1700,17 @@
     "guildOnly": true,
     "adminOnly": true,
     "group": "setup",
-    "description": "Set up the goodbye message. Supports Embeds! [Learn how to set up your Leaving Member Announcer](https://mai-san.ml/)",
-    "requiresDatabase": true
+    "description": "Set up the goodbye message. Supports Embeds! [Learn how to set up your Leaving Member Announcer](https://guides.mai-san.ml/)",
+    "requiresDatabase": true,
+    "parameters": [
+      "options",
+      "other parameters"
+    ],
+    "examples": [
+      "setgoodbyemsg default",
+      "setgoodbyemsg embed=true",
+      "setgoodbyemsg embed=set -author=image:[ <url> ]"
+    ]
   },
   {
     "name": "setmute",
@@ -1732,8 +1726,9 @@
       "Role <ID/Mention/Name>"
     ],
     "examples": [
-      "setmute <role>",
-      "setmuterole <role>"
+      "setmute @muted",
+      "setmute 73847566859304855",
+      "setmute muted"
     ]
   },
   {
@@ -1748,7 +1743,7 @@
       "prefix"
     ],
     "examples": [
-      "setprefix !?"
+      "setprefix ?"
     ]
   },
   {
@@ -1763,7 +1758,8 @@
       "Channel ID/Mention"
     ],
     "examples": [
-      "setsuggestch <Channel ID/Mention>"
+      "setsuggestch 6273849506948347573",
+      "setsuggestch #suggestions"
     ]
   },
   {
@@ -1778,7 +1774,8 @@
       "Channel ID/Mention"
     ],
     "examples": [
-      "setwelcomech <Channel ID/Mention>"
+      "setwelcomech 72838485961627384",
+      "setwelcomech #member-joins"
     ]
   },
   {
@@ -1787,8 +1784,17 @@
     "guildOnly": true,
     "adminOnly": true,
     "group": "setup",
-    "description": "Set up the welcome message. Supports Embeds!",
-    "requiresDatabase": true
+    "description": "Set up the welcome message. Supports Embeds! [Learn how to set up your Welcome Message](https://guides.mai-san.ml/)",
+    "requiresDatabase": true,
+    "parameters": [
+      "options",
+      "other parameters"
+    ],
+    "examples": [
+      "setwelcomemsg default",
+      "setwelcomemsg embed=true",
+      "setwelcomemsg embed=set -author=image:[ <url> ]"
+    ]
   },
   {
     "name": "unwatch",
@@ -1807,9 +1813,8 @@
       "Anilist/Mal link"
     ],
     "examples": [
-      "unwatch <url>",
-      "anischedremove <url>",
-      "anischedunwatch <url>"
+      "unwatch https://myanimelist.net/anime/45678",
+      "unwatch https://anilist.co/anime/10778"
     ]
   },
   {
@@ -1822,7 +1827,14 @@
     "adminOnly": true,
     "group": "setup",
     "description": "Reset the xp of a particular user in this server.",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "parameters": [
+      "User Mention/ID"
+    ],
+    "examples": [
+      "userxpreset @user",
+      "resetuserxp 782939405931123456"
+    ]
   },
   {
     "name": "watch",
@@ -1839,9 +1851,8 @@
       "Anilist/Mal link"
     ],
     "examples": [
-      "watch <url>",
-      "anischedadd <url>",
-      "anischedwatch <url>"
+      "watch https://myanimelist.net/anime/45678",
+      "anischedadd https://anilist.co/anime/10778"
     ]
   },
   {
@@ -1851,7 +1862,10 @@
     "adminOnly": true,
     "group": "setup",
     "description": "Toggle the `Member Greeter` on and off.",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "examples": [
+      "welcometoggle"
+    ]
   },
   {
     "name": "xpenable",
@@ -1864,7 +1878,10 @@
     "adminOnly": true,
     "group": "setup",
     "description": "Enable collecting xp on **Disabled** mentioned channels",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "examples": [
+      "xpenable"
+    ]
   },
   {
     "name": "xpexcempt",
@@ -1877,7 +1894,14 @@
     "adminOnly": true,
     "group": "setup",
     "description": "Disable collecting xp on mentioned channels",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "parameters": [
+      "channel ID/Mention"
+    ],
+    "examples": [
+      "xpexcempt 728374657483920192",
+      "disablexpon #spam"
+    ]
   },
   {
     "name": "xpreset",
@@ -1895,9 +1919,7 @@
       "EMBED_LINKS"
     ],
     "examples": [
-      "xpreset",
-      "resetxp",
-      "resetserverxp"
+      "xpreset"
     ]
   },
   {
@@ -1909,7 +1931,10 @@
     "adminOnly": true,
     "group": "setup",
     "description": "Toggle the xp system on/off for the server.",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "examples": [
+      "xptoggle"
+    ]
   },
   {
     "name": "bal",
@@ -1937,7 +1962,7 @@
     ],
     "guildOnly": true,
     "group": "social",
-    "description": "Check your wallet, how much have you earned?",
+    "description": "Begin storing your credits on bank. Required because wallet maximum capacity is 50000.",
     "requiresDatabase": true,
     "examples": [
       "bank",
@@ -1969,9 +1994,12 @@
     "group": "social",
     "description": "Rely on fate to increase your balance... or lower it.",
     "requiresDatabase": true,
+    "parameters": [
+      "Amount"
+    ],
     "examples": [
-      "bet",
-      "gamble"
+      "bet 5000",
+      "gamble 500"
     ]
   },
   {
@@ -1982,7 +2010,16 @@
       "MANAGE_MESSAGES"
     ],
     "group": "social",
-    "description": "Check what you can buy from the shop."
+    "description": "Check what you can buy from the shop.",
+    "requiresDatabase": true,
+    "parameters": [
+      "Item ID",
+      "amount"
+    ],
+    "examples": [
+      "buy 10",
+      "buy 18 2"
+    ]
   },
   {
     "name": "creditslb",
@@ -2001,9 +2038,7 @@
     ],
     "examples": [
       "creditslb",
-      "richlb",
-      "richleaderboard",
-      "creditsleaderboard"
+      "richlb"
     ]
   },
   {
@@ -2022,7 +2057,16 @@
     "aliases": [],
     "rankcommand": true,
     "group": "social",
-    "description": "Deletes the item you own."
+    "description": "Deletes an item you own.",
+    "requiresDatabase": true,
+    "parameters": [
+      "item ID",
+      "amount"
+    ],
+    "examples": [
+      "deleteitem 10",
+      "deleteitem 18 2"
+    ]
   },
   {
     "name": "deposit",
@@ -2038,7 +2082,7 @@
     "requiresDatabase": true,
     "examples": [
       "deposit 10000",
-      "dep 10000"
+      "dep all"
     ]
   },
   {
@@ -2065,12 +2109,12 @@
       "ATTACH_FILES"
     ],
     "description": "Play some games to earn credits.",
+    "parameters": [
+      "game title"
+    ],
+    "requiresDatabase": true,
     "examples": [
-      "gamecaptcha",
-      "gamecountry-flags",
-      "gamehangman",
-      "gamelogoquiz",
-      "gametypingquiz"
+      "game captcha"
     ]
   },
   {
@@ -2081,17 +2125,35 @@
     ],
     "rankcommand": true,
     "group": "social",
-    "description": "Give some of the items you own to a friend."
+    "description": "Give some of the items you own to a friend.",
+    "requiresDatabase": true,
+    "parameters": [
+      "user ID/mention",
+      "item ID",
+      "amount"
+    ],
+    "examples": [
+      "gift @user 10 2",
+      "transferitem 756475746465746576 21",
+      "itemtransfer @user 12"
+    ]
   },
   {
     "name": "inventory",
-    "aliases": [],
+    "aliases": [
+      "inv"
+    ],
     "rankcommand": true,
     "clientPermissions": [
       "MANAGE_MESSAGES"
     ],
     "group": "social",
-    "description": "Check your items."
+    "description": "Check your items.",
+    "requiresDatabase": true,
+    "examples": [
+      "inventory",
+      "inv"
+    ]
   },
   {
     "name": "leaderboard",
@@ -2121,7 +2183,11 @@
       "MANAGE_MESSAGES"
     ],
     "group": "social",
-    "description": "Check what you can buy from the shop."
+    "description": "Check what you can buy from the shop.",
+    "requiresDatabase": true,
+    "examples": [
+      "market"
+    ]
   },
   {
     "name": "nonxpchannels",
@@ -2130,7 +2196,10 @@
     "adminOnly": true,
     "group": "social",
     "description": "See which channels do not give xp",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "examples": [
+      "nonxpchannels"
+    ]
   },
   {
     "name": "previewitem",
@@ -2143,7 +2212,15 @@
       "ATTACH_FILES"
     ],
     "group": "social",
-    "description": "Check what you can buy from the shop."
+    "description": "Check what you can buy from the shop.",
+    "requiresDatabase": true,
+    "parameters": [
+      "item ID"
+    ],
+    "examples": [
+      "previewitem 13",
+      "viewitem 4"
+    ]
   },
   {
     "name": "profile",
@@ -2165,14 +2242,12 @@
     "description": "Shows the current xp, level, rank, and other details of a user",
     "requiresDatabase": true,
     "parameters": [
-      "<User Mention|ID>"
+      "User Mention/ID"
     ],
     "examples": [
-      "profile <User Mention>",
-      "rank <User Mention>",
-      "lvl <User Mention>",
-      "xp <User Mention>",
-      "level <User Mention>"
+      "profile",
+      "rank @user",
+      "lvl 78475628394857374"
     ]
   },
   {
@@ -2194,7 +2269,15 @@
       "MANAGE_MESSAGES"
     ],
     "group": "social",
-    "description": "Sell some of your items to the shop."
+    "description": "Sell some of your items to the shop.",
+    "parameters": [
+      "item ID",
+      "amount"
+    ],
+    "examples": [
+      "sell 7 2",
+      "sell 18"
+    ]
   },
   {
     "name": "setbio",
@@ -2203,7 +2286,13 @@
     "clientPermissions": [],
     "group": "social",
     "description": "Sets the profile bio for your profile card.",
-    "requiresDatabase": true
+    "requiresDatabase": true,
+    "paramters": [
+      "bio"
+    ],
+    "examples": [
+      "setbio The coolest person in town"
+    ]
   },
   {
     "name": "setbirthday",
@@ -2211,7 +2300,14 @@
     "rankcommand": true,
     "clientPermissions": [],
     "group": "social",
-    "description": "Sets the profile birthday for your profile card."
+    "description": "Sets the profile birthday for your profile card.",
+    "requiresDatabase": true,
+    "parameters": [
+      "Date <DD-MM format>"
+    ],
+    "examples": [
+      "setbirthday 02-12"
+    ]
   },
   {
     "name": "setcolor",
@@ -2219,7 +2315,14 @@
     "rankcommand": true,
     "clientPermissions": [],
     "group": "social",
-    "description": "Sets the color for your profile card."
+    "description": "Sets the color for your profile card.",
+    "requiresDatabase": true,
+    "parameters": [
+      "hex code"
+    ],
+    "examples": [
+      "setcolor #e567da"
+    ]
   },
   {
     "name": "tip",
@@ -2228,8 +2331,12 @@
     "group": "social",
     "description": "Give tip to your friends!",
     "requiresDatabase": true,
+    "parameters": [
+      "User Mention/ID"
+    ],
     "examples": [
-      "tip"
+      "tip @user",
+      "tip 78374756574839348"
     ]
   },
   {
@@ -2242,12 +2349,12 @@
     "description": "Transfer some of your credits to your friends!",
     "requiresDatabase": true,
     "parameters": [
-      "User Mention",
+      "User ID/Mention",
       "Amount"
     ],
     "examples": [
-      "transfer",
-      "give"
+      "transfer @user 5000",
+      "transfer 76859403847563546 10000"
     ]
   },
   {
@@ -2258,7 +2365,15 @@
       "MANAGE_MESSAGES"
     ],
     "group": "social",
-    "description": "Check what you can buy from the shop."
+    "description": "Unequip a certain item.",
+    "requiresDatabase": true,
+    "parameters": [
+      "item type"
+    ],
+    "examples": [
+      "unequip wreath",
+      "unequip background"
+    ]
   },
   {
     "name": "use",
@@ -2270,7 +2385,15 @@
       "MANAGE_MESSAGES"
     ],
     "group": "social",
-    "description": "Check what you can buy from the shop."
+    "description": "Equips an item.",
+    "requiresDatabase": true,
+    "paramters": [
+      "item ID"
+    ],
+    "examples": [
+      "equip 67",
+      "use 15"
+    ]
   },
   {
     "name": "withdraw",
@@ -2283,7 +2406,8 @@
       "Amount"
     ],
     "examples": [
-      "withdraw 10000"
+      "withdraw 17000",
+      "withdraw all"
     ]
   },
   {
@@ -2300,6 +2424,11 @@
     "description": "Shows avatar of the provided user, or yourself",
     "parameters": [
       "User Mention / ID"
+    ],
+    "examples": [
+      "avatar",
+      "av @user",
+      "pfp 728394857686950485"
     ]
   },
   {
@@ -2311,7 +2440,11 @@
     "group": "utility",
     "description": "Shows a random color or a preview of the given color",
     "parameters": [
-      "Hex"
+      "hex code"
+    ],
+    "examples": [
+      "color",
+      "color #ffffff"
     ]
   },
   {
@@ -2326,9 +2459,8 @@
       "search query"
     ],
     "examples": [
-      "define [term]",
-      "urban [term]",
-      "ud [term]"
+      "define",
+      "urban anime"
     ]
   },
   {
@@ -2358,6 +2490,11 @@
     "description": "Searches for Japanese words and Kanji on Jisho!",
     "parameters": [
       "word <kana/romaji>"
+    ],
+    "examples": [
+      "jisho nani",
+      "nipponify oyasumi",
+      "weebify wakarimashita"
     ]
   },
   {
@@ -2377,9 +2514,13 @@
     "name": "lyrics",
     "aliases": [],
     "group": "utility",
-    "description": "Searches for lyric info about a song from GeniuslLyrics",
+    "description": "Searches for lyric info about a song from GeniuslLyrics, or Kimi no Sei, if no query are provided.",
     "parameters": [
       "Search Query"
+    ],
+    "examples": [
+      "lyrics kimi no sei",
+      "lyrics fukashigi no karte"
     ]
   },
   {
@@ -2394,8 +2535,8 @@
       "User ID/Mention"
     ],
     "examples": [
-      "permissionsfor <user>",
-      "permsfor <user>"
+      "permissionsfor @user",
+      "permsfor 728394857675849399"
     ]
   },
   {
@@ -2412,12 +2553,12 @@
     },
     "group": "utility",
     "description": "Fetch a random image from the supplied subreddit",
+    "parameters": [
+      "subreddit"
+    ],
     "examples": [
-      "reddit <subreddit>",
-      "rdt <subreddit>",
-      "subreddit <subreddit>",
-      "redd.it <subreddit>",
-      "fetchreddit <subreddit>"
+      "reddit churchofmai",
+      "rdt seishunbutayarou"
     ]
   },
   {
@@ -2432,14 +2573,9 @@
     ],
     "group": "utility",
     "guildOnly": true,
+    "description": "Displays the basic information of the server",
     "examples": [
-      "serverinfo",
-      "guild",
-      "server",
-      "serverstat",
-      "serverstats",
-      "guildstat",
-      "guildstats"
+      "serverinfo"
     ]
   },
   {
@@ -2450,24 +2586,13 @@
       "message": "Accessing Steam has been rate limited to 1 use per user per 10 seconds"
     },
     "group": "utility",
-    "description": "Searches <:steam:767062357952167946> [Steam](https://store.steampowered.com/ 'Steam Homepage') for games!",
+    "description": "Searches <:steam:767062357952167946> [Steam](https://store.steampowered.com/ 'Steam Homepage') for games!, or Doki-doki literature club, if no query is provided.",
     "parameters": [
       "Search Query"
-    ]
-  },
-  {
-    "name": "time",
-    "aliases": [
-      "clock"
-    ],
-    "group": "utility",
-    "description": "Shows the time for the given location!",
-    "parameters": [
-      "query<city>"
     ],
     "examples": [
-      "undefined [city]",
-      "clock [city]"
+      "steam dota2",
+      "steam"
     ]
   },
   {
@@ -2479,11 +2604,11 @@
     "group": "utility",
     "description": "Fetch User Information (As of May 20, 2020 - The global function has been removed due to a possible violation to Discord ToS).",
     "parameters": [
-      "User ID"
+      "User Mention/ID"
     ],
     "examples": [
-      "userinfo 124556789123456789",
-      "whois 124556789123456789"
+      "userinfo @user",
+      "whois 75869504958675123"
     ]
   }
 ]
