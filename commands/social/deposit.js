@@ -25,7 +25,7 @@ module.exports = {
 
       const amt = amount;
 
-      if (amount.toLowerCase() === 'all'){
+      if (amount?.toLowerCase() === 'all'){
         amount = Math.floor(doc.data.economy.wallet * 0.95);
       } else {
         amount = Math.round(amount.split(',').join(''));
