@@ -9,7 +9,7 @@ module.exports = {
     'ADD_REACTIONS'
   ],
   group: 'action',
-  description: 'It\'s not like I want you to use my command.. ~Baka!',
+  description: 'Sends a roleplay gif `baka` to the chat, directed towards the mentioned user, if there is any.',
   examples: [ 'baka @user' ],
   parameters: [ 'User Mention' ],
   run: async ( client, message, args ) => {
