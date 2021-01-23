@@ -21,7 +21,7 @@ module.exports = {
             .then(res => res.json())
               .catch(()=>null)
 
-    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Sorry, seems like i can't connect to memeAPI.`)
+    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Sorry, seems like i can't connect to memeAPI.`)
 
     const {
         title
@@ -43,7 +43,7 @@ module.exports = {
 
       .setImage(url)
 
-      .setFooter(subreddit)
+      .setFooter(`${subreddit}:Meme | \©️${new Date().getFullYear()} Mai`)
 
     )
   }

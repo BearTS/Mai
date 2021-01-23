@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const moneySchema = mongoose.Schema({
 
   userID: String,
-  MALUser: String,
-  MALId: String
+  MALUser: {type: String, default: undefined},
+  MALId: {type: String, default: null}
 
 });
 

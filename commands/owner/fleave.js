@@ -10,11 +10,11 @@ module.exports = {
   parameters: ['server ID'],
   run: async ( client, message, [id, ...reason] ) => {
 
-    if (!id) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please specify the server id you want me to leave from.`)
+    if (!id) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please specify the server id you want me to leave from.`)
 
     const guild = client.guilds.cache.get(id)
 
-    if (!guild) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, I was not able to find a guild with id **${id}**`)
+    if (!guild) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I was not able to find a guild with id **${id}**`)
 
     reason = reason.length ? reason.join(' ') : 'Im sorry but the reason was unspecified by my developer!'
 

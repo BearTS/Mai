@@ -19,13 +19,14 @@ module.exports = {
 
     const data = await fetch("https://dog-api.kinduff.com/api/facts").then(res => res.json()).catch(()=>null)
 
-    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! Dogfact API is currently down!`)
+    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Dogfact API is currently down!`)
 
     const { facts } = data
 
     message.channel.send( new MessageEmbed()
-      .setThumbnail(`https://i.imgur.com/arkxS3f.gif`)
+      .setThumbnail(`https://i.imgur.com/oTVVqHQ.gif`)
       .setColor('GREY')
-      .setDescription(facts))
+      .setDescription(facts)
+      .setFooter(`Dogfact | \©️${new Date().getFullYear()} Mai`))
   }
 }

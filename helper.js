@@ -21,7 +21,8 @@ module.exports = {
 
   //Mongoose Models
   , MongooseModels: {
-      guildInviteSchema: require('./models/guildInviteSchema')
+      bankSchema: require('./models/bankSchema')
+    , guildInviteSchema: require('./models/guildInviteSchema')
     , guildProfileSchema: require('./models/guildProfileSchema')
     , guildWatchlistSchema: require('./models/guildWatchlistSchema')
     , malProfileSchema: require('./models/malProfileSchema')
@@ -39,18 +40,23 @@ module.exports = {
   , Classes: {
       Paginate: require('./struct/Paginate')
   }
-
-  , Quiz: {
-      collectPlayers: require('./utilities/quiz/collectPlayers')
-    , loadQuestions: require('./utilities/quiz/loadQuestions')
-    , sendQuestion: require('./utilities/quiz/sendQuestion')
-  }
-
+  
   //XP
   , addXP: require('./utilities/Add XP')
 
   //Permissions Checker
   , PermissionsCheck: require('./utilities/Permissions Checker')
+
+  //Cooldowns Checker
   , CooldownsCheck: require('./utilities/Cooldowns Checker')
+
+  //Chatbot
+  , Chatbot: require('./utilities/Chatbot')
+
+  //Bug Reporter
+  , BugReporter: require('./utilities/Bug Reporter')
+
+  //Vote Manager
+  , VoteManager: require('./utilities/Vote Manager')
 
 }

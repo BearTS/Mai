@@ -30,7 +30,7 @@ module.exports = {
   ]
   , group: 'anime'
   , image: 'https://files.catbox.moe/1im628.gif'
-  , description: 'Searches for a Manga / Manhwa / Manhua in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net.co "Homepage").'
+  , description: 'Searches for a Manga / Manhwa / Manhua in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net.co "Homepage").'
   , examples: [
     'manga aobuta'
     , 'comic seishun buta yarou'
@@ -41,34 +41,42 @@ module.exports = {
   , run: async (client, message, args) => {
 
     const query = args.length
-                  ? args.join(' ')
-                  : 'Seishun Buta Yarou Series'
+    ? args.join(' ')
+    : 'Seishun Buta Yarou Series'
 
     const embed = new MessageEmbed()
-                  .setColor('YELLOW')
-                  .setDescription(`Searching for manga titled **${
-                    query
-                  }** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
-                  .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+    .setColor('YELLOW')
+    .setDescription(`Searching for manga titled **${
+      query
+    }** on <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'Homepage').`)
+    .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
 
     let msg = await message.channel.send(embed)
 
-    const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(args.join(' '))}&page=1`)
-                        .then( res => res.json())
+    const data = await fetch(`https://api.jikan.moe/v3/search/manga?q=${encodeURI(query)}&page=1`)
+      .then( res => res.json())
 
       embed.setColor('RED')
-           .setThumbnail('https://i.imgur.com/qkBQB8V.png')
-           .setDescription(`\u200b\n\u2000\u2000<:cancel:712586986216489011> | ${
-             jikanError(
-               data
-               ? data.status
-               : null)
-             }\n\u200b`)
+      .setAuthor(
+        !data.error && !data.results.length
+        ? 'None Found'
+        : 'Response Error'
+        ,'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1'
+      )
+      .setDescription(
+        !data.error && !data.results.length
+        ? `**${message.member.displayName}**, No results were found for **${query}**!\n\n`
+        + `If you believe this manga exists, try the following methods:\n`
+        + `• Try the alternative names (e.g. English, Native, Romaji).\n`
+        + `• Include the volume number (if it exists).\n`
+        : jikanError( data ? data.status : null)
+      )
 
-    if (!data || data.error)
+
+    if (!data || data.error || !data.results.length)
       return await msg.edit(embed).catch(()=> null)
-             ? null
-             : await message.channel.send(embed).then(()=> null)
+      ? null
+      : await message.channel.send(embed).then(()=> null)
 
     const elapsed = Date.now() - message.createdAt
 
@@ -90,17 +98,19 @@ module.exports = {
         .addField('Start Date', timeZoneConvert(res.start_date), true)
         .addField('End Date', res.end_date ? timeZoneConvert(res.end_date) : 'Unknown', true)
         .addField('\u200B','\u200B',true)
-        .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds • Page ${pages.size} of ${data.results.slice(0,10).length}`)
+        .setFooter(`Search duration: ${(elapsed / 1000).toFixed(2)} seconds\u2000\u2000•\u2000\u2000Page ${pages.size + 1} of ${data.results.slice(0,10).length}\u2000\u2000•\u2000\u2000Manga Query with MAL | \©️${new Date().getFullYear()} Mai`)
       )
     }
 
-    msg = await msg.edit(pages.firstPage).catch(()=>null) ? msg : await message.channel.send(pages.firstPage)
+    msg = await msg.edit(pages.firstPage).catch(()=>null)
+    ? msg
+    : await message.channel.send(pages.firstPage)
 
     if (pages.size === 1) return
 
-    const prev = client.emojis.cache.get('712581829286166579') || '◀'
-    const next = client.emojis.cache.get('712581873628348476') || '▶'
-    const terminate = client.emojis.cache.get('712586986216489011') || '❌'
+    const prev = client.emojis.cache.get('767062237722050561') || '◀'
+    const next = client.emojis.cache.get('767062244034084865') || '▶'
+    const terminate = client.emojis.cache.get('767062250279927818') || '❌'
 
     const collector = msg.createReactionCollector( (reaction, user) => user.id === message.author.id)
     const navigators = [ prev, next, terminate ]

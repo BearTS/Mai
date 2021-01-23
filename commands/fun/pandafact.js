@@ -22,7 +22,7 @@ module.exports = {
             .then(res => res.json())
               .catch(()=>null)
 
-    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Pandafact API is currently down.`)
+    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Pandafact API is currently down.`)
 
     const { fact } = data
 
@@ -30,6 +30,7 @@ module.exports = {
       .setThumbnail(`https://i.imgur.com/QUF4VQX.gif`)
       .setColor('GREY')
       .setDescription(fact)
+      .setFooter(`Pandafact | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

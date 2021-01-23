@@ -18,7 +18,7 @@ module.exports = {
   ]
   , group: 'anime'
   , image: 'https://files.catbox.moe/2xqq69.gif'
-  , description: 'Searches for a specific anime in <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net "Homepage")'
+  , description: 'Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage")'
   , examples: [
       'anime'
     , 'anime aobuta'
@@ -29,16 +29,19 @@ module.exports = {
   , run: async ( client, message, args ) => {
 
     const query = args.length
-                  ? args.join(' ')
-                  : 'Seishun Buta Yarou'
+    ? args.join(' ')
+    : 'Seishun Buta Yarou';
 
 
     const embed = new MessageEmbed()
-              .setColor('YELLOW')
-              .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
-              .setDescription(`Searching for Anime titled **${
-                query
-              }** on <:mal:722270009761595482> [MyAnimeList](https://myanimelist.net 'Homepage').`)
+    .setColor('YELLOW')
+    .setThumbnail('https://i.imgur.com/u6ROwvK.gif')
+    .setDescription(
+      `Searching for Anime titled **${
+        query
+      }** on <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net 'Homepage').`
+    )
+    .setFooter(`Anime Query with MAL | \©️${new Date().getFullYear()} Mai`);
 
 
     const msg = await message.channel.send(embed)
@@ -46,28 +49,35 @@ module.exports = {
 
     const data = await new Promise((resolve,reject) => {
 
-                    const timer = setTimeout(() => reject('TIMEOUT'), 10000)
+      const timer = setTimeout(() => reject('TIMEOUT'), 10000)
 
-                    getInfoFromName(query)
-                      .then(res => resolve(res))
-                          .catch((err)=> reject(err))
+      getInfoFromName(query)
+      .then(res => resolve(res))
+      .catch((err)=> reject(err))
 
-                        }).catch((err)=> err !== 'TIMEOUT' ? null : err)
+    }).catch((err)=> err !== 'TIMEOUT' ? null : err)
 
 
     const errmsg = embed
-                  .setColor('RED')
-                  .setDescription(`\u200b\n\n\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000${
-                      !data
-                      ? `No results found for **${query}**`
-                      : '[<:mal:722270009761595482> MyAnimeList](https://myanimelist.net) took too long to respond.'
-                    }.\u2000\u2000\n\n\u200b`)
-                  .setThumbnail('https://i.imgur.com/qkBQB8V.png')
+    .setColor('RED')
+    .setAuthor(!data ? 'None Found' : 'Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+    .setDescription(
+      !data
+      ? `**${message.member.displayName}**, No results were found for **${query}**!\n\n`
+      + `If you believe this anime exists, try the following methods:\n`
+      + `• Try the alternative names (e.g. English, Native, Romaji).\n`
+      + `• Include the season number (if it exists).\n`
+      + `• Include the term 'OVA' if it's an OVA.\n`
+      : 'MyAnimeList.net took long to respond (Timeout)\n\n'
+      + `Please try again in a few minutes. This is usually caused by a server downtime.`
+    )
+    .setThumbnail('https://i.imgur.com/qkBQB8V.png')
 
 
-    if (!data || data === 'TIMEOUT') return await msg.edit(errmsg).catch(()=>null)
-                        ? null
-                        : await message.channel.send(errmsg).then(()=> null)
+    if (!data || data === 'TIMEOUT')
+    return await msg.edit(errmsg).catch(()=>null)
+    ? null
+    : await message.channel.send(errmsg).then(()=> null)
 
 
     const elapsed = Date.now() - msg.createdAt
@@ -120,7 +130,7 @@ module.exports = {
               : 'No Synopsis'
             }`)
 
-          .addField(`<:info:719474069053112371>  Information`, `•\u2000\**Japanese Name:** [${title}](${url})\n\•\u2000\**Age Rating:** ${
+          .addField(`<:info:767062326859268116>  Information`, `•\u2000\**Japanese Name:** [${title}](${url})\n\•\u2000\**Age Rating:** ${
               rating && rating.length
               ? rating
               : 'Unrated'
@@ -144,7 +154,7 @@ module.exports = {
               : ''
             }`,true)
 
-          .addField(`<:stats:719473222466142248>  Status`,`•\u2000\**Episodes:** ${
+          .addField(`<:stats:767062320425730059>  Status`,`•\u2000\**Episodes:** ${
               episodes
             }\n•\u2000\**Start Date:** ${
               aired
@@ -152,7 +162,7 @@ module.exports = {
               status
             }`)
 
-          .setFooter(`MyAnimeList.net • Search duration ${(elapsed / 1000).toFixed(2)} seconds`)
+          .setFooter(`Search duration: ${(elapsed / 1000).toFixed(2)} seconds\nAnime Query with MAL | \©️${new Date().getFullYear()} Mai`)
 
           .setThumbnail(
             picture

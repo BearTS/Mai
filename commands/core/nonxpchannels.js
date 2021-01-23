@@ -5,7 +5,7 @@ module.exports = {
   aliases: [],
   guildOnly: true,
   adminOnly: true,
-  group: 'setup',
+  group: 'core',
   description: 'See which channels do not give xp',
   examples: [],
   parameters: [],
@@ -16,9 +16,9 @@ module.exports = {
     if (!channels.length)
     return message.channel.send(
         new MessageEmbed().setDescription(
-            '\u2000\u2000<a:animatedcheck:758316325025087500>\u2000\u2000|\u2000\u2000'
-          + 'All channels in this server is xp-enabled!'
+          `All channels in this server are xp-enabled!`
         ).setColor('GREEN')
+        .setAuthor('XP-Enabled!','https://cdn.discordapp.com/emojis/758316325025087500.gif?v=1')
       )
 
 

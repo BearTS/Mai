@@ -22,6 +22,7 @@ module.exports = {
     .setColor('GREY')
     .setDescription(fortunes[Math.floor(Math.random() * fortunes.length)])
     .setAuthor(`${message.member ? message.member.displayName : message.author.username}'s fortune.`, message.author.displayAvatarURL())
+    .setFooter(`Fortune | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

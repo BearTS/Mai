@@ -43,14 +43,14 @@ module.exports = {
       let pitstop = false
 
       const emojis = [
-        '<a:loading:729307311243526175>',
-        '<a:loadingstop:729315795498172506>',
-        '<:blank:729326717575102545>',
-        '<:loadingend:729325802113728542>'
+        '<a:loading:767062506471424040>',
+        '<a:loadingstop:767062512762880031>',
+        '<:blank:767062530983198730>',
+        '<:loadingend:767062525106978836>'
       ]
 
       const limits = [ 20, 30, 40, 50, 60, 70, 80, 90, 100 ]
-      const array = [ '<a:loadingstart:729322641860722739>' ]
+      const array = [ '<a:loadingstart:767062518858121246>' ]
 
       for ( const limit of limits ) {
         if (percentage > limit) {
@@ -71,14 +71,14 @@ module.exports = {
 
 
     const platform = {
-      aix : '<:aix:729344684077613207> **IBM AIX**',
-      android: '<:android:729344968224800878> **Android**',
-      darwin: '<:mac:726323946206527499> **Darwin**',
-      freebsd: '<:freebsd:729345511332511764> **FreeBSD**',
-      linux: '<:linux:726324195440721930> **Linux**',
-      openbsd: '<:openbsd:729345741214187552> **OpenBSD**',
-      sunprocess: '<:sunOS:729346907297677373> **SunOS**',
-      win32: '<:windows:726323689238560779> **Windows**'
+      aix : '<:aix:767076079725707304> **IBM AIX**',
+      android: '<:android:767076085657108481> **Android**',
+      darwin: '<:mac:767062376440659978> **Darwin**',
+      freebsd: '<:freebsd:774185649975590932> **FreeBSD**',
+      linux: '<:linux:767062376440659978> **Linux**',
+      openbsd: '<:openbsd:767076087309926400> **OpenBSD**',
+      sunprocess: '<:sunOS:767076088827609088> **SunOS**',
+      win32: '<:windows:767062364042166321> **Windows**'
     }
 
 
@@ -171,11 +171,11 @@ module.exports = {
       platform[process.platform]
     } v${
       release
-    }\n<:node:729350389094416484> **Node** ${
+    }\n<:node:767076088248664095> **Node** ${
       process.version
-    }\n<:djs:729351034199343145> **DiscordJS** v${
+    }\n<:djs:767076086445244459> **DiscordJS** v${
       djsVersion
-    }\n<:intel:729352898248572939> **CPU**: ${
+    }\n<:intel:767076087599464459> **CPU**: ${
       cpus()[0].model
     } \`[ ${
       cpus()[0].speed / 1000

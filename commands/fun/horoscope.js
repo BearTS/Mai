@@ -16,7 +16,7 @@ module.exports = {
   , run: async ( client, message, [ sign ]) => {
 
     if (!sign)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please give me a sign to get the horoscope of!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please give me a sign to get the horoscope of!`)
 
     if (![
       'capricorn'
@@ -32,11 +32,11 @@ module.exports = {
       , 'scorpio'
       , 'sagittarius'
     ].includes(sign.toLowerCase())
-  ) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, **${sign}** is not a valid sign!`)
+  ) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, **${sign}** is not a valid sign!`)
 
     const res = await fetch(`http://sandipbgt.com/theastrologer/api/horoscope/${sign}/today`).then(res=> res.json()).catch(()=>null)
 
-    if (!res) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! History API is currently down!`)
+    if (!res) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! History API is currently down!`)
 
 
     const symbol = {
@@ -100,7 +100,7 @@ module.exports = {
 
       .setColor('GREY')
 
-      .setFooter(`Today's Horoscope`)
+      .setFooter(`Horoscope | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

@@ -21,7 +21,7 @@ module.exports = {
             .then(res => res.json())
               .catch(()=>null)
 
-    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Sorry, seems like i can't connect to JokeAPI.`)
+    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Sorry, seems like i can't connect to JokeAPI.`)
 
     const {
         type
@@ -43,6 +43,8 @@ module.exports = {
       .setColor('GREY')
 
       .setThumbnail('https://i.imgur.com/KOZUjcc.gif')
+
+      .setFooter(`Joke | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

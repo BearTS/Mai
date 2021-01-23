@@ -15,35 +15,35 @@ module.exports = {
   parameters: [],
   run: async ( client, message, [ subreddit ]) => {
 
-    if (!subreddit) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please supply the name of the subreddit to fetch`)
+    if (!subreddit) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please supply the name of the subreddit to fetch`)
 
-    const prompt = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nFetching information from <:reddit:722289391631990784> **[r/${subreddit}](https://reddit.com/r/${subreddit})**. Please Wait.\n\u200B`).setThumbnail('https://i.imgur.com/u6ROwvK.gif'))
+    const prompt = await message.channel.send(new MessageEmbed().setColor('YELLOW').setDescription(`\u200B\nFetching information from <:reddit:767062345422864394> **[r/${subreddit}](https://reddit.com/r/${subreddit})**. Please Wait.\n\u200B`).setThumbnail('https://i.imgur.com/u6ROwvK.gif'))
 
     let res = await fetch(`https://reddit.com/r/${subreddit}.json`).then(res => res.json()).catch(()=>null)
 
     if (!res || !res.data || !res.data.children || !res.data.children.length)
       try {
-        return prompt.edit(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author},That's an invalid/non-existent <:reddit:722289391631990784> subreddit.\n\u200b`))
+        return prompt.edit(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:767062250279927818> | ${message.author},That's an invalid/non-existent <:reddit:767062345422864394> subreddit.\n\u200b`))
       } catch {
-        return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author}, Please supply the name of the <:reddit:722289391631990784> subreddit to fetch\n\u200b`))
+        return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:767062250279927818> | ${message.author}, Please supply the name of the <:reddit:767062345422864394> subreddit to fetch\n\u200b`))
       }
 
     res = res.data.children.filter(m => m.data.post_hint === 'image')
 
     if (!res.length)
     try {
-      return prompt.edit(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author}, The <:reddit:722289391631990784> subreddit doesn't have any image posts\n\u200b`))
+      return prompt.edit(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:767062250279927818> | ${message.author}, The <:reddit:767062345422864394> subreddit doesn't have any image posts\n\u200b`))
     } catch {
-      return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author},  The <:reddit:722289391631990784> subreddit doesn't have any image posts\n\u200b`))
+      return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:767062250279927818> | ${message.author},  The <:reddit:767062345422864394> subreddit doesn't have any image posts\n\u200b`))
     }
 
     if (!message.channel.nsfw) {
       res = res.filter(m => !m.data.over_18)
       if (!res.length)
       try {
-        return prompt.edit(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author}, Seems like you entered a nsfw subreddit in a sfw channel. Please move to nsfw channel while using this subreddit\n\u200b`))
+        return prompt.edit(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:767062250279927818> | ${message.author}, Seems like you entered a nsfw subreddit in a sfw channel. Please move to nsfw channel while using this subreddit\n\u200b`))
       } catch {
-        return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:712586986216489011> | ${message.author},  Seems like you entered a nsfw subreddit in a sfw channel. Please move to nsfw channel while using this subreddit.\n\u200b`))
+        return message.channel.send(new MessageEmbed().setColor('RED').setDescription(`\u200b\n<:cancel:767062250279927818> | ${message.author},  Seems like you entered a nsfw subreddit in a sfw channel. Please move to nsfw channel while using this subreddit.\n\u200b`))
       }
     }
 
@@ -54,6 +54,7 @@ module.exports = {
     .setColor('GREY')
     .setImage(url)
     .setTimestamp(created_utc * 1000)
+    .setFooter(`Reddit | \©️${new Date().getFullYear()} Mai`)
 
     try {
       return prompt.edit(embed)

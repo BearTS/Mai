@@ -13,12 +13,12 @@ module.exports = {
                   ? user.match(/\d{17,19}/)
                   : null
 
-    if (!match) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, please mention or provide the ID of the user you want to know the permissions of.`)
+    if (!match) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, please mention or provide the ID of the user you want to know the permissions of.`)
 
     const member = await message.guild.members.fetch(match[0])
                     .catch(()=> null)
 
-    if (!member) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, I can't find that user in this server!.`)
+    if (!member) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, I can't find that user in this server!.`)
 
     const permissions = {
         CREATE_INSTANT_INVITE: 'Create server invite.'
@@ -57,6 +57,9 @@ module.exports = {
     return message.channel.send(
       new MessageEmbed()
 
+      .setDescription(`*These permissions are bound to this server and not in any way related to other permissions in other servers
+*These permissions are not absolute and can be overwritten by channel permission overwrites.`)
+
       .setColor('GREY')
 
       .setFooter(
@@ -87,6 +90,8 @@ module.exports = {
             : 'not do anything... All perms are enabled'
           }`
       )
+
+      .setFooter(`Permissions | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

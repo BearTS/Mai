@@ -22,17 +22,19 @@ module.exports = {
       .setURL('https://ao-buta.com/tv/?innerlink')
       .addField(`Definition`,`No arguing, Mai Sakurajima indeed is the best anime girl!`)
       .addField('Example(s)', '[Mai sakurajima] is the best girl around. No one could beat her, not even zero two.')
+      .addField('\u200b', 'Submitted by Sakuta Azusagawa')
       .setColor('#e86222')
-      .setFooter(`Submitted by Sakuta Azusagawa`))
+      .setFooter(`Define | \©️${new Date().getFullYear()} Mai`)
+    )
     }
 
     if (filter.isProfane(args.join(' ')) && !message.channel.nsfw)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, You cannot look-up for the definition of that term in a sfw channel!\n\nNot a profane word? Contact my developer through the command \`feedback\` and ask to whitelist the word!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, You cannot look-up for the definition of that term in a sfw channel!\n\nNot a profane word? Contact my developer through the command \`feedback\` and ask to whitelist the word!`)
 
     const defs = await urban(encodeURI(args.join(' '))).catch(()=> null)
 
     if (!defs)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, No definition found for **${args.join(' ')}**`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, No definition found for **${args.join(' ')}**`)
 
     const { word, urbanURL, definition, example, author, thumbsup, thumbsdown } = defs
 
@@ -42,8 +44,9 @@ module.exports = {
     .setURL(urbanURL)
     .addField(`Definition`, message.channel.nsfw ? textTrunctuate(definition) : textTrunctuate(filter.clean(definition),1000))
     .addField('Example(s)', example ? message.channel.nsfw ? textTrunctuate(example,1000) : textTrunctuate(filter.clean(example),1000) : 'N/A')
+    .addField('\u200b', `Submitted by ${message.channel.nsfw ? author : `${filter.clean(author)}\nProfane word? Contact my developer through the command \`feedback\` and ask to blacklist the word!`}`)
     .setColor('#e86222')
-    .setFooter(`Submitted by ${message.channel.nsfw ? author : `${filter.clean(author)}\nProfane word? Contact my developer through the command \`feedback\` and ask to blacklist the word!`}`)
+    .setFooter(`Define | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

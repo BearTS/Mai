@@ -8,7 +8,7 @@ module.exports = async (client, guild) => {
     guildID: guild.id
   }).catch((err)=> err)
 
-  if (!data) data = new guildProfileSchema({
+  if (!data) data = await new guildProfileSchema({
     guildID: guild.id
   }).save()
       .catch((err)=> err)
