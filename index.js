@@ -38,7 +38,7 @@ const mai = new Client({
 		, 'bot'
 		, 'core'
 		, 'fun'
-//	, 'games'
+// 	, 'games'
 		, 'moderation'
 		, 'owner'
 		, 'setup'
