@@ -14,7 +14,7 @@ module.exports = {
   , parameters: ['suggestion content']
   , run: async (client, message, args) => {
 
-    const channelID = client.guildsettings.get(message.guild.id).suggestChannel
+    const channelID = client.guildsettings.get(message.guild.id).featuredChannels.suggest
 
     const embed = new MessageEmbed()
       .setColor('RED')
@@ -23,27 +23,29 @@ module.exports = {
     if (!channelID)
       return message.channel.send(
         embed.setDescription(
-            '\u200b\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-          + 'The **Suggestion Channel** for this server has not yet been set. '
-          + 'If you are a server administrator, you may set the channel by typing:\n\n`'
-          +  client.config.prefix
-          + 'setsuggestch <channel ID | channel mention>`'
-        )
+          `**${message.member.displayName}**, The **Suggestion Channel** for this server has not yet been set.\n\n`
+          + `If you are a server administrator, you may set the channel by typing: \`${client.config.prefix}setsuggestch <channel ID | channel mention>\``
+        ).setAuthor('No Channel','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setFooter(`Suggest | \©️${new Date().getFullYear()} Mai`)
       )
 
     if (!message.guild.channels.cache.has(channelID))
       return message.channel.send(
         embed.setDescription(
-          '\u200b\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
-        + 'The **Suggestion Channel** set for this server was invalidated. '
-        + 'If you are a server administrator, you may set the channel again by typing:\n\n`'
-        +  client.config.prefix
-        + 'setsuggestch <channel ID | channel mention>`'
-        )
+          `**${message.member.displayName}**, The **Suggestion Channel** for this server was invalidated.\n\n`
+          + `If you are a server administrator, you may set the channel by typing: \`${client.config.prefix}setsuggestch <channel ID | channel mention>\``
+        ).setAuthor('Invalid Channel','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setFooter(`Suggest | \©️${new Date().getFullYear()} Mai`)
       )
 
     if (!args.length)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please provide your suggestion message -> Keep it short and brief.`)
+      return message.channel.send(
+        embed.setDescription(
+          `**${message.member.displayName}**, Please include your **suggestion message**.\n\n`
+          + `Keep it short and brief.`
+        ).setAuthor('No Message','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setFooter(`Suggest | \©️${new Date().getFullYear()} Mai`)
+      )
 
     const channel = message.guild.channels.cache.get(channelID)
 
@@ -56,6 +58,10 @@ module.exports = {
       .addField('Status','Under Review', true)
     )
       .then(()=> message.react('✅'))
-        .catch(()=> message.channel.send(`<:cancel:712586986216489011> | ${message.author}, I could not post your suggestion in the delegated suggestion channel. Make sure I have necessary permissions`))
+        .catch(()=> message.channel.send(embed.setDescription(
+          `**${message.member.displayName}**, I have no permissions to send message on the suggestion channel.\n\n`
+          + `If you are a server administrator, please make sure I have the necessary permissions. (Send Messages, Embed Links, Add Reactions)`
+        ).setAuthor('Unable to Post Suggestion','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+        .setFooter(`Suggest | \©️${new Date().getFullYear()} Mai`)))
   }
 }

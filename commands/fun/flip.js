@@ -19,7 +19,7 @@ module.exports = {
   , run: async ( client, message, [ choice ]) => {
 
     if (!choice || !['head','heads','h','tail','tails','t'].includes(choice.toLowerCase()))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please specify if \`[HEAD]\` or \`[TAILS]\``)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please specify if \`[HEAD]\` or \`[TAILS]\``)
 
     let win = Math.round(Math.random())
 
@@ -39,7 +39,7 @@ module.exports = {
 
     const decision = `${
         win
-        ? '`✅`' : '<:cancel:712586986216489011>'
+        ? '`✅`' : '<:cancel:767062250279927818>'
       } ${
         message.author
       }! You ${

@@ -20,24 +20,30 @@ module.exports = {
 
     const { url } = await pat().catch(()=>{})
 
-  if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
+  if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
 
   if (!message.mentions.members.size || message.mentions.members.first().id === message.author.id)
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`Here you go ${message.member}, \*pat* \*pat*`))
+      .setDescription(`Here you go ${message.member}, \*pat* \*pat*`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   if (message.mentions.members.first().id === client.user.id)
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`UwU <3! Thanks!`))
+      .setDescription(`UwU <3! Thanks!`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   return message.channel.send(new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
-      .setDescription(`${message.member} pats ${message.mentions.members.first()}`))
+      .setDescription(`${message.member} pats ${message.mentions.members.first()}`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
+    )
 
   }
 }

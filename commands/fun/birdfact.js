@@ -19,13 +19,15 @@ module.exports = {
 
     const data = await fetch("https://some-random-api.ml/facts/bird").then(res => res.json()).catch(()=>null)
 
-    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! Birdfact API is currently down!`)
+    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Birdfact API is currently down!`)
 
     const { fact } = data
 
     message.channel.send( new MessageEmbed()
       .setThumbnail(`https://i.imgur.com/arkxS3f.gif`)
       .setColor('GREY')
-      .setDescription(fact))
+      .setDescription(fact)
+      .setFooter(`Birdfact | \©️${new Date().getFullYear()} Mai`)
+    )
   }
 }

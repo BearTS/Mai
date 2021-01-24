@@ -1,217 +1,76 @@
-<header>
-  <a href = 'https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303'>
-    <img align="right" src="https://files.catbox.moe/lha6ok.png" height="400">
-  </a>
+## &ensp;[Mai](https://invite.mai-san.ml/) - A Discord Bot Based Around Anime
 
-<h1> Mai <a href = 'https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303'>
-<img src="https://files.catbox.moe/lha6ok.png" height="25">
-</a></h1>
+[![Online](https://img.shields.io/discord/703922441768009731?color=%237289DA&label=Support&logo=discord&logoColor=white)](https://support.mai-san.ml/)
+[![Current Version](https://img.shields.io/github/package-json/v/maisans-maid/mai/master?color=pink&label=Current%20Version)](https://github.com/maisans-maid/Mai)
+[![Node](https://img.shields.io/static/v1?label=Node.js&message=12.19.0&color=success&logo=Node.js)](https://nodejs.org/dist/latest-v12.x/)
+[![DJS](https://img.shields.io/github/package-json/dependency-version/maisans-maid/Mai/discord.js?logo=github)](https://discord.js.org/)
+[![License](https://img.shields.io/github/license/maisans-maid/Mai?color=pink&label=License)](https://github.com/maisans-maid/Mai/blob/master/LICENSE)
+[![Dependencies Status](https://david-dm.org/maisans-maid/Mai/status.svg)](https://david-dm.org/maisans-maid/Mai)
+###### &ensp;&ensp;A multifunctional **Discord Bot**, written in **Discord.js V12.3.1**~
+---
+<br />
 
-#### A simple, multi-functional Discord bot by best girl written in discord.js 12.0.2 - Focuses more in anime..
-##### [Click here to add Mai to your server](https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303) or [visit my website!](https://maisans-maid.github.io/mai.moe)
-***
-# Contents
-- [Action](#Action)
-- [Anime](#Anime)
-- [Bot](#Bot)
-- [Core](#Core)
-- [Fun](#Fun)
-- [Moderation](#Moderation)
-- [Music](#Music)
-- [Owner](#Owner)
-- [Setup](#Setup)
-- [Utility](#Utility)
-***
-## Legend
-Name | Description
-----------------|--------------
-`[]` | Indicates a mandatory argument, you must provide this for the command to work!
-`<>` | Indicates an optional argument, you do not need to provide this for the command to work
-***
-## Command list
-<p>
-<img src="https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_oryou__b2e7634047942a5a367dde6b5ed18622.png" height="500" title="Best Girl" align="left">
-</p>
+Check the docs on https://mai-san.ml/
 
-### Action
-* `m!baka <@member>` Send a Baka Gif / Image. <br><br>
-* `m!hug  <@member>` Send a Hug Gif / Image. <br><br>
-* `m!kiss <@member>` Send a Kiss Gif / Image. <br><br>
-* `m!pat <@member>` Send a Pat Gif / Image. <br><br>
-* `m!poke <@member>` Send a Poke Gif / Image. <br><br>
-* `m!slap <@member>` Send a Slap Gif / Image. <br><br>
-* `m!smug` Send a Smug Gif / Image.<br><br>
-* `m!tickle <@member>` Send a Tickle Gif / Image.<br><br>
+### Why should you invite Mai?
+Mai is a simple yet powerful Discord Bot that aims to give discord users an enhanced "Discord Experience". Mai provides a variety of fun and informative commands that you can use with your friends.
 
-###### [Back to Contents](#Contents)
-<p>
- <img src = "https://danbooru.donmai.us/data/__sakurajima_mai_seishun_buta_yarou_drawn_by_envyvanity__9754996d5fa61aa824a555c751a76a87.png" height="500" align="right">
-</p>
+Mai can:
+- Spice up chat environment with the use of roleplay/action commands such as pat, hug, slap, and more! </font> <br />
+-  Search through the internet for information resources through various functions such as anime information lookup (series, characters, and even seiyuus!), games (via steam), or even time on some cities. </font> <br />
+-  Ease the work of moderators by managing the server through various single commands. </font> <br />
+-  Provide Airing Information automagically, implement user experience system, as well as server-based economy system. </font> <br />
+-  Acquire totally random fun facts from various sources Mai has access to. </font> <br />
 
-### Anime
-* `m!anime [Anime Title]` Search for an anime via MyAnimeList.net
-* `m!animeme <reload>` Get a random meme from anime subreddit animemes.
-* `m!aniquote` Get a random anime quote.
-* `m!anitop <rank> <type>`Get the top anime from MAL via the supplied rank number, or random if none is supplied.
-* `m!character [Character Name]` Search for an anime character via MyAnimeList.net.
-* `m!manga [Manga Name]` Search for manga via MyAnimeList.net.
-* `m!nextairdate <Anime Title>` Search among currently airing anime and return their remaining time before next episode airs. Returns this day's schedule if none is specified.
-* `m!nsfw [Category]` Send a random anime nsfw image depending on the supplied category.
-* `m!schedule <day>` Send list of currently airing anime using the supplied day, or return this day's if none is supplied.
 
-###### [Back to Contents](#Contents)
-<p>
-<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_huijin_zhi_ling__sample-355e85ddea98b2e14dda4d711cc1bd03.jpg" height="500" align="left">
-</p>
+### Invite
+You may invite Mai through https://invite.mai-san.ml.
 
-### Bot
-<br><br><br><br>
-* `m!feedback [Message]` Send a feedback to Sakurajimai#6742 (my Dev) <br><br><br><br>
-* `m!ping` Send the current ping of the bot in ms. <br><br><br><br>
-* `m!stats` Send the stauts of the bot. <br><br><br><br><br>
+### Support
+If you have questions regarding the bot and it's use, please do join our support server at https://support.mai-san.ml/.
 
-###### [Back to Contents](#Contents)
-<p>
-<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_tousang__sample-40425a146441efacd1a2a2ace669d21c.jpg" height="500" align="right">
-</p>
+### Contribute
+Contribution includes, but is not limited to making a Pull Request. For reference, I have been struggling on proper implementation of the economy command. I am expecting that most contributors will probably be coming from there.
 
-### Core
-<br><br>
-* `m!cmd` Send all my available commands list. <br><br>
-* `m!help [command name]` Sends full information on a specific command. <br><br>
-* `m!invite` Sends my invite link. <br><br>
-* `m!leaderboard` Send this guild's xp leaderboard (Server XP must be enabled). <br><br>
-* `m!mai` Sends the image of the best girl. <br><br>
-* `m!rank <@user>` Send the xp information of the mentioned user, or own if no mention is supplied. <br><br>
-* `m!suggest [Suggestion Content]` Suggest something for the server. <br><br>
+Pull Requests regarding totally new commands without foretelling the developer via creating issue will automatically be rejected.
 
-###### [Back to Contents](#Contents)
-<p>
-<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_hizuki_higure__sample-1bf3c0cd9d9ec41fd6ea1d6220148a4a.jpg" height="500" align="left">
-</p>
+If you love this work and wish to contribute in another manner, please do join our support server (which isn't much) and ping/mention **Sakurajimai#6742** there.
 
-### Fun
-<br><br>
-* `m!advice` Send a random useless advice.
-* `m!birdfact` Send a random useless fact about birds.
-* `m!catfact` Send a random useless fact about cats.
-* `m!dogfact` Send a random useless fact about dogs.
-* `m!flip [head/tail]` Flip a coin.
-* `m!fortune` Send a random fortune.
-* `m!history` Send an important historical event on this day.
-* `m!horoscope [sign]` Send your daily horoscope.
-* `m!image [category]` Send an image depending on supplied category.
-* `m!joke` Send a joke.
-* `m!meme` Send a meme from selected subreddits.
-* `m!pandafact` Send a random useless fact about pandas.
-* `m!pokemon [Pokemon name]` Search for a pokemon on the pokedex.
-* `m!respect` Press F to pay respect. <br>
+### Credits
+"Give Credit when it's Due" - is a phrase that i love so much. Therefore, i will be mentioning here the projects/people that helped Mai grow as a powerful Discord Bot.
 
-###### [Back to Contents](#Contents)
-<p>
-<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_daye_bie_qia_lian__sample-ccc7906a0edf45a51b2e2272b4d07910.jpg" height="500" align="right">
-</p>
+- [Discord.js](https://github.com/discordjs/discord.js/) by [discordjs](https://github.com/discordjs/) - a powerful javascript library for interacting with the [Discord API](https://discord.com/developers/docs/intro).
+- [AniList](https://github.com/TehNut/AniSchedule) by [TehNut](https://github.com/TehNut) - an anime announcer made purely on javascript that became the basis for one of Mai's main feature in the present.
+- [Komugari](https://github.com/Mitorisia/Komugari) by [Mitorisia](https://github.com/Mitorisia) - a discord bot written in [Discord.js@Commando](https://github.com/discordjs/Commando) that has been the basis for most of Mai's current commands.
+- The kind people on Discord.js Official, Coding Den, Programmer's Hangout, and Discord API servers that helped me debug errors on my code whenever I fail to solve it myself.
 
-### Moderation
-<br><br>
-* `m!ban [@member]` Bans mentioned member. <br><br>
-* `m!clear <category> [Quantity]` Bulk Delete messages from a channel.  <br>
-* `m!kick [@member]` Kicks mentioned member.  <br><br>
-* `m!lockdown` Mute / unmute @everyone role in the channel this command is used in.  <br>
-* `m!mute <minutes> [@member] <scope>` Mutes mentioned user for a given amount of minutes. Mutes indefinitely, if no duration is specified.  <br>
-* `m!respond [message ID]` Respond to a suggestion in `#suggestions`  <br><br>
-* `m!unmute [@member] <scope>`Unmutes mentioned user. <br><br><br><br>
+Hey you! Yes You! If you've been using Mai as a reference, please give her due credit.
 
-###### [Back to Contents](#Contents)
-<p>
-<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_moorina__sample-0da0faf5f26ef2dec91601b72e9eb5a8.jpg" height="500" align="left">
-</p>
+### License
+Mai is Licensed under MIT.
+>MIT License
+>
+>Copyright (c) 2020 Sakurajimai#6742
+>
+>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+>
+> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+>
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-### Music <br>
-* `m!nowPlaying` Display the currently playing music. <br><br>
-* `m!pause` Pauses the currently playing music. <br><br>
-* `m!play [search query or youtube URL]` Play music using the query provided, or add to queue if there is already one playing. <br>
-* `m!queue` Display the queued music. <br><br>
-* `m!resume` Resumes the music if paused. <br><br>
-* `m!skip` Skips the currently playing music. <br><br>
-* `m!stop` Stops the music. <br><br>
-* `m!volume <volume level>` Set the volume of the music, or display the current volume, if level is not provided.<br>
 
-###### [Back to Contents](#Contents)
-<p>
-<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_ale_nqki__sample-ae1a510d3c4360c062f607c4153de0fc.jpg" height="500" align="right">
-</p>
+### Disclaimer
+*Mai's developer is not, in any way, affiliated with Mai Sakurajima's creator, nor the production team that brought the anime together, and is not, in any way, benefit financially from the sales the series produces.*
 
-### Owner
-<br><br><br><br>
-* `m!backdoor [Guild ID]` Send a server invite to the specified server. <br><br><br>
-* `m!eval [code]` Evaluates JS code. <br><br><br>
-* `m!execute [event]` Force Execute a d.js event. <br><br><br>
-* `m!fleave [guild ID]` Force leave a guild. <br><br><br><br>
+*Mai Sakurajima and "Seishun Buta Yarō wa Bunny Girl Senpai no yume wo Minai" are all owned by Aniplex, Cloverworks, Keeji Mizoguchi and Hajime Kamoshida.*
 
-###### [Back to Contents](#Contents)
+*Please support the official releases.*
 
-### Setup
-* `m!anischedule [subcommand]` Set up anime scheduling in your server.
-* `m!anischedule add [MAL / AniList Link]` Adds new anime to watch new episodes of.
-* `m!anischedule channel` Send the currently selected anime announcement channel.
-* `m!anischedule clean` Purge completed shows from the channel's watch list.
-* `m!anischedule help` Print out all available sub-commands with a short description.
-* `m!anischedule list` Display all anime being watched that are still airing.
-* `m!anischedule next` Display the next anime to air according to your list.
-* `m!anischedule remove [MAL / AniList Link]` Removes an anime from the list.
-* `m!anischedule setchannel` Set the channel for anime airdate announcements.
-* `m!automsg [subcommand]` Set up the auto messages for this server.
-* `m!automsg help` Print out all available sub-commands with a short description.
-* `m!automsg goodbye` Toggle goodbye messages on this server.
-* `m!automsg goodbyemsg` Set the goodbye message being sent by the bot.
-* `m!automsg welcome ` Toggle welcome messages on this server.
-* `m!automsg welcomemsg` Set the welcome message being sent by the bot.
-* `m!pointsystem [subcommands]` Set up the point system for this server.
-* `m!pointsystem economytoggle` Toggle economy system on/off for this server.
-* `m!automsg [subcommand]` Set up the point system for this server
-* `m!pointsystem excemptedchannels` Display which channels have their xp disabled.
-* `m!pointsystem help` Print out all available sub-commands with a short description.
-* `m!pointsystem xpallow [channel]` Allow xp system on mentioned channel(s), if disabled.
-* `m!pointsystem xpexcempt [channel]` Excempt xp system on mentioned channel(s), if enabled.
-* `m!pointsystem xptoggle` Toggle the xp system on/off for this server
-* `m!pointsystem xpreset` Reset the xp of all members in the server (Limited to Server Owner)
-* `m!pointsystem economyreset` Reset the economy of all members in the server (Limited to Server Owner)
+ - *[アニメ](https://ao-buta.com/) (Japanese)*
+ - *[Anime](http://rascaldoesnotdream.com/) (English)*
+ - *[ライトノベル](https://dengekibunko.jp/product/aobuta/312044500000.html) (Japanese)*
+ - *[Light Novel](https://yenpress.com/9781975399351/rascal-does-not-dream-of-bunny-girl-senpai-light-novel/) (English)*
+ - *[Manga (Kadokawa)](https://www.kadokawa.co.jp/product/321607000727/) (Japanese)*
+ - *[Twitter](https://twitter.com/aobuta_anime) (Japanese)*
 
-###### [Back to Contents](#Contents)
-<p>
-<img src="https://danbooru.donmai.us/data/sample/__sakurajima_mai_seishun_buta_yarou_drawn_by_otono_fei__sample-0e8aff25cb5033d101f097f2dbf36ef1.jpg" height="500" align="right">
-</p>
-
-### Utility
-* `m!avatar <@user>` Send the Avatar of the mentioned user, or your own if none is mentioned.
-* `m!color <hex code>` Send the color of the supplied hex, or random if none.
-* `m!jisho [word]` Searches jisho for an accurate translation of the supplied japanese word.
-* `m!reddit [subreddit]` Fetch a random image from the supplied subreddit.
-* `m!steam <Game Name>` Send the game information of the supplied game from steam.
-* `m!time <city>` Send the current time in supplied city. Returns tokyo's time if none is supplied
-* `m!urban [word / phrase]` Get the urban definition of the supplied word / phrase.
-* `m!whois [user ID]` Get discord user information using the supplied ID
-
-###### [Back to Contents](#Contents)
-
-***
-### Libraries and frameworks used
-* [canvas](https://github.com/Automattic/node-canvas)
-* [danbooru](https://github.com/stawberri/danbooru-node)
-* [discord.js](https://github.com/discordjs/discord.js/) and [@discordjs/opus](https://www.npmjs.com/package/@discordjs/opus)
-* [moment](https://github.com/moment/moment/) and [moment-duration-format](https://github.com/jsmreese/moment-duration-format)
-* [mongoose](https://github.com/Automattic/mongoose)
-* [nekos-image-api](https://www.npmjs.com/package/nekos-image-api) and [nekos.life](https://github.com/Nekos-life/nekos-dot-life)
-* [node-fetch](https://github.com/node-fetch/node-fetch)
-* [node-kitsu](https://github.com/the-conceptionist/node-kitsu)
-* [os](https://github.com/DiegoRBaquero/node-os)
-* [relevant-urban](https://github.com/SnekLab/relevant-urban)
-* [wanakana](http://www.wanakana.com/)
-* [ytdl-core](https://github.com/fent/node-ytdl-core) and [ffmpeg-static](https://github.com/eugeneware/ffmpeg-static)
-
-###### [Back to Contents](#Contents)
-___
-![Add Me!](https://files.catbox.moe/j4uzj2.png)
-
-<h5><p align = 'center'> What are you waiting for? <a href = "https://discordapp.com/oauth2/authorize?client_id=702074452317307061&scope=bot&permissions=1043721303"> Add me </a> to your server now! <br><br><br><br> <img align="center" src="https://files.catbox.moe/lha6ok.png" height="75"> <br> Created by: Sakurajimai#6742 </p> </h5>

@@ -19,13 +19,14 @@ module.exports = {
 
     const data = await fetch("https://catfact.ninja/facts").then(res => res.json()).catch(()=>null)
 
-    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! Catfact API is currently down!`)
+    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Catfact API is currently down!`)
 
     const { data: [cat] } = data
 
     message.channel.send( new MessageEmbed()
-      .setThumbnail(`https://i.imgur.com/arkxS3f.gif`)
+      .setThumbnail(`https://i.imgur.com/KeitRew.gif`)
       .setColor('GREY')
-      .setDescription(cat.fact))
+      .setDescription(cat.fact)
+      .setFooter(`Catfact | \©️${new Date().getFullYear()} Mai`))
   }
 }

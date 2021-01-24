@@ -15,9 +15,9 @@ module.exports = {
       num = parseInt(percentage)
       if (isNaN(num)) return 'No data'
       let pitstop = false
-      const emojis = [ '<a:loading:729307311243526175>', '<a:loadingstop:729315795498172506>', '<:blank:729326717575102545>', '<:loadingend:729325802113728542>' ]
+      const emojis = [ '<a:loading:774183152729849916>', '<a:loadingstop:774183152729849916>', '<:blank:767062530983198730>', '<:loadingend:767062525106978836>' ]
       const limits = [20,30,40,50,60,70,80,90,100]
-      const array = [ '<a:loadingstart:729322641860722739>' ]
+      const array = [ '<a:loadingstart:767062518858121246>' ]
       for ( const limit of limits ) {
         if (percentage > limit) {
           array.push(emojis[0])

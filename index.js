@@ -4,15 +4,12 @@ require('dotenv').config();
 
 const { readdirSync } = require('fs');
 const { join } = require('path');
-const { Intents } = require('discord.js');
+const { BugReporter } = require('./helper');
 const Client = require('./struct/Client');
 
 const mai = new Client({
 	clientSettings: {
 			disableMentions: 'everyone'
-		,	ws: {
-				intents: Intents.ALL
-			}
 		,	presence: {
 				activity: {
 						name: 'Seishun Buta Yarou'
@@ -20,9 +17,11 @@ const mai = new Client({
 					, url: 'https://twitch.tv/sby'
 				}
 			}
-		,	restTimeOffset: 100,
+		,	restTimeOffset: 100
 	}
 	,	bootTimeStart: start
+	, chatbot: true
+	, debug: '764083507542491177'
 	,	enableDatabase: true
 	,	mongoSettings: {
 			useUnifiedTopology : true
@@ -37,6 +36,7 @@ const mai = new Client({
 		, 'anime'
 		, 'bot'
 		, 'core'
+		,	'economy'
 		, 'fun'
 //	, 'games'
 		, 'moderation'
@@ -47,6 +47,7 @@ const mai = new Client({
 	,	collections: [
 			'memes'
 		, 'anidailyrec'
+		,	'economy'
 		, 'mangadailyrec'
 		, 'quiz'
 		, 'xp'
@@ -67,7 +68,10 @@ for ( const event of readdirSync(join(__dirname, 'events')).filter( f => f.split
   mai.on(event.split('.')[0], require(`./events/${event}`).bind(null, mai));
 
 
-//process.on('unhandledRejection', () => null)
+process.on('unhandledRejection', (err) => process.emit('reportBugs', mai, err, null))
+
+process.on('reportBugs', (client, err, message, command) => BugReporter(mai, err, message, command))
+
 //process.on('rejectionHandled', () => null)
 
 

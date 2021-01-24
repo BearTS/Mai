@@ -4,13 +4,14 @@ module.exports = {
   name: 'respond',
   aliases: [],
   guildOnly: true,
+  adminOnly: true,
   group: 'moderation',
   description: 'Respond to user suggestion',
   examples: ['respond 690105173087223812 deny Doesn\'t make much sense to do this and it does not seem to have much support'],
   parameters: ['messsage ID','accept/deny','reason'],
   run: async ( client, message, [id, action, ...reason]) => {
 
-    const channelID = client.guildsettings.get(message.guild.id).suggestChannel
+    const channelID = client.guildsettings.get(message.guild.id).featuredChannels.suggest
 
     const embed = new MessageEmbed()
       .setColor('RED')
@@ -19,7 +20,7 @@ module.exports = {
     if (!channelID)
     return message.channel.send(
       embed.setDescription(
-          '\u200b\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          '\u200b\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
         + 'The **Suggestion Channel** for this server has not yet been set. '
         + 'If you are a server administrator, you may set the channel by typing:\n\n`'
         +  client.config.prefix
@@ -31,7 +32,7 @@ module.exports = {
     if (!channel)
       return message.channel.send(
         embed.setDescription(
-          '\u200b\u2000\u2000<:cancel:712586986216489011>|\u2000\u2000'
+          '\u200b\u2000\u2000<:cancel:767062250279927818>|\u2000\u2000'
         + 'The **Suggestion Channel** set for this server was invalidated. '
         + 'If you are a server administrator, you may set the channel again by typing:\n\n`'
         +  client.config.prefix

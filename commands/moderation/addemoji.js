@@ -11,11 +11,11 @@ module.exports = {
   run: async (client, message, [ url, name]) => {
 
     if (!url || !/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/.test(url))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, please provide a valid image link!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, please provide a valid image link!`)
 
     return message.guild.emojis.create(url, name ? name : 'emoji')
             .then((emoji) => message.channel.send(`Successfully created emoji **${emoji.name}** | ${emoji}`))
-              .catch((err) =>  message.channel.send(`<:cancel:712586986216489011> | ${message.author}, ${err.message.replace(`Invalid Form Body\nimage:`,'')}.`))
+              .catch((err) =>  message.channel.send(`<:cancel:767062250279927818> | ${message.author}, ${err.message.replace(`Invalid Form Body\nimage:`,'')}.`))
 
   }
 }

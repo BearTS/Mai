@@ -8,7 +8,7 @@ module.exports = {
   , run: async (client, message, args) => {
 
     if (!args.length)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! Give me something to rate!!`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Give me something to rate!!`)
 
     const raw = args.join(' ').replace(/[^\w\s]/gi,1202)
 

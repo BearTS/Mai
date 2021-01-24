@@ -2,7 +2,7 @@ require('moment-duration-format')
 const { MessageEmbed, Collection } = require('discord.js')
 const CooldownManager = require('../struct/CooldownManager')
 const { duration } = require('moment')
-const { addXP, PermissionsCheck, CooldownsCheck } = require('../helper')
+const { addXP, PermissionsCheck, CooldownsCheck, Chatbot } = require('../helper')
 
 module.exports = async ( client, message ) => {
 
@@ -17,15 +17,35 @@ module.exports = async ( client, message ) => {
     , guildsettings
   } = client
 
+  const serverprefix = client.guildsettings.get((message.guild || {}).id) ? client.guildsettings.get(message.guild.id).prefix : null
+
 
   if (message.author.id === client.user.id) client.messages.sent++
     else client.messages.received++
+
+  if (
+    ( message.content.startsWith(`<@${client.user.id}>`)
+    || message.content.startsWith(`<@!${client.user.id}>`))
+    && client.config.chatbot
+  ) {
+    message.channel.startTyping()
+    const response = await Chatbot(message.content.replace(new RegExp(`<@${client.user.id}>|<@!${client.user.id}>`),''))
+    setTimeout(()=> {
+      message.channel.stopTyping()
+      message.channel.send(response)
+    }, 1500)
+  }
+
+
+  if (
+        message.content.toLowerCase() === 'prefix'
+  ) return message.reply(`My prefix is **${prefix}**${serverprefix ? `, The custom prefix is (**${serverprefix}**).` : '.'}`)
 
 
   try {
 
     if (
-      !message.content.startsWith(prefix)
+      (!message.content.startsWith(prefix) && (serverprefix && !message.content.startsWith(serverprefix)))
       && !message.author.bot
       && message.channel.type !== 'dm'
       ) {
@@ -65,16 +85,9 @@ module.exports = async ( client, message ) => {
   }
 
   if (
-        message.content.toLowerCase() === 'prefix'
-    ||  message.content.split(/ +/).length === 1
-    &&  message.mentions.users.size
-    &&  message.mentions.users.first().id === user.id
-  ) return message.reply(`My prefix is **${prefix}**`)
-
-
-
-  if (message.content.startsWith(prefix)){
-
+    message.content.startsWith(prefix)
+  || (serverprefix && message.content.startsWith(serverprefix))
+  ){
 
     if (
       message.author.bot ||
@@ -83,7 +96,7 @@ module.exports = async ( client, message ) => {
     ) return
 
 
-    const [ commandName, ...arguments ] = message.content.slice(prefix.length).split(/ +/)
+    const [ commandName, ...arguments ] = message.content.slice(message.content.startsWith(prefix) ? prefix.length : serverprefix.length).split(/ +/)
 
     const command = commands.get(commandName)
 
@@ -112,7 +125,7 @@ module.exports = async ( client, message ) => {
 
       if (!accept)
       return message.channel.send(
-        `\u2000\u2000<:cancel:712586986216489011>\u2000\u2000|\u2000\u2000${
+        `\u2000\u2000<:cancel:767062250279927818>\u2000\u2000|\u2000\u2000${
           message.author
         }, ${
           command.cooldown.message
@@ -133,7 +146,7 @@ module.exports = async ( client, message ) => {
       const embed = new MessageEmbed()
         .setColor('RED')
         .setDescription(
-          '<:cancel:712586986216489011> | An error has occured while executing this command!'
+          '<:cancel:767062250279927818> | An error has occured while executing this command!'
          + '\n```xl\n'
          + err.stack.split('\n').splice(0,5).join('\n').split(process.cwd()).join('MAIN_PROCESS')
          + '\n\n...and '
@@ -148,20 +161,7 @@ module.exports = async ( client, message ) => {
         : embed.description
       )
 
-      await client.users.fetch('545427431662682112')
-      .then(user => user.send(
-        '<:cancel:712586986216489011> | An error has occured while executing a command on **'
-        + message.guild.name
-        + '!\n\`\`\`xl\nExecutor: '
-        + message.author.tag
-        + '\nChannel: '
-        + message.channel.id
-        + '\n\n'
-        + err.stack.split('\n').splice(0,5).join('\n').split(process.cwd()).join('MAIN_PROCESS')
-        + '\n\n...and '
-        + (err.stack.split('\n').length - 5).toFixed()
-        + 'lines more.```')
-        ).catch(()=> null)
+      return process.emit('reportBugs', client, err, message, command.name)
     }
   }
 }

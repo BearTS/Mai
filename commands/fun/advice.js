@@ -18,11 +18,11 @@ module.exports = {
 
     const data = await fetch("https://api.adviceslip.com/advice").then(res => res.json()).catch(()=>null)
 
-    if (!data) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}! Advice API is currently down!`)
+    if (!data) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}! Advice API is currently down!`)
 
     const { slip : { advice } } = data
 
-    message.channel.send( new MessageEmbed().setColor('GREY').setDescription(`\u200B\n${advice}\n\u200B`))
+    message.channel.send( new MessageEmbed().setColor('GREY').setDescription(`\u200B\n${advice}\n\u200B`).setFooter(`Advice | \©️${new Date().getFullYear()} Mai`))
 
   }
 }

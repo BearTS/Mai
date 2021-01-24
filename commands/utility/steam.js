@@ -12,7 +12,7 @@ module.exports = {
     message: "Accessing Steam has been rate limited to 1 use per user per 10 seconds"
   },
   group: "utility",
-  description: "Searches <:steam:726304530228183100> [Steam](https://store.steampowered.com/ 'Steam Homepage') for games!",
+  description: "Searches <:steam:767062357952167946> [Steam](https://store.steampowered.com/ 'Steam Homepage') for games!",
   examples: ["steam [game title]"],
   parameters: ['query'],
   run: async (client, message, args) => {
@@ -29,13 +29,13 @@ module.exports = {
       || !res.items
       || !res.items.length
       || !res.total)
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Could not find **${query}** on <:steam:726304530228183100> Steam.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Could not find **${query}** on <:steam:767062357952167946> Steam.`)
 
     const body = await fetch(`https://store.steampowered.com/api/appdetails/?appids=${res.items[0].id}`)
                   .then(res => res.json())
                     .catch(()=>null)
 
-    if (!body) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Could not find **${query}** on <:steam:726304530228183100> Steam.`)
+    if (!body) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Could not find **${query}** on <:steam:767062357952167946> Steam.`)
 
     const { data } = body[res.items[0].id]
 
@@ -52,9 +52,9 @@ module.exports = {
                   : `~~${original}~~ ${current}`;
 
     const platformLogo = {
-        windows: '<:windows:726323689238560779>'
-      , mac: '<:mac:726323946206527499>'
-      , linux: '<:linux:726324195440721930>'
+        windows: '<:windows:767062364042166321>'
+      , mac: '<:mac:767062376440659978>'
+      , linux: '<:linux:767062376440659978>'
     }
 
     const platformrequirements = {
@@ -149,7 +149,8 @@ module.exports = {
 
     .addFields(platforms)
 
-    .setFooter(`©️ Steam.Inc • http://store.steampowered.com/app/${data.steam_appid}`)
+    .setFooter(`Steam @ Steam.Inc©️  | \©️${new Date().getFullYear()} Mai`)
+
     )
   }
 }

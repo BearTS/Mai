@@ -20,12 +20,13 @@ module.exports = {
 
    const { url } = await smug().catch(()=>{})
 
-    if (!url) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Oops! Something went horribly wrong`)
+    if (!url) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Oops! Something went horribly wrong`)
 
     return message.channel.send( new MessageEmbed()
       .setColor('GREY')
       .setImage(url)
       .setDescription(`${message.member} smugs.`)
+      .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

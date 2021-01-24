@@ -16,15 +16,15 @@ module.exports = {
   parameters: ['word'],
   run: async (client, message, [ query ]) => {
 
-    if (!query) return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Please provide me a word to get the definition of.`)
+    if (!query) return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Please provide me a word to get the definition of.`)
 
     const res = await fetch(`https://jisho.org/api/v1/search/words?keyword=${encodeURI(query)}`).then(res => res.json()).catch(()=> null)
 
       if (!res || res.meta && res.meta.status !== 200)
-        return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, Could not connect to JISHO.`)
+        return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, Could not connect to JISHO.`)
 
       if (!res.data || !res.data.length)
-        return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, No results were found for your query: **${query}**.`)
+        return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, No results were found for your query: **${query}**.`)
 
       let fields = []
 
@@ -41,7 +41,7 @@ module.exports = {
         .addFields(fields)
         .addField('\u200b',`[External Link](https://jisho.org/search/${query} 'https://jisho.org/search/${query}')`)
         .setColor('GREY')
-        .setFooter(`🇯🇵 • Jisho.org`)
+        .setFooter(`Jisho @ Jisho.org | \©️${new Date().getFullYear()} Mai`)
     )
   }
 }

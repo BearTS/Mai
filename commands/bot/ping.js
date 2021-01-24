@@ -18,7 +18,7 @@ module.exports = {
   , run: async ( client, message ) => {
 
     if (!client.config.pings.hasOwnProperty('lastUpdatedAt'))
-      return message.channel.send(`<:cancel:712586986216489011> | ${message.author}, The Ping Manager is not ready yet. Please try again in a second.`)
+      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, The Ping Manager is not ready yet. Please try again in a second.`)
 
     const prompt = await message.channel.send('Pinging...')
 
@@ -44,11 +44,11 @@ module.exports = {
 
     const colors = (num) => {
       num = parseInt(num)
-      if (isNaN(num)) return `<:emptybar:729246652577218611><:emptybar:729246652577218611><:emptybar:729246652577218611><:emptybar:729246652577218611><:emptybar:729246652577218611>`
-      const emojis = [ '<:lvl2bar:729245297968021566>', '<:lvl3bar:729245573647171645>', '<:lvl4bar:729245984864862228>', '<:level5bar:729246357445017664>' ]
+      if (isNaN(num)) return `<:emptybar:767062499744284732><:emptybar:767062499744284732><:emptybar:767062499744284732><:emptybar:767062499744284732><:emptybar:767062499744284732>`
+      const emojis = [ '<:lvl2bar:767062472527183875>', '<:lvl3bar:767062479439265848>', '<:lvl4bar:767062487174348823>', '<:level5bar:767062493653893121>' ]
       const limits = [1500,1000,500,250]
-      const array = [ '<:lvl1bar:729245097027305542>' ]
-      for ( const limit of limits ) array.push(num < limit ? emojis[limits.indexOf(limit)] : '<:emptybar:729246652577218611>')
+      const array = [ '<:lvl1bar:767062466517270578>' ]
+      for ( const limit of limits ) array.push(num < limit ? emojis[limits.indexOf(limit)] : '<:emptybar:767062499744284732>')
       return array.join('')
     }
 

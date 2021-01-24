@@ -21,27 +21,26 @@ module.exports = {
   ]
   , run: (client, message, [ query ]) => {
 
-    if (query && client.config.commanddir.includes(query.toLowerCase())){
+    const fields = []
 
-      const fields = []
-
-      client.commands.groups.get(query.toLowerCase()).map( command => {
-        fields.push({
-          name: command.name,
-          value: command.description + '\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-          inline: false
-        })
+    for (const group of client.config.commanddir){
+      fields.push({
+        name: `${group[0].toUpperCase() + group.slice(1).toLowerCase()} Commands \\👉 https://mai-san.ml/docs/commands#${group}`,
+        value: client.commands.groups.get(group).map( c => `\`${c.name}\``).join(', ')
       })
-
-      return message.channel.send(
-        new MessageEmbed()
-        .setAuthor(`${query[0].toUpperCase() + query.slice(1).toLowerCase()} commands!`)
-        .addFields(fields)
-        .setFooter('Made by: Sakurajimai#6742')
-        .setColor('GREY')
-      )
     }
 
-    if (query) return message.reply(`I couldn't find the command group **${query}** on my list. Here are the valid command groups that i have:\n\n${client.config.commanddir.join(', ')}`)
+    return message.channel.send(
+      new MessageEmbed()
+      .setAuthor(`Mai's full list of commands!`)
+      .setDescription(
+        `You may get the full detail of each command by typing \`${client.config.prefix}help <command>\`\n.`
+        + `Alternitavely, you may check out https://mai-san.ml/docs/commands for full command details.`
+      )
+      .addFields(fields)
+      .setFooter(`Made by Sakurajimai#6742 | \©️${new Date().getFullYear()} Mai`)
+      .setColor('GREY')
+      )
+
   }
 }

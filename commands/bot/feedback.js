@@ -24,12 +24,12 @@ module.exports = {
 
     if (!args.length)
       return message.channel
-              .send(`<:cancel:712586986216489011> | ${message.author}, Please add an issue to your message!`)
+              .send(`<:cancel:767062250279927818> | ${message.author}, Please add an issue to your message!`)
                 .then(()=>  message.react("💢"))
 
     if (args.join(' ').length > 1000)
       return message.channel
-              .send(`<:cancel:712586986216489011> | ${message.author}, Please make your report brief and short! (MAX 1000 characters!)`)
+              .send(`<:cancel:767062250279927818> | ${message.author}, Please make your report brief and short! (MAX 1000 characters!)`)
                 .then(()=>  message.react("💢"))
 
     const ownerUser = client.users.cache.get('545427431662682112')

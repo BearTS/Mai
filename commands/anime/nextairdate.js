@@ -3,12 +3,9 @@ const {
     AniListQuery
   , NextAirDate_Query: withQuery
   , NextAirDate_NoQuery: withoutQuery
-  , TextHelpers: {
-      textTrunctuate
-    , joinArray: join
-    , commatize
-  }
+  , TextHelpers: { textTrunctuate , joinArray: join , commatize }
 } = require('../../helper.js')
+
 const { duration } = require('moment')
 const { MessageEmbed } = require('discord.js')
 
@@ -45,16 +42,16 @@ module.exports = {
     : null
 
     const res = await AniListQuery(
-        query
-        ? withQuery
-        : withoutQuery
+      query
+      ? withQuery
+      : withoutQuery
       , query
-        ? {
-              search: query
-            , status: 'RELEASING'
-          }
-        : {}
-      )
+      ? {
+        search: query,
+        status: 'RELEASING'
+      }
+      : {}
+    )
 
 
     if (
@@ -63,14 +60,16 @@ module.exports = {
         ({ message }) => message !== 'Not Found.'
       )
     ) return message.channel.send(
-        '<:cancel:712586986216489011> | Oops '
-      + message.author.toString()
-      + '! An unexpected error has occured!\n\n'
-      + '\`\`\`xl\n'
-      + res.errors.map(
-          ({ message }) => '• ' + message
-        ).join('\n')
-      + '\`\`\`'
+      new MessageEmbed()
+      .setColor('RED')
+      .setAuthor('Response Error','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+      .setDescription(
+         `**${message.member.displayName}**, An unexpected error has occured!\n\n`
+         `${res.errors.map(({ message }) => '• ' + message).join('\n')}`
+        + `Please try again in a few minutes. This is usually caused by a server downtime.`
+      )
+      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
+      .setFooter(`Airdate Query with AL | \©️${new Date().getFullYear()} Mai`)
     )
 
 
@@ -80,10 +79,15 @@ module.exports = {
         ({ message }) => message === 'Not Found.'
       )
     ) return message.channel.send(
-        '<:cancel:712586986216489011> | '
-      + message.author.toString()
-      + ', That anime may have already **Finished Airing**, have **unknown next Airdate**, '
-      + 'or that anime may have **never existed** at all'
+      new MessageEmbed()
+      .setColor('RED')
+      .setAuthor('None Found','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
+      .setDescription(
+         `**${message.member.displayName}**, That anime may have already **Finished Airing**, `
+         + `have **unknown next Airdate**, or that anime may have **never existed** at all!`
+       )
+      .setThumbnail('https://i.imgur.com/qkBQB8V.png')
+      .setFooter(`Airdate Query with AL | \©️${new Date().getFullYear()} Mai`)
     )
 
     const [ now, next, later ] = query
@@ -96,6 +100,7 @@ module.exports = {
 
 
     const embed = new MessageEmbed()
+    .setFooter(`Airdate Query with AL | \©️${new Date().getFullYear()} Mai`)
 
     if (query) {
 
@@ -105,7 +110,7 @@ module.exports = {
 
         .setThumbnail(now.coverImage.large)
 
-        .setFooter(` ${now.id} | ${now.studios.edges[0].node.name}`)
+        .setFooter(`Airdate Query with AL | \©️${new Date().getFullYear()} Mai`)
 
         .setTitle(
             now.title.english
@@ -139,7 +144,7 @@ module.exports = {
               }) will air in approximately **${
                 duration(now.nextAiringEpisode.timeUntilAiring, 'seconds')
                 .format('D [days] H [hours] m [minutes]')
-              }**`
+              }**\n\n${now.id} | ${now.studios.edges[0].node.name} `
               : `Next episode airdate for [${
                 now.title.english
                 ? now.title.english

@@ -10,9 +10,20 @@ module.exports = class GuildSettingsManager{
 
     async load(){
       const res = await require('../models/guildProfileSchema').find({})
+      const data = await require('../models/guildWatchlistSchema').find({})
 
       this.client.guilds.cache.each( guild => {
-        this.profiles.set(guild.id, new GuildSettings(res.some( r => r.guildID === guild.id) ? res.find( r => r.guildID === guild.id) : { guildID: guild.id}))
+        this.profiles.set(
+          guild.id,
+          new GuildSettings(
+            res.some( r => r.guildID === guild.id)
+            ? res.find( r => r.guildID === guild.id)
+            : { guildID: guild.id} ,
+            data.some( d => d.guildID === guild.id )
+            ? data.find( d => d.guildID === guild.id).channelID
+            : null
+          )
+        )
       })
 
       this.lastUpdatedAt = new Date()
