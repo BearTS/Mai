@@ -84,6 +84,9 @@ const settings = {
     }
   },
 
+  // music filters
+  filters: ['8D', 'gate', 'haas', 'phaser', 'treble', 'tremolo', 'vibrato', 'reverse', 'karaoke', 'flanger', 'mcompand', 'pulsator', 'subboost', 'bassboost', 'vaporwave', 'nightcore', 'normalizer', 'surrounding'],
+ 
   // Array of owners recognized by the bot. ID here will be given access to
   // owner based commands.
   owners: [ '545427431662682112' ],
