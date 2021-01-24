@@ -34,7 +34,7 @@ module.exports = class VoteManager{
         console.log(req)
       });
 
-      app.listen(3000);
+      app.listen(1200);
     } else {
       // Do nothing..
     };
