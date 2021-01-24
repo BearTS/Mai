@@ -8,7 +8,10 @@ const settings = {
         name: 'https://mai-san.ml/',
         type: 'COMPETING'
       }
-    }
+    },
+    // Sweep messages every 12 hours
+    messageCacheLifetime: 43200,
+    messageSweepInterval: 43200
   },
 
   // Websites to monitor, accessible via client#pings
