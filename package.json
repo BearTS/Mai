@@ -9,9 +9,8 @@
     "build": "node build.js"
   },
   "engines": {
-    "node": "14.x",
-    "npm": "*"
-  },
+		"node": ">=14"
+	},
   "repository": {
     "type": "git",
     "url": "https://github.com/maisans-maid"
