@@ -90,16 +90,16 @@ module.exports = class Anischedule{
       'Hidive', 'Hulu', 'Netflix', 'Viz'
     ];
 
-    const watch = (entry.media.externalLinks || [{}]).filter(x => sites.includes(x.site)).map(x => {
+    const watch = entry.media.externalLinks?.filter(x => sites.includes(x.site)).map(x => {
       return `[${x.site}](${x.url})`;
-    }).join(' • ');
+    }).join(' • ') || [];
 
-    const visit = (entry.media.externalLinks || [{}]).filter(x => !sites.includes(x.site)).map(x => {
+    const visit = entry.media.externalLinks?.filter(x => !sites.includes(x.site)).map(x => {
       return `[${x.site}](${x.url})`;
-    }).join(' • ');
+    }).join(' • ') || [];
 
     return new MessageEmbed()
-    .setColor(parseInt((entry.media.coverImage.color || '').substr(1), 16) || 'GREY')
+    .setColor(entry.media.coverImage.color || 'GREY')
     .setThumbnail(entry.media.coverImage.large)
     .setAuthor('Mai Anischedule')
     .setTimestamp(date)
@@ -122,7 +122,7 @@ module.exports = class Anischedule{
    * @returns {Date}
    */
   getFromNextDays(days = 1){
-    return new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * days));
+    return new Date(new Date().getTime() + (864e5 * days));
   };
 
   /**
@@ -151,7 +151,7 @@ module.exports = class Anischedule{
 
     for (const e of res.data.Page.airingSchedules){
       const date = new Date(e.airingAt * 1000)
-      if (this.queuedNotifications.includes(e.id)) return;
+      if (this.queuedNotifications.includes(e.id)) continue;
 
       consoleUtil.success(`Tracking Announcement for Episode \x1b[36m${
         e.episode
@@ -196,7 +196,7 @@ module.exports = class Anischedule{
    */
   async makeAnnouncement(entry, date){
 
-    this.queuedNotifications = this.queuedNotifications.filter(q => q !== entry.id);
+    this.queuedNotifications = this.queuedNotifications.filter(e => e !== entry.id);
     const embed = this.getAnnouncementEmbed(entry, date);
 
     const list = await watchlist.find({}).catch(()=> null);
@@ -209,14 +209,14 @@ module.exports = class Anischedule{
     };
 
     for (const g of list){
-      if (!g || !g.data || !g.data.length || !g.data.includes(entry.media.id)){
+      if (!g?.data?.includes(entry.media.id)){
         continue;
       };
 
       const channel = this.client.channels.cache.get(g.channelID);
 
       if (!channel || !channel.permissionsFor(channel.guild.me).has(['SEND_MESSAGES','EMBED_LINKS'])){
-        return consoleUtil.error(`Announcement for ${
+        consoleUtil.error(`Announcement for ${
           entry.media.title.romaji || entry.media.title.userPreferred
         } has \x1b[31mfailed\x1b[0m in ${
           channel?.guild?.name || g.channelID
@@ -224,6 +224,7 @@ module.exports = class Anischedule{
           channel?.guild ? `of \x1b[31mmissing\x1b[0m 'SEND_MESSAGES' and/or 'EMBED_LINKS' permissions.`
           : `such channel \x1b[31mdoes not exist\x1b[0m.`
         }`);
+        continue;
       };
 
       await channel.send(embed)
@@ -244,5 +245,4 @@ module.exports = class Anischedule{
 
     return;
   };
-
 };
