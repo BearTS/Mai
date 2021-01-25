@@ -21,7 +21,7 @@ const options = {
 // music system
 const { Player } = require('discord-player');
 client.player = new Player(client);
-client.music = require('./util/player/filters');
+client.music = require('./util/filters');
 client.filters = client.music.filters;
 const player = fs.readdirSync('./util/player').filter(file => file.endsWith('.js'));
 for (const file of player) {
