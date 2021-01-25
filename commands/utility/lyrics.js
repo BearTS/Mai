@@ -14,9 +14,16 @@ module.exports = {
     'lyrics fukashigi no karte'
   ],
   run: async (client, message, args) => {
-
-    const query =  args.join(' ') || 'Kimi no Sei';
-
+    
+    const track = client.player.nowPlaying(message);
+    let query;
+  
+    if (track.title !== undefined) {
+      query =  args.join(' ') || track.title;
+    } else {
+      query =  args.join(' ') || 'Kimi no Sei';
+    };
+    
     const data = await fetch(`https://some-random-api.ml/lyrics?title=${encodeURI(query)}`)
     .then(res => res.json())
     .catch(() => null);
