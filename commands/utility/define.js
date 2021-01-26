@@ -3,8 +3,8 @@ const urban = require('relevant-urban');
 const badwords = require('bad-words');
 const filter = new badwords()
 
-filter.addWords(...require(`${process.cwd()}/assets/json/filter.json`));
-const text = require(`${process.cwd()}/util/string`);
+filter.addWords(...require('../../assets/json/filter.json'));
+const text = require('../../util/string');
 
 module.exports = {
   name: 'define',

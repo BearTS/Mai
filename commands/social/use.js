@@ -1,6 +1,6 @@
-const profile = require(`${process.cwd()}/models/Profile`);
-const market = require(`${process.cwd()}/assets/json/market.json`);
-const text = require(`${process.cwd()}/util/string`);
+const text = require('../../util/string');
+const profile = require('../../models/Profile');
+const market = require('../../assets/json/market.json');
 
 module.exports = {
   name: 'use',

@@ -2,8 +2,9 @@ require('moment-duration-format');
 const { duration } = require('moment');
 const { MessageEmbed } = require('discord.js');
 const requireText = require('require-text');
-const withQuery = requireText(`${process.cwd()}/assets/graphql/AirDateQuery.graphql`, require);
-const withoutQuery = requireText(`${process.cwd()}/assets/graphql/AirDateNoQuery.graphql`, require);
+
+const withQuery = requireText('../../assets/graphql/AirDateQuery.graphql', require);
+const withoutQuery = requireText('../../assets/graphql/AirDateNoQuery.graphql', require);
 
 module.exports = {
   name: 'nextairdate',

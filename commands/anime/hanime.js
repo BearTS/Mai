@@ -4,8 +4,8 @@ const { decode } = require('he');
 const moment = require('moment');
 const hanime = new HAnimeAPI();
 
-const Pages = require(`${process.cwd()}/struct/Paginate`);
-const text = require(`${process.cwd()}/util/string`);
+const Pages = require('../../struct/Paginate');
+const text = require('../../util/string');
 
 module.exports = {
   name: 'hanime',

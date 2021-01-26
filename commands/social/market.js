@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const { MessageEmbed, GuildEmoji } = require('discord.js');
-const Pages = require(`${process.cwd()}/struct/Paginate`);
-const market = require(`${process.cwd()}/assets/json/market.json`);
-const text = require(`${process.cwd()}/util/string`);
+const Pages = require('../../struct/Paginate');
+const market = require('../../assets/json/market.json');
+const text = require('../../util/string');
 
 module.exports = {
   name: 'market',

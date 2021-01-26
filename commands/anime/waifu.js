@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const waifuDB = require(`${process.cwd()}/assets/json/waifulist.json`);
+const waifuDB = require('../../assets/json/waifulist.json');
 
 module.exports = {
   name: 'waifu',

@@ -2,9 +2,9 @@ const { MessageEmbed, GuildEmoji } = require('discord.js');
 const { convert: toMarkdown } = require('html-to-markdown');
 const { decode } = require('he');
 
-const Paginate = require(`${process.cwd()}/struct/Paginate`);
-const Profile = require(`${process.cwd()}/struct/DiscoveryProfile`);
-const text = require(`${process.cwd()}/util/string`);
+const Paginate = require('../../struct/Paginate');
+const Profile = require('../../struct/DiscoveryProfile');
+const text = require('../../util/string');
 
 module.exports = {
   name: 'discover',

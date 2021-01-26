@@ -1,8 +1,9 @@
 const { MessageEmbed, GuildEmoji } = require('discord.js');
 const moment = require('moment');
 const fetch = require('node-fetch');
-const Pages = require(`${process.cwd()}/struct/Paginate`);
-const text = require(`${process.cwd()}/util/string`);
+
+const Pages = require('../../struct/Paginate');
+const text = require('../../util/string');
 
 module.exports = {
   name: "manga",

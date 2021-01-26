@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { inspect } = require('util');
 const fetch = require('node-fetch');
-const text = require(`${process.cwd()}/util/string`);
+const text = require('../../util/string');
 
 module.exports = {
   name: 'eval',

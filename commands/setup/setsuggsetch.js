@@ -1,4 +1,4 @@
-const guilds = require(`${process.cwd()}/models/GuildProfile`);
+const guilds = require('../../models/GuildProfile');
 
 module.exports = {
   name: 'setsuggestch',

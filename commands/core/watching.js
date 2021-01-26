@@ -1,9 +1,10 @@
 const { MessageEmbed, GuildEmoji } = require('discord.js');
 const _ = require('lodash');
-const watching = require('require-text')(`${process.cwd()}/assets/graphql/Watching.graphql`,require);
-const list = require(`${process.cwd()}/models/GuildWatchlist`);
-const Page = require(`${process.cwd()}/struct/Paginate`);
-const text = require(`${process.cwd()}/util/string`);
+const watching = require('require-text')('../../assets/graphql/Watching.graphql',require);
+
+const list = require(`../../models/GuildWatchlist`);
+const Page = require(`../../struct/Paginate`);
+const text = require(`../../util/string`);
 
 module.exports = {
   name: 'watching',

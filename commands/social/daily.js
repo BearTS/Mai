@@ -1,6 +1,6 @@
 const moment = require('moment');
-const text = require(`${process.cwd()}/util/string`);
-const profile = require(`${process.cwd()}/models/Profile`);
+const text = require('../../util/string');
+const profile = require('../../models/Profile');
 
 // EXPERIMENTAL //
 // This feature is still experimental and needs debugging.

@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const guilds = require(`${process.cwd()}/models/GuildProfile`);
+const guilds = require('../../models/GuildProfile');
 
 module.exports = {
   name: 'welcometoggle',

@@ -2,8 +2,9 @@ const { MessageEmbed } = require('discord.js');
 const { convert: toMarkdown } = require('html-to-markdown');
 const { decode } = require('he');
 const requireText = require('require-text');
-const seiyuu = requireText(`${process.cwd()}/assets/graphql/Seiyuu.graphql`, require);
-const text = require(`${process.cwd()}/util/string`);
+
+const seiyuu = requireText('../../assets/graphql/Seiyuu.graphql', require);
+const text = require('../../util/string');
 
 module.exports = {
   name: 'seiyuu',

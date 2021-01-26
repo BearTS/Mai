@@ -3,8 +3,8 @@
 // and 1 api call on anilist (Ratelimited at 90 calls per minute)
 //
 const { MessageEmbed } = require('discord.js');
-const watchlist = require(`${process.cwd()}/models/GuildWatchlist`);
-const text = require(`${process.cwd()}/util/string`);
+const watchlist = require('../../models/GuildWatchlist');
+const text = require('../../util/string');
 
 module.exports = {
   name: 'cleanup',

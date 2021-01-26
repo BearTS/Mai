@@ -1,4 +1,4 @@
-const text = require(`${process.cwd()}/util/string`);
+const text = require('../../util/string');
 
 module.exports = {
   name: 'roll',

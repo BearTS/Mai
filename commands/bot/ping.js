@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { duration } = require('moment');
-const text = require(`${process.cwd()}/util/string`);
+const text = require('../../util/string');
 
 module.exports = {
   name: 'ping',

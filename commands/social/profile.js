@@ -1,6 +1,6 @@
-const profile = require(`${process.cwd()}/models/Profile`);
+const profile = require('../../models/Profile');
+const text = require('../../util/string');
 const { createCanvas, loadImage } = require('canvas');
-const text = require(`${process.cwd()}/util/string`);
 
 module.exports = {
   name: 'profile',

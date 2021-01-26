@@ -1,5 +1,5 @@
 const { MessageEmbed, version: discord_version } = require('discord.js');
-const { version, author } = require(`${process.cwd()}/package.json`);
+const { version, author } = require('../../package.json');
 const { createCanvas, loadImage } = require('canvas');
 const { release, cpus } = require('os');
 const moment = require('moment');

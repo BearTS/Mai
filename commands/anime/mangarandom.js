@@ -1,8 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const { convert: toMarkdown } = require('html-to-markdown');
 const { decode } = require('he');
-const text = require(`${process.cwd()}/util/string`);
-const mangaDB = require(`${process.cwd()}/assets/json/manga.json`);
+
+const text = require('../../util/string');
+const mangaDB = require('../../assets/json/manga.json');
 
 module.exports = {
   name: 'mangarandom',

@@ -3,14 +3,14 @@ const { duration: momdur } = require('moment');
 const { readdirSync } = require('fs');
 const { join } = require('path');
 
-const profile = require(`${process.cwd()}/models/Profile`);
-const text = require(`${process.cwd()}/util/string`);
+const text = require('../../util/string');
+const profile = require('../../models/Profile');
 
-const files = readdirSync(join(process.cwd(), 'util', 'games'));
+const files = readdirSync(join(__dirname, '../../util/games'));
 const jsfiles = files.filter(ext => ext.split('.').pop() === 'js');
 
 const games = jsfiles.map(x => {
-  return { [x.split('.')[0]]: require(`${process.cwd()}/util/games/${x}`)};
+  return { [x.split('.')[0]]: require(`../../util/games/${x}`)};
 });
 
 module.exports = {

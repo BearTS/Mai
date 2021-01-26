@@ -1,8 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const { convert: toMarkdown } = require('html-to-markdown');
 const { decode } = require('he');
-const text = require(`${process.cwd()}/util/string`);
-const animeDB = require(`${process.cwd()}/assets/json/anime.json`);
+
+const text = require('../../util/string');
+const animeDB = require('../../assets/json/anime.json');
 
 module.exports = {
   name: 'anirandom',
