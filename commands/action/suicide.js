@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'suicide',
   aliases: ['kms'],
-  guildOnly: true,
   nsfw: true,
   clientPermissions: [
     'EMBED_LINKS',

@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'slap',
   aliases: [],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
@@ -23,9 +22,9 @@ module.exports = {
     .setImage(url)
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-    if (!message.mentions.members.size){
+    if ((message.guild && !message.mentions.members.size) || !args[0]){
 
-      message.channel.send(`<:cancel:767062250279927818> | ${message.author}, what's the idea slapping nothingness? At least mention a user!`);
+      message.channel.send(`\\❌ **${message.author.tag}**, what's the idea slapping nothingness? At least mention a user!`);
 
     } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
@@ -33,12 +32,12 @@ module.exports = {
 
     } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
 
-      return message.channel.send(`I'd happily oblige! But i think you need a mental check-up ${message.author}!`);
+      return message.channel.send(`\\❌ I'd happily oblige! But i think you need a mental check-up **${message.author.tag}**!`);
 
     } else {
 
       return message.channel.send(
-        embed.setDescription(`${args[0]} has been slapped by${message.member}! That must been painful~`)
+        embed.setDescription(`${args[0]} has been slapped by${message.author}! That must been painful~`)
       );
 
     };

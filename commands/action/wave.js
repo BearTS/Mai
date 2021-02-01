@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'wave',
   aliases: [],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
@@ -23,22 +22,22 @@ module.exports = {
     .setImage(url)
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-    if (!message.mentions.members.size){
+    if ((message.guild && !message.mentions.members.size) || !args[0]){
 
-      return message.channel.send(embed.setDescription(`${message.member} waves!`));
+      return message.channel.send(embed.setDescription(`${message.author} waves!`));
 
     } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
-      return message.channel.send(embed.setDescription(`${message.member} waves back`));
+      return message.channel.send(embed.setDescription(`${message.author} waves back`));
 
     } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
 
-      return message.channel.send(embed.setDescription(`${message.member} waves!`));
+      return message.channel.send(embed.setDescription(`${message.author} waves!`));
 
     } else {
 
       return message.channel.send(
-        embed.setDescription(`${message.member} waves at ${args[0]}!`)
+        embed.setDescription(`${message.author} waves at ${args[0]}!`)
       );
 
     };
