@@ -6,6 +6,11 @@
     "tSGDGRS", "8ndgFuN", "r8rEQgH", "ZyaJNIV", "1CGujwz", "kWRnK3F",
     "3eSRCmQ", "I2kj8mC"
   ],
+  "blush":[
+    "fuPUm5L", "fQHHRJR", "PY8s03Q", "2vJG2Hz", "UT4TBVk", "WnbizWJ",
+    "t2lhJYR", "lTxGOsH", "ddD5hD7", "yLJREfa", "hzTHUIM", "sjTvKDp",
+    "e6Ve76r", "IROuDCJ", "paOfyGh", "YS3wBa0", "Hyw1iKi", "CB9dMFU"
+  ],
   "cry":[
     "B1REi0W", "hAdb8CE", "K1rabup", "akTsUty", "BOOM0Os", "LUvKlUa",
     "4sUlQ3f", "uaYKEOO", "I9SR8SS", "Ug74IEz", "1RtCcIx", "s7qnBiL",
@@ -38,6 +43,11 @@
   "happy":[
     "JwmKLWg", "xvoAhQ1", "4HQQCpF", "bbfsMC3", "0nCCqnu", "zkqutM9",
     "JGipzNn", "4kjCccc", "Gkp9M4T"
+  ],
+  "holdhands":[
+    "fNGDlqB", "3KIDQlu", "dcgGJ9A", "jXqSIgz", "pFvrgo8", "46MuGTr",
+    "3if9scl", "1gliMhN", "cRxuZvC", "CnvaxRp", "IUHLuKe", "9J09nvm",
+    "AnzriGs", "363rCne", "7kolbuw"
   ],
   "hug":[
     "tvNBTu2", "vFmpgg0", "viVO3di", "wNp3Sxy", "qak7ZRU", "1z6AF8B",
@@ -126,6 +136,22 @@
     "xAFPVC7", "2BJIDZr", "XhmnueL", "zQ6y1Oz", "UFtUfov", "8reDxXO",
     "JgXas5t", "1Gvoguw", "dr3xQvW", "1eRiC4c"
   ],
+  "sleep":[
+    "NsLqS9d", "r5Lrhnt", "3YFSqTk", "LOpUSQP", "YyVDiVX", "ZDPukql",
+    "fjdHCdB", "j6MIz6Z", "jgI66b6", "ZDfWFwA", "vavcmrv", "yviMY0r",
+    "FDuRl2k", "UsIPKAw", "XXuxIJP", "rAvADgY", "FqL4fde", "t8YSWon",
+    "noahhz7", "DxqNaN1", "z6DjK4I", "ANRw0ya", "67Fyhwf", "MP5DPPN",
+    "SmHuNbA", "vIPnHtc", "36EGBCJ", "tctzjPV", "gnYyKDB", "XylgXah",
+    "hGabYAk", "56gW65P", "SNqgfWY"
+  ],
+  "smile":[
+    "HnNBPfP", "0HmEBV2", "pxEaH3n", "d0hN3Pf", "ceQRPHE", "sfswypY",
+    "0ZsREe8", "h0NRqOR", "xd4V7Wo", "FzihIxv", "GwUn6Eu", "ako9fPf",
+    "5VNAuAN", "iVvFegH", "MrM9tei", "m5U2COT", "C1AOj2v", "dQ1pYsr",
+    "a2OFjWe", "XZbvFZe", "mVrMgk5", "YBxd6gi", "pCQnSPt", "ExGT9kI",
+    "Ebt5WUz", "0yqpMXL", "HGAhAW1", "8xCIqUA", "iuBGUSi", "XNep1Eb",
+    "eyaOyE0", "f8GnxzS", "X1e9LfO", "rvvalVd", "oTCJEoI", "Nu3JLoW"
+  ],
   "smug": [
     "n3gxIKM", "kKsgxSo", "cJlVdVQ", "JiI9zNR", "lvmorNN", "hnRqttQ",
     "0ztmxKQ", "Cbmf4mA", "u7QEzHS", "R1MPUr2", "zMrapUE", "iUebBwc",
@@ -150,5 +176,17 @@
     "gfu2VBV", "WQFBtb6", "2oEN7SF", "8AFOrgf", "CqylXCq", "X6wGn3y",
     "C4MmaER", "171EHxa", "ILfm1EP", "bKcgwHW", "nmYqS8l", "IcAP19n",
     "pENMORd"
+  ],
+  "wave":[
+  "Rvh9LTm", "pUL03sH", "EvevOAv", "OuRyd1y", "91chler", "HJBZ3Z9",
+  "SeFfIDk", "vPjgKw5", "62bDTPI", "jhTf7CG", "PGalAXV", "ctHE7dU",
+  "bOOETQR", "u3fTy63", "IPEBJfU", "lKB4JYj", "0FBKsjp", "uacqjGS",
+  "332DOvG", "FcHzylB", "gLMueWE", "qZLsZMq", "yzS7s6g"
+  ],
+  "wink":[
+  "6zW1gTg", "peTeUuV", "mdaUExv", "MB8x4yO", "MxEuxWz", "6MW9thg",
+  "2bfXlQG", "M0rIIUC", "IryKFc6", "7ZcfU0c", "yiUCEEq", "nwzp30i",
+  "QDMeQsd", "rP0HbsB", "1Jompuw", "Aiemomr", "stFAght", "ruZ8pKk",
+  "VuN7wXo", "4FgPRMK"
   ]
 }

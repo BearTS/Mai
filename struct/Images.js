@@ -51,6 +51,14 @@ module.exports = class ImageGenerator{
   };
 
   /**
+  * Grab an action image of type `blush`
+  * @returns {URL} An image url
+  */
+  blush(){
+    return this._action('blush');
+  };
+
+  /**
   * Grab an action image of type `cry`
   * @returns {URL} An image url
   */
@@ -90,6 +98,14 @@ module.exports = class ImageGenerator{
   */
   happy(){
     return this._action('happy');
+  };
+
+  /**
+  * Grab an action image of type `holdhands`
+  * @returns {URL} An image url
+  */
+  holdhands(){
+    return this._action('holdhands');
   };
 
   /**
@@ -169,6 +185,22 @@ module.exports = class ImageGenerator{
   };
 
   /**
+  * Grab an action image of type `sleep`
+  * @returns {URL} An image url
+  */
+  sleep(){
+    return this._action('sleep');
+  };
+
+  /**
+  * Grab an action image of type `smile`
+  * @returns {URL} An image url
+  */
+  smile(){
+    return this._action('smile');
+  };
+
+  /**
   * Grab an action image of type `smug`
   * Has an imgur hash `OrUO5Kc`
   * @returns {URL} An image url
@@ -193,6 +225,24 @@ module.exports = class ImageGenerator{
   */
   tickle(){
     return this._action('tickle');
+  };
+
+  /**
+  * Grab an action image of type `wave`
+  * Has an imgur hash `iGROmvW`
+  * @returns {URL} An image url
+  */
+  wave(){
+    return this._action('wave');
+  };
+
+  /**
+  * Grab an action image of type `wink`
+  * Has an imgur hash `iGROmvW`
+  * @returns {URL} An image url
+  */
+  wink(){
+    return this._action('wink');
   };
 
   /**
