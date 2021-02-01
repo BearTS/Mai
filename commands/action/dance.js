@@ -2,7 +2,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'dance',
   aliases: [],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
@@ -15,7 +14,7 @@ module.exports = {
     return message.channel.send(
       new MessageEmbed()
       .setColor('GREY')
-      .setDescription(`${message.member} started dancing!`)
+      .setDescription(`${message.author} started dancing!`)
       .setImage(client.images.dance())
       .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`)
     );

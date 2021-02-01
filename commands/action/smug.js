@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'smug',
   aliases: [],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'

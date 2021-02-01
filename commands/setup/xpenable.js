@@ -38,7 +38,7 @@ module.exports = {
     };
 
     if (!avail.length){
-      oldch = oldch.map(c => client.channels.cache.get(c).toString().toString()).join(', ');
+      const oldch = channels.map(x => `<#${x}>`).join(', ');
       return message.channel.send(`\\❌ **${message.member.displayName}**, The mentioned channels ${oldch} are not in the excempt list.`);
     };
 

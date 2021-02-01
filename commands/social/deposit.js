@@ -28,11 +28,11 @@ module.exports = {
       if (amount?.toLowerCase() === 'all'){
         amount = Math.floor(doc.data.economy.wallet * 0.95);
       } else {
-        amount = Math.round(amount.split(',').join(''));
+        amount = Math.round(amount?.split(',').join(''));
       };
 
       if (!amount){
-        return message.channel.send(`\\❌ **${message.member.displayName}**, [ **${amt}** ] is not a valid amount!.`);
+        return message.channel.send(`\\❌ **${message.member.displayName}**, [ **${amt || 0}** ] is not a valid amount!.`);
       } else if (amount < 100){
         return message.channel.send(`\\❌ **${message.member.displayName}**, The amount to be deposited must be at least **100**.`);
       } else if (amount * 1.05 > doc.data.economy.wallet){

@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'pat',
   aliases: ['headpat'],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
@@ -23,9 +22,9 @@ module.exports = {
     .setImage(url)
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-    if (!message.mentions.members.size){
+    if ((message.guild && !message.mentions.members.size) || !args[0]){
 
-      message.channel.send(embed.setDescription(`Here you go ${message.member}, \*pat* \*pat*`));
+      message.channel.send(embed.setDescription(`Here you go ${message.author}, \*pat* \*pat*`));
 
     } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
@@ -33,7 +32,7 @@ module.exports = {
 
     } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
 
-      return message.channel.send(embed.setDescription(`Here you go ${message.member}, \*pat* \*pat*`));
+      return message.channel.send(embed.setDescription(`Here you go ${message.author}, \*pat* \*pat*`));
 
     } else {
 

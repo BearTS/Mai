@@ -33,7 +33,7 @@ module.exports = {
     .setAuthor('Invalid Subreddit','https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
     .setDescription(`That's an invalid/non-existent <:reddit:767062345422864394> subreddit.`);
 
-    if (!res || !res.data.children || !res.data.children.length){
+    if (!res || !res.data?.children || !res.data.children.length){
       return await prompt.edit(embed).catch(() => null) || message.channel.send(embed);
     };
 

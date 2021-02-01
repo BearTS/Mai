@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'feed',
   aliases: [],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
@@ -23,7 +22,7 @@ module.exports = {
     .setImage(url)
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-    if (!message.mentions.members.size){
+    if ((message.guild && !message.mentions.members.size) || !args[0]){
 
       return message.channel.send(embed);
 

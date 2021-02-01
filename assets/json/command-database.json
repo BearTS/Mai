@@ -2,7 +2,6 @@
   {
     "name": "baka",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -17,9 +16,24 @@
     ]
   },
   {
+    "name": "blush",
+    "aliases": [],
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Blushes at a user.",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "blush @user"
+    ]
+  },
+  {
     "name": "cry",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -34,7 +48,6 @@
   {
     "name": "dance",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -49,7 +62,6 @@
   {
     "name": "disgust",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -66,7 +78,6 @@
   {
     "name": "feed",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -83,7 +94,6 @@
   {
     "name": "happy",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -96,9 +106,24 @@
     ]
   },
   {
+    "name": "holdhands",
+    "aliases": [],
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Hold hands of someone special.",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "holdhands @user"
+    ]
+  },
+  {
     "name": "hug",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -115,7 +140,6 @@
   {
     "name": "kill",
     "aliases": [],
-    "guildOnly": true,
     "nsfw": true,
     "clientPermissions": [
       "EMBED_LINKS",
@@ -133,7 +157,6 @@
   {
     "name": "kiss",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -150,7 +173,6 @@
   {
     "name": "lick",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -167,7 +189,6 @@
   {
     "name": "midfing",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -187,7 +208,6 @@
     "aliases": [
       "headpat"
     ],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -204,7 +224,6 @@
   {
     "name": "poke",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -221,7 +240,6 @@
   {
     "name": "slap",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -236,9 +254,40 @@
     ]
   },
   {
+    "name": "sleep",
+    "aliases": [],
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Puts a user to sleep..",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "hug @user"
+    ]
+  },
+  {
+    "name": "smile",
+    "aliases": [],
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Smiles at a user.",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "smile @user"
+    ]
+  },
+  {
     "name": "smug",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -255,7 +304,6 @@
     "aliases": [
       "kms"
     ],
-    "guildOnly": true,
     "nsfw": true,
     "clientPermissions": [
       "EMBED_LINKS",
@@ -272,7 +320,6 @@
   {
     "name": "tickle",
     "aliases": [],
-    "guildOnly": true,
     "clientPermissions": [
       "EMBED_LINKS",
       "ADD_REACTIONS"
@@ -284,6 +331,38 @@
     ],
     "examples": [
       "tickle @user"
+    ]
+  },
+  {
+    "name": "wave",
+    "aliases": [],
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Wave at someone.",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "wave @user"
+    ]
+  },
+  {
+    "name": "wink",
+    "aliases": [],
+    "clientPermissions": [
+      "EMBED_LINKS",
+      "ADD_REACTIONS"
+    ],
+    "group": "action",
+    "description": "Wink at a user.",
+    "parameters": [
+      "User Mention"
+    ],
+    "examples": [
+      "wink @user"
     ]
   },
   {

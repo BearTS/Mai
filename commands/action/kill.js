@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'kill',
   aliases: [],
-  guildOnly: true,
   nsfw: true,
   clientPermissions: [
     'EMBED_LINKS',
@@ -16,7 +15,7 @@ module.exports = {
   run: async ( client, message, args ) => {
 
     // Filter out args so that args are only user-mention formats.
-    ags = args.filter(x => /<@!?\d{17,19}>/.test(x))
+    args = args.filter(x => /<@!?\d{17,19}>/.test(x));
 
     const url = client.images.kill();
     const embed = new MessageEmbed()

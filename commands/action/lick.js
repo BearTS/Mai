@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'lick',
   aliases: [],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
@@ -24,17 +23,17 @@ module.exports = {
     .setImage(url)
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-    if (!message.mentions.members.size){
+    if ((message.guild && !message.mentions.members.size) || !args[0]){
 
       return message.channel.send(embed);
 
     } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
-      return message.channel.send(embed.setImage(disgust).setDescription(`${message.member}`));
+      return message.channel.send(embed.setImage(disgust).setDescription(`${message.author}`));
 
     } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
 
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, ever heard of a mirror?`);
+      return message.channel.send(`\\❌ **${message.author.tag}**, ever heard of a mirror?`);
 
     } else {
 

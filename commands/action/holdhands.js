@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'holdhands',
   aliases: [],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
@@ -23,22 +22,22 @@ module.exports = {
     .setImage(url)
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-    if (!message.mentions.members.size){
+    if ((message.guild && !message.mentions.members.size) || !args[0]){
 
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, whose hands are you holding?!`);
+      return message.channel.send(`\\❌ **${message.author.tag}**, whose hands are you holding?!`);
 
     } else if (new RegExp(`<@!?${client.user.id}>`).test(args[0])){
 
-     return message.channel.send(embed.setImage(slap).setDescription(`${message.member} baka`));
+     return message.channel.send(embed.setImage(client.images.slap()).setDescription(`${message.author} baka!`));
 
     } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
 
-      return message.channel.send(`<:cancel:767062250279927818> | ${message.author}, srsly, whose hands are you even holding?`);
+      return message.channel.send(`\\❌ **${message.author.tag}**, srsly, whose hands are you even holding?`);
 
     } else {
 
       return message.channel.send(
-        embed.setDescription(`${message.member} holds hands of ${args[0]}!`)
+        embed.setDescription(`${message.author} holds hands of ${args[0]}!`)
       );
 
     };

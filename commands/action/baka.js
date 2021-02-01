@@ -3,7 +3,6 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'baka',
   aliases: [],
-  guildOnly: true,
   clientPermissions: [
     'EMBED_LINKS',
     'ADD_REACTIONS'
@@ -23,7 +22,7 @@ module.exports = {
     .setImage(url)
     .setFooter(`Action Commands | \©️${new Date().getFullYear()} Mai`);
 
-    if (!message.mentions.members.size){
+    if (message.guild && !message.mentions.members.size){
 
       return message.channel.send(embed);
 
@@ -33,7 +32,7 @@ module.exports = {
 
     } else if (new RegExp(`<@!?${message.author.id}>`).test(args[0])){
 
-      return message.channel.send(`<:cancel:767062250279927818> | No ${message.author}, you're not Baka!`);
+      return message.channel.send(`\\❌ No **${message.author.tag}**, you're not Baka!`);
 
     } else {
 
