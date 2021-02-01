@@ -29,7 +29,7 @@ const execute = async () => {
     await message.channel.send(prompt, { files });
 
     const filter = _message => message.author.id === _message.author.id;
-    const options = { max: 1, time: 15000, errors: ['time'] };
+    const options = { max: 1, time: 30000, errors: ['time'] };
     const response = await message.channel.awaitMessages(filter, options)
     .then(collected => {
       const content = collected.first().content;
