@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const { MessageEmbed } = require('discord.js');
-const profile = require(`${process.cwd()}/models/Profile`);
-const Pages = require(`${process.cwd()}/struct/Paginate`);
-const market = require(`${process.cwd()}/assets/json/market.json`);
+const profile = require('../../models/Profile');
+const Pages = require('../../struct/Paginate');
+const market = require('../../assets/json/market.json');
 
 module.exports = {
   name: 'inventory',

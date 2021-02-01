@@ -1,7 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const _ = require('lodash');
 const fetch = require('node-fetch');
-const text = require(`${process.cwd()}/util/string`);
+
+const text = require('../../util/string');
+
 const badge = '<:mal:767062339177676800> [MyAnimeList](https://myanimelist.net \'Homepage\')';
 
 module.exports = {

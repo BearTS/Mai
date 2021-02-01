@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
-const signs = require(`${process.cwd()}/util/constants`).horoscope;
+const signs = require('../../util/constants').horoscope;
 
 module.exports = {
   name: 'horoscope',

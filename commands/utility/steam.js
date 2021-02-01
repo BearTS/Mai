@@ -2,7 +2,7 @@ const html2md = require('html2markdown');
 const { MessageEmbed } = require('discord.js');
 const { decode } = require('he');
 const fetch = require('node-fetch');
-const text = require(`${process.cwd()}/util/string`);
+const text = require('../../util/string');
 
 module.exports = {
   name: 'steam',

@@ -1,4 +1,4 @@
-const profile = require(`${process.cwd()}/models/Profile`);
+const profile = require('../../models/Profile');
 const moment = require('moment');
 
 module.exports = {

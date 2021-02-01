@@ -1,5 +1,5 @@
-const profile = require(`${process.cwd()}/models/Profile`);
-const market = require(`${process.cwd()}/assets/json/market.json`);
+const profile = require('../../models/Profile');
+const market = require('../../assets/json/market.json');
 
 module.exports = {
   name: 'gift',
@@ -12,7 +12,7 @@ module.exports = {
   examples: [
     'gift @user 10 2',
     'transferitem 756475746465746576 21',
-    'itemtransfer @user 12' 
+    'itemtransfer @user 12'
   ],
   run: (client, message, [friend='', id, amount] ) => profile.findById(message.author.id, async (err, doc) => {
 

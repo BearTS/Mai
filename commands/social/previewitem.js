@@ -1,5 +1,5 @@
-const market = require(`${process.cwd()}/assets/json/market.json`);
-const text = require(`${process.cwd()}/util/string`);
+const market = require('../../assets/json/market.json');
+const text = require('../../util/string');
 
 module.exports = {
   name: 'previewitem',

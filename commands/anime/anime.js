@@ -1,8 +1,9 @@
 const moment = require('moment');
 const { getInfoFromName } = require('mal-scraper');
 const { MessageEmbed } = require('discord.js');
-const { malGenres } = require(`${process.cwd()}/util/constants`);
-const text = require(`${process.cwd()}/util/string`);
+
+const { malGenres } = require('../../util/constants');
+const text = require('../../util/string');
 
 module.exports = {
   name: 'anime',

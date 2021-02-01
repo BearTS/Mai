@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-const text = require(`${process.cwd()}/util/string`);
-const constants = require(`${process.cwd()}/util/constants`);
+const text = require('../../util/string');
+const constants = require('../../util/constants');
 
 module.exports = {
   name: 'help',

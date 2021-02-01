@@ -1,6 +1,6 @@
 const { MessageEmbed, Collection } = require('discord.js');
 const fetch = require('node-fetch');
-const text = require(`${process.cwd()}/util/string`);
+const text = require('../../util/string');
 
 module.exports = {
   name: 'animeme',

@@ -1,7 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const moment = require('moment');
-const text = require(`${process.cwd()}/util/string`);
+
+const text = require('../../util/string');
 
 module.exports = {
   name: 'malprofile',

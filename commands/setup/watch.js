@@ -1,7 +1,7 @@
 const { duration } = require('moment');
 const { MessageEmbed } = require('discord.js');
-const text = require(`${process.cwd()}/util/string`)
-const list = require(`${process.cwd()}/models/GuildWatchlist`);
+const text = require('../../util/string');
+const list = require('../../models/GuildWatchlist');
 
 module.exports = {
   name: 'watch',

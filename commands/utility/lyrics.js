@@ -1,7 +1,7 @@
 const { MessageEmbed, GuildEmoji } = require('discord.js');
 const fetch = require('node-fetch');
-const text = require(`${process.cwd()}/util/string`);
-const Page = require(`${process.cwd()}/struct/Paginate`);
+const text = require('../../util/string');
+const Page = require('../../struct/Paginate');
 
 module.exports = {
   name: 'lyrics',

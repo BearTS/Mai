@@ -1,8 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 const { decode } = require('he');
 const requireText = require('require-text');
-const userquery = requireText(`${process.cwd()}/assets/graphql/User.graphql`,require);
-const text = require(`${process.cwd()}/util/string`);
+
+const userquery = requireText('../../assets/graphql/User.graphql',require);
+const text = require('../../util/string');
 
 module.exports = {
   name: 'alprofile',

@@ -1,5 +1,5 @@
-const profile = require(`${process.cwd()}/models/Profile`);
-const market = require(`${process.cwd()}/assets/json/market.json`);
+const profile = require('../../models/Profile');
+const market = require('../../assets/json/market.json');
 
 module.exports = {
   name: 'deleteitem',

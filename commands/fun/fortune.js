@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const fortunes = require(`${process.cwd()}/assets/json/fortune.json`);
+const fortunes = require('../../assets/json/fortune.json');
 
 module.exports = {
   name: 'fortune',

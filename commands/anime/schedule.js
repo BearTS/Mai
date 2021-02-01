@@ -1,9 +1,10 @@
 const { MessageEmbed, GuildEmoji } = require('discord.js');
 const fetch = require('node-fetch');
 const moment = require('moment');
-const Paginate = require(`${process.cwd()}/struct/Paginate`);
-const text = require(`${process.cwd()}/util/string`);
-const weekdays = require(`${process.cwd()}/util/constants`).weeks;
+
+const Paginate = require('../../struct/Paginate');
+const text = require('../../util/string');
+const weekdays = require('../../util/constants').weeks;
 
 module.exports = {
   name: 'schedule',

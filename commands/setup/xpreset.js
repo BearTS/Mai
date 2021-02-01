@@ -1,4 +1,4 @@
-const profile = require(`${process.cwd()}/models/Profile`);
+const profile = require('../../models/Profile');
 
 module.exports = {
   name: 'xpreset',

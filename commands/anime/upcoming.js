@@ -1,8 +1,10 @@
 const { MessageEmbed, GuildEmoji } = require('discord.js');
 const _ = require('lodash');
 const fetch = require('node-fetch');
-const Paginate = require(`${process.cwd()}/struct/Paginate`);
-const text = require(`${process.cwd()}/util/string`);
+
+const Paginate = require('../../struct/Paginate');
+const text = require('../../util/string');
+
 const types =  [ 'TV', 'ONA', 'OVA', 'Movie', 'Special', '-' ];
 
 module.exports = {
