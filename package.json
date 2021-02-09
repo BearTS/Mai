@@ -54,7 +54,6 @@
     "require-text": "0.0.1",
     "utf-8-validate": "^5.0.3",
     "wanakana": "^4.0.2",
-    "ytdl-core": "github:BearTS/node-ytdl-core",
     "zlib-sync": "^0.1.7"
   }
 }
