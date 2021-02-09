@@ -6,18 +6,6 @@ const { join } = require('path');
 module.exports = class MusicPlayer extends Player {
   constructor(client){
     super(client);
-
-    this.filters = [
-      '8D', 'gate', 'haas',
-      'phaser', 'treble',
-      'tremolo', 'vibrato',
-      'reverse', 'karaoke',
-      'flanger', 'mcompand',
-      'pulsator', 'subboost',
-      'bassboost', 'vaporwave',
-      'nightcore', 'normalizer',
-      'surrounding'
-    ];
   };
 
   init(){
