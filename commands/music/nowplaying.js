@@ -39,7 +39,7 @@ module.exports = {
       .addField('From Playlist', choice[Number(track.fromPlaylist)], true)
       .addField('Currently paused', choice[Number(paused)], true)
       .addField('Requested by', track.requestedBy.username, true)
-      .addField('Filters activated', enabledFilters.length + '/' + client.musicPlayer.filters.length, true)
+      .addField('Filters activated', enabledFilters.length + '/' + Object.keys(filters).length, true)
       .addField('Volume', volume, true)
       .addField('Repeat mode', choice[Number(repeatMode)], true)
       .addField('Progress bar', progress, true)
