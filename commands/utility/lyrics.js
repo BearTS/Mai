@@ -1,7 +1,7 @@
 const { MessageEmbed, GuildEmoji } = require('discord.js');
 const fetch = require('node-fetch');
-const text = require(`${process.cwd()}/util/string`);
-const Page = require(`${process.cwd()}/struct/Paginate`);
+const text = require('../../util/string');
+const Page = require('../../struct/Paginate');
 
 module.exports = {
   name: 'lyrics',
@@ -14,16 +14,9 @@ module.exports = {
     'lyrics fukashigi no karte'
   ],
   run: async (client, message, args) => {
-    
-    const track = client.player.nowPlaying(message);
-    let query;
-  
-    if (track.title !== undefined) {
-      query =  args.join(' ') || track.title;
-    } else {
-      query =  args.join(' ') || 'Kimi no Sei';
-    };
-    
+
+    const query =  args.join(' ') || 'Kimi no Sei';
+
     const data = await fetch(`https://some-random-api.ml/lyrics?title=${encodeURI(query)}`)
     .then(res => res.json())
     .catch(() => null);
