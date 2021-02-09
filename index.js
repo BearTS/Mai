@@ -31,9 +31,9 @@ client.defineCollections([ 'discovery', 'economy', 'memes', 'xp' ]);
 // let client listen to process events, setting ignore to true will
 // ignore errors and not execute the functions from util/processEvents.js.
 // Available process events on https://nodejs.org/api/process.html#process_process_events
-// client.listentoProcessEvents([
-//   'unhandledRejection',
-//   'uncaughtException'
-// ], { ignore: false });
+client.listentoProcessEvents([
+  'unhandledRejection',
+  'uncaughtException'
+], { ignore: false });
 
 client.login();

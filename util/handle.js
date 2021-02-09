@@ -1,6 +1,6 @@
 const { duration } = require('moment');
 
-async function CommandHandler(manager, message){
+function CommandHandler(manager, message){
 
   if (message.guild){
     if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')){
@@ -64,11 +64,7 @@ async function CommandHandler(manager, message){
 
     return { executed: false, reason: 'COOLDOWN' };
   } else {
-    try {
-      await command.run(message.client, message, args);
-    } catch (err){
-      return message.channel.send('Oops! an unexpected error occured!\nThis shouldn\'t happen. Please contact Sakurajimai#6742 to resolve the issue.')
-    }
+    command.run(message.client, message, args);
   };
 
   return { executed: true };
