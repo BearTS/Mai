@@ -1,6 +1,6 @@
 {
   "name": "mai",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Discordbot written in discord.js",
   "main": "index.js",
   "scripts": {
