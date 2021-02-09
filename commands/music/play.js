@@ -1,5 +1,3 @@
-const { MessageEmbed } = require("discord.js");
-
 module.exports = {
   name: 'play',
   aliases: [],
@@ -12,30 +10,16 @@ module.exports = {
   parameters: ['Song name or URl of the song or playlist'],
   run:  async function (client, message, args) {
 
-    const samevc = new MessageEmbed()
-    .setAuthor("You Must be in the same voice channel")
-    .setColor(`#f04e48`)
-    .setDescription("Baka Baka Baka")
-    .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
-
-    const joinvc = new MessageEmbed()
-    .setAuthor("You Must be in a voice channel")
-    .setColor(`#f04e48`)
-    .setDescription("Where will I even play songs!!?! ")
-    .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
-
-    const title = new MessageEmbed()
-    .setAuthor("Tell me the name of the song")
-    .setColor(`#f04e48`)
-    .setDescription("Baka")
-    .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
-
-         if (!message.member.voice.channel) return message.channel.send(joinvc);
-
-        if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(samevc);
-
-        if (!args[0]) return message.channel.send(title);
-
-        client.player.play(message, args.join(" "), { firstResult: true });
-    },
+    if (!message.member.voice.channel){
+      return client.musicPlayer.sendError('VC_NOT_FOUND', message);
+    } else if (message.guild.me.voice.channel && message.guild.me.voice.channel.id !== message.member.voice.channel.id){
+      return client.musicPlayer.sendError('VC_UNIQUE', message);
+    } else if (!args.length){
+      return client.musicPlayer.sendError('NO_ARGS_TITLE', message);
+    } else {
+      const query = args.join(' ');
+      const options = { firstResult: true };
+      client.musicPlayer.play(message, query, options);
+    };
+  }
 };

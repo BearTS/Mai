@@ -18,18 +18,9 @@ const options = {
   ]
 };
 
-// music system
-const { Player } = require('discord-player');
-client.player = new Player(client);
-client.music = require('./util/filters');
-client.filters = client.music.filters;
-const player = fs.readdirSync('./util/player').filter(file => file.endsWith('.js'));
-for (const file of player) {
-    const event = require(`./util/player/${file}`);
-    client.player.on(file.split(".")[0], event.bind(null, client));
-};
-
 client.database?.init();
+
+client.musicPlayer?.init();
 
 client.loadCommands({ parent: 'commands', ...options });
 
@@ -40,9 +31,9 @@ client.defineCollections([ 'discovery', 'economy', 'memes', 'xp' ]);
 // let client listen to process events, setting ignore to true will
 // ignore errors and not execute the functions from util/processEvents.js.
 // Available process events on https://nodejs.org/api/process.html#process_process_events
-client.listentoProcessEvents([
-  'unhandledRejection',
-  'uncaughtException'
-], { ignore: false });
+// client.listentoProcessEvents([
+//   'unhandledRejection',
+//   'uncaughtException'
+// ], { ignore: false });
 
 client.login();

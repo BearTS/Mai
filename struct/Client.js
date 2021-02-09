@@ -10,6 +10,7 @@ const CommandManager = require(`./commands/Manager`);
 const GuildProfilesManager = require(`./guilds/ProfileManager`);
 const Collections = require(`./Collections`);
 const Mongoose = require(`./Mongoose`);
+const Music = require('./Music');
 const PingManager = require(`./PingManager`);
 const ImageManager = require(`./Images`);
 const VoteManager = require(`./votes/VoteManager`);
@@ -85,6 +86,12 @@ module.exports = class MaiClient extends Client{
      * @type {ImageManager}
      */
     this.images = new ImageManager();
+
+    /**
+     * A dedicated music system for Mai.
+     * @type {MusicPlayer}
+     */
+    this.musicPlayer = new Music(this);
 
     /**
      * The external database connected to this bot (null when disabled);

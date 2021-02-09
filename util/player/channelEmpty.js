@@ -8,5 +8,5 @@ module.exports = (client, message, queue) => {
   .setDescription("No Members in the Voice channel")
   .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`);
 
-    message.channel.send(embed);
+  message.channel.send(embed);
 };
