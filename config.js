@@ -86,7 +86,7 @@ const settings = {
       family: 4
     }
   },
-
+  
   // Array of owners recognized by the bot. ID here will be given access to
   // owner based commands.
   owners: [ '545427431662682112' ],

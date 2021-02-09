@@ -1,6 +1,8 @@
 // load env file (contains important keys)
 require('dotenv').config();
 
+const fs = require('fs');
+
 const Client = require(`${process.cwd()}/struct/Client`);
 const config = require(`${process.cwd()}/config`);
 
@@ -11,9 +13,20 @@ const options = {
   log: true,
   paths: [
     'action', 'anime', 'bot',
-    'core', 'fun', 'moderation',
+    'core', 'fun', 'moderation', 'music',
     'owner', 'setup', 'social','utility'
   ]
+};
+
+// music system
+const { Player } = require('discord-player');
+client.player = new Player(client);
+client.music = require('./util/filters');
+client.filters = client.music.filters;
+const player = fs.readdirSync('./util/player').filter(file => file.endsWith('.js'));
+for (const file of player) {
+    const event = require(`./util/player/${file}`);
+    client.player.on(file.split(".")[0], event.bind(null, client));
 };
 
 client.database?.init();
