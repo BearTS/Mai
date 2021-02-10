@@ -35,7 +35,7 @@ module.exports = {
       new MessageEmbed()
       .setAuthor("List Of Filters")
       .setColor(`#4afcff`)
-      .setDescription("List of all filters enabled or disabled.\nUse \`t!filter [filter name]\` to add a filter to a song.")
+      .setDescription(`List of all filters enabled or disabled.\nUse \`${client.prefix}filter [filter name]\` to add a filter to a song.`)
       .addField('Filters', filterEntries[0].join('\n'), true)
       .addField('\u200b', filterEntries[1].join('\n'), true)
       .setFooter(`Music System | \©️${new Date().getFullYear()} Mai`)
