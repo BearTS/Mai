@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const waifuDB = require('../../assets/json/waifulist.json');
+const text = require('../../util/string.js');
 
 module.exports = {
   name: 'waifu',
@@ -26,13 +27,13 @@ module.exports = {
 
     const embed = new MessageEmbed()
     .setColor('GREY')
-    .setAuthor([ waifu.names.en, waifu.names.jp ].filter(Boolean).join('\u2000•\u2000'))
-    .setDescription([ waifu.names.alt, waifu.from.type].filter(Boolean).join('\n'))
+    .setAuthor(text.truncate([ waifu.names.en, waifu.names.jp, waifu.names.alt ].filter(Boolean).join('\n'), 200), waifu.avatar || null)
+    .setDescription([ waifu.from.name, waifu.from.type].filter(Boolean).map(x => `*${x}*`).join('\n'))
     .attachFiles([{ attachment: waifu.images[no], name: 'waifu.jpg'}])
     .setImage('attachment://waifu.jpg')
     .setFooter([
-      `${( 100 * (((1 - waifu.statistics.hate / (waifu.statistics.love + waifu.statistics.fav)) * 0.6) + ((waifu.statistics.upvote / (waifu.statistics.upvote + waifu.statistics.downvote)) * 0.4)) ).toFixed(2)}% Likebility`,
-      `Image #${ no + 1 } of ${ waifu.images.length }`,
+      `❣️${(100 * (((1 - waifu.statistics.hate / (waifu.statistics.love + waifu.statistics.fav)) * 0.6) + ((waifu.statistics.upvote / (waifu.statistics.upvote + waifu.statistics.downvote)) * 0.4))).toFixed(2)}`,
+      `${ no + 1 } of ${ waifu.images.length }`,
       `\©️${new Date().getFullYear()} Mai`
     ].join('\u2000|\u2000'));
 
