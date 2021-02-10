@@ -14,7 +14,7 @@ module.exports = {
 
     if (!message.member.voice.channel){
       return client.musicPlayer.sendError('VC_NOT_FOUND', message);
-    } else if (message.guild.me.voice.channel?.id !== message.member.voice.channel.id){
+    } else if (message.guild.me.voice.channel && message.guild.me.voice.channel.id !== message.member.voice.channel.id){
       return client.musicPlayer.sendError('VC_UNIQUE', message);
     } else if (!args.length){
       return client.musicPlayer.sendError('NO_ARGS_TITLE', message);
