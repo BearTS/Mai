@@ -14,7 +14,7 @@ module.exports = async (client, member) => {
   } else {
     // Do nothing..
   };
-  
+
   const leaving = guildProfile.greeter.leaving;
   const type = leaving.type === 'msg' && !leaving.message ? 'default' : leaving.type;
 
@@ -24,7 +24,7 @@ module.exports = async (client, member) => {
       .setColor('GREY')
       .setTitle(`${member.user.tag} has left our server!`)
       .setThumbnail(member.user.displayAvatarURL({format: 'png', dynamic: true}))
-      .setDescription(`Byebye ${member}!! Sad to see you go!\n\nWe are back to **${member.guild.memberCount - 1}** members!`)
+      .setDescription(`Byebye ${member}!! Sad to see you go!\n\nWe are back to **${member.guild.memberCount}** members!`)
       .setFooter(`Leaving Member Announcer | ©️${new Date().getFullYear()} Mai`)
     );
   };
