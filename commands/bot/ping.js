@@ -17,8 +17,23 @@ module.exports = {
 
     const prompt = await message.channel.send('Pinging...');
 
-    const roundtrip = Math.abs(prompt.createdTimestamp - message.createdTimestamp).toFixed();
-    const update = client.pings.lastUpdatedAt.getTime() + client.pings.timeout - Date.now();
+    const ping = await client.pings.evaluate({
+      force: false, // To forcively reevaluate the ping
+    });
+
+    ping.message = {success: Math.abs(prompt.createdTimestamp - message.createdTimestamp)};
+
+    const update = ping.lastUpdatedAt.getTime() + ping.timeout - Date.now();
+
+    const data = client.pings.handlers.slice(0,20).map((h,i) => {
+      if (h.name === 'discord'){
+        return {[h.name]: client.pings.discord}
+      } else if (typeof ping[h.name]?.error === 'number'){
+        return {[h.name]: ping[h.name].error === 0 ? 'TIMEOUT' : `HTTP(${ping[h.name].error})`}
+      } else {
+        return {[h.name]: ping[h.name]?.success }
+      };
+    });
 
     const embed = new MessageEmbed()
     .setColor('GREY')
@@ -34,8 +49,8 @@ module.exports = {
         name: '\u200b', inline: true,
         value: [
           `╭═[**${handler.registry}**](https://discord.com/ '`,
-          `${text.truncate(handler.description || '', 200)}')\n${colors(client.pings[handler.name] || roundtrip)}\u2000\u2000\n`,
-          `╰═══${stylize(client.pings[handler.name] || roundtrip)}`
+          `${text.truncate(handler.description || '', 200)}')\n${colors(data.find(x => Object.keys(x).includes(handler.name))[handler.name])}\u2000\u2000\n`,
+          `╰═══${stylize(data.find(x => Object.keys(x).includes(handler.name))[handler.name])}`
         ].join('')
       }
     })
@@ -71,7 +86,7 @@ function colors(num){
     '<:lvl4bar:767062487174348823>',
     '<:level5bar:767062493653893121>'
   ];
-  const limits = [ 1500, 1000, 500, 250 ];
+  const limits = [ 1500, 1250, 750, 500, 250 ];
   return emojis.map((_,i) => {
     if (i === 0){
       return _;
@@ -82,10 +97,10 @@ function colors(num){
 };
 
 function stylize(ping){
-  if (ping){
+  if (typeof ping === 'number'){
     ping = ping + ' ms'
   } else {
-    ping = 'Unavailable'
+    ping = ping
   };
   return `\`${' '.repeat(11 - ping.length)}${ping}\``
 };

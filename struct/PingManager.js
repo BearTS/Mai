@@ -37,7 +37,7 @@ module.exports = class PingManager{
       if (monitorPings.timeout < 300000){
         this.timeout = 300000;
       } else {
-        //Do nothing..
+        this.timeout = monitorPings.timeout;
       };
     };
 
@@ -75,44 +75,91 @@ module.exports = class PingManager{
       this[request.name] = null;
       this.handlers.push({ name: request.name, registry, description, handler, options, type });
     };
+  };
 
-    // Automatically loop ping requests every PingManager#timeout seconds
-    if (this.handlers.length - 2){
-      this.loop(() => {
-        const now = Date.now();
-        Promise.all(this.handlers.map(x => {
-          if (x.type === 'request'){
-            return fetch(x.handler, x.options).then((res)=>{
-              return Date.now() - now;
-            }).catch(() => null);
-          } else if (x.handler){
-            return x.handler.then(()=>{
-              return Date.now() - now;
-            }).catch(() => null);
-          } else {
-            return;
-          };
-        })).then( res => {
-          this.handlers.forEach((x, i) => {
-            if ([ 'discord', 'message' ].includes(x.name)){
-              return;
+  _abort(fn, delay = 5000, ...param){
+    return new Promise(async resolve => {
+      setTimeout(() => resolve('ABORTED'), delay)
+
+      const prop = await fn(...param);
+      return resolve(prop)
+    });
+  }
+
+  async _evaluate(options = {}){
+    const now = Date.now();
+
+    if (!Boolean(this.handlers.length - 2)){
+      this.available = false;
+      return Promise.resolve(this);
+    };
+
+    const evaluated = await Promise.all(
+      this.handlers.map(x => {
+        let response = {};
+
+        if (x.type === 'request')
+        {
+          return this._abort(fetch, options.abortIn, x.handler, x.options )
+          .then(evaluation => {
+            if (evaluation === 'ABORTED'){
+              response.error = 0;
+            } else if (evaluation.status !== 200){
+              response.error = evaluation.status;
+            } else {
+              response.success = Date.now() - now;
             };
-            this[x.name] = res[i];
+            return response;
           });
-          this.lastUpdatedAt = new Date();
-        })
-      }, this.timeout);
+        }
+        else if (x.handler)
+        {
+          return this._abort(() => x.handler, options.abortIn)
+          .then(evaluation => {
+            if (evaluation === 'ABORTED'){
+              response = { error: 0 };
+            } else {
+              return response = { success: Date.now() - now };
+            };
+            return response;
+          });
+        }
+        else
+        {
+          return response;
+        }
+      })
+    );
+
+    this.lastUpdatedAt = new Date();
+
+    this.handlers.forEach((x,i) => {
+      if ([ 'discord', 'message' ].includes(x.name)){
+        return;
+      };
+
+      this[x.name] = evaluated[i];
+    });
+
+    return Promise.resolve(this);
+  };
+
+  evaluate(options){
+    if (options.force === true){
+      return this._evaluate();
     } else {
-      this.available = false
+      if (this.lastUpdatedAt.getTime() + this.timeout > Date.now()){
+        if (this.handlers.some(x => this[x.name] === null)){
+          return this._evaluate(options);
+        };
+        return Promise.resolve(this);
+      } else {
+        return this._evaluate(options);
+      };
     };
   };
 
-  loop(fn, delay){
-    fn();
-    return setInterval(fn, delay);
-  };
-
   get discord(){
-    return this.client.ws.ping
+    return this.client.ws.ping;
   };
 };
