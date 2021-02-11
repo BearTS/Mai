@@ -38,8 +38,8 @@ module.exports = class VoteManager{
          .setTimestamp()
          .setColor('#50fa00')
          .setFooter(`Tamako Bot`)
+         .setDescription(`User Just \`${req.vote.user}\` Voted For Me`)
          .addFields([
-           { name: '\u200b', value: `User Just \`${req.vote.user}\` Voted For Me` },
            { name: 'Go Vote For Mai', value: `Every Vote Counts! Your votes help us grow at faster rates\nDont forget to vote every 12 Hours` },
            { name: 'How Do I Vote?', value: `[Top.gg](${client.config.websites['top.gg']})\n[DBL](${client.config.websites['DBL']})`}
          ])
