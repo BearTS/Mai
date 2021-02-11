@@ -29,8 +29,7 @@ module.exports = {
     .setColor('GREY')
     .setAuthor(text.truncate([ waifu.names.en, waifu.names.jp, waifu.names.alt ].filter(Boolean).join('\n'), 200), waifu.avatar || null)
     .setDescription([ waifu.from.name, waifu.from.type].filter(Boolean).map(x => `*${x}*`).join('\n'))
-    .attachFiles([{ attachment: waifu.images[no], name: 'waifu.jpg'}])
-    .setImage('attachment://waifu.jpg')
+    .setImage(waifu.images[no])
     .setFooter([
       `❣️${(100 * (((1 - waifu.statistics.hate / (waifu.statistics.love + waifu.statistics.fav)) * 0.6) + ((waifu.statistics.upvote / (waifu.statistics.upvote + waifu.statistics.downvote)) * 0.4))).toFixed(2)}`,
       `${ no + 1 } of ${ waifu.images.length }`,
