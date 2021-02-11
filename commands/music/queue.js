@@ -1,3 +1,5 @@
+const { MessageEmbed } = require("discord.js");
+
 module.exports = {
   name: 'queue',
   aliases: [],
@@ -19,14 +21,17 @@ module.exports = {
     } else {
       const currentQueue = client.musicPlayer.getQueue(message);
 
-      return message.channel.send([
-        `**Server Queue - ${message.guild.name} ${currentQueue.loopMode ? '(looped)' : ''}**`,
-        `Current: ${currentQueue.playing.title} | ${currentQueue.playing.author}\n`,
-        currentQueue.tracks.map((track, i) => {
-          return `**#${i + 1}** - ${track.title} | ${track.author} (requested by : ${track.requestedBy.username})`;
-        }).slice(0, 5).join('\n'),
-        `\n${currentQueue.tracks.length > 5 ? `And **${currentQueue.tracks.length - 5}** other songs...` : `In the playlist **${currentQueue.tracks.length}** song(S)...`}`
-      ].join('\n'));
+      return message.channel.send(
+        new MessageEmbed()
+          .setAuthor(`Server Queue`)
+          .setTitle(`Playing ${currentQueue.playing.title}`)
+          .setColor(`#ffb6c1`)
+          .setDescription(currentQueue.tracks.map((track, i) => {
+            return `${i + 1} - **${track.title} | ${track.author}** (requested by : ${track.requestedBy.username})`;
+          }).slice(0, 5).join('\n'))
+          .setFooter(`${currentQueue.tracks.length > 5 ? `And ${currentQueue.tracks.length - 5} other songs...` : `In the playlist ${currentQueue.tracks.length} song(S)...`} | \©️${new Date().getFullYear()} Mai`)
+      );
     };
   }
 };
+
