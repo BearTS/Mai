@@ -10,7 +10,7 @@ module.exports = {
   guildOnly: true,
   adminOnly: true,
   group: 'setup',
-  description: 'Set up the welcome message. Supports Embeds! [Learn how to set up your Welcome Message](https://guides.mai-san.ml/)',
+  description: 'Set up the welcome message. Supports Embeds! [Learn how to set up your Welcome Message](https://mai-san.ml/guides)',
   requiresDatabase: true,
   parameters: [ 'options', 'other parameters' ],
   examples: [
