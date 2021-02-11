@@ -1,4 +1,5 @@
 const { URLSearchParams } = require('url');
+const { MessageEmbed } = require('discord.js');
 const Top = require('@top-gg/sdk');
 const Dbl = require(`${process.cwd()}/struct/votes/DBL`);
 
@@ -31,7 +32,19 @@ module.exports = class VoteManager{
       };
 
       app.post('/dblwebhook', this.top_gg.webhook.middleware(), (req,res) => {
-        console.log(req)
+        const channel = client.channels.cache.get(client.config.channels.votes);
+        channel.send(
+         new MessageEmbed()
+         .setTimestamp()
+         .setColor('#50fa00')
+         .setFooter(`Tamako Bot`)
+         .addFields([
+           { name: '\u200b', value: `User Just \`${req.vote.user}\` Voted For Me` },
+           { name: 'Go Vote For Mai', value: `Every Vote Counts! Your votes help us grow at faster rates\nDont forget to vote every 12 Hours` },
+           { name: 'How Do I Vote?', value: `[Top.gg](${client.config.websites['top.gg']})\n[DBL](${client.config.websites['DBL']})`}
+         ])
+         .setTitle("Thank You For Voting")
+         );
       });
 
       app.listen(1200);
