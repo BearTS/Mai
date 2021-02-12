@@ -47,7 +47,7 @@ module.exports = (client, req, res) => profile.findById(req.vote.user, async (er
       `Don't want to get notified of every vote you make? Use the command \`${client.prefix}togglevotenotif\` to enable/disable vote notifications! (Does not prevent you from receiving rewards)`
     ].join('\n')
 
-    if (profile.data.vote.notification){
+    if (doc.data.vote.notification){
       user?.send(message).catch(()=>{
         return console.log(`[VOTE_EVENT]: Could not send message to user ${req.vote.user}`);
       });
