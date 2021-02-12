@@ -35,19 +35,18 @@ module.exports = class VoteManager{
         
         this.client.emit('userVoted', req, res);
         
-        const channel = client.channels.cache.get(client.config.channels.votes);
-        channel.send(
-         new MessageEmbed()
-         .setTimestamp()
-         .setColor('#50fa00')
-         .setFooter(`Mai Bot`)
-         .setDescription(`User Just \`${req.vote.user}\` Voted For Me`)
-         .addFields([
-           { name: 'Go Vote For Mai', value: `Every Vote Counts! Your votes help us grow at faster rates\nDont forget to vote every 12 Hours` },
-           { name: 'How Do I Vote?', value: `[Top.gg](${client.config.websites['top.gg']})\n[DBL](${client.config.websites['DBL']})`}
-         ])
-         .setTitle("Thank You For Voting")
-         );
+        return client.channels.cache.get(client.config.channels.votes)?.send(
+          new MessageEmbed()
+          .setTimestamp()
+          .setColor('#50fa00')
+          .setFooter(`Mai Bot`)
+          .setDescription(`User Just \`${req.vote.user}\` Voted For Me`)
+          .setTitle("Thank You For Voting")
+          .addFields([
+            { name: 'Go Vote For Mai', value: `Every Vote Counts! Your votes help us grow at faster rates\nDont forget to vote every 12 Hours` },
+            { name: 'How Do I Vote?', value: `[Top.gg](${client.config.websites['top.gg']})\n[DBL](${client.config.websites['DBL']})`}
+          ])
+        );
       });
 
       app.listen(1200);
