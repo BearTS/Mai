@@ -81,7 +81,7 @@ module.exports = {
         itemreward ? `\n\\✔️**You received a profile item!**: You received **x1 ${item.name} - ${item.description}** from daily rewards. It has been added to your inventory!` : '',
         overflow ? `\n\\⚠️ **Overflow Warning**: Your wallet just overflowed! You need to transfer some of your credits to your bank!` : '',
         streakreset ? `\n\\⚠️ **Streak Lost**: You haven't got your succeeding daily reward. Your streak is reset (x1).` : `\n**Streak x${doc.data.economy.streak.current}**`,
-        hasVoted ? `\n\\⚠️ **Vote rewards available**: Vote now to receive additional rewards!` : ''
+        !hasVoted ? `\n\\⚠️ **Vote rewards available**: Vote now to receive additional rewards! -> <https://top.gg/bot/702074452317307061/vote>` : ''
       ].join('')))
       .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
     };
