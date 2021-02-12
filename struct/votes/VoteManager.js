@@ -2,6 +2,7 @@ const { URLSearchParams } = require('url');
 const { MessageEmbed } = require('discord.js');
 const Top = require('@top-gg/sdk');
 const Dbl = require(`${process.cwd()}/struct/votes/DBL`);
+const profile = require(`${process.cwd()}/models/Profile`);
 
 module.exports = class VoteManager{
   constructor(client){
@@ -31,10 +32,10 @@ module.exports = class VoteManager{
         webhook: new Top.Webhook('MaiBestWaifu')
       };
 
-      app.post('/dblwebhook', this.top_gg.webhook.middleware(), (req,res) => {
-        
+      app.post('/dblwebhook', this.top_gg.webhook.middleware(), (req, res) => {
+
         this.client.emit('userVoted', req, res);
-        
+
         return client.channels.cache.get(client.config.channels.votes)?.send(
           new MessageEmbed()
           .setTimestamp()
@@ -42,11 +43,30 @@ module.exports = class VoteManager{
           .setFooter(`Mai Bot`)
           .setDescription(`User Just \`${req.vote.user}\` Voted For Me`)
           .setTitle("Thank You For Voting")
-          .addFields([
-            { name: 'Go Vote For Mai', value: `Every Vote Counts! Your votes help us grow at faster rates\nDont forget to vote every 12 Hours` },
-            { name: 'How Do I Vote?', value: `[Top.gg](${client.config.websites['top.gg']})\n[DBL](${client.config.websites['DBL']})`}
+          .addFields([{
+              name: 'Go Vote For Mai',
+              value: `**You get 800 Credits on Vote which you can use on [Market](https://market.mai-san.ml/)\nEvery Vote Counts! Your votes help us grow at faster rates\nDont forget to vote every 12 Hours`
+            },
+            {
+              name: 'How Do I Vote?',
+              value: `[Top.gg](${client.config.websites['top.gg']})\n[DBL](${client.config.websites['DBL']})`
+            }
           ])
-        )
+        );
+        // Credits on Vote
+        return profile.findById(req.vote.user, (err, doc) => {
+          if (err) {
+            return client.channels.cache.get(client.config.channels.creditlogs)?.send(`\`❌ [Vote Credits][DATABASE_ERR]:\` The database responded with error: ${err.name}`);
+          } else if (!doc || doc.data.economy.wallet === null) {
+            console.log(`\`❌ [Vote Credits] **${req.vote.user}**, **User has no wallet.**`);
+          };
+          const tba = doc.data.economy.wallet + 800
+          doc.data.economy.wallet = tba > 50000 ? 50000 : Math.floor(tba);
+          return doc.save()
+            .then(() => client.channels.cache.get(client.config.channels.creditlogs)?.send(`\\✔️ [Vote Credits] Successfully added 800 credits to **${req.vote.user}**!`))
+            .catch((err) => client.channels.cache.get(client.config.channels.creditlogs)?.send(`\`❌ [Vote Credits][DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
+        })
+        //
       });
 
       app.listen(1200);
