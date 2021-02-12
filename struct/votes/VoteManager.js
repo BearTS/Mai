@@ -32,12 +32,15 @@ module.exports = class VoteManager{
       };
 
       app.post('/dblwebhook', this.top_gg.webhook.middleware(), (req,res) => {
+        
+        this.client.emit('userVoted', req, res);
+        
         const channel = client.channels.cache.get(client.config.channels.votes);
         channel.send(
          new MessageEmbed()
          .setTimestamp()
          .setColor('#50fa00')
-         .setFooter(`Tamako Bot`)
+         .setFooter(`Mai Bot`)
          .setDescription(`User Just \`${req.vote.user}\` Voted For Me`)
          .addFields([
            { name: 'Go Vote For Mai', value: `Every Vote Counts! Your votes help us grow at faster rates\nDont forget to vote every 12 Hours` },
