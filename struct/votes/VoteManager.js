@@ -46,7 +46,7 @@ module.exports = class VoteManager{
             { name: 'Go Vote For Mai', value: `Every Vote Counts! Your votes help us grow at faster rates\nDont forget to vote every 12 Hours` },
             { name: 'How Do I Vote?', value: `[Top.gg](${client.config.websites['top.gg']})\n[DBL](${client.config.websites['DBL']})`}
           ])
-        );
+        )
       });
 
       app.listen(1200);
