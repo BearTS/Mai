@@ -15,7 +15,7 @@ module.exports = (client, req, res) => profile.findById(req.vote.user, async (er
   if (err){
     return user?.send([
       `\`❌ | **${user.tag}**, seems like you voted me on top.gg, but ${reason[0]}`,
-      `Should you receive this message, please reache out to Sakurajimai#6742 immediately. Prepare also a screenshot of this message.`
+      `Should you receive this message, please reach out to Sakurajimai#6742 immediately. Prepare also a screenshot of this message.`
     ].join('\n')).catch(() => {
       return console.log(`[VOTE_EVENT]: Could not send message to user ${req.vote.user}`);
     });
