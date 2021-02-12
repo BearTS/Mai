@@ -134,6 +134,16 @@ module.exports = class MaiClient extends Client{
     };
 
     /**
+     * Channel ID used by the bot to send vote messages
+     * @type {?Snowflake}
+     */
+    if (typeof settings.channels?.votes === 'string'){
+      this.config.channels.votes = settings.channels.votes;
+    } else {
+      // Do nothing...
+    };
+
+    /**
      * Channel ID used by the bot to upload files for some commands that necessitates uploads.
      * @type {?Snowflake}
      */
