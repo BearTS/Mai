@@ -31,7 +31,10 @@ module.exports = model('user_profiles', Schema({
       received: {type: Number, default: 0},
       timestamp: {type: Number, default: 0}
     },
-    xp: {type: Array, default: []}
+    xp: {type: Array, default: []},
+    vote: {
+      notification: { type: Boolean, default: true }
+    }
   }
 },{
   versionKey: false
