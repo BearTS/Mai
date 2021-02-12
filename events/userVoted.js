@@ -42,9 +42,9 @@ module.exports = (client, req, res) => profile.findById(req.vote.user, async (er
   .then(() => {
     const message = [
       `<a:animatedcheck:758316325025087500> | **${user.tag}**, Thanks for voting!`,
-      `You received **${text.commatize(reward)}**${isWeekend ? '**(Double Weekend Reward)**' : ''} credits as a reward!`,
+      `You received **${text.commatize(reward)}** ${isWeekend ? '**(Double Weekend Reward)**' : ''} credits as a reward!`,
       overflow ? `\n⚠️Overflow warning! Please deposit some of your account to your **bank**. You only received ${reward - excess} for this one!` :'',
-      `Don't want to get notified of every vote you make? Use the command \`${client.prefix}togglevotenotif\` to enable/disable vote notifications! (Does not prevent you from receiving rewards)`
+      `Don't want to get notified of every vote you make? Use the command \`${client.prefix}togglevotenotif\` to enable/disable vote notifications!\n(Does not prevent you from receiving rewards)`
     ].join('\n')
 
     if (doc.data.vote.notification){
