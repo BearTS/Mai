@@ -144,6 +144,16 @@ module.exports = class MaiClient extends Client{
     };
 
     /**
+     * Channel ID used by the bot to send credit logs
+     * @type {?Snowflake}
+     */
+    if (typeof settings.channels?.creditlogs === 'string'){
+      this.config.channels.creditlogs = settings.channels.creditlogs;
+    } else {
+      // Do nothing...
+    };
+
+    /**
      * Channel ID used by the bot to upload files for some commands that necessitates uploads.
      * @type {?Snowflake}
      */
