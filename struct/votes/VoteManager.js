@@ -58,12 +58,20 @@ module.exports = class VoteManager{
           if (err) {
             return client.channels.cache.get(client.config.channels.creditlogs)?.send(`\`❌ [Vote Credits][DATABASE_ERR]:\` The database responded with error: ${err.name}`);
           } else if (!doc || doc.data.economy.wallet === null) {
-            console.log(`\`❌ [Vote Credits] **${req.vote.user}**, **User has no wallet.**`);
+            console.log(`\`❌ [Vote Credits] **${req.vote.user}**, **User had no wallet.**`);
           };
           const tba = doc.data.economy.wallet + 800
           doc.data.economy.wallet = tba > 50000 ? 50000 : Math.floor(tba);
           return doc.save()
-            .then(() => client.channels.cache.get(client.config.channels.creditlogs)?.send(`\\✔️ [Vote Credits] Successfully added 800 credits to **${req.vote.user}**!`))
+           .then(() =>
+           client.users.cache.get(req.vote.user).send(
+                   new MessageEmbed()
+                   .setColor('#50fa00')
+                   .setFooter(`Mai`)
+                  .setTitle("Thank You For Voting Me")
+                  .setDescription(`I have added **800 Credits to your wallet** for voting \n\nDont Forget To vote after 12 Hours \n\n[Top.gg](${client.config.websites['top.gg']})\n[DBL](${client.config.websites['DBL']})`)
+          ))
+          .then(() =>client.channels.cache.get(client.config.channels.creditlogs)?.send(`\\✔️ [Vote Credits] Successfully added 800 credits to **${req.vote.user}**!`))
             .catch((err) => client.channels.cache.get(client.config.channels.creditlogs)?.send(`\`❌ [Vote Credits][DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
         })
         //
