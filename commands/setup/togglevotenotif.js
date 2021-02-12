@@ -22,7 +22,7 @@ module.exports = {
     doc.data.vote.notification = !status;
 
     return doc.save()
-    .then(() => message.channel.send(`\\✔️ | ${message.author.tag}, successfully **${status ? 'Disabled' : 'Enabled'}** the vote notifications. You will now **${status ? 'stop', 'start'}** receiving DM notifications when voting me on **top.gg**.`))
+    .then(() => message.channel.send(`\\✔️ | ${message.author.tag}, successfully **${status ? 'Disabled' : 'Enabled'}** the vote notifications. You will now **${status ? 'stop' : 'start'}** receiving DM notifications when voting me on **top.gg**.`))
     .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
   })
 };
