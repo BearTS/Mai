@@ -2,6 +2,7 @@ const moment = require('moment');
 const { getInfoFromName } = require('mal-scraper');
 const { MessageEmbed } = require('discord.js');
 
+const malProducers = require('../../assets/json/MAL_Producers.json');
 const { malGenres } = require('../../util/constants');
 const text = require('../../util/string');
 
@@ -49,64 +50,84 @@ module.exports = {
       return message.channel.send([
         `\\❌ **${message.author.tag}**, MyAnimeList took longer to respond.`,
         'Please try again later, this may be caused by a server downtime.'
-      ].join('\n')).then(() => channel.stopTyping());
+      ].join('\n')).then(() => message.channel.stopTyping());
     };
 
     message.channel.stopTyping();
 
+    const isHentai = data.genres.some(x => x === 'Hentai');
+    const nsfwch = message.guild.channels.cache.filter(x => x.nsfw).map(x => x.toString());
+
+    if (isHentai && message.channel.nsfw === false){
+      return message.channel.send(`\\❌ | **${message.author.tag}**, you've searched for \`Hentai\` on a sfw channel!\n\nYour query, **${
+        query
+      }**, returned a hentai title from **${data.studios?.[0]}**. Please try to query hentai entries on nsfw channels${
+        nsfwch.length ? ` such as ${text.joinArray(nsfwch)}` : ''
+      }. While you're at it, you can query these genres from **hanime** using \`hanime\` command aswell.`)
+    };
+
     return message.channel.send(
       new MessageEmbed()
-      .setColor('GREY')
+      .setColor(isHentai ? 'RED' : 'GREY')
+      .setURL(data.url)
       .setThumbnail(data.picture || null)
       .setFooter(`Anime Query with MAL | \©️${new Date().getFullYear()} Mai`)
-      .setAuthor([
-        text.truncate(data.englishTitle || data.title, 200),
-        text.truncate(data.type || 'showType Unavailable', 200)
-      ].join('\u2000|\u2000'), null, data.url)
+      .setTitle(text.truncate(data.englishTitle || data.title, 200))
       .setDescription([
-        data.japaneseTitle,
         [
-          `[\\⭐](https://myanimelist.net/info.php?go=topanime 'Score'): **${data.score}**`,
-          `[\\🏅](https://myanimelist.net/info.php?go=topanime 'Rank'): **${text.ordinalize((data.ranked.replace('N/A','0')).slice(1)).replace(/0th/,'N/A')}**`,
-          `[\\✨](https://myanimelist.net/info.php?go=topanime 'Popularity'): **${data.popularity || '~'}**`,
+          `[\\⭐](https://myanimelist.net/anime/${data.id}/stats 'Score'): ${data.score}`,
+          `[\\🏅](https://myanimelist.net/info.php?go=topanime 'Rank'): ${isNaN(data.ranked.slice(1)) ? 'N/A' : text.ordinalize((data.ranked).slice(1))}`,
+          `[\\✨](https://myanimelist.net/info.php?go=topanime 'Popularity'): ${data.popularity || '~'}`,
           `[\` ▶ \`](${data.trailer} 'Watch Trailer')`
         ].join('\u2000\u2000•\u2000\u2000'),
         `\n${text.joinArray(data.genres.map(g =>
-          `[**${g}**](https://myanimelist.net/anime/genre/${malGenres[g.toLowerCase()]})`
+          `[${g}](https://myanimelist.net/anime/genre/${malGenres[g.toLowerCase()]})`
         )||[])}`,
         '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
       ].filter(Boolean).join('\n'))
       .addFields([
         {
           name: '\\🔸 Source', inline: true,
-          value: '\u2000' + data.source || 'Unknown'
+          value: data.source ? [data.source].map(x => {
+            const valid_sources = {
+              'Light novel':'lightnovels',
+              'Manga':'manga',
+              'Web manga':'manhwa',
+              'One-shot':'oneshots',
+              'Doujinshi':'doujin',
+              'Novel':'novels',
+              'Manhwa':'manhwa',
+              'Manhua':'manhua'
+            };
+            return x ? `[**${x}**](https://myanimelist.net/topmanga.php?type=${valid_sources[x] || 'manga'})` : x;
+          }) : 'Unknown'
         },{
-          name: '\\🔸 Episodes', inline: true,
-          value: data.episodes || 'Unknown'
+          name: 'Episodes', inline: true,
+          value: `[**${data.episodes}**](https://myanimelist.net/anime/${data.id}/_/episode)` || 'Unknown'
         },{
-          name: '\\🔸 Duration', inline: true,
+          name: 'Duration', inline: true,
           value: data.duration || 'Unknown'
         },{
-          name: '\\🔸 Members', inline: true,
-          value: data.members || 'Unknown'
+          name: 'Type', inline: true,
+          value: data.type ? `[**${data.type}**](https://myanimelist.net/topanime.php?type=${encodeURI(data.type.toLowerCase())})` : 'showType Unavailable'
         },{
-          name: '\\🔸 Favorites', inline: true,
-          value: data.favorites || 'Unknown'
+          name: 'Premiered', inline: true,
+          value: data.premiered ? `[**${data.premiered}**](https://myanimelist.net/anime/season/${data.premiered.split(' ')[1]}/${data.premiered.split(' ')[0]?.toLowerCase()})` : 'Unknown'
         },{
-          name: '\\🔸 Studio', inline: true,
-          value: data.studios?.[0] || 'Unknown'
+          name: 'Studio', inline: true,
+          value: `[**${data.studios?.[0]}**](https://myanimelist.net/anime/producer/${malProducers[data.studios?.[0]]}/)` || 'Unknown'
         },{
-          name: `\\🕐 ${data.status === 'Finished Airing' ? 'Aired' : 'Airs'} (*${moment(data.aired.split('to')[0], 'll').fromNow()}*)`,
-          value: data.aired || 'Unknown'
-        },{
-          name: '\\🎬 Producers',
-          value: text.joinArray(data.producers||[]) || 'Unknown'
+          name: '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+          value: text.truncate(data.synopsis||'No Synopsis', 500, `...\n\n[**\`📖 Read Full Synopsis\`**](${data.url} 'Read More on MyAnimeList')`) || 'No Synopsis Available.'
         },{
           name: '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
           value: [
-            text.truncate(data.synopsis||'No Synopsis', 500, `...\n\n[\`📖\`](${data.url} 'Read More on MyAnimeList')`) || 'No Synopsis Available.',
+            `**${data.status === 'Finished Airing' ? 'Aired' : 'Currently Airing' ? 'Currently Airing' : 'Airs on'} (*${moment(data.aired.split('to')[0], 'll').fromNow()}*):** ${data.aired || 'Unknown'}`,
+            '',
+            `**Producers**: ${text.truncate(text.joinArray(data.producers?.map(x => x === 'None found, add some' ? x : `[${x}](https://myanimelist.net/anime/producer/${malProducers[x]}/)`)||[]) || 'Unknown' ,900, '...')}`,
+            '',
+            `**Rating**: *${data.rating.replace('None', '') || 'Unrated'}*`,
             '━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-            `**${data.rating.replace('None', '') || 'Unrated'}**`
           ].join('\n')
         }
       ])
