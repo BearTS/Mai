@@ -52,30 +52,35 @@ module.exports = (args, oldEmbed) => {
   //------------testing validity of URL-------------------//
   for (const [key, val] of Object.entries(embedProps)){
     if (!urlServices.includes(key)){
+      // If the key is not one of the url services
       continue;
     } else if (!val){
+      // If the key has no value (User has no input for this key)
       continue;
     } else {
-      if (urlServices.includes(key)){
-        if (!websiteTest(val)){
-          if (validModifiers.includes(val.trim())){
-            success.push(`**Embed#${key}** has successfully been set!`)
-          } else {
-            embedProps[key] = undefined;
-            fails.push(`The provided **${key}** is invalid. Please ensure the validity of the URL.`);
-          };
-        } else {
-          success.push(`**Embed#${key}** has successfully been set!`);
-        };
+      // The key is a url service and has a set value from the user
+      if (websiteTest(val)){
+        // The value passes the website test and considered a valid url
+        success.push(`**Embed#${key}** has successfully been set!`);
+      } else if (validModifiers.includes(val.trim())){
+        // The value is not a url but a valid modifier
+        success.push(`**Embed#${key}** has successfully been set (Modifier)!`);
+      } else if (embedProps[key] === ' '){
+        // The value is a non-empty non-falsy value string
+        success.push(`**Embed#${key}** has successfully been removed!`);
       } else {
-        // Do nothing..
+        // The value is not a valid url
+        // The value is not a valid modifier
+        // The value is not a non-empty non-falsy string
+        embedProps[key] = null;
+        fails.push(`The provided **${key}** is invalid. Please ensure the validity of the URL.`);
       };
     };
   };
 
   //-----------testing validity of color------------------//
 
-  if (embedProps.color && !embedProps.color.match(/#[a-f0-9]{6}/i)){
+  if (embedProps.color?.match(/#[a-f0-9]{6}/i)){
     embedProps.color = undefined;
     fails.push('The provided **Color Hex Code** is invalid. Please make sure you are passing a valid Hex Code');
   } else if (embedProps.color){
@@ -91,7 +96,7 @@ module.exports = (args, oldEmbed) => {
       continue;
     } else if (val.length > limits[key]){
       embedProps[key] = undefined;
-      fails.push(`Embed **${key}** is only limited to ${limits[key]} characters. Yours have ${val.length}`);
+      fails.push(`Embed **${key}** is only limited to **${limits[key]}** characters. Yours have **${val.length}**`);
     } else {
       success.push(`**Embed#${key}** has successfully been set!`);
     };
@@ -112,46 +117,31 @@ module.exports = (args, oldEmbed) => {
 
     embed.setAuthor(
       embedProps.authorName || embed.author?.name || '',
-      embedProps.authorImageURL || embed.author?.iconURL || null,
-      embedProps.authorURL || embed.author?.url || null
+      isEmpty(embedProps.authorImageURL, embed.author?.iconURL),
+      isEmpty(embedProps.authorURL, embed.author?.url),
     )
     .setTitle(
-      embedProps.title || embed.title
+      embedProps.title || embed.title || ''
     )
     .setURL(
-      embedProps.url || embed.url
+      isEmpty(embedProps.url, embed.url)
     )
     .setThumbnail(
-      embedProps.thumbnail || embed.thumbnail?.url || null
+      isEmpty(embedProps.thumbnail, embed.thumbnail?.url)
     )
     .setDescription(
       embedProps.description || embed.description || ''
     )
     .setImage(
-      embedProps.image || embed.image?.url || null
+      isEmpty(embedProps.image, embed.image?.url)
     )
     .setColor(
       embedProps.color || embed.color
     )
     .setFooter(
       embedProps.footerText || embed.footer?.text || '',
-      embedProps.footerImage || embed.footer?.iconURL || null,
+      isEmpty(embedProps.footerImage, embed.footer?.iconURL),
     );
-
-    // checking for modifiers in replacement to urls
-    // modifiers are automatically converted to null because the class considers
-    // modifiers as non-valid URL
-    if (validModifiers.includes(embedProps.authorImageURL))
-    embed.author.iconURL = embedProps.authorImageURL;
-
-    if (validModifiers.includes(embedProps.thumbnail))
-    embed.thumbnail.url = embedProps.thumbnail
-
-    if (validModifiers.includes(embedProps.image))
-    embed.image.url = embedProps.image
-
-    if (validModifiers.includes(embedProps.footerImage))
-    embed.footer.iconURL = embedProps.footerImage;
 
     return { embed, success, fails };
   };
@@ -161,15 +151,16 @@ module.exports = (args, oldEmbed) => {
 //matches "https://i.imgur.com/asdasx.png" in "-author=image:[https://i.imgur.com/asdasx.png]"
 //returns undefined if matches nothing
 function matchFor(option, str){
-  const regex = '(?<=' + option + ':\\[)[\\s\\S]+?(?=])';
-  const res = str.match(new RegExp (regex, 'g')) || [];
-  return res[0];
+  return str.match(new RegExp('(?<=' + option + ':\\[)[\\s\\S]+?(?=])', 'g'))?.[0];
 };
 
-//tests if the passed string is a valid url format or not
-//returns a Boolean
+// Tests if the passed string is a valid url format or not
+// Returns a Boolean
 function websiteTest(str){
-  if (str.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
-  return true
-  return false
+  return !!(str.match(/https?:\/\/[\w\d-.]{4,}\/?([\w\d:%_\+.~#?&/=-]{1,})?/g))
+};
+
+// Check if url is a blank non-falsy value
+function isEmpty(str = null, other){
+  return str?.trim() === '' ? null : str?.trim() || other || null;
 };
