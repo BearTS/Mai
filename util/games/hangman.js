@@ -62,7 +62,7 @@ module.exports = async (options) => {
   const execute = async () => {
     await message.channel.send(build());
 
-    const filter = _message => message.author.id === _message.author.id && _message.content.length === 1;
+    const filter = _message => message.author.id === _message.author.id && _message.content.length === 1 && ![...incguess, ...corguess].includes(_message.content.toUpperCase());
     const options = { max: 1, time: 30000, errors: ['time'] };
     const response = await message.channel.awaitMessages(filter, options)
     .then(collected => {
