@@ -36,7 +36,7 @@ module.exports = {
     return doc.save()
     .then(() => {
       client.guildProfiles.get(message.guild.id).featuredChannels.suggest = channel.id;
-      return message.channel.send(`✔️ Successfully set the suggest channel to ${channel}!`);
+      return message.channel.send(`\\✔️ Successfully set the suggest channel to ${channel}!`);
     })
     .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`))
   })
