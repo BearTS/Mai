@@ -24,13 +24,16 @@ module.exports = {
       return message.channel.send(`\\❌ **${message.author.tag}**, you don't have a wallet yet! To create one, type \`${client.prefix}register\`.`);
     };
 
-    function bunnify(cur, max){
-      const active = '<:activebunny:810775516641493002>', inactive = '<:inactivebunny:810775684150198292>', left = max - cur || max;
-
-      return active.repeat(cur || max) + inactive.repeat(left);
-    };
-
     const dailyUsed = doc.data.economy.streak.timestamp !== 0 && doc.data.economy.streak.timestamp - Date.now() > 0;
+
+    function bunnify(cur, max){
+      const active = '<:activebunny:810775516641493002>', inactive = '<:inactivebunny:810775684150198292>', left = max - cur === 10 ? 0 : max - cur;
+      if (left === 0){
+        return dailyUsed ? active.repeat(10) : inactive.repeat(10);
+      } else {
+        return active.repeat(cur || max) + inactive.repeat(left);
+      };
+    };
 
     return message.channel.send(
       new MessageEmbed().setDescription(
