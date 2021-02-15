@@ -37,7 +37,7 @@ module.exports = {
       };
 
       if ((doc.data.economy.streak.timestamp + 864e5) < now){
-        doc.data.economy.streak.current = 0;
+        doc.data.economy.streak.current = 1;
         streakreset = true;
       };
 
