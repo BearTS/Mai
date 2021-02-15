@@ -5,7 +5,6 @@ const profile = require('../../models/Profile');
 module.exports = {
   name: 'bal',
   aliases: [ 'balance', 'credits' ],
-  guildOnly: true,
   group: 'social',
   clientPermissions: [ 'EMBED_LINKS' ],
   description: 'Check your wallet, how much have you earned?',
@@ -22,21 +21,33 @@ module.exports = {
     };
 
     if (!doc || doc.data.economy.wallet === null){
-      return message.channel.send(`\\❌ **${message.member.displayName}**, you don't have a wallet yet! To create one, type \`${client.prefix}register\`.`);
+      return message.channel.send(`\\❌ **${message.author.tag}**, you don't have a wallet yet! To create one, type \`${client.prefix}register\`.`);
     };
+
+    function bunnify(cur, max){
+      const active = '<:activebunny:810775516641493002>', inactive = '<:inactivebunny:810775684150198292>', left = max - cur || max;
+
+      return active.repeat(cur || max) + inactive.repeat(left);
+    };
+
+    const dailyUsed = doc.data.economy.streak.timestamp !== 0 && doc.data.economy.streak.timestamp - Date.now() > 0;
 
     return message.channel.send(
       new MessageEmbed().setDescription(
-        `\u200B\n💰 **${
+        `\u200b\n💰 **${
           text.commatize(doc.data.economy.wallet)
-        }** credits in posession.\n\n${
+        }** credits in wallet.\n\n${
           doc.data.economy.bank !== null
-          ? `💰 **${text.commatize(doc.data.economy.bank)}** credits in bank!`
+          ? `💰 **${text.commatize(doc.data.economy.bank)}** credits in bank.`
           : `Seems like you don't have a bank yet. Create one now by typing \`${
             client.config.prefix
           }bank\``
-        }\n\nDaily Streak: **${doc.data.economy.streak.current}** (All time best: **${doc.data.economy.streak.alltime}**)`
-      ).setAuthor(`${message.member.displayName}'s wallet`)
+        }\n\n━━━━━━━━━━━━━━\nDaily Streak: **${doc.data.economy.streak.current}** (All time best: **${doc.data.economy.streak.alltime}**)\n**${10 - doc.data.economy.streak.current % 10}** streak(s) left for **Item Reward \\✨**\n\n${
+          bunnify(doc.data.economy.streak.current % 10, 10)
+        }\n━━━━━━━━━━━━━━\n${
+          dailyUsed ? '\\✔️ Daily reward already **claimed**!' : `\\⚠️ Daily reward is **avaliable**!`
+        }`
+      ).setAuthor(`${message.author.tag}'s wallet`)
       .setColor('GREY')
       .setThumbnail(message.author.displayAvatarURL({dynamic: 'true'}))
       .setFooter(`Profile Balance | \©️${new Date().getFullYear()} Mai`)

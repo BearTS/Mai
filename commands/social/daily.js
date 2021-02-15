@@ -9,7 +9,6 @@ const market = require('../../assets/json/market.json');
 module.exports = {
   name: 'daily',
   aliases: [ ],
-  guildOnly: true,
   group: 'social',
   description: 'Retrieve your daily reward <3',
   requiresDatabase: true,

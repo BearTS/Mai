@@ -5,7 +5,6 @@ const profile = require('../../models/Profile');
 module.exports = {
   name: 'beg',
   aliases: [ 'plead', 'gimme' ],
-  guildOnly: true,
   group: 'social',
   description: 'Want to earn money some more? Why don\'t you try begging, maybe someone will give you.',
   requiresDatabase: true,
@@ -19,7 +18,7 @@ module.exports = {
     if (err){
       return message.channel.send(`\`❌ [DATABASE_ERR]:\` The database responded with error: ${err.name}`);
     } else if (!doc || doc.data.economy.wallet === null){
-      return message.channel.send(`\\❌ **${message.member.displayName}**, You don't have a *wallet* yet! To create one, type \`${client.prefix}register\`.`);
+      return message.channel.send(`\\❌ **${message.author.tag}**, You don't have a *wallet* yet! To create one, type \`${client.prefix}register\`.`);
     } else {
 
       const now = Date.now();
@@ -29,7 +28,7 @@ module.exports = {
       let overflow = false, excess = null;
 
       if (userprofile.date > now){
-        return message.channel.send(`\\❌ **${message.member.displayName}**, You have already been given some *coins* earlier! Please try again later.`);
+        return message.channel.send(`\\❌ **${message.author.tag}**, You have already been given some *coins* earlier! Please try again later.`);
       };
 
       userprofile.date = Date.now() + duration;
@@ -44,7 +43,7 @@ module.exports = {
 
       return doc.save()
       .then(() => message.channel.send([
-        `\\✔️ **${message.member.displayName}**, You received **${amount}** from me.`,
+        `\\✔️ **${message.author.tag}**, You received **${amount}** from me.`,
         overflow ? `\n⚠️Overflow warning! Please deposit some of your account to your **bank**. You only received ${amount-excess} for this one!` :'',
         `\nTo Check your balance, type \`${client.prefix}bal\`\n`,
         `Keep your wallet from *overflowing* --> <https://github.com/maisans-maid/Mai/wiki/Economy#Overflow)>`

@@ -26,7 +26,11 @@ module.exports = {
     const item = market.find(x => x.id == id);
 
     if (!item){
-      return message.channel.send(`\\❌ **${message.author.tag}**, Could not find the item with id ${id}!`);
+      return message.channel.send([
+        `\\❌ **${message.author.tag}**, Could not find the item ${id ? `with id **${id}**` : `without id`}!`,
+        `The proper usage for this command would be \`${client.prefix}buy [item id] <amount>\`.`,
+        `Example: \`${client.prefix}buy ${Math.floor(Math.random() * market.length)}\``
+      ].join('\n'));
     };
 
     amt = Math.floor(Math.abs(amt)) || 1;
@@ -34,8 +38,13 @@ module.exports = {
 
     if (!item.price && amt > 1){
       return message.channel.send(`\\❌ **${message.author.tag}**, You may only have 1 free item at a time.`);
+    } else if (amt > 1000){
+      return message.channel.send(`\\❌ **${message.author.tag}**, You cannot purchase more than **1,000** items at once.`);
     } else if (doc.data.economy.wallet < total){
-      return message.channel.send(`\\❌ **${message.author.tag}**, You do not have enough credits to proceed with this transaction! You need ${text.commatize(total)} for **${amt}x ${item.name}**`);
+      return message.channel.send([
+        `\\❌ **${message.author.tag}**, You do not have enough credits to proceed with this transaction!`,
+        `You need **${text.commatize(total - doc.data.economy.wallet)}** more for **${amt}x ${item.name}**`
+      ].join('\n'));
     } else if (doc.data.profile.inventory.find(x => x.id === item.id) && !item.price){
       return message.channel.send(`\\❌ **${message.author.tag}**, You may only have 1 free item at a time.`);
     } else {
