@@ -87,7 +87,7 @@ module.exports = {
       ].filter(Boolean).join('\n'))
       .addFields([
         {
-          name: '\\🔸 Source', inline: true,
+          name: 'Source', inline: true,
           value: data.source ? [data.source].map(x => {
             const valid_sources = {
               'Light novel':'lightnovels',
@@ -103,26 +103,26 @@ module.exports = {
           }) : 'Unknown'
         },{
           name: 'Episodes', inline: true,
-          value: `[**${data.episodes}**](https://myanimelist.net/anime/${data.id}/_/episode)` || 'Unknown'
+          value: `[**${data.episodes}**](https://myanimelist.net/anime/${data.id}/_/episode)`,
         },{
           name: 'Duration', inline: true,
-          value: data.duration || 'Unknown'
+          value: data.duration || 'Unknown',
         },{
           name: 'Type', inline: true,
           value: data.type ? `[**${data.type}**](https://myanimelist.net/topanime.php?type=${encodeURI(data.type.toLowerCase())})` : 'showType Unavailable'
         },{
           name: 'Premiered', inline: true,
-          value: data.premiered ? `[**${data.premiered}**](https://myanimelist.net/anime/season/${data.premiered.split(' ')[1]}/${data.premiered.split(' ')[0]?.toLowerCase()})` : 'Unknown'
+          value: data.premiered && data.premiered !== '?' ? `[**${data.premiered}**](https://myanimelist.net/anime/season/${data.premiered.split(' ')[1]}/${data.premiered.split(' ')[0]?.toLowerCase()})` : 'Unknown'
         },{
           name: 'Studio', inline: true,
           value: `[**${data.studios?.[0]}**](https://myanimelist.net/anime/producer/${malProducers[data.studios?.[0]]}/)` || 'Unknown'
         },{
           name: '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-          value: text.truncate(data.synopsis||'No Synopsis', 500, `...\n\n[**\`📖 Read Full Synopsis\`**](${data.url} 'Read More on MyAnimeList')`) || 'No Synopsis Available.'
+          value: text.truncate(data.synopsis||'No Synopsis', 500, `...\n\n[**\`📖 Read Full Synopsis\`**](${data.url} 'Read More on MyAnimeList')`),
         },{
           name: '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
           value: [
-            `**${data.status === 'Finished Airing' ? 'Aired' : 'Currently Airing' ? 'Currently Airing' : 'Airs on'} (*${moment(data.aired.split('to')[0], 'll').fromNow()}*):** ${data.aired || 'Unknown'}`,
+            `**${data.status === 'Finished Airing' ? 'Aired' : data.status === 'Currently Airing' ? 'Currently Airing' : 'Airs on'} (*${moment(data.aired.split('to')[0], 'll').fromNow()}*):** ${data.aired || 'Unknown'}`,
             '',
             `**Producers**: ${text.truncate(text.joinArray(data.producers?.map(x => x === 'None found, add some' ? x : `[${x}](https://myanimelist.net/anime/producer/${malProducers[x]}/)`)||[]) || 'Unknown' ,900, '...')}`,
             '',
