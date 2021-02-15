@@ -25,6 +25,7 @@ module.exports = {
 
       const now = Date.now();
       const baseamount = 500;
+      const supporter = await client.guilds.cache.get('703922441768009731').members.fetch(message.author.id).then(() => true).catch(() => false)
       const previousStreak = doc.data.economy.streak.current;
       const hasvoted = await client.votes.top_gg?.api.hasVoted(message.author.id);
       const rewardables = market.filter(x => ![1,2].includes(x.id));
@@ -71,13 +72,14 @@ module.exports = {
         excess = doc.data.economy.wallet + amount - 5e4;
       };
 
-      doc.data.economy.wallet = overflow ? 5e4 : doc.data.economy.wallet + amount;
+      doc.data.economy.wallet = overflow ? 5e4 : doc.data.economy.wallet + amount + (supporter ? amount * 0.2 : 0);
 
       // Include the streak state and overflow state in the confirmation message
       return doc.save()
       .then(() => message.channel.send([
         `\\✔️ **${message.author.tag}**, you got your **${text.commatize(amount)}** daily reward.`,
-        itemreward ? `\n\\✔️**You received a profile item!**: You received **x1 ${item.name} - ${item.description}** from daily rewards. It has been added to your inventory!` : '',
+        supporter ? `\n\\✔️ **Thank you for your patronage**: You received **${text.commatize(amount * 0.2)}** bonus credits for being a [supporter]!` : '',
+        itemreward ? `\n\\✔️ **You received a profile item!**: You received **x1 ${item.name} - ${item.description}** from daily rewards. It has been added to your inventory!` : '',
         overflow ? `\n\\⚠️ **Overflow Warning**: Your wallet just overflowed! You need to transfer some of your credits to your bank!` : '',
         streakreset ? `\n\\⚠️ **Streak Lost**: You haven't got your succeeding daily reward. Your streak is reset (x1).` : `\n**Streak x${doc.data.economy.streak.current}**`,
         hasvoted === false ? `\n\\⚠️ **Vote rewards available**: Vote now to receive additional rewards! -> <https://top.gg/bot/702074452317307061/vote>` : ''
