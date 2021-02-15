@@ -1643,6 +1643,202 @@
     ]
   },
   {
+    "name": "clearqueue",
+    "aliases": [
+      "clear-queue"
+    ],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Add Filter to the current song",
+    "parameters": [],
+    "examples": [
+      "clearqueue"
+    ]
+  },
+  {
+    "name": "filter",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Toggle Filter to the current song",
+    "parameters": [
+      "filter name"
+    ],
+    "examples": [
+      "filter [filter name]"
+    ]
+  },
+  {
+    "name": "filters",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Check all filters",
+    "examples": [
+      "filters"
+    ]
+  },
+  {
+    "name": "loop",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Toggle Loop of the Music system of Mai",
+    "parameters": [],
+    "examples": [
+      "loop"
+    ]
+  },
+  {
+    "name": "nowplaying",
+    "aliases": [
+      "np"
+    ],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Show the currently playing music",
+    "parameters": [],
+    "examples": [
+      "nowplaying"
+    ]
+  },
+  {
+    "name": "pause",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Pause the current music playing",
+    "parameters": [],
+    "examples": [
+      "pause"
+    ]
+  },
+  {
+    "name": "play",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Play songs from Soundcloud, Spotify or Youtube",
+    "parameters": [
+      "Song name or URl of the song or playlist"
+    ],
+    "examples": [
+      "play Why by Sabrina Carpenter",
+      "play https://www.youtube.com/watch?v=fhH4pbRJh0k"
+    ]
+  },
+  {
+    "name": "queue",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Show the Player queue",
+    "parameters": [],
+    "examples": [
+      "queue"
+    ]
+  },
+  {
+    "name": "resume",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Resume the Pause Player",
+    "parameters": [
+      "Song name or URl of the song"
+    ],
+    "examples": [
+      "Resume"
+    ]
+  },
+  {
+    "name": "shuffle",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Shuffle the queue",
+    "parameters": [],
+    "examples": [
+      "shuffle"
+    ]
+  },
+  {
+    "name": "skip",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Skip the current playing song",
+    "parameters": [],
+    "examples": [
+      "skip"
+    ]
+  },
+  {
+    "name": "stop",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Stop the music",
+    "parameters": [],
+    "examples": [
+      "stop"
+    ]
+  },
+  {
+    "name": "volume",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Change Volume of the music",
+    "parameters": [
+      "volume"
+    ],
+    "examples": [
+      "volume 50"
+    ]
+  },
+  {
+    "name": "ytsearch",
+    "aliases": [],
+    "guildOnly": true,
+    "permissions": [],
+    "clientPermissions": [],
+    "group": "music",
+    "description": "Search for music",
+    "parameters": [
+      "Name of the song"
+    ],
+    "examples": [
+      "ytsearch Why Sabrina Carpenter"
+    ]
+  },
+  {
     "name": "addcredits",
     "aliases": [],
     "guildOnly": true,
@@ -1775,11 +1971,13 @@
   },
   {
     "name": "setgoodbyemsg",
-    "aliases": [],
+    "aliases": [
+      "sgm"
+    ],
     "guildOnly": true,
     "adminOnly": true,
     "group": "setup",
-    "description": "Set up the goodbye message. Supports Embeds! [Learn how to set up your Leaving Member Announcer](https://guides.mai-san.ml/)",
+    "description": "Set up the goodbye message. Supports Embeds! [Learn how to set up your Leaving Member Announcer](https://mai-san.ml/guides)",
     "requiresDatabase": true,
     "parameters": [
       "options",
@@ -1859,11 +2057,13 @@
   },
   {
     "name": "setwelcomemsg",
-    "aliases": [],
+    "aliases": [
+      "swm"
+    ],
     "guildOnly": true,
     "adminOnly": true,
     "group": "setup",
-    "description": "Set up the welcome message. Supports Embeds! [Learn how to set up your Welcome Message](https://guides.mai-san.ml/)",
+    "description": "Set up the welcome message. Supports Embeds! [Learn how to set up your Welcome Message](https://mai-san.ml/guides)",
     "requiresDatabase": true,
     "parameters": [
       "options",
@@ -1874,6 +2074,15 @@
       "setwelcomemsg embed=true",
       "setwelcomemsg embed=set -author=image:[ <url> ]"
     ]
+  },
+  {
+    "name": "togglevotenotif",
+    "aliases": [],
+    "group": "setup",
+    "description": "Toggles your vote notification on/off",
+    "requiresDatabase": true,
+    "parameters": [],
+    "examples": []
   },
   {
     "name": "unwatch",
@@ -2021,7 +2230,6 @@
       "balance",
       "credits"
     ],
-    "guildOnly": true,
     "group": "social",
     "clientPermissions": [
       "EMBED_LINKS"
@@ -2039,7 +2247,6 @@
     "aliases": [
       "registerbank"
     ],
-    "guildOnly": true,
     "group": "social",
     "description": "Begin storing your credits on bank. Required because wallet maximum capacity is 50000.",
     "requiresDatabase": true,
@@ -2054,7 +2261,6 @@
       "plead",
       "gimme"
     ],
-    "guildOnly": true,
     "group": "social",
     "description": "Want to earn money some more? Why don't you try begging, maybe someone will give you.",
     "requiresDatabase": true,
@@ -2123,7 +2329,6 @@
   {
     "name": "daily",
     "aliases": [],
-    "guildOnly": true,
     "group": "social",
     "description": "Retrieve your daily reward <3",
     "requiresDatabase": true,
@@ -2152,7 +2357,6 @@
     "aliases": [
       "dep"
     ],
-    "guildOnly": true,
     "group": "social",
     "description": "Deposit your credits to safeguard it!",
     "parameters": [
@@ -2169,7 +2373,6 @@
     "aliases": [
       "search"
     ],
-    "guildOnly": true,
     "group": "social",
     "description": "You can find hidden credits on your surrounding if you try!",
     "requiresDatabase": true,
@@ -2332,7 +2535,6 @@
   {
     "name": "register",
     "aliases": [],
-    "guildOnly": true,
     "group": "social",
     "description": "Start earning credits. Register to keep track of your earned credits!",
     "requiresDatabase": true,
@@ -2477,7 +2679,6 @@
   {
     "name": "withdraw",
     "aliases": [],
-    "guildOnly": true,
     "group": "social",
     "description": "Withdraw some of your money from the bank.",
     "requiresDatabase": true,
