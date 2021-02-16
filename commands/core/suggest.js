@@ -56,6 +56,11 @@ module.exports = {
       .setDescription(args.join(' '))
       .setThumbnail(message.author.displayAvatarURL({ format: 'png', dynamic: true}))
       .addField('Status', 'Under Review', true)
-    ).then(() => message.react('✅'));
+    ).then(async suggestion => {
+      await message.react('✅').catch(() => {})
+      await suggestion.react('⬆️').catch(() => {})
+      await suggestion.react('⬇️').catch(() => {})
+      return;
+    });
   }
 };
