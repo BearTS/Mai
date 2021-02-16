@@ -39,7 +39,7 @@ module.exports = {
       .setFooter(`Command List | \©️${new Date().getFullYear()} Mai`)
       .setDescription([
         `You may get the full detail of each command by typing \`${client.prefix}help <command>\``,
-        'Alternitavely, you may check out https://mai-san.ml/docs/commands for full command details'
+        'Alternitavely, you may check out https://commands.mai-san.ml/ for full command details'
       ].join('\n'))
     );
   }
