@@ -42,7 +42,7 @@ module.exports = {
         }** credits in wallet.\n\n${
           doc.data.economy.bank !== null
           ? `💰 **${text.commatize(doc.data.economy.bank)}** credits in bank.`
-          : `Seems like you don't have a bank yet. Create one now by typing \`${
+          : `Seems like you don't have a bank yet.\nCreate one now by typing \`${
             client.config.prefix
           }bank\``
         }\n\n━━━━━━━━━━━━━━\nDaily Streak: **${doc.data.economy.streak.current}** (All time best: **${doc.data.economy.streak.alltime}**)\n**${10 - doc.data.economy.streak.current % 10}** streak(s) left for **Item Reward \\✨**\n\n${
