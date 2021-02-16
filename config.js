@@ -9,6 +9,8 @@ const settings = {
         type: 'COMPETING'
       }
     },
+    // Disable Mentions except Users
+    allowedMentions: {parse: ['users']},
     // Sweep messages every 12 hours
     messageCacheLifetime: 43200,
     messageSweepInterval: 43200
