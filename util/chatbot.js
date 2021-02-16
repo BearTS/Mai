@@ -53,8 +53,11 @@ module.exports = async message => {
     });
   };
 
+  // replacing mentions 
+  const everyone = res.cnt.replace(/@/g, '@\u200b')
+
   // send the response
-  return message.channel.send(res.cnt , { replyTo: message })
+  return message.channel.send(everyone , { replyTo: message })
   .then(() => {
     message.channel.stopTyping();
     return { success: true };
