@@ -27,7 +27,7 @@ module.exports = {
       const baseamount = 500;
       const supporter = await client.guilds.cache.get('703922441768009731').members.fetch(message.author.id).then(() => true).catch(() => false)
       const previousStreak = doc.data.economy.streak.current;
-      const hasvoted = await client.votes.top_gg?.api.hasVoted(message.author.id);
+      const hasvoted = await client.votes.top_gg?.api.hasVoted(message.author.id).catch(() => null);
       const rewardables = market.filter(x => ![1,2].includes(x.id));
       const item = rewardables[Math.floor(Math.random() * rewardables.length)];
       let overflow = false, excess = null, streakreset = false, itemreward = false;
@@ -82,7 +82,7 @@ module.exports = {
         itemreward ? `\n\\✔️ **You received a profile item!**: You received **x1 ${item.name} - ${item.description}** from daily rewards. It has been added to your inventory!` : '',
         overflow ? `\n\\⚠️ **Overflow Warning**: Your wallet just overflowed! You need to transfer some of your credits to your bank!` : '',
         streakreset ? `\n\\⚠️ **Streak Lost**: You haven't got your succeeding daily reward. Your streak is reset (x1).` : `\n**Streak x${doc.data.economy.streak.current}**`,
-        hasvoted === false ? `\n\\⚠️ **Vote rewards available**: Vote now to receive additional rewards! -> <https://top.gg/bot/702074452317307061/vote>` : ''
+        hasvoted === false ? `\n\\⚠️ **Vote rewards available**: Vote now to receive additional rewards! -> <https://top.gg/bot/702074452317307061/vote>` : hasvoted === null ? '\n\\⚠️ Could not contact top.gg for vote update' : ''
       ].join('')))
       .catch(() => message.channel.send(`\`❌ [DATABASE_ERR]:\` Unable to save the document to the database, please try again later!`));
     };
