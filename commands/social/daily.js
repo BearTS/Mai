@@ -23,11 +23,18 @@ module.exports = {
       return message.channel.send(`\\❌ **${message.author.tag}**, You don't have a *wallet* yet! To create one, type \`${client.prefix}register\`.`);
     } else {
 
+      const hasvoted = await new Promise((resolve, reject) => {
+        setTimeout(() => reject(null), 3000 /*wait 3 seconds before fail*/);
+
+        return client.votes.top_gg?.api.hasVoted(message.author.id)
+        .then(res => resolve(res))
+        .catch(() => reject(null));
+      }).catch(err => err);
+
       const now = Date.now();
       const baseamount = 500;
       const supporter = await client.guilds.cache.get('703922441768009731').members.fetch(message.author.id).then(() => true).catch(() => false)
       const previousStreak = doc.data.economy.streak.current;
-      const hasvoted = await client.votes.top_gg?.api.hasVoted(message.author.id).catch(() => null);
       const rewardables = market.filter(x => ![1,2].includes(x.id));
       const item = rewardables[Math.floor(Math.random() * rewardables.length)];
       let overflow = false, excess = null, streakreset = false, itemreward = false;
