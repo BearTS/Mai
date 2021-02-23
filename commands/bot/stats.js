@@ -54,7 +54,7 @@ module.exports = {
         },{value:'━━━━━━━━━━━━━━━━━━━━━━━━━━━━',name:'\u200b'},{
           name: '⭐\u2000COMMANDS', value: [
             `Total:\u2000\u2000**${client.commands.size}**`,
-            `Times accessed:\u2000\u2000**${round(client.commands.registers.reduce((acc,cur) => acc + cur.used))}**`,
+            `Times accessed:\u2000\u2000**${round(client.commands.registers.reduce((acc,cur) => acc + cur.used, 0))}**`,
             `Most used:\u2000\u2000**\`${top_command.name} [${round(top_command.used)}]\`**`
           ].join('\n'), inline: true,
         },{
