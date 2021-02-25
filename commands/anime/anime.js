@@ -45,7 +45,7 @@ module.exports = {
         '\u2000•\u2000Try the alternative names (e.g. English, Native, Romanized)',
         '\u2000•\u2000Include the season number (if applicable)',
         '\u2000•\u2000Include the type (e.g. OVA, ONA, TV Shorts).'
-      ].join('\n')).then(() => channel.stopTyping());
+      ].join('\n')).then(() => message.channel.stopTyping());
     } else if (data === 'TIMEOUT'){
       return message.channel.send([
         `\\❌ **${message.author.tag}**, MyAnimeList took longer to respond.`,
