@@ -33,7 +33,7 @@ module.exports = (client, req, res) => profile.findById(req.vote.user, async (er
 
   if (doc.data.economy.wallet + reward > 5e4){
     overflow = true;
-    excess = doc.data.economy.wallet + amount - 5e4;
+    excess = doc.data.economy.wallet + reward - 5e4;
   };
 
   doc.data.economy.wallet += overflow ? reward - excess : reward;
