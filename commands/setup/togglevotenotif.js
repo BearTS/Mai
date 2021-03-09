@@ -15,7 +15,7 @@ module.exports = {
     };
 
     if (!doc){
-      doc = new profile();
+      doc = new profile({_id: message.author.id});
     };
 
     const status = doc.data.vote.notification;
