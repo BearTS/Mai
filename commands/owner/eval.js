@@ -14,6 +14,10 @@ module.exports = {
     'eval 1+1'
   ],
   run: async (client, message, args) => {
+    
+    if(!client.config.owners.includes(message.author.id) && message.channel.type === 'dm'){
+      return message.channel.send(`Oops, looks like you're not my developer.`, { replyTo: message });
+    }
 
     try {
 
