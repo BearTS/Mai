@@ -1,6 +1,7 @@
 const profile = require('../../models/Profile');
 const text = require('../../util/string');
 const { createCanvas, loadImage } = require('canvas');
+const { fillTextWithTwemoji } = require('canvamoji');
 
 module.exports = {
   name: 'profile',
@@ -151,8 +152,10 @@ module.exports = {
       ctx.beginPath();
       ctx.font = '18px sans-serif'
       ctx.fillStyle = 'rgba(0,0,0,0.8)'
-      ctx.fillText(`💴: ${doc.data.economy.wallet || '0'}`, 330, 512, 80)
-      ctx.fillText(`🏦: ${doc.data.economy.bank || '0'}`, 430, 512, 80)
+      await fillTextWithTwemoji(ctx, `💴: ${doc.data.economy.wallet || '0'}`, 330, 512, 80)
+      await fillTextWithTwemoji(ctx, `🏦: ${doc.data.economy.bank || '0'}`, 430, 512, 80)
+      //ctx.fillText(`💴: ${doc.data.economy.wallet || '0'}`, 330, 512, 80)
+      //ctx.fillText(`🏦: ${doc.data.economy.bank || '0'}`, 430, 512, 80)
 
       // add emblem indicator
       if (!emblem){
