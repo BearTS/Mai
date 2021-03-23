@@ -29,6 +29,7 @@
     "bad-words": "^3.0.4",
     "bufferutil": "^4.0.2",
     "canvas": "^2.6.1",
+    "canvamoji": "github:MrVelociti/canvamoji",
     "discord-player": "^3.2.0",
     "discord.js": "github:monbrey/discord.js#inline-replies",
     "dotenv": "^8.2.0",
