@@ -63,7 +63,7 @@ module.exports = {
       return message.channel.send(
         embed.setAuthor('Oops! An unexpected error occured!', 'https://cdn.discordapp.com/emojis/767062250279927818.png?v=1')
         .setDescription([
-          `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n,`
+          `**${message.member.displayName}**, this error wasn't supposed to happen.\n\n`,
           `This might be an issue on Anilist's end. Please try again in a minute\n`,
           `If this doesn't resolve in few hours, you may contact **Sakurajimai#6742**`,
           `You can also make an issue on the [repository](${client.config.github}) or [join](https://support.mai-san.ml/) Mai's dev server instead.`
