@@ -32,6 +32,8 @@ module.exports = class VoteManager{
 
       app.post('/dblwebhook', this.top_gg.webhook.middleware(), (req ,res) => {
         this.client.emit('userVoted', req, res);
+        
+        res?.status(200)?.send('OK');
       });
 
       app.listen(1200);
