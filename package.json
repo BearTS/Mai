@@ -25,6 +25,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
     "@top-gg/sdk": "^3.0.5",
+    "anime-facts": "^1.2.5",
     "animequotes": "^1.1.2",
     "bad-words": "^3.0.4",
     "bufferutil": "^4.0.2",
@@ -41,6 +42,7 @@
     "he": "^1.2.0",
     "html-to-markdown": "^1.0.0",
     "html2markdown": "^1.1.0",
+    "humanize-duration": "^3.25.1",
     "lodash": "^4.17.20",
     "mal-scraper": "github:maisans-maid/MalScraper#dev",
     "moment": "^2.29.1",
@@ -49,6 +51,7 @@
     "nhentai-api": "^3.0.2",
     "node-fetch": "^2.6.1",
     "node-kitsu": "^1.1.1",
+    "node-osu": "^2.2.1",
     "relevant-urban": "^2.0.0",
     "require-text": "0.0.1",
     "utf-8-validate": "^5.0.3",
