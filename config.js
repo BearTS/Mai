@@ -100,7 +100,7 @@ const settings = {
     "website": "https://mai-san.ml/",
     "invite": "https://invite.mai-san.ml/",
     "support": "https://support.mai-san.ml/",
-    "docs": "https://mai-san.ml/docs/getting%20started/welcome/",
+    "docs": "https://mystifying-rosalind-42d723.netlify.app/docs/Getting%20Started/welcome" || "https://mai-san.ml/docs/getting%20started/welcome/",
     "top.gg": "https://top.gg/bot/702074452317307061/",
     "DBL": "https://discordbotlist.com/bots/mai-3909/"
   }
