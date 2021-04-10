@@ -1,0 +1,18 @@
+{
+  "commands": {
+    "anime": {
+      "NO_DATA": "\\❌ **%AUTHOR%**, No results were found for **%QUERY%**.\nIf you believe this anime exists, try the following methods:\n\n\u2000•\u2000Try the alternative names (e.g. English, Native, Romanized)\n\u2000•\u2000Include the season number (if applicable)\n\u2000•\u2000Include the type (e.g. OVA, ONA, TV Shorts).",
+      "TIMEOUT": "\\❌ **%AUTHOR%**, **MyAnimeList** took longer to respond.\n\nPlease try again later, this may be caused by a server downtime.",
+      "NONNSFW": "\\❌ **%AUTHOR%**, you've searched for `Hentai` on a sfw channel!\n\nYour query, **%QUERY%**, returned a hentai title from **%ANIME_STUDIO%**. Please try to query hentai entries on nsfw channels%NSFW_CHANNELS%. While you're at it, you can query these on **Hanime** instead using `hanime` command aswell."
+    },
+    "setlang": {
+      "INVALID_CODE": "\\❌ **%AUTHOR%**, The Language code you entered is invalid/unavailable.\nMake sure you only use one of the following codes: `%LANGUAGE_CODES%`",
+      "ALREADY_IN_USE": "\\❌ **%AUTHOR%**, The selected Language code `%LANGUAGE_CODE%` is already in use! Please select another.",
+      "SUCCESS": "\\✔️ **%AUTHOR%**, Successfully selected the language `%LANGUAGE_CODE%`!"
+    }
+  },
+  "system": {
+    "prefix": "**%AUTHOR%**, my prefix is `%CLIENTPREFIX%`, The custom prefix is `%SERVERPREFIX%`.",
+    "cooldown": "**%AUTHOR%**, You cannot use this command yet.\nPlease wait ` %TIME% ` before using this command again"
+  }
+}
