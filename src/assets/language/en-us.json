@@ -5,6 +5,11 @@
       "TIMEOUT": "\\❌ **%AUTHOR%**, **MyAnimeList** took longer to respond.\n\nPlease try again later, this may be caused by a server downtime.",
       "NONNSFW": "\\❌ **%AUTHOR%**, you've searched for `Hentai` on a sfw channel!\n\nYour query, **%QUERY%**, returned a hentai title from **%ANIME_STUDIO%**. Please try to query hentai entries on nsfw channels%NSFW_CHANNELS%. While you're at it, you can query these on **Hanime** instead using `hanime` command aswell."
     },
+    "reload": {
+      "NO_COMMAND": "\\❌ **%AUTHOR%**, please include the command name.",
+      "FAILED": "\\❌ **%AUTHOR%**, unable to reload the command **%COMMAND%**!",
+      "SUCCESS": "\\✔️ **%AUTHOR%**, Successfully loaded command **%COMMAND%**!"
+    },
     "setlang": {
       "INVALID_CODE": "\\❌ **%AUTHOR%**, The Language code you entered is invalid/unavailable.\nMake sure you only use one of the following codes: `%LANGUAGE_CODES%`",
       "ALREADY_IN_USE": "\\❌ **%AUTHOR%**, The selected Language code `%LANGUAGE_CODE%` is already in use! Please select another.",
@@ -13,6 +18,18 @@
   },
   "system": {
     "prefix": "**%AUTHOR%**, my prefix is `%CLIENTPREFIX%`, The custom prefix is `%SERVERPREFIX%`.",
-    "cooldown": "**%AUTHOR%**, You cannot use this command yet.\nPlease wait ` %TIME% ` before using this command again"
+    "cooldown": "**%AUTHOR%**, You cannot use this command yet.\nPlease wait ` %TIME% ` before using this command again",
+    "permissions": {
+      "guildonly": "\\❌ This command can only be used inside servers.",
+      "adminonly": "\\❌ This command can only be used by server administrators.",
+      "nsfw": "\\❌ You can only use this command on a nsfw channel",
+      "database": "\\❌ Unable to connect to Database. Database not connected.",
+      "owneronly": "\\❌ This command can only be used by my developer.",
+      "userperm": "\\❌ You need to have these permissions to perform this action: %PERMISSIONS%",
+      "clientperm": "\\❌ I need to have the following permissions to be able to perform this action: %PERMISSIONS%",
+      "srvfpl": "\\❌ Unable to fetch Server Profile.",
+      "servxp": "\\❌ The XP system has been disabled in this server.",
+      "chnlxp": "\\❌ The XP system has been disabled in this channel."
+    }
   }
 }

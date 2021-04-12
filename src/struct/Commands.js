@@ -88,10 +88,10 @@ module.exports = class Commands{
       return Promise.resolve({ executed: false, reason: 'NOT_FOUND' });
     };
 
-    const { accept: granted, embed } = await command.testPermissions(message);
+    const testfailed = await command.testPermissions(message);
 
-    if (!granted){
-      message.channel.send(embed).catch(console.error);
+    if (testfailed){
+      message.channel.send(testfailed).catch(console.error);
       return Promise.resolve({ executed: false, reason: 'NOT_FOUND' });
     };
 
@@ -115,7 +115,7 @@ module.exports = class Commands{
     const service = langserv.getCommand(command.name, language);
     command.run(message, service, args);
 
-    return Promise.resolve({ executed: true })
+    return Promise.resolve({ executed: true });
   };
 
   /**
@@ -125,7 +125,7 @@ module.exports = class Commands{
    * @returns {MaiClient}
    */
   load(){
-    const commandpath = join(__dirname, '..', 'commands');
+    const commandpath = join(__dirname, '..', 'commands/prefix');
     const commanddir = readdirSync(commandpath);
     for (const dir of commanddir.filter(x => !x.startsWith('_'))){
       const commandsubdir = readdirSync(join(commandpath, dir));

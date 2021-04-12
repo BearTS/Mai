@@ -1,3 +1,17 @@
+class LanguageSelector{
+  constructor(command, language, Language){
+
+    this.default = Language.store['en-us'].commands[command];
+    this.responses = Language.store[language || 'en-us']?.commands[command];
+  };
+
+  get({ parameters, id}){
+    const variables = parameters ? new RegExp(Object.keys(parameters).join('|'), 'g') : null;
+    const response = this.responses?.[id] || this.default[id];
+    return variables ? response.replace(variables, x => parameters[x]) : response;
+  };
+};
+
 module.exports = class Language{
   constructor(client, languages){
 
@@ -13,19 +27,13 @@ module.exports = class Language{
   };
 
   get({ parameters, path, language }){
-    const variables = new RegExp(Object.keys(parameters).join('|'),'g');
-    const response = path.reduce((acc, cur) => acc[cur], this.store[language] || this.default);
-    return response.replace(variables, x => parameters[x]);
+    const variables = parameters ? new RegExp(Object.keys(parameters).join('|'),'g') : null;
+    const response = path.reduce((acc, cur) => acc?.[cur], this.store[language] || this.default) || path.reduce((acc, cur) => acc[cur], this.default);
+    return variables ? response.replace(variables, x => parameters[x]) : response;
   };
 
   getCommand(commandName, language){
-    const responses = this.store[language || 'en-us'].commands[commandName];
-    let get = ({ parameters, id}) => {
-      const variables = new RegExp(Object.keys(parameters).join('|'),'g');
-      const response = responses[id] || this.default.commands[commandName][id];
-      return response.replace(variables, x => parameters[x]);
-    };
-    return { response: !!responses, get };
+    return new LanguageSelector(commandName, language, this);
   };
 
   get default(){

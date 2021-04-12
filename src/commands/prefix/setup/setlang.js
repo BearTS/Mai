@@ -1,6 +1,6 @@
 const { readdirSync } = require('fs');
 const { join } = require('path');
-const AVAILABLELANGS = readdirSync(join(__dirname, '../..', 'assets/language')).map(x => x.split('.json')[0]);
+const AVAILABLELANGS = readdirSync(join(__dirname, '../../..', 'assets/language')).map(x => x.split('.json')[0]);
 
 module.exports = {
   name: 'setlang',

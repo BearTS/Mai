@@ -183,129 +183,94 @@ module.exports = class Command{
     throw new Error(`Command ${this.name} doesn't have a run() method.`);
   };
 
-  /**
-   * Test cooldowns of this command against the message object
-   * @param {Message} message The message object for this function to check with
-   * @returns {CooldownGrant} The cooldown grant for this command when tested
-   */
-  testCooldown(message){
-
-  };
 
   /**
    * Test permissions of this command against the message object
    * @param {Message} message The message object for this function to check with
-   * @returns {PermissionGrant} The permission grant for this command when tested
+   * @returns {string?} Error message when test fails, or false if test passes
    */
   async testPermissions(message){
     if (!(message instanceof Message)){
       throw new Error('argument must be a valid Discord Message!');
     };
 
-    let reasons = [], profile = message.guild.profile
+    if (message.author.profile === null){
+      await message.author.loadProfile();
+    };
 
-    if (profile === null){
+    if (message.guild.profile === null){
       await message.guild.loadProfile();
     };
 
+    const langserv = this.client.services.LANGUAGE;
+    const language = message.author.profile?.data.language || 'en-us';
+
     if (this.guildOnly && message.channel.type === 'dm'){
-      reasons.push([
-        '**Command is unavailable on DM**',
-        'This command can only be used inside servers.'
-      ].join(' - '));
+      const path = [ 'system', 'permissions', 'guildonly' ];
+      return Promise.resolve(langserv.get({ path, language }));
     };
 
     if (this.adminOnly && !message.member?.hasPermission('ADMINISTRATOR')){
-      reasons.push([
-        '**Limited to Admins**',
-        'This command can only be used by server administrators.'
-      ].join(' - '));
+      const path = [ 'system', 'permissions', 'adminonly' ];
+      return Promise.resolve(langserv.get({ path, language }));
     };
 
     if (this.nsfw && message.channel.nsfw){
-      reasons.push([
-        '**NSFW Command**',
-        'You can only use this command on a nsfw channel.'
-      ].join(' - '));
+      const path = [ 'system', 'permissions', 'nsfw'];
+      return Promise.resolve(langserv.get({ path, language }));
     };
 
-    if (this.requiresDatabase && !this.client.database?.connected){
-      reasons.push([
-        '**Connection to Database not Found**',
-        'This command requires a database connection.'
-      ].join(' - '));
+    if (this.nsfw && !this.client.database?.connected){
+      const path = [ 'system', 'permissions', 'database'];
+      return Promise.resolve(langserv.get({ path, language }));
     };
 
     if (this.ownerOnly && message.author.id !== this.client.owner){
-      reasons.push([
-        '**Limited to Dev**',
-        'This command can only be used by my developer.'
-      ].join(' - '));
+      const path = [ 'system', 'permissions', 'owneronly'];
+      return Promise.resolve(langserv.get({ path, language }));
     };
-
 
     if (message.channel.type !== 'dm'){
       if (this.permissions.length && !message.channel.permissionsFor(message.member).has(this.permissions)){
-        reasons.push([
-          '**No Necessary Permissions (User)** - ',
-          'You need the following permission(s):\n\u2000\u2000- ',
-          Object.entries(message.channel.permissionsFor(message.member).serialize())
-          .filter( p => this.permissions.includes(p[0]) && !p[1])
-          .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
-          .join('\n\u2000\u2000- ')
-        ].join(''));
+        const path = [ 'system', 'permissions', 'userperm' ];
+        const parameters = {
+          '%PERMISSIONS%': this.client.services.UTIL.ARRAY.join(Object
+            .entries(message.channel.permissionsFor(message.member).serialize())
+            .filter( p => this.permissions.includes(p[0]) && !p[1])
+            .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' ')))
+        };
+        return Promise.resolve(langserv.get({ path, parameters, language }));
       };
 
       if (this.clientPermissions.length && !message.channel.permissionsFor(message.guild.me).has(this.permissions)){
-        reasons.push([
-          '**No Necessary Permissions (Mai)** - ',
-          'I need the following permission(s):\n\u2000\u2000- ',
-          Object.entries(message.channel.permissionsFor(message.guild.me).serialize())
-          .filter(p => this.clientPermissions.includes(p[0]) && !p[1])
-          .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '))
-          .join('\n\u2000\u2000- ')
-        ].join(''));
+        const path = [ 'system', 'permissions', 'clientperm' ];
+        const parameters = {
+          '%PERMISSIONS%': this.client.services.UTIL.ARRAY.join(Object
+            .entries(message.channel.permissionsFor(message.guild.me).serialize())
+            .filter(p => this.clientPermissions.includes(p[0]) && !p[1])
+            .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' ')))
+        };
+        return Promise.resolve(langserv.get({ path, parameters, language }));
       };
 
-      if (this.rankcommand && profile === null){
-        reasons.push(this.client.database?.connected
-          ? [
-            '**Unable to fetch Server Profiles**',
-            'Database is connected, but no server profile is found.'
-          ].join(' - ')
-          : [
-            '**Connection to Database not found**',
-            'Server profile is required to execute this command.'
-          ].join(' - ')
-        );
+      if (this.rankcommand && message.guild.profile === null){
+        const prop = this.client.database?.connected ? 'srvpfl' : 'database';
+        const path = [ 'system', 'permissions', prop ];
+        return Promise.resolve(langserv.get({ path, language }));
       };
 
-      if (this.rankcommand && (profile.xp.isActive || profile.xp.exceptions.includes(message.channel.id))){
-        reasons.push([
-          !profile.xp.isActive ? '**Disabled XP**' : '**Disabled XP on Channel**',
-          !profile.xp.isActive ? 'XP is currently disabled in this server.' : ' XP is currently disabled in this channel.'
-        ].join(' - '));
+      if (this.rankcommand && message.guild.profile.xp.isActive){
+        const path = [ 'system', 'permissions', 'servxp' ];
+        return Promise.resolve(langserv.get({ path, language }));
+      };
+
+      if (this.rankcommand && message.guild.profile.xp.exceptions.includes(message.guild.id)){
+        const path = [ 'system', 'permissions', 'chnlxp' ];
+        return Promise.resolve(langserv.get({ path, language }));
       };
     };
 
-    const embed = new MessageEmbed()
-    .setAuthor('Command Execution Blocked!')
-    .setColor('ORANGE')
-    .setDescription(`Reasons:\n\n${reasons.map(reason => '• ' + reason).join('\n')}`);
-
-    if (reasons.some(str => str.startsWith('**Disabled XP on Channel'))){
-      embed.addField('\u200b',`If you are a server administrator, you may reallow it by typing **${message.client.prefix}xpenable ${message.channel}**`);
-    } else {
-      // Do nothing..
-    };
-
-    if (reasons.some(str => str.startsWith('**Disabled XP**'))){
-      embed.addField('\u200b',`If you are a server administrator, you may reenable it by typing \`${message.client.prefix}xptoggle\` command`);
-    } else {
-      // Do nothing..
-    };
-
-    return Promise.resolve({ accept: !reasons.length, embed });
+    return Promise.resolve(false);
   };
 
   validate(){
