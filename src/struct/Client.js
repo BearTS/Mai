@@ -49,8 +49,28 @@ module.exports = class MaiClient extends Client{
       };
     });
 
-    this.once('ready', () => {
+    this.once('ready', async () => {
+      const { data } = require(join(__dirname, '../commands/slash/ping.js'));
+      await this.api.applications(this.user.id).guilds('590024931916644372').commands.post({ data });
     });
+
+    this.ws.on('INTERACTION_CREATE', async interaction => {
+     const command = require(join(__dirname, '../commands/slash/', interaction.data.name));
+     const user = await this.users.fetch(interaction.member.user.id);
+     const guild = this.guilds.cache.get(interaction.guild_id);
+     const channel = this.channels.cache.get(interaction.channel_id);
+     class InteractionResponse {
+       constructor(channel, guild, user){
+         this.channel = channel;
+         this.guild = guild;
+         this.user = user;
+       };
+       send(content){
+         return this.user.client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content }}});
+       };
+     };
+     command.response(new InteractionResponse(channel, guild, user), interaction);
+    })
 
     this.services = new Services(this);
 
