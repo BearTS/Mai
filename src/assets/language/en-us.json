@@ -19,6 +19,7 @@
   "system": {
     "prefix": "**%AUTHOR%**, my prefix is `%CLIENTPREFIX%`, The custom prefix is `%SERVERPREFIX%`.",
     "cooldown": "**%AUTHOR%**, You cannot use this command yet.\nPlease wait ` %TIME% ` before using this command again",
+    "chatbot": "**%AUTHOR%**, There was an error trying to connect to the chatbot API.",
     "permissions": {
       "guildonly": "\\❌ This command can only be used inside servers.",
       "adminonly": "\\❌ This command can only be used by server administrators.",

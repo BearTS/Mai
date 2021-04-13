@@ -5,8 +5,9 @@ module.exports = {
   },
   response: (response, interaction) => {
 
-    console.log(response)
-
-    response.send('Pong');
+    // P.S. You cannot send an ephemeral message with
+    // embed and files.
+    const content = response.user.client.ws.ping + ' ms';
+    return response.send(content, { ephemeral: true });
   }
 };

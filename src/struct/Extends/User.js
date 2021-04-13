@@ -22,6 +22,7 @@ module.exports = Structures.extend('User', User => {
         if (!res) res = await new model({ _id: this.id }).save();
 
         this.profile = res;
+
         resolve(this.profile);
       })
     };

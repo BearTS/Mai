@@ -17,6 +17,8 @@ module.exports = class Commands{
 
     this.store = new Collection();
 
+    this.slash = new Collection();
+
   };
 
   /**
@@ -35,6 +37,15 @@ module.exports = class Commands{
 
     this.store.set(command.name, command);
     return this;
+  };
+
+  addSlash(command, path){
+    command.path = path;
+    return this.slash.set(command.data.name, command);
+  };
+
+  editSlash(command){
+    return this.slash.set(command.data.name, command);
   };
 
   /**
@@ -59,7 +70,8 @@ module.exports = class Commands{
     return this.store.filter(x => groups.includes(x));
   };
 
-  async handle(message, langservices){
+  async handle(message){
+    const langservices = message.client.services.LANGUAGE;
 
     if (message.guild && !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')){
       return Promise.resolve({ executed: false, reason: 'PERMISSION_SEND' })
@@ -92,7 +104,7 @@ module.exports = class Commands{
 
     if (testfailed){
       message.channel.send(testfailed).catch(console.error);
-      return Promise.resolve({ executed: false, reason: 'NOT_FOUND' });
+      return Promise.resolve({ executed: false, reason: 'PERMISSION' });
     };
 
     const cooldown = message.author.cooldown.get(command.name);
@@ -124,14 +136,23 @@ module.exports = class Commands{
    * @note Ignores command files and folders which starts at character '_'
    * @returns {MaiClient}
    */
-  load(){
+  load({ includeSlash }){
     const commandpath = join(__dirname, '..', 'commands/prefix');
     const commanddir = readdirSync(commandpath);
     for (const dir of commanddir.filter(x => !x.startsWith('_'))){
       const commandsubdir = readdirSync(join(commandpath, dir));
-      for (const subdir of commandsubdir.filter(x => !x.startsWith('_'))){
+      for (const subdir of commandsubdir.filter(x => !x.startsWith('_') && x.split('.').pop() === 'js')){
         const file = require(join(commandpath, dir, subdir));
         this.add(file, join(commandpath, dir, subdir));
+      };
+    };
+
+    if (includeSlash === true){
+      const slashpath = join(__dirname, '..', 'commands/slash');
+      const slashdir = readdirSync(slashpath);
+      for (const dir of slashdir.filter(x => x.split('.').pop() === 'js')){
+        const file = require(join(slashpath, dir));
+        this.addSlash(file, join(slashpath, dir));
       };
     };
     return this.client;

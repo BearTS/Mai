@@ -1,6 +1,6 @@
 'use strict';
 
-const { Client, version } = require('discord.js');
+const { Client, version, APIMessage } = require('discord.js');
 const { performance } = require('perf_hooks');
 const { readdirSync } = require('fs');
 const { join } = require('path');
@@ -9,6 +9,7 @@ const Anischedule = require('./Anischedule');
 const Mongoose = require('./Mongoose');
 const Commands = require('./Commands');
 const Music = require('./Music');
+const Interaction = require('./Interaction');
 const Services = require('./Services');
 
 module.exports = class MaiClient extends Client{
@@ -50,27 +51,17 @@ module.exports = class MaiClient extends Client{
     });
 
     this.once('ready', async () => {
-      const { data } = require(join(__dirname, '../commands/slash/ping.js'));
-      await this.api.applications(this.user.id).guilds('590024931916644372').commands.post({ data });
+      // Once a slash command is uploaded to a guild
+      // it will stick there forever even if the bot dies
+      // as long as permissions for bot.commands is enabled.
+      // Do not attempt to load the commands everytime the bot
+      // starts to avoid API ratelimit.
+
+      // Sample only
+      this.guilds.cache.get('590024931916644372')?.loadSlashCommands();
     });
 
-    this.ws.on('INTERACTION_CREATE', async interaction => {
-     const command = require(join(__dirname, '../commands/slash/', interaction.data.name));
-     const user = await this.users.fetch(interaction.member.user.id);
-     const guild = this.guilds.cache.get(interaction.guild_id);
-     const channel = this.channels.cache.get(interaction.channel_id);
-     class InteractionResponse {
-       constructor(channel, guild, user){
-         this.channel = channel;
-         this.guild = guild;
-         this.user = user;
-       };
-       send(content){
-         return this.user.client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content }}});
-       };
-     };
-     command.response(new InteractionResponse(channel, guild, user), interaction);
-    })
+    this.interaction = new Interaction(this);
 
     this.services = new Services(this);
 

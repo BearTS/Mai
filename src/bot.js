@@ -36,7 +36,8 @@ const client = new Client({
 
 client.database?.init();
 client.musicPlayer?.init();
-client.commands.load();
+client.commands.load({ includeSlash: true });
+//Only loads the slash commands on client, to load on specific guild, use guild#loadSlashCommands
 client.loadEvents();
 
 client.login();

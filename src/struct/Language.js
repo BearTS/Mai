@@ -24,6 +24,8 @@ module.exports = class Language{
     Object.defineProperty(this, 'client', { value: client });
 
     this.store = languages;
+
+    this.defaultLanguage = 'en-us';
   };
 
   get({ parameters, path, language }){
@@ -37,6 +39,6 @@ module.exports = class Language{
   };
 
   get default(){
-    this.store['en-us'];
+    this.store[this.defaultLanguage];
   };
 };

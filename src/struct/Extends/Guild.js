@@ -26,6 +26,18 @@ module.exports = Structures.extend('Guild', Guild => {
       });
     };
 
+    loadSlashCommands(fn){
+      const data = (fn
+      ? this.client.commands.slash.fliter(fn).array()
+      : this.client.commands.slash.array()).map(file => {
+        return file.data;
+      });
+
+      return this.client.api
+      .applications(this.client.user.id)
+      .guilds(this.id).commands.put({ data });
+    };
+
     _inherit(arr){
       const res = arr.find(x => x._id === this.id);
       this.profile = res ? res : null;

@@ -19,6 +19,7 @@
   "system": {
     "prefix": "**%AUTHOR%**、私のプレフィックスは`%CLIENTPREFIX%`、サーバープレフィックスは`%SERVERPREFIX%`.",
     "cooldown": "**%AUTHOR%**, このコマンドはまだ使用できません。\nこのコマンドを再度使用する前に、` %TIME% `をお待ちください",
+    "chatbot": "**%AUTHOR%**, チャットボットAPIに接続しようとしてエラーが発生しました。",
     "permissions": {
       "guildonly": "\\❌ このコマンドは、サーバー内でのみ使用できます。",
       "adminonly": "\\❌ このコマンドは、サーバーアドミニのみが使用できます。",
