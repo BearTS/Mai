@@ -12,6 +12,7 @@ for (const language of readdirSync(join(__dirname, '..', 'assets/language'))){
 };
 
 const Language = require('./Language');
+const Paginate = require('./Paginate');
 
 class Services{
   constructor(client){
@@ -100,6 +101,8 @@ class Services{
       'Manhwa':'manhwa',
       'Manhua':'manhua'
     };
+
+    this.UTIL.Paginate = Paginate;
 
     /**
      * TextTruncate -> Shortens the string to desired length
