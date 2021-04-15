@@ -19,7 +19,8 @@ module.exports = Structures.extend('User', User => {
       let document = await profile.findById({ _id: this.id });
 
       if (!(document instanceof profile)){
-        document = await new profile({ _id: this.id }).save();
+        document = await new profile({ _id: this.id }).save().catch(() => {});
+        if (!document) return Promise.reject('Error while saving the profile document for ' + this.id);
       };
 
       this.profile = document;

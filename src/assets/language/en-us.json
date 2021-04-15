@@ -25,6 +25,7 @@
     "setlang": {
       "INVALID_CODE": "\\❌ **%AUTHOR%**, The Language code you entered is invalid/unavailable.\nMake sure you only use one of the following codes: `%LANGUAGE_CODES%`",
       "ALREADY_IN_USE": "\\❌ **%AUTHOR%**, The selected Language code `%LANGUAGE_CODE%` is already in use! Please select another.",
+      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR_NAME%.",
       "SUCCESS": "\\✔️ **%AUTHOR%**, Successfully selected the language `%LANGUAGE_CODE%`!"
     },
     "warn":{

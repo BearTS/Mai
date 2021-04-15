@@ -10,20 +10,21 @@ module.exports = Structures.extend('Guild', Guild => {
       this.xpcooldowns = new Collection();
     };
 
-    loadProfile(){
-      return new Promise(async (resolve, reject) => {
-        if (this.client.database === null || !this.client.database.connected){
-          reject('Couldn\'t connect to Database');
-        };
+    async loadProfile(){
+      if (this.client.database === null || !this.client.database.connected){
+        return Promise.reject('Couldn\'t connect to Database');
+      };
 
-        const model = this.client.database['GuildProfile'];
-        const res = await model.findById(this.id);
+      const profile = this.client.database['GuildProfile'];
+      const document = await profile.findById(this.id);
 
-        if (!res) res = await new model({ _id: this.id }).save();
+      if (!(document instanceof profile)){
+        document = await new profile({ _id: this.id }).save().catch(() => {});
+        if (!document) return Promise.reject('Error while saving the guild profile document for ' + this.id);
+      };
 
-        this.profile = res;
-        resolve(this.profile);
-      });
+      this.profile = document;
+      return Promise.resolve(this.profile);
     };
 
     loadSlashCommands(fn){

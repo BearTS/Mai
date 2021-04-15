@@ -25,6 +25,7 @@
     "setlang": {
       "INVALID_CODE": "\\❌ **%AUTHOR%**, 入力した言語コードは使用できません。\n次のコードのいずれかのみを使用するようにしてください: `%LANGUAGE_CODES%`",
       "ALREADY_IN_USE": "\\❌ **%AUTHOR%**, 選択した言語コード `%LANGUAGE_CODE%`はすでに使用されています！ 別のものを選択してください。",
+      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR_NAME%.",
       "SUCCESS": "\\✔️ **%AUTHOR%**, 言語 `%LANGUAGE_CODE%`が正常に選択されました!"
     },
     "warn":{
