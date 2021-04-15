@@ -1,10 +1,12 @@
+const { Permissions: { FLAGS }} = require('discord.js');
+
 module.exports = {
   name: 'warn',
   description: 'Warn users in your server.',
   aliases: [],
   cooldown: null,
   clientPermissions: [ ],
-  permissions: [ 'MANAGE_GUILD' ],
+  permissions: [ FLAGS.MANAGE_GUILD ],
   group: 'setup',
   parameters: [ ],
   examples: [ ],
