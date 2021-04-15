@@ -27,14 +27,12 @@ const client = new Client({
     messageCacheLifetime: 43200,
     messageSweepInterval: 43200,
     allowedMentions: { parse: [ 'users' ]},
-    shards: 'auto',
 
     prefix: 'm!',
     owner: '545427431662682112'
 });
 
 
-client.database?.init();
 client.musicPlayer?.init();
 client.commands.load({ includeSlash: true });
 //Only loads the slash commands on client, to load on specific guild, use guild#loadSlashCommands

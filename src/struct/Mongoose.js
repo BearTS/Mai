@@ -43,7 +43,7 @@ module.exports = class Mongoose{
 
     this.db.connection
     .on('connected', () => this.connected = true)
-    .on('disconnect', () => this.connected = false);
+    .on('disconnected', () => this.connected = false);
 
   };
 

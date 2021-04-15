@@ -13,11 +13,10 @@ module.exports = Structures.extend('GuildMember', Member => {
           return reject('Couldn\'t connect to Database.');
         };
 
-        const model = this.client.database['Profile'];
         const max = 25, min = 10, points = Math.round(amount) || Math.floor(Math.random() * (max - min)) + min;
-        const res = await model.findById(this.id) || await new model({ _id: this.id }).save();
+        const res = this.user.profile || await this.user.loadProfile();
 
-        if (!(res instanceof model)){
+        if (res === null){
           return reject('DB returned an invalid data.');
         };
 

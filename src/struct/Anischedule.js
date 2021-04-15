@@ -11,12 +11,8 @@ questions regarding the bot you can join Mai's support server @ support.mai-san.
 
 require('moment-duration-format');
 const { duration } = require('moment');
-const { MessageEmbed } = require('discord.js');
-const { join } = require('path');
+const { MessageEmbed, Permissions: { FLAGS }, TextChannel } = require('discord.js');
 const _fetch = require('node-fetch');
-
-const scpath = join(__dirname, '..', 'assets', 'graphql', 'Schedule.graphql');
-const schedule = require('require-text')(scpath, require);
 
 module.exports = class Anischedule{
   constructor(client){
@@ -128,7 +124,8 @@ module.exports = class Anischedule{
    */
   getAllWatched(){
     return new Promise(async resolve => {
-      const list = await this.client.database['GuildWatchlist']?.find({}).catch(() => []);
+      const list = await this.client.database['GuildWatchlist'].find({}).catch(err => err);
+      if (!Array.isArray(list)) return reject(list);
       return resolve([...new Set(list.flatMap(guild => guild.data))]);
     });
   };
@@ -140,7 +137,6 @@ module.exports = class Anischedule{
    * @returns {MessageEmbed}
    */
   getAnnouncementEmbed(entry, date){
-
     const sites = [
       'Amazon', 'Animelab', 'AnimeLab',
       'Crunchyroll', 'Funimation',
@@ -190,34 +186,32 @@ module.exports = class Anischedule{
    * @returns {Promise<void>}
    */
   async handleSchedules(nextDay, page){
+    const watched = await this.getAllWatched().catch(() => null);
+    const schedule = this.client.services.GRAPHQL.Schedule;
 
-    const watched = await this.getAllWatched();
-
-    if (!watched || !watched.length){
+    if (!watched || !watched.length){  //Retry in 1 minute if database fetching fails due to some error.
+      if (watched === null) setTimeout(() => this.handleSchedules(nextDay, page), 6e4);
       return console.log(`\x1b[33m[MAI_ANISCHEDULE]\x1b[0m: Missing Data from Database.\nNo lists were found on the database. Please ignore this message if this is the first time setting the bot.`);
     };
 
     const res = await this.fetch(schedule, { page, watched, nextDay });
 
     if (res.errors){
+      // If error occurs, anischedule will fail to display the anime, so we will refetch if the error is
+      // caused by a ratelimiting error, which is on code 429. If it is, we will retry it.
+      if (res.errors.some(error => error.status === 429)) setTimeout(() => this.handleSchedules(nextDay, page), 18e5);
       return console.log(`\x1b[31m[MAI_ANISCHEDULE]\x1b[0m: FetchError\n${res.errors.map(err => err.message).join('\n')}`);
     };
 
-    for (const e of res.data.Page.airingSchedules){
-      const date = new Date(e.airingAt * 1000)
-      if (this.queuedNotifications.includes(e.id)) continue;
+    for (const entry of res.data.Page.airingSchedules.filter(e => !this.queuedNotifications.includes(e.id))){
+      const date = new Date(entry.airingAt * 1e3);
+      const entry_t = Object.values(entry.media.title).filter(Boolean)[0];
+      const tbefair = duration(entry.timeUntilAiring, 'seconds').format('H [hours and] m [minutes]');
 
-      console.log(`\x1b[32m[MAI_ANISCHEDULE]\x1b[0m: Tracking Announcement for Episode \x1b[36m${
-        e.episode
-      }\x1b[0m of \x1b[36m${
-        e.media.title.romaji || e.media.title.userPreferred
-      }\x1b[0m in \x1b[36m${
-        duration(e.timeUntilAiring, 'seconds').format('H [hours and] m [minutes]')
-      }\x1b[0m`, `[ANISCHEDULE]`);
+      console.log(`\x1b[33m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[32m[MAI_ANISCHEDULE]\x1b[0m: Episode \x1b[36m${entry.episode}\x1b[0m of \x1b[36m${entry_t}\x1b[0m airs in \x1b[36m${tbefair}\x1b[0m.`);
+      setTimeout(() => this.makeAnnouncement(entry, date), entry.timeUntilAiring * 1e3);
 
-      this.queuedNotifications.push(e.id);
-
-      setTimeout(() => this.makeAnnouncement(e, date), e.timeUntilAiring * 1000);
+      this.queuedNotifications.push(entry.id);
     };
 
     if (res.data.Page.pageInfo.hasNextPage){
@@ -230,9 +224,7 @@ module.exports = class Anischedule{
    * @returns {Interval}
    */
   async init(){
-    return this.client.loop(() => {
-      return this.handleSchedules(Math.round(this.getFromNextDays().getTime() / 1000))
-    }, 24 * 60 * 60 * 1000);
+    return this.client.loop(() => this.handleSchedules(Math.round(this.getFromNextDays().getTime()/1e3)),864e5);
   };
 
   /**
@@ -243,44 +235,26 @@ module.exports = class Anischedule{
 
     this.queuedNotifications = this.queuedNotifications.filter(e => e !== entry.id);
     const embed = this.getAnnouncementEmbed(entry, date);
+    const list = await this.client.database['GuildWatchlist'].find({}).catch(()=> []);
 
-    const list = await this.client.database['GuildWatchlist']?.find({}).catch(()=> null);
+    for (const guild of list.filter(x => x.data.includes(entry.media.id))){
+      const channel = this.client.channels.cache.get(guild.channelID);
+      const isValCh = channel instanceof TextChannel;
+      const reqperm = [ FLAGS.SEND_MESSAGES, FLAGS.EMBED_LINKS ];
+      const entry_t = Object.values(entry.media.title).filter(Boolean)[0];
+      const dstintn = isValCh ? channel.guild.name : guild.channelID;
+      const freason = isValCh ? 'of \x1b[31mmissing\x1b[0m \'SEND_MESSAGES\' and/or \'EMBED_LINKS\' permissions.' : 'such channel \x1b[31mdoes not exist\x1b[0m.';
 
-    if (!list){
-      return;
-    };
-
-    for (const g of list){
-      if (!g?.data?.includes(entry.media.id)){
+      if (!isValCh || !channel.permissionsFor(channel.guild.me).has(reqperm)){
+        console.log(`\x1b[31m[MAI_ANISCHEDULE]\x1b[0m: Announcement for ${entry_t} has \x1b[31mfailed\x1b[0m in ${dstintn} because ${freason}`);
         continue;
       };
 
-      await this.client.shard.broadcastEval(
-        `(async() => {
-          const channel = this.channels.cache.get(${g.channelID});
-
-          if (!channel || !channel.permissionsFor(channel.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])){
-            console.log('\x1b[31m[MAI_ANISCHEDULE]\x1b[0m: Announcement for ${
-              entry.media.title.romaji || entry.media.title.userPreferred
-            } has \x1b[31mfailed\x1b[0m in ' + channel?.guild?.name || g.channelID + ' because ' +
-            channel?.guild ? 'of \x1b[31mmissing\x1b[0m \'SEND_MESSAGES\' and/or \'EMBED_LINKS\' permissions.'
-            : 'such channel \x1b[31mdoes not exist\x1b[0m.');
-            continue;
-          };
-
-          await channel.send(${JSON.stringify(embed)}).then(msg => {
-            return console.log('\x1b[32m[MAI_ANISCHEDULE]\x1b[0m: Announcing episode \x1b[36m${
-              entry.media.title.romaji || entry.media.title.userPreferred
-            }\x1b[0m to \x1b[36m' + channel.guild.name + '\x1b[0m @ \x1b[36m' + channel.id + '\x1b[0m');
-          }).catch(err => {
-            return console.log('\x1b[31m[MAI_ANISCHEDULE]x1b[0m: Announcement for \x1b[36m${
-              entry.media.title.romaji || entry.media.title.userPreferred
-            }x1b[0m : \x1b[31mFailed: \x1b[0m' + err.name);
-          });
-        })`
-      );
+      await channel.send(embed)
+      .then(message => console.log(`\x1b[32m[MAI_ANISCHEDULE]\x1b[0m: Announcing new episode for \x1b[36m${entry_t}\x1b[0m to \x1b[36m${message.guild.name}\x1b[0m`))
+      .catch(error => console.log(`\x1b[31m[MAI_ANISCHEDULE]x1b[0m: Announcement for \x1b[36m${entry_t} \x1b[31mfailed\x1b[0m: ${error.name}`));
+    };
 
     return;
   };
-};
 };

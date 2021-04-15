@@ -10,21 +10,20 @@ module.exports = Structures.extend('User', User => {
       this.cooldown = new Collection();
     };
 
-    loadProfile(){
-      return new Promise(async (resolve, reject) => {
-        if (this.client.database === null || !this.client.database.connected){
-          reject('Couldn\'t connect to Database');
-        };
+    async loadProfile(){
+      if (this.client.database === null || !this.client.database.connected){
+        return Promise.reject('Couldn\'t connect to Database');
+      };
 
-        const model = this.client.database['Profile'];
-        const res = await model.findById(this.id);
+      const profile = this.client.database['Profile'];
+      let document = await profile.findById({ _id: this.id });
 
-        if (!res) res = await new model({ _id: this.id }).save();
+      if (!(document instanceof profile)){
+        document = await new profile({ _id: this.id }).save();
+      };
 
-        this.profile = res;
-
-        resolve(this.profile);
-      })
+      this.profile = document;
+      return Promise.resolve(this.profile);
     };
 
     setLanguage(code){

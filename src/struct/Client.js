@@ -32,6 +32,7 @@ module.exports = class MaiClient extends Client{
 
     if ('MONGO_URI' in process.env){
       this.database = new Mongoose(this, settings.database);
+      this.database.init();
     } else {
       this.database = null;
     };
