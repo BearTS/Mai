@@ -21,7 +21,8 @@ module.exports = model('server_profiles', Schema({
   },
   xp: {
     isActive: { type: Boolean, default: false },
-    exceptions: { type: Array, default: []}
+    exceptions: { type: Array, default: []},
+    rewards: { type: Array, default: []}
   },
   roles: {
     muted: { type: String, default: null }

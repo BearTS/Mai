@@ -1,6 +1,6 @@
-const moment = require('moment');
+const { MessageEmbed, Permissions: { FLAGS }} = require('discord.js');
 const { getInfoFromName } = require('mal-scraper');
-const { MessageEmbed } = require('discord.js');
+const moment = require('moment');
 
 module.exports = {
   name: 'anime',
@@ -11,7 +11,7 @@ module.exports = {
   },
   requiresDatabase: false,
   rankcommand: false,
-  clientPermissions: [ 'EMBED_LINKS' ],
+  clientPermissions: [FLAGS.EMBED_LINKS],
   group: 'anime',
   description: 'Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage"), or shows Mai\'s anime series information if no query is provided.',
   parameters: [ 'Search Query' ],

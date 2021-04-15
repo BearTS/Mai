@@ -5,6 +5,18 @@
       "TIMEOUT": "\\❌ **%AUTHOR%**, **MyAnimeList**の応答に時間がかかりました。\n\n後でもう一度やり直してください。サーバーのダウンタイムが原因である可能性があります。",
       "NONNSFW": "\\❌ **%AUTHOR%**, あなたはSFWチャンネルでHENTAIを検索しました！\n\nクエリ**%QUERY%**は、**%ANIME_STUDIO%**から変態タイトルを返しました。NSFWチャンネルで変態エントリをクエリしてみてください%NSFW_CHANNELS%. その間、 `hanime`コマンドを使用する代わりに **Hanime** でこれらをクエリすることもできます。"
     },
+    "lvlrewards": {
+      "VIEW_REWARDS": "**レベルのレワード**\n\n%REWARDS%",
+      "CLIENTPERMMSNG": "\\⚠️「Manage Roles」権限の私がないため、ユーザーに報酬を与える私のことができない場合があります。",
+      "MISSING_PERM": "\\❌ このアクションを実行するには、次のパーミッションが必要です: Manage Guild",
+      "DB_ERROR": "\\❌ **%AUTHOR%**, データベースがエラーで応答しました： %ERROR_NAME%!",
+      "INVALID_TYPE": "\\❌ **%AUTHOR%**, %TYPE%は有効なタイプではありません。タイプは`set`または`remove`のいずれかでなければなりません。",
+      "NO_MATCH": "\\❌ **%AUTHOR%**, レベルとレワードを`lvl-reward lvl-reward`の形式で指定してください。レベルは数字である必要があり、レワードはロールIDまたはロールメンションである必要があります。たとえば:\n `%PREFIX%%COMMAND% %TYPE% 1-762534019926354278 5-828384956392384562 20-637483920394857621 ...`\nできるだけ多くのレワードを指定できます。",
+      "INVALID_ID": "\\❌ **%AUTHOR%**, 提供されているロールはいずれも、有効なロールメンション/ロールIDではありません。",
+      "NO_LEVEL":"\\❌ **%AUTHOR%**, 削除したいレワードのレベルを指定してください.",
+      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR_NAME%.",
+      "SUCCESS": "\\✔️ **%AUTHOR%**, 次のレベルレワードを正常に保存しました:\nLEVEL - ROLE\n%REWARDS%"
+    },
     "reload": {
       "NO_COMMAND": "\\❌ **%AUTHOR%**, コマンドの名前を含めてください",
       "FAILED": "\\❌ **%AUTHOR%**, コマンド**%COMMAND%**をリロードできません！",
@@ -14,6 +26,31 @@
       "INVALID_CODE": "\\❌ **%AUTHOR%**, 入力した言語コードは使用できません。\n次のコードのいずれかのみを使用するようにしてください: `%LANGUAGE_CODES%`",
       "ALREADY_IN_USE": "\\❌ **%AUTHOR%**, 選択した言語コード `%LANGUAGE_CODE%`はすでに使用されています！ 別のものを選択してください。",
       "SUCCESS": "\\✔️ **%AUTHOR%**, 言語 `%LANGUAGE_CODE%`が正常に選択されました!"
+    },
+    "warn":{
+      "NO_USER": "\\❌ **%AUTHOR%**, 指定したユーザーが有効なユーザーではないか、あなたはユーザーを提供していません。.",
+      "BOT_USER": "\\❌ **%AUTHOR%**, ボットに警告することはできません！",
+      "DB_ERROR": "\\❌ **%AUTHOR%**, データベースがエラーで応答しました： %ERROR_NAME%!",
+      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR_NAME%.",
+      "SUCCESS": "\\⚠️ %USER%は**%AUTHOR%**によって警告されました！\n理由: %REASON%"
+    },
+    "warnings":{
+      "NO_USER": "\\❌ **%AUTHOR%**, 指定したユーザーが有効なユーザーではないか、あなたはユーザーを提供していません。.",
+      "BOT_USER": "\\❌ **%AUTHOR%**, ボットに警告することはできません！",
+      "NO_WARNINGS": "この人はまだ警告されていません。",
+      "WARN_LIST": "%USER%の警告なエントリ.",
+      "TIME": "時間は%LOCALE%であります"
+    },
+    "unwarn": {
+      "NO_USER": "\\❌ **%AUTHOR%**, 指定したユーザーが有効なユーザーではないか、あなたはユーザーを提供していません。.",
+      "NO_IDS": "\\❌ **%AUTHOR%**, 削除する警告ログからIDを入力してください。",
+      "BOT_USER": "\\❌ **%AUTHOR%**, ボットに警告することはできません！",
+      "DB_ERROR": "\\❌ **%AUTHOR%**, データベースがエラーで応答しました： %ERROR_NAME%!",
+      "NO_INFRACTIONS": "\\❌ **%AUTHOR%**, **%USER%**はまだ警告されていません。",
+      "NO_ID_MATCH": "\\❌ **%AUTHOR%**, 提供されたIDはいずれもレコードと一致しません。",
+      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR_NAME%.",
+      "SUCCESS": "\\✔️ **%AUTHOR%**は**%USER%**の警告ログの一部を削除しました！",
+      "SUCCESS_CLEAR": "\\✔️ **%USER%**の警告記録がクリアされました！"
     }
   },
   "system": {

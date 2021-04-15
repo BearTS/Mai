@@ -36,6 +36,9 @@ module.exports = model('user_profiles', Schema({
     xp: {type: Array, default: []},
     vote: {
       notification: { type: Boolean, default: true }
+    },
+    infractions: {
+      warn: { type: Array, default: []}
     }
   }
 },{

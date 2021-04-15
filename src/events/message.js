@@ -59,7 +59,7 @@ module.exports = async (client, message) => {
   /*===================CHATBOT FUNCTIONALITY======================*/
   // When bot is mentioned or ?replied to, reply to user with a
   // human precise response possible using external api
-  // if chatbot is used, use chatbot_successful as parameter
+  // if chatbot is used, use success as parameter
   // to disable xp gaining and command execution.
   // Triggers only when chatbot_id and chatbot_key are provided on env file
   if ('chatbot_id' in process.env && 'chatbot_key' in process.env){
@@ -88,7 +88,7 @@ module.exports = async (client, message) => {
   const terminated = Boolean(['PERMISSION', 'TERMINATED', 'COOLDOWN'].includes(reason));
   const { xpAdded, reason: xpReason, msg } = await xp(message, executed, terminated);
 
-  console.log({ xpAdded, xpReason, msg });
+  // console.log({ xpAdded, xpReason, msg });
 
   /* Possible XP REASONS when xpAdded is false
   'COMMAND_EXECUTED' => The command was executed successfully

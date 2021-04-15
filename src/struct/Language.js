@@ -7,7 +7,7 @@ class LanguageSelector{
 
   get({ parameters, id}){
     const variables = parameters ? new RegExp(Object.keys(parameters).join('|'), 'g') : null;
-    const response = this.responses?.[id] || this.default[id];
+    const response = this.responses?.[id] || this.default?.[id] || '\\❌ Error on parse-language: ID_NOT_FOUND';
     return variables ? response.replace(variables, x => parameters[x]) : response;
   };
 };

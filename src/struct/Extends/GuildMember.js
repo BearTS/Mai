@@ -116,6 +116,10 @@ module.exports = Structures.extend('GuildMember', Member => {
       return this.levelcap - this.xp || null;
     };
 
+    get warnings(){
+      return this.user.profile?.data.infractions.warn.filter(x => x.guild === this.guild.id) || null;
+    };
+
     // Get the current xp
     get xp(){
       return this.xpData?.xp || null;

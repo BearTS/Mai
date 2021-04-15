@@ -5,6 +5,18 @@
       "TIMEOUT": "\\❌ **%AUTHOR%**, **MyAnimeList** took longer to respond.\n\nPlease try again later, this may be caused by a server downtime.",
       "NONNSFW": "\\❌ **%AUTHOR%**, you've searched for `Hentai` on a sfw channel!\n\nYour query, **%QUERY%**, returned a hentai title from **%ANIME_STUDIO%**. Please try to query hentai entries on nsfw channels%NSFW_CHANNELS%. While you're at it, you can query these on **Hanime** instead using `hanime` command aswell."
     },
+    "lvlrewards": {
+      "VIEW_REWARDS": "**Level Rewards**\n\n%REWARDS%",
+      "CLIENTPERMMSNG": "\\⚠️ I may not be able to reward users since i'm missing the `Manage Roles` Permission.",
+      "MISSING_PERM": "\\❌ You need to have these permissions to perform this action: Manage Guild",
+      "DB_ERROR": "\\❌ **%AUTHOR%**, Database responded with error: %ERROR_NAME%!",
+      "INVALID_TYPE": "\\❌ **%AUTHOR%**, %TYPE% is not a valid type. Type must be one of `set` or `remove`.",
+      "NO_MATCH": "\\❌ **%AUTHOR%**, Please specify the level and reward with the format `lvl-reward lvl-reward` Lvl must be a number and reward must be a role-id or role-mention. Example: \n`%PREFIX%%COMMAND% %TYPE% 1-762534019926354278 5-828384956392384562 20-637483920394857621 ...`\nYou can specify as many reward as you can",
+      "INVALID_ID": "\\❌ **%AUTHOR%**, None of the provided roles are valid role-mention / role-id.",
+      "NO_LEVEL":"\\❌ **%AUTHOR%**, Please specify the levels of the rewards you like to remove.",
+      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR_NAME%.",
+      "SUCCESS": "\\✔️ **%AUTHOR%**, Successfully saved the following level rewards:\nLEVEL - ROLE\n%REWARDS%"
+    },
     "reload": {
       "NO_COMMAND": "\\❌ **%AUTHOR%**, please include the command name.",
       "FAILED": "\\❌ **%AUTHOR%**, unable to reload the command **%COMMAND%**!",
@@ -14,6 +26,31 @@
       "INVALID_CODE": "\\❌ **%AUTHOR%**, The Language code you entered is invalid/unavailable.\nMake sure you only use one of the following codes: `%LANGUAGE_CODES%`",
       "ALREADY_IN_USE": "\\❌ **%AUTHOR%**, The selected Language code `%LANGUAGE_CODE%` is already in use! Please select another.",
       "SUCCESS": "\\✔️ **%AUTHOR%**, Successfully selected the language `%LANGUAGE_CODE%`!"
+    },
+    "warn":{
+      "NO_USER": "\\❌ **%AUTHOR%**, The user you provided is not a valid user or you did not provide a user.",
+      "BOT_USER": "\\❌ **%AUTHOR%**, Bots cannot be warned!",
+      "DB_ERROR": "\\❌ **%AUTHOR%**, Database responded with error: %ERROR_NAME%!",
+      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR_NAME%.",
+      "SUCCESS": "\\⚠️ %USER% has been warned by **%AUTHOR%**!\nReason: %REASON%"
+    },
+    "warnings":{
+      "NO_USER": "\\❌ **%AUTHOR%**, The user you provided is not a valid user or you did not provide a user.",
+      "BOT_USER": "\\❌ **%AUTHOR%**, Bots cannot be warned!",
+      "NO_WARNINGS": "This person has not been warned yet.",
+      "WARN_LIST": "%USER%'s Warn Listing.",
+      "TIME": "Time are on %LOCALE%"
+    },
+    "unwarn": {
+      "NO_USER": "\\❌ **%AUTHOR%**, The user you provided is not a valid user or you did not provide a user.",
+      "NO_IDS": "\\❌ **%AUTHOR%**, Please provide the ID(s) from the warning logs to remove.",
+      "BOT_USER": "\\❌ **%AUTHOR%**, Bots cannot be warned!",
+      "DB_ERROR": "\\❌ **%AUTHOR%**, Database responded with error: %ERROR_NAME%!",
+      "NO_INFRACTIONS": "\\❌ **%AUTHOR%**, **%USER%** has not been warned yet.",
+      "NO_ID_MATCH": "\\❌ **%AUTHOR%**, None of the IDs provided match with the records.",
+      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR_NAME%.",
+      "SUCCESS": "\\✔️ **%AUTHOR%** removed some of **%USER%**'s warning logs!",
+      "SUCCESS_CLEAR": "\\✔️ **%USER%**'s warning record has been cleared!"
     }
   },
   "system": {

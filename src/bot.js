@@ -29,7 +29,7 @@ const client = new Client({
     allowedMentions: { parse: [ 'users' ]},
     shards: 'auto',
 
-    prefix: '!m',
+    prefix: 'm!',
     owner: '545427431662682112'
 });
 

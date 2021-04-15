@@ -105,7 +105,7 @@ The languageSelector returns the responses under the command ping, which is keye
 ```
 Sakurajimai#6742, ping is 255 ms.
 ```
-In cases where responses are unavailable for the selected language, the default language will instead be used. If the ID is not present on the default language, the response would be of type `undefined`.
+In cases where responses are unavailable for the selected language, the default language will instead be used. If the ID is not present on the default language, the response would be `❌ Error on parse-language: ID_NOT_FOUND`.
 
 
 ## Editing Language
