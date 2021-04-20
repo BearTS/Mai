@@ -18,6 +18,11 @@ const VoteManager = require(`./votes/VoteManager`);
 const consoleUtil = require(`../util/console`);
 const processEvents = require(`../util/processEvents`);
 
+let WSBridge;
+try {
+  WSBridge = require("../../WSBridge");
+} catch (e) {}
+
 /**
  * Optimized hub for interacting with the Discord API
  * @extends {Client}
@@ -205,6 +210,10 @@ module.exports = class MaiClient extends Client{
      * @type {array}
      */
     this.logs = [];
+        
+    if (typeof WSBridge !== "undefined"){
+      this.wsBridge = new WSBridge(this);
+    }
 
     // Execute these internal functions once the bot is ready!!
     this.once('ready', () => {
