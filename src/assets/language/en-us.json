@@ -1,74 +1,91 @@
 {
-  "commands": {
-    "anime": {
-      "NO_DATA": "\\❌ **%AUTHOR%**, No results were found for **%QUERY%**.\nIf you believe this anime exists, try the following methods:\n\n\u2000•\u2000Try the alternative names (e.g. English, Native, Romanized)\n\u2000•\u2000Include the season number (if applicable)\n\u2000•\u2000Include the type (e.g. OVA, ONA, TV Shorts).",
-      "TIMEOUT": "\\❌ **%AUTHOR%**, **MyAnimeList** took longer to respond.\n\nPlease try again later, this may be caused by a server downtime.",
-      "NONNSFW": "\\❌ **%AUTHOR%**, you've searched for `Hentai` on a sfw channel!\n\nYour query, **%QUERY%**, returned a hentai title from **%ANIME_STUDIO%**. Please try to query hentai entries on nsfw channels%NSFW_CHANNELS%. While you're at it, you can query these on **Hanime** instead using `hanime` command aswell."
-    },
-    "lvlrewards": {
-      "VIEW_REWARDS": "**Level Rewards**\n\n%REWARDS%",
-      "CLIENTPERMMSNG": "\\⚠️ I may not be able to reward users since i'm missing the `Manage Roles` Permission.",
-      "MISSING_PERM": "\\❌ You need to have these permissions to perform this action: Manage Guild",
-      "DB_ERROR": "\\❌ **%AUTHOR%**, Database responded with error: %ERROR_NAME%!",
-      "INVALID_TYPE": "\\❌ **%AUTHOR%**, %TYPE% is not a valid type. Type must be one of `set` or `remove`.",
-      "NO_MATCH": "\\❌ **%AUTHOR%**, Please specify the level and reward with the format `lvl-reward lvl-reward` Lvl must be a number and reward must be a role-id or role-mention. Example: \n`%PREFIX%%COMMAND% %TYPE% 1-762534019926354278 5-828384956392384562 20-637483920394857621 ...`\nYou can specify as many reward as you can",
-      "INVALID_ID": "\\❌ **%AUTHOR%**, None of the provided roles are valid role-mention / role-id.",
-      "NO_LEVEL":"\\❌ **%AUTHOR%**, Please specify the levels of the rewards you like to remove.",
-      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR_NAME%.",
-      "SUCCESS": "\\✔️ **%AUTHOR%**, Successfully saved the following level rewards:\nLEVEL - ROLE\n%REWARDS%"
-    },
-    "reload": {
-      "NO_COMMAND": "\\❌ **%AUTHOR%**, please include the command name.",
-      "FAILED": "\\❌ **%AUTHOR%**, unable to reload the command **%COMMAND%**!",
-      "SUCCESS": "\\✔️ **%AUTHOR%**, Successfully loaded command **%COMMAND%**!"
-    },
-    "setlang": {
-      "INVALID_CODE": "\\❌ **%AUTHOR%**, The Language code you entered is invalid/unavailable.\nMake sure you only use one of the following codes: `%LANGUAGE_CODES%`",
-      "ALREADY_IN_USE": "\\❌ **%AUTHOR%**, The selected Language code `%LANGUAGE_CODE%` is already in use! Please select another.",
-      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR_NAME%.",
-      "SUCCESS": "\\✔️ **%AUTHOR%**, Successfully selected the language `%LANGUAGE_CODE%`!"
-    },
-    "warn":{
-      "NO_USER": "\\❌ **%AUTHOR%**, The user you provided is not a valid user or you did not provide a user.",
-      "BOT_USER": "\\❌ **%AUTHOR%**, Bots cannot be warned!",
-      "DB_ERROR": "\\❌ **%AUTHOR%**, Database responded with error: %ERROR_NAME%!",
-      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR_NAME%.",
-      "SUCCESS": "\\⚠️ %USER% has been warned by **%AUTHOR%**!\nReason: %REASON%"
-    },
-    "warnings":{
-      "NO_USER": "\\❌ **%AUTHOR%**, The user you provided is not a valid user or you did not provide a user.",
-      "BOT_USER": "\\❌ **%AUTHOR%**, Bots cannot be warned!",
-      "NO_WARNINGS": "This person has not been warned yet.",
-      "WARN_LIST": "%USER%'s Warn Listing.",
-      "TIME": "Time are on %LOCALE%"
-    },
-    "unwarn": {
-      "NO_USER": "\\❌ **%AUTHOR%**, The user you provided is not a valid user or you did not provide a user.",
-      "NO_IDS": "\\❌ **%AUTHOR%**, Please provide the ID(s) from the warning logs to remove.",
-      "BOT_USER": "\\❌ **%AUTHOR%**, Bots cannot be warned!",
-      "DB_ERROR": "\\❌ **%AUTHOR%**, Database responded with error: %ERROR_NAME%!",
-      "NO_INFRACTIONS": "\\❌ **%AUTHOR%**, **%USER%** has not been warned yet.",
-      "NO_ID_MATCH": "\\❌ **%AUTHOR%**, None of the IDs provided match with the records.",
-      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR_NAME%.",
-      "SUCCESS": "\\✔️ **%AUTHOR%** removed some of **%USER%**'s warning logs!",
-      "SUCCESS_CLEAR": "\\✔️ **%USER%**'s warning record has been cleared!"
-    }
+  "COMMANDS": {
+    "__ARGS_NOUSER"  : "\\❌ **%AUTHOR%**, The user you provided is not a valid user or you did not provide a user.",
+    "__GLOB_WA_ISBOT": "\\❌ **%AUTHOR%**, Bots cannot be warned/unwarned!",
+	"__GLOB_WA_ISELF": "\\❌ **%AUTHOR%**, You cannot warn/unwarn yourself",
+    "ANIME_NO_DATA"  : "\\❌ **%AUTHOR%**, No results were found for **%QUERY%**.\nIf you believe this anime exists, try the following methods:\n\u2000•\u2000Try the alternative names (e.g. English, Native, Romanized)\n\u2000•\u2000Include the season number (if applicable)\n\u2000•\u2000Include the type (e.g. OVA, ONA, TV Shorts).",
+    "ANIME_NONNSFW"  : "\\❌ **%AUTHOR%**, you've searched for `Hentai` on a sfw channel!\n\nYour query, **%QUERY%**, returned a hentai title from **%ANIME_STUDIO%**. Please try to query hentai entries on nsfw channels%NSFW_CHANNELS%. While you're at it, you can query these on **Hanime** instead using `hanime` command aswell.",
+	"ANIME_EFOOTER"  : "Anime Query with MAL",
+    "LVLREWARDS_VIEW": "**Level Rewards**\n\n%REWARDS%",
+	"LVLREWARDS_E_FO": "Level Rewards",
+    "LVLREWARDS_V_PR": "\\⚠️ I may not be able to reward users since i'm missing the `Manage Roles` Permission.",
+    "LVLREWARDS_U_PR": "\\❌ **%AUTHOR%**, you need to have these permissions to perform this action: Manage Guild",
+    "LVLREWARDS_TYPE": "\\❌ **%AUTHOR%**, %TYPE% is not a valid type. Type must be one of `set` or `remove`.",
+    "LVLREWARDS_NOMA": "\\❌ **%AUTHOR%**, Please specify the level and reward with the format `lvl-reward lvl-reward` Lvl must be a number and reward must be a role-id or role-mention. Example: \n`%PREFIX%%COMMAND% %TYPE% 1-762534019926354278 5-828384956392384562 20-637483920394857621 ...`\nYou can specify as many reward as you can",
+    "LVLREWARDS_INID": "\\❌ **%AUTHOR%**, None of the provided roles are valid role-mention / role-id.",
+    "LVLREWARDS_NOLV": "\\❌ **%AUTHOR%**, Please specify the levels of the rewards you like to remove.",
+    "LVLREWARDS_SCSS": "\\✔️ **%AUTHOR%**, Successfully saved the following level rewards:\nLEVEL - ROLE\n%REWARDS%",
+    "MANGA_NO_DATA"  : "\\❌ **%AUTHOR%**, No results were found for **%QUERY%**.\nIf you believe this manga exists, try the following methods:\n\u2000•\u2000Try the alternative names (e.g. English, Native, Romaji).\n\u2000•\u2000Include the volume number (if it exists).",
+    "MANGA_FOOTER"   : "Manga Query with MAL",
+	"RELOAD_CMDNOTFO": "\\❌ **%AUTHOR%**, please include the command name.",
+    "RELOAD_FAILED"  : "\\❌ **%AUTHOR%**, unable to reload the command **%COMMAND%**: %ERROR%",
+    "RELOAD_SUCCESS" : "\\✔️ **%AUTHOR%**, Successfully loaded command **%COMMAND%**!",
+    "SETLANG_CODEINV": "\\❌ **%AUTHOR%**, The Language code you entered is invalid/unavailable.\nMake sure you only use one of the following codes: `%LANGUAGE_CODES%`",
+    "SETLANG_IN_USE" : "\\❌ **%AUTHOR%**, The selected Language code `%LANGUAGE_CODE%` is already in use! Please select another.",
+    "SETLANG_SUCCESS": "\\✔️ **%AUTHOR%**, Successfully selected the language `%LANGUAGE_CODE%`!",
+    "WARN_SUCCESS"   : "\\⚠️ %USER% has been warned by **%AUTHOR%**!\nReason: %REASON%",
+    "WARNINGS_NOWARN": "This person has not been warned yet.",
+    "WARNINGS_LIST"  : "%USER%'s Warn Listings.",
+    "WARNINGS_TIME"  : "Time are on %LOCALE%",
+    "UNWARN_NO_IDS"  : "\\❌ **%AUTHOR%**, Please provide the ID(s) from the warning logs to remove.",
+    "UNWARN_NO_INFRA": "\\❌ **%AUTHOR%**, **%USER%** has not been warned yet.",
+    "UNWARN_NO_ID_MA": "\\❌ **%AUTHOR%**, None of the IDs provided match with the records.",
+    "UNWARN_SUCCESS" : "\\✔️ **%AUTHOR%** removed some of **%USER%**'s warning logs!",
+    "UNWARN_SUCCESS2": "\\✔️ **%USER%**'s warning record has been cleared!"
   },
-  "system": {
-    "prefix": "**%AUTHOR%**, my prefix is `%CLIENTPREFIX%`, The custom prefix is `%SERVERPREFIX%`.",
-    "cooldown": "**%AUTHOR%**, You cannot use this command yet.\nPlease wait ` %TIME% ` before using this command again",
-    "chatbot": "**%AUTHOR%**, There was an error trying to connect to the chatbot API.",
-    "permissions": {
-      "guildonly": "\\❌ This command can only be used inside servers.",
-      "adminonly": "\\❌ This command can only be used by server administrators.",
-      "nsfw": "\\❌ You can only use this command on a nsfw channel",
-      "database": "\\❌ Unable to connect to Database. Database not connected.",
-      "owneronly": "\\❌ This command can only be used by my developer.",
-      "userperm": "\\❌ You need to have these permissions to perform this action: %PERMISSIONS%",
-      "clientperm": "\\❌ I need to have the following permissions to be able to perform this action: %PERMISSIONS%",
-      "srvfpl": "\\❌ Unable to fetch Server Profile.",
-      "servxp": "\\❌ The XP system has been disabled in this server.",
-      "chnlxp": "\\❌ The XP system has been disabled in this channel."
-    }
+  "ERRORS": {
+    "400"       : "\\❌ **%AUTHOR%**, **%SERVICE%** could not understand the request (401).",
+    "404"       : "\\❌ **%AUTHOR%**, Could not find **%QUERY%** on **%SERVICE%** (404).",
+    "405"       : "\\❌ **%AUTHOR%**, I am not allowed to do this method on **%SERVICE%** (405)",
+    "408"       : "\\❌ **%AUTHOR%**, **%SERVICE%** took too long to respond.\nPlease try again later, this may be caused by a server downtime.",
+    "429"       : "\\❌ **%AUTHOR%**, Your query **%QUERY%** could not be processed. I have been ratelimited by **%SERVICE%** (429)",
+    "500"       : "\\❌ **%AUTHOR%**, **%SERVICE%** returned with `Internal Server Error`. Please try again later. (500)",
+    "503"       : "\\❌ **%AUTHOR%**, **%SERVICE%** is currently down or refusing me to connect. Please try again later. (503)",
+    "DB_DEFAULT": "\\❌ **%AUTHOR%**, Database responded with error: %ERROR%!",
+    "DB_ONSAVE" : "\\❌ **%AUTHOR%**, There was an error saving your configuration: %ERROR%."
+  },
+  "DISCORD":{
+    
+  },
+  "SYSTEM": {
+    "CMD_ERROR"     : "You shouldn't get this message. Contact `Sakurajimai#6742` to get it fixed or join the support at <https://support.mai-san.ml/>",
+    "PREFIX"        : "**%AUTHOR%**, my prefix is `%CLIENTPREFIX%`, The custom prefix is `%SERVERPREFIX%`.",
+    "COOLDOWN"      : "\\❌**%AUTHOR%**, You cannot use this command yet.\nPlease wait ` %TIME% ` before using this command again!",
+    "CHATBOT"       : "\\❌**%AUTHOR%**, There was an error trying to connect to the chatbot API.",
+    "PERM_GUILDONLY": "\\❌**%AUTHOR%**, This command can only be used inside servers.",
+    "PERM_OWNERONLY": "\\❌**%AUTHOR%**, This command can only be used by my developer.",
+    "PERM_ADMINONLY": "\\❌**%AUTHOR%**, This command can only be used by server administrators.",
+    "PERM_NSFW"     : "\\❌**%AUTHOR%**, You can only use this command on a nsfw channel.",
+    "PERM_REQUIRESD": "\\❌**%AUTHOR%**, Unable to connect to Database. Database not connected.",
+    "PERM_DISCOUSER": "\\❌**%AUTHOR%**, You need to have these permissions to perform this action: %PERMISSIONS%.",
+    "PERM_DISCLIENT": "\\❌**%AUTHOR%**, I need to have the following permissions to be able to perform this action: %PERMISSIONS%.",
+    "PERM_GUILDPROF": "\\❌**%AUTHOR%**, Unable to fetch this Server's Profile.",
+    "PERM_GUILDXPRC": "\\❌**%AUTHOR%**, The XP system has been disabled in this server.",
+    "PERM_CHANNXPRC": "\\❌**%AUTHOR%**, The XP system has been disabled in this channel."
+  },
+  "DICTIONARIES": {
+	"AIRS ON"         : "Airs On",
+	"CHAPTERS"        : "Chapters",
+    "CURRENTLY AIRING": "Currently Airing",
+    "DURATION"        : "Duration",
+	"END DATE"        : "End Date",
+	"EPISODES"        : "Episodes",
+	"FINISHED"        : "Finished",
+	"MEMBERS"         : "Members",
+	"NO SYNOPSIS"     : "No Synopsis",
+    "PREMIERED"       : "Premiered",
+	"PRODUCERS"       : "Producers",
+	"PUBLISHING"      : "Publishing",
+	"RATING"          : "Rating",
+	"READ SYNOPSIS"   : "Read Synopsis",
+	"READ MORE ON"    : "Read more on",
+	"SCORE"           : "Score",
+	"SOURCE"          : "Source",
+	"START DATE"      : "Start Date",
+	"STATUS"          : "Status",
+	"STUDIO"          : "Studio",
+	"TYPE"            : "Type",
+	"UNKNOWN"         : "Unknown",
+	"VOLUMES"         : "Volumes"
   }
 }

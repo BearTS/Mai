@@ -11,17 +11,19 @@ module.exports = {
   ],
   run: async (message, language, [ code = '' ]) => {
     const AVAILABLELANGS = Object.keys(message.client.services.LANGUAGE.store);
+    const parameters = new language.Parameter({
+      '%AUTHOR%': message.author.tag,
+      '%LANGUAGE_CODES%': message.client.services.UTIL.ARRAY.join(AVAILABLELANGS),
+      '%LANGUAGE_CODE%': code
+    });
+
 
     if (!AVAILABLELANGS.includes(code.toLowerCase())){
-      const parameters = { '%AUTHOR%': message.author.tag, '%LANGUAGE_CODES%': message.client.services.UTIL.ARRAY.join(AVAILABLELANGS)};
-      const invalid_code = language.get({ id: 'INVALID_CODE', parameters });
-      return message.channel.send(invalid_code);
+      return message.channel.send( language.get({ '$in': 'COMMANDS', id: 'SETLANG_CODEINV', parameters }));
     };
 
     if (code === message.author.profile?.data.language){
-      const parameters = { '%AUTHOR%': message.author.tag, '%LANGUAGE_CODE%': code };
-      const already_in_use = language.get({ id: 'ALREADY_IN_USE', parameters });
-      return message.channel.send(already_in_use);
+      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'SETLANG_IN_USE', parameters }));
     };
 
     const model = message.client.database['Profile'];
@@ -31,19 +33,17 @@ module.exports = {
       res = await new model({ _id: message.author.id }).save();
     };
 
+    res.data.language = code;
 
     return res.save()
     .then(() => {
-      res.data.language = code;
       message.author.setLanguage(code);
       language = message.client.services.LANGUAGE.getCommand('setlang', code);
-      const parameters = { '%AUTHOR%': message.author.tag, '%LANGUAGE_CODE%': code };
-      const already_in_use = language.get({ id: 'SUCCESS', parameters });
-      return message.channel.send(already_in_use);
+      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'SETLANG_SUCCESS', parameters }));
     })
     .catch(() => {
-      const parameters = { '%AUTHOR%': message.author.tag, '%ERROR_NAME%': err.message };
-      return message.channel.send(language.get({ id: 'FAIL_ON_SAVE', parameters }));
+      parameters.assign({ '%ERROR%': err.message });
+      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_ONSAVE', parameters }));
     });
   }
 };

@@ -1,74 +1,91 @@
 {
-  "commands": {
-    "anime": {
-      "NO_DATA": "\\❌ **%AUTHOR%**, **%QUERY%**の結果は見つかりませんでした.\nこのアニメが存在すると思われる場合は、次の方法を試してください:\n\n\u2000•\u2000別の名前を試してください（例：英語、日本語、ローマ字）\n\u2000•\u2000シーズンナンバを含む(該当する場合)\n\u2000•\u2000タイプを含めます（例：OVA、ONA、TVショーツ）。",
-      "TIMEOUT": "\\❌ **%AUTHOR%**, **MyAnimeList**の応答に時間がかかりました。\n\n後でもう一度やり直してください。サーバーのダウンタイムが原因である可能性があります。",
-      "NONNSFW": "\\❌ **%AUTHOR%**, あなたはSFWチャンネルでHENTAIを検索しました！\n\nクエリ**%QUERY%**は、**%ANIME_STUDIO%**から変態タイトルを返しました。NSFWチャンネルで変態エントリをクエリしてみてください%NSFW_CHANNELS%. その間、 `hanime`コマンドを使用する代わりに **Hanime** でこれらをクエリすることもできます。"
-    },
-    "lvlrewards": {
-      "VIEW_REWARDS": "**レベルのレワード**\n\n%REWARDS%",
-      "CLIENTPERMMSNG": "\\⚠️「Manage Roles」権限の私がないため、ユーザーに報酬を与える私のことができない場合があります。",
-      "MISSING_PERM": "\\❌ このアクションを実行するには、次のパーミッションが必要です: Manage Guild",
-      "DB_ERROR": "\\❌ **%AUTHOR%**, データベースがエラーで応答しました： %ERROR_NAME%!",
-      "INVALID_TYPE": "\\❌ **%AUTHOR%**, %TYPE%は有効なタイプではありません。タイプは`set`または`remove`のいずれかでなければなりません。",
-      "NO_MATCH": "\\❌ **%AUTHOR%**, レベルとレワードを`lvl-reward lvl-reward`の形式で指定してください。レベルは数字である必要があり、レワードはロールIDまたはロールメンションである必要があります。たとえば:\n `%PREFIX%%COMMAND% %TYPE% 1-762534019926354278 5-828384956392384562 20-637483920394857621 ...`\nできるだけ多くのレワードを指定できます。",
-      "INVALID_ID": "\\❌ **%AUTHOR%**, 提供されているロールはいずれも、有効なロールメンション/ロールIDではありません。",
-      "NO_LEVEL":"\\❌ **%AUTHOR%**, 削除したいレワードのレベルを指定してください.",
-      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR_NAME%.",
-      "SUCCESS": "\\✔️ **%AUTHOR%**, 次のレベルレワードを正常に保存しました:\nLEVEL - ROLE\n%REWARDS%"
-    },
-    "reload": {
-      "NO_COMMAND": "\\❌ **%AUTHOR%**, コマンドの名前を含めてください",
-      "FAILED": "\\❌ **%AUTHOR%**, コマンド**%COMMAND%**をリロードできません！",
-      "SUCCESS": "\\✔️ **%AUTHOR%**, コマンド**%COMMAND%**が正常に読み込まれました！"
-    },
-    "setlang": {
-      "INVALID_CODE": "\\❌ **%AUTHOR%**, 入力した言語コードは使用できません。\n次のコードのいずれかのみを使用するようにしてください: `%LANGUAGE_CODES%`",
-      "ALREADY_IN_USE": "\\❌ **%AUTHOR%**, 選択した言語コード `%LANGUAGE_CODE%`はすでに使用されています！ 別のものを選択してください。",
-      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR_NAME%.",
-      "SUCCESS": "\\✔️ **%AUTHOR%**, 言語 `%LANGUAGE_CODE%`が正常に選択されました!"
-    },
-    "warn":{
-      "NO_USER": "\\❌ **%AUTHOR%**, 指定したユーザーが有効なユーザーではないか、あなたはユーザーを提供していません。.",
-      "BOT_USER": "\\❌ **%AUTHOR%**, ボットに警告することはできません！",
-      "DB_ERROR": "\\❌ **%AUTHOR%**, データベースがエラーで応答しました： %ERROR_NAME%!",
-      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR_NAME%.",
-      "SUCCESS": "\\⚠️ %USER%は**%AUTHOR%**によって警告されました！\n理由: %REASON%"
-    },
-    "warnings":{
-      "NO_USER": "\\❌ **%AUTHOR%**, 指定したユーザーが有効なユーザーではないか、あなたはユーザーを提供していません。.",
-      "BOT_USER": "\\❌ **%AUTHOR%**, ボットに警告することはできません！",
-      "NO_WARNINGS": "この人はまだ警告されていません。",
-      "WARN_LIST": "%USER%の警告なエントリ.",
-      "TIME": "時間は%LOCALE%であります"
-    },
-    "unwarn": {
-      "NO_USER": "\\❌ **%AUTHOR%**, 指定したユーザーが有効なユーザーではないか、あなたはユーザーを提供していません。.",
-      "NO_IDS": "\\❌ **%AUTHOR%**, 削除する警告ログからIDを入力してください。",
-      "BOT_USER": "\\❌ **%AUTHOR%**, ボットに警告することはできません！",
-      "DB_ERROR": "\\❌ **%AUTHOR%**, データベースがエラーで応答しました： %ERROR_NAME%!",
-      "NO_INFRACTIONS": "\\❌ **%AUTHOR%**, **%USER%**はまだ警告されていません。",
-      "NO_ID_MATCH": "\\❌ **%AUTHOR%**, 提供されたIDはいずれもレコードと一致しません。",
-      "FAIL_ON_SAVE": "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR_NAME%.",
-      "SUCCESS": "\\✔️ **%AUTHOR%**は**%USER%**の警告ログの一部を削除しました！",
-      "SUCCESS_CLEAR": "\\✔️ **%USER%**の警告記録がクリアされました！"
-    }
+  "COMMANDS": {
+    "__ARGS_NOUSER"  : "\\❌ **%AUTHOR%**, 指定したユーザーが有効なユーザーではないか、あなたはユーザーを提供していません。.",
+    "__GLOB_WA_ISBOT": "\\❌ **%AUTHOR%**, ボットに警告しない/警告することはできません!",
+	"__GLOB_WA_ISELF": "\\❌ **%AUTHOR%**, 自分に警告しない/警告解除することはできません",
+    "ANIME_NO_DATA"  : "\\❌ **%AUTHOR%**, **%QUERY%**の結果は見つかりませんでした.\nこのアニメが存在すると思われる場合は、次の方法を試してください:\n\u2000•\u2000別の名前を試してください（例：英語、日本語、ローマ字）\n\u2000•\u2000シーズンナンバを含む(該当する場合)\n\u2000•\u2000タイプを含めます（例：OVA、ONA、TVショーツ）。",
+    "ANIME_NONNSFW"  : "\\❌ **%AUTHOR%**, あなたはSFWチャンネルでHENTAIを検索しました！\n\nクエリ**%QUERY%**は、**%ANIME_STUDIO%**から変態タイトルを返しました。NSFWチャンネルで変態エントリをクエリしてみてください%NSFW_CHANNELS%. その間、 `hanime`コマンドを使用する代わりに **Hanime** でこれらをクエリすることもできます。",
+	"ANIME_EFOOTER"  : "MALによるアニメクエリ",
+    "LVLREWARDS_VIEW": "**レベルのレワード**\n\n%REWARDS%",
+	"LVLREWARDS_E_FO": "レベルのレワード",
+    "LVLREWARDS_V_PR": "\\⚠️「Manage Roles」権限の私がないため、ユーザーに報酬を与える私のことができない場合があります。",
+    "LVLREWARDS_U_PR": "\\❌ このアクションを実行するには、次のパーミッションが必要です: Manage Guild",
+    "LVLREWARDS_TYPE": "\\❌ **%AUTHOR%**, %TYPE%は有効なタイプではありません。タイプは`set`または`remove`のいずれかでなければなりません。",
+    "LVLREWARDS_NOMA": "\\❌ **%AUTHOR%**, \\❌ **%AUTHOR%**, レベルとレワードを`lvl-reward lvl-reward`の形式で指定してください。レベルは数字である必要があり、レワードはロールIDまたはロールメンションである必要があります。たとえば:\n `%PREFIX%%COMMAND% %TYPE% 1-762534019926354278 5-828384956392384562 20-637483920394857621 ...`\nできるだけ多くのレワードを指定できます。",
+    "LVLREWARDS_INID": "\\❌ **%AUTHOR%**, 提供されているロールはいずれも、有効なロールメンション/ロールIDではありません。",
+    "LVLREWARDS_NOLV": "\\❌ **%AUTHOR%**, 削除したいレワードのレベルを指定してください.",
+    "LVLREWARDS_SCSS": "\\✔️ **%AUTHOR%**, 次のレベルレワードを正常に保存しました:\nLEVEL - ROLE\n%REWARDS%",
+    "MANGA_NO_DATA"  : "\\❌ **%AUTHOR%**, **%QUERY%**の結果は見つかりませんでした.\nこの漫画が存在すると思われる場合は、次の方法を試してください:\n\u2000•\u2000別の名前を試してください（例：英語、日本語、ローマ字）.\n\u2000•\u2000ボリューム番号を含めます（存在する場合）.",
+    "MANGA_EFOOTER"  : "MALを使用したマンガクエリ",
+	"RELOAD_CMDNOTFO": "\\❌ **%AUTHOR%**, コマンドの名前を含めてください",
+    "RELOAD_FAILED"  : "\\❌ **%AUTHOR%**, コマンド**%COMMAND%**をリロードできません！: %ERROR%",
+    "RELOAD_SUCCESS" : "\\✔️ **%AUTHOR%**, コマンド**%COMMAND%**が正常に読み込まれました！",
+    "SETLANG_CODEINV": "\\❌ **%AUTHOR%**, 入力した言語コードは使用できません。\n次のコードのいずれかのみを使用するようにしてください: `%LANGUAGE_CODES%`",
+    "SETLANG_IN_USE" : "\\❌ **%AUTHOR%**, 選択した言語コード `%LANGUAGE_CODE%`はすでに使用されています！ 別のものを選択してください。",
+    "SETLANG_SUCCESS": "\\✔️ **%AUTHOR%**, 言語 `%LANGUAGE_CODE%`が正常に選択されました!",
+    "WARN_SUCCESS"   : "\\⚠️ %USER%は**%AUTHOR%**によって警告されました！\n理由: %REASON%",
+    "WARNINGS_NOWARN": "この人はまだ警告されていません。",
+    "WARNINGS_LIST"  : "%USER%の警告なエントリ.",
+    "WARNINGS_TIME"  : "時間は%LOCALE%であります",
+    "UNWARN_NO_IDS"  : "\\❌ **%AUTHOR%**, 削除する警告ログからIDを入力してください。",
+    "UNWARN_NO_INFRA": "\\❌ **%AUTHOR%**, **%USER%**はまだ警告されていません。",
+    "UNWARN_NO_ID_MA": "\\❌ **%AUTHOR%**, 提供されたIDはいずれもレコードと一致しません。",
+    "UNWARN_SUCCESS" : "\\✔️ **%AUTHOR%**は**%USER%**の警告ログの一部を削除しました！",
+    "UNWARN_SUCCESS2": "\\✔️ **%USER%**の警告記録がクリアされました！"
   },
-  "system": {
-    "prefix": "**%AUTHOR%**、私のプレフィックスは`%CLIENTPREFIX%`、サーバープレフィックスは`%SERVERPREFIX%`.",
-    "cooldown": "**%AUTHOR%**, このコマンドはまだ使用できません。\nこのコマンドを再度使用する前に、` %TIME% `をお待ちください",
-    "chatbot": "**%AUTHOR%**, チャットボットAPIに接続しようとしてエラーが発生しました。",
-    "permissions": {
-      "guildonly": "\\❌ このコマンドは、サーバー内でのみ使用できます。",
-      "adminonly": "\\❌ このコマンドは、サーバーアドミニのみが使用できます。",
-      "nsfw": "\\❌ このコマンドはNSFWチャンネルでのみ使用できます",
-      "database": "\\❌ データベースに接続できません。",
-      "owneronly": "\\❌ このコマンドは私のデベロパだけが使用できます。",
-      "userperm": "\\❌ このアクションを実行するには、次のパーミッションが必要です: %PERMISSIONS%",
-      "clientperm": "\\❌ このアクションを実行するには、次のパーミッションが必要です: %PERMISSIONS%",
-      "srvfpl": "\\❌ サーバープロファイルをフェッチできません。",
-      "servxp": "\\❌ XPシステムはこのサーバーで無効になっています。",
-      "chnlxp": "\\❌ XPシステムはこのチャネルで無効になっています。"
-    }
+  "ERRORS": {
+    "400"       : "\\❌ **%AUTHOR%**, **%SERVICE%**はリクエストを理解できませんでした (401).",
+    "404"       : "\\❌ **%AUTHOR%**, **%SERVICE%**で**%QUERY%**`が見つかりませんでした (404).",
+    "405"       : "\\❌ **%AUTHOR%**, **%SERVICE%**でこの方法を実行することは許可されていません (405)",
+    "408"       : "\\❌ **%AUTHOR%**, **%SERVICE%**が応答するのに時間がかかりすぎました。\n後でもう一度やり直してください。これはサーバーのダウンタイムが原因である可能性があります。",
+    "429"       : "\\❌ **%AUTHOR%**, クエリ**%QUERY%**を処理できませんでした。 **%サービス%**により料金制限があります (429)",
+    "500"       : "\\❌ **%AUTHOR%**, **%SERVICE%**が「インターナルサーバーエラー」で返されました。 後でもう一度やり直してください。 (500)",
+    "503"       : "\\❌ **%AUTHOR%**, **%SERVICE%**は現在ダウンしているか、接続を拒否しています。 後でもう一度やり直してください。 (503)",
+    "DB_DEFAULT": "\\❌ **%AUTHOR%**, データベースがエラーで応答しました： %ERROR%.",
+    "DB_ONSAVE" : "\\❌ **%AUTHOR%**, 構成の保存中にエラーが発生しました: %ERROR%."
+  },
+  "DISCORD":{
+    
+  },
+  "SYSTEM": {
+    "CMD_ERROR"     : "You shouldn't get this message. Contact `Sakurajimai#6742` to get it fixed or join the support at <https://support.mai-san.ml/>",
+    "PREFIX"        : "**%AUTHOR%**、私のプレフィックスは`%CLIENTPREFIX%`、サーバープレフィックスは`%SERVERPREFIX%`.",
+    "COOLDOWN"      : "\\❌**%AUTHOR%**, このコマンドはまだ使用できません。\nこのコマンドを再度使用する前に、` %TIME% `をお待ちください",
+    "CHATBOT"       : "\\❌**%AUTHOR%**, チャットボットAPIに接続しようとしてエラーが発生しました。",
+    "PERM_GUILDONLY": "\\❌**%AUTHOR%**, このコマンドは、サーバー内でのみ使用できます。",
+    "PERM_OWNERONLY": "\\❌**%AUTHOR%**, このコマンドは私のデベロパだけが使用できます。",
+    "PERM_ADMINONLY": "\\❌**%AUTHOR%**, このコマンドは、サーバーアドミニのみが使用できます。",
+    "PERM_NSFW"     : "\\❌**%AUTHOR%**, このコマンドはNSFWチャンネルでのみ使用できます。",
+    "PERM_REQUIRESD": "\\❌**%AUTHOR%**, データベースに接続できません。",
+    "PERM_DISCOUSER": "\\❌**%AUTHOR%**, このアクションを実行するには、次のパーミッションが必要です: %PERMISSIONS%。",
+    "PERM_DISCLIENT": "\\❌**%AUTHOR%**, このアクションを実行するには、次のパーミッションが必要です: %PERMISSIONS%。",
+    "PERM_GUILDPROF": "\\❌**%AUTHOR%**, サーバープロファイルをフェッチできません。",
+    "PERM_GUILDXPRC": "\\❌**%AUTHOR%**, XPシステムはこのサーバーで無効になっています。",
+    "PERM_CHANNXPRC": "\\❌**%AUTHOR%**, XPシステムはこのチャネルで無効になっています。"
+  },
+  "DICTIONARIES": {
+	"AIRS ON"         : "放送",
+    "CURRENTLY AIRING": "現在放送中",
+	"CHAPTERS"        : "チャプター",
+    "DURATION"        : "デュレーション",
+	"END DATE"        : "終了日",
+	"EPISODES"        : "エピソード",
+	"FINISHED"        : "終えた",
+	"MEMBERS"         : "メンバー",
+	"NO SYNOPSIS"     : "シノプシスなし",
+    "PREMIERED"       : "封切り",
+	"PRODUCERS"       : "プロデューサー",
+	"PUBLISHING"      : "パブリッシング",
+	"RATING"          : "格付け",
+	"READ SYNOPSIS"   : "シノプシスを読む",
+	"READ MORE ON"    : "続きを読む",
+	"SCORE"           : "スコア",
+	"SOURCE"          : "ソース",
+	"START DATE"      : "開始日",
+	"STATUS"          : "ステータス",
+	"STUDIO"          : "スタジオ",
+	"TYPE"            : "タイプ",
+	"UNKNOWN"         : "不明",
+	"VOLUMES"         : "ボリューム"
   }
 }

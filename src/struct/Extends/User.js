@@ -28,7 +28,15 @@ module.exports = Structures.extend('User', User => {
     };
 
     setLanguage(code){
-      return this.profile.data.language = code;
+      if (this.profile){
+        return this.profile.data.language = code;
+      } else {
+        return null;
+      };
+    };
+
+    get language(){
+      return this.profile?.data.language || 'en-us';
     };
   };
 

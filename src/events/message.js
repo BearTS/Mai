@@ -41,7 +41,7 @@ module.exports = async (client, message) => {
   // comment out the following code-block to disable~
   if (message.content.toLowerCase() === 'prefix'){
     const language = message.author.profile?.data.language;
-    const path = ['system', 'prefix'];
+    const path = ['SYSTEM', 'PREFIX'];
     const prop = {
       '%AUTHOR%': message.author.tag,
       '%CLIENTPREFIX%' : client.prefix,

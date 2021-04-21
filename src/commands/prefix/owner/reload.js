@@ -11,22 +11,22 @@ module.exports = {
     'reload anime'
   ],
   run: (message, language, [command] ) => {
-
-    const parameters = {
-      "%AUTHOR%": message.author.tag,
-      "%COMMAND%": command
-    };
+    const parameters = new language.Parameter({
+      '%AUTHOR%' : message.author.tag,
+      '%COMMAND%': command
+    });
 
     if (!command){
-      return message.channel.send(language.get({ parameters, id: 'NO_COMMAND' }));
+      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'RELOAD_CMDNOTFO', parameters }));
     };
 
     const { status, err, info } = message.client.commands.reload(command);
 
     if (status === 'FAILED'){
-      return message.channel.send(language.get({ parameters, id: 'FAILED' }));
+      parameters.assign({ '%ERROR%': err.stack });
+      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'RELOAD_FAILED', parameters }));
     };
 
-    return message.channel.send(language.get({ parameters, id: 'SUCCESS' }));
+    return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'RELOAD_SUCCESS', parameters }));
   }
 };

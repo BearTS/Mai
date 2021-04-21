@@ -1,13 +1,15 @@
+const { Permissions: { FLAGS }} = require('discord.js');
+
 module.exports = {
   name: 'unwarn',
   description: 'Remove/clear warning logs from a user.',
   aliases: [],
   cooldown: null,
-  clientPermissions: [ ],
-  permissions: [ 'MANAGE_GUILD' ],
+  clientPermissions: [],
+  permissions: [FLAGS.MANAGE_GUILD],
   group: 'setup',
-  parameters: [ ],
-  examples: [ ],
+  parameters: [],
+  examples: [],
   guildOnly: true,
   ownerOnly: false,
   adminOnly: false,
@@ -15,33 +17,45 @@ module.exports = {
   requiresDatabase: true,
   rankcommand: false,
   run: async (message, language, [user, ...ids]) => {
+    const parameters = new language.Parameter({
+      '%AUTHOR%': message.author.tag,
+    });
+
     if (!user || !user.match(/\d{17,19}/)?.[0]){
-      const parameters = { '%AUTHOR%': message.author.tag };
-      return message.channel.send(language.get({ id: 'NO_USER', parameters }));
+      const response = language.get({ '$in': 'COMMANDS', id: '__ARGS_NOUSER', parameters });
+      return message.channel.send(response);
     };
 
-    if (!ids.length){
-      const parameters = { '%AUTHOR%': message.author.tag };
-      return message.channel.send(language.get({ id: 'NO_IDS', parameters }));
-    };
-
-    user = await message.guild.members.fetch(user.match(/\d{17,19}/)[0]).then(member => member.user).catch(()=>{});
+    user = await message.guild.members.fetch(user.match(/\d{17,19}/)[0])
+    .then(member => member.user).catch(()=>{});
 
     if (!user){
-      const parameters = { '%AUTHOR%': message.author.tag };
-      return message.channel.send(language.get({ id: 'NO_USER', parameters }));
+      const response = language.get({ '$in': 'COMMANDS', id: '__ARGS_NOUSER', parameters });
+      return message.channel.send(response);
     };
 
     if (user.bot){
-      const parameters = { '%AUTHOR%': message.author.tag };
-      return message.channel.send(language.get({ id: 'BOT_USER', parameters }));
+      const response = language.get({ '$in': 'COMMANDS', id: '__GLOB_WA_ISBOT', parameters });
+      return message.channel.send(response);
+    };
+
+    if (user.id === message.author.id){
+      const response = language.get({ '$in': 'COMMANDS', id: '__GLOB_WA_ISELF', parameters });
+      return message.channel.send(response);
+    };
+
+    if (!ids.length){
+      const response = language.get({ '$in': 'COMMANDS', id: 'UNWARN_NO_IDS', parameters });
+      return message.channel.send(response);
     };
 
     return message.client.database['Profile'].findById(user.id, (err,doc) => {
       if (err){
-        const parameters = { '%AUTHOR%': message.author.tag, '%ERROR_NAME%': err.message };
-        return message.channel.send(language.get({ id: 'DB_ERROR', parameters }));
+        parameters.append({ '%ERROR%': err.message });
+        const response = language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters });
+        return message.channel.send(response);
       };
+
       if (!doc){
         doc = new message.client.database['Profile']({ _id: user.id });
       };
@@ -50,8 +64,9 @@ module.exports = {
       const infractions = [...doc.data.infractions.warn.filter(x => x.guild === message.guild.id)];
 
       if (!infractions){
-        const parameters = { '%AUTHOR%': message.author.tag, '%USER%': user.tag };
-        return message.channel.send(language.get({id: 'NO_INFRACTIONS', parameters }));
+        parameters.append({ '%USER%': user.tag });
+        const response = language.get({ '$in': 'COMMANDS', id: 'UNWARN_NO_INFRA', parameters });
+        return message.channel.send(response);
       };
 
       if (ids[0].toLowerCase() === 'clear'){
@@ -69,21 +84,22 @@ module.exports = {
       };
 
       if (!deleted.length){
-        const parameters = { '%AUTHOR%': message.author.tag }
-        return message.channel.send(language.get({ id: "NO_ID_MATCH", parameters }));
+        const response = language.get({ '$in': 'COMMANDS', id: 'UNWARN_NO_ID_MA', parameters });
+        return message.channel.send(response);
       };
 
       doc.save()
       .then(() => {
         user.profile = doc;
+        parameters.assign({ "%USER%": user.tag });
         const cleared = infractions.length === deleted.length;
-        const parameters = { '%AUTHOR%': message.author.tag, "%USER%": user.tag };
-        const id = cleared ? 'SUCCESS_CLEAR' : "SUCCESS";
-        return message.channel.send(language.get({ id, parameters }))
+        const id = cleared ? 'UNWARN_SUCCESS2' : "UNWARN_SUCCESS";
+        return message.channel.send(language.get({'$in': 'COMMANDS', id, parameters }));
       })
-      .catch(() => {
-        const parameters = { '%AUTHOR%': message.author.tag, '%ERROR_NAME%': err.message };
-        return message.channel.send(language.get({ id: 'FAIL_ON_SAVE', parameters }));
+      .catch(err => {
+        parameters.assign({ '%ERROR%': err.message });
+        const response = language.get({ '$in': 'ERRORS', id: 'DB_ONSAVE', parameters });
+        return message.channel.send(response);
       });
     });
   }

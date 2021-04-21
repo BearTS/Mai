@@ -110,7 +110,7 @@ module.exports = class Commands{
     const cooldown = message.author.cooldown.get(command.name);
 
     if (command.cooldown.time && cooldown + command.cooldown.time > Date.now()){
-      const path = ['system', 'cooldown'];
+      const path = ['SYSTEM', 'COOLDOWN'];
       const parameters = {
         "%AUTHOR%": message.author.tag,
         "%TIME%": moment.duration(cooldown + command.cooldown.time - Date.now()).format('m [minute(s), and] s [second(s)]')
@@ -126,6 +126,7 @@ module.exports = class Commands{
 
     const service = langserv.getCommand(command.name, language);
     command.run(message, service, args);
+    command.used++;
 
     return Promise.resolve({ executed: true });
   };

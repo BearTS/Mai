@@ -22,8 +22,11 @@ module.exports = {
     'anisearch bunnygirl senpai'
   ],
   run: async (message, language, args) => {
-
     const query = args.join(' ') || 'Seishun Buta Yarou';
+    const parameters = new language.Parameter({
+      '%AUTHOR%': message.author.tag,
+      '%QUERY%': query
+    });
 
     message.channel.startTyping();
 
@@ -36,12 +39,10 @@ module.exports = {
     }).catch((err)=> err !== 'TIMEOUT' ? null : err);
 
     if (!data){
-      const parameters = { '%AUTHOR%': message.author.tag, '%QUERY%': query };
-      const no_data_response = language.get({ id: 'NO_DATA', parameters });
+      const no_data_response = language.get({'$in': 'COMMANDS', id: 'ANIME_NO_DATA', parameters });
       return message.channel.send(no_data_response).then(() => message.channel.stopTyping());
     } else if (data === 'TIMEOUT'){
-      const parameters = { '%AUTHOR%': message.author.tag };
-      const timeout_response = language.get({ id: 'TIMEOUT', parameters });
+      const timeout_response = language.get({'$in': 'ERRORS', id: 408..toString() ,parameters: parameters.assign({'%SERVICE%': 'MyAnimeList'})});
       return message.channel.send(timeout_response).then(() => message.channel.stopTyping());
     };
 
@@ -51,22 +52,20 @@ module.exports = {
     const nsfwch = message.guild.channels.cache.filter(x => x.nsfw).map(x => x.toString());
 
     if (isHentai && message.channel.nsfw === false){
-      const parameters = {
-        '%AUTHOR%': message.author.tag,
-        '%QUERY%': query,
+      const nsfw_response = language.get({ '$in': 'COMMANDS', id: 'ANIME_NONNSFW', parameters: parameters.assign({
         '%ANIME_STUDIO%': data.studios?.[0] || 'Unknown Publisher',
         '%NSFW_CHANNELS%': nsfwch.length ? ` such as ${message.client.services.UTIL.ARRAY.join(nsfwch)}` : ''
-      };
-      const nsfw_response = language.get({ id: 'NONNSFW', parameters });
+      })});
       return message.channel.send(nsfw_response);
     };
 
     const { NUMBER, STRING, ARRAY } = message.client.services.UTIL;
+    const DICT = language.getDictionary(['source','episodes','duration','type','premiered','studio','currently airing','airs on','producers','rating','unknown', 'read synopsis', 'read more on']);
     const response = new MessageEmbed()
     .setURL(data.url)
     .setColor(isHentai ? 'RED' : 'GREY')
     .setThumbnail(data.picture || null)
-    .setFooter(`Anime Query with MAL\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
+    .setFooter(`${language.get({ '$in': 'COMMANDS', id: 'ANIME_EFOOTER'})}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
     .setTitle(STRING.truncate(data.englishTitle || data.title, 200))
     .setDescription([
       [
@@ -81,35 +80,19 @@ module.exports = {
       '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
     ].filter(Boolean).join('\n'))
     .addFields([
-      {
-        name: 'Source', inline: true,
-        value: data.source ? [data.source].map(x => `[**${x}**](https://myanimelist.net/topmanga.php?type=${message.client.services.MAL.sources[x] || 'manga'})`)[0] : '**Unknown**',
-      },{
-        name: 'Episodes', inline: true,
-        value: `[**${data.episodes}**](https://myanimelist.net/anime/${data.id}/_/episode)`,
-      },{
-        name: 'Duration', inline: true,
-        value: data.duration || 'Unknown',
-      },{
-        name: 'Type', inline: true,
-        value: data.type ? `[**${data.type}**](https://myanimelist.net/topanime.php?type=${encodeURI(data.type.toLowerCase())})` : '**showType Unavailable**'
-      },{
-        name: 'Premiered', inline: true,
-        value: data.premiered && data.premiered !== '?' ? `[**${data.premiered}**](https://myanimelist.net/anime/season/${data.premiered.split(' ')[1]}/${data.premiered.split(' ')[0]?.toLowerCase()})` : '**Unknown**'
-      },{
-        name: 'Studio', inline: true,
-        value: `[**${data.studios?.[0]}**](https://myanimelist.net/anime/producer/${message.client.services.MAL.producers[data.studios?.[0]]}/)` || '**Unknown**'
-      },{
-        name: '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        value: STRING.truncate(data.synopsis||'No Synopsis', 500, `...\n\n[**\`📖 Read Full Synopsis\`**](${data.url} 'Read More on MyAnimeList')`),
-      },{
-        name: '━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-        value: [
-          `**${data.status === 'Finished Airing' ? 'Aired' : data.status === 'Currently Airing' ? 'Currently Airing' : 'Airs on'} (*${moment(data.aired.split('to')[0], 'll').fromNow()}*):** ${data.aired || 'Unknown'}`,
+      { name: DICT.SOURCE,                   inline: true,  value: data.source ? [data.source].map(x => `[**${x}**](https://myanimelist.net/topmanga.php?type=${message.client.services.MAL.sources[x] || 'manga'})`)[0] : `**${DICT.UNKNOWN}**`                                     },
+      { name: DICT.EPISODES,                 inline: true,  value: `[**${data.episodes}**](https://myanimelist.net/anime/${data.id}/_/episode)`                                                                                                                                      },
+      { name: DICT.DURATION,                 inline: true,  value: data.duration || DICT.UNKNOWN                                                                                                                                                                                     },
+      { name: DICT.TYPE,                     inline: true,  value: data.type ? `[**${data.type}**](https://myanimelist.net/topanime.php?type=${encodeURI(data.type.toLowerCase())})` : '**showType Unavailable**'                                                                    },
+      { name: DICT.PREMIERED,                inline: true,  value: data.premiered && data.premiered !== '?' ? `[**${data.premiered}**](https://myanimelist.net/anime/season/${data.premiered.split(' ')[1]}/${data.premiered.split(' ')[0]?.toLowerCase()})` : `**${DICT.UNKNOWN}**` },
+      { name: DICT.STUDIO,                   inline: true,  value: `[**${data.studios?.[0]}**](https://myanimelist.net/anime/producer/${message.client.services.MAL.producers[data.studios?.[0]]}/)` || `**${DICT.UNKNOWN}**`                                                        },
+      { name: '━━━━━━━━━━━━━━━━━━━━━━━━━━━', inline: false, value: STRING.truncate(data.synopsis||DICT['NO SYNOPSIS'], 500, `...\n\n[**\`📖 ${DICT['READ SYNOPSIS']}\`**](${data.url} '${DICT['READ MORE ON']}: MyAnimeList')`)                                                      },
+      { name: '━━━━━━━━━━━━━━━━━━━━━━━━━━━', inline: false, value: [
+          `**${data.status === 'Finished Airing' ? 'Aired' : data.status === 'Currently Airing' ? DICT['CURRENTLY AIRING'] : DICT['AIRS ON']} (*${moment(data.aired.split('to')[0], 'll').locale(message.author.language || '').fromNow()}*):** ${data.aired || DICT.UNKNOWN}`,
           '',
-          `**Producers**: ${STRING.truncate(ARRAY.join(data.producers?.map(x => x === 'None found, add some' ? x : `[${x}](https://myanimelist.net/anime/producer/${message.client.services.MAL.producers[x]}/)`)||[]) || 'Unknown' ,900, '...')}`,
+          `**${DICT.PRODUCERS}**: ${STRING.truncate(ARRAY.join(data.producers?.map(x => x === 'None found, add some' ? x : `[${x}](https://myanimelist.net/anime/producer/${message.client.services.MAL.producers[x]}/)`)||[]) || DICT.UNKNOWN ,900, '...')}`,
           '',
-          `**Rating**: *${data.rating.replace('None', '') || 'Unrated'}*`,
+          `**${DICT.RATING}**: *${data.rating.replace('None', '') || 'Unrated'}*`,
           '━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
         ].join('\n')
       }
