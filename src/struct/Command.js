@@ -119,8 +119,9 @@ module.exports = class Command{
       };
     };
 
-    const language = message.author.profile?.data.language || 'en-us';
-    const getperms = (x,y) => Object.entries(message.channel.permissionsFor(x).serialize())
+    const language   = message.author.profile?.data.language || 'en-us';
+    const parameters = { '%AUTHOR%': message.author.tag };
+    const getperms   = (x,y) => Object.entries(message.channel.permissionsFor(x).serialize())
       .filter( p => this[y].includes(p[0]) && !p[1])
       .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '));
 
@@ -134,7 +135,7 @@ module.exports = class Command{
       if (this[prop] && compare){
         const langserv = this.client.services.LANGUAGE;
         const path = ['SYSTEM', `PERM_${prop.toUpperCase().substr(0,9)}`];
-        return Promise.resolve(langserv.get({ path, language}));
+        return Promise.resolve(langserv.get({ path, language, parameters }));
       };
     };
 
@@ -149,14 +150,16 @@ module.exports = class Command{
       // Checking if the message author has the required permissions
       if (this.permissions.length && !message.channel.permissionsFor(message.member).has(this.permissions)){
         return Promise.resolve(langserv.get({ language, path: ['SYSTEM', 'PERM_DISCOUSER'], parameters: {
-          '%PERMISSIONS%': getperms(message.member, 'permissions')
+          '%PERMISSIONS%': getperms(message.member, 'permissions'),
+          ...parameters
         }}));
       } else
 
       // Checking if the client has the required permissions
       if (this.clientPermissions.length && !message.channel.permissionsFor(message.guild.me).has(this.clientPermissions)){
         return Promise.resolve(langserv.get({ language, path: ['SYSTEM', 'PERM_DISCLIENT'], parameters: {
-          '%PERMISSIONS%': getperms(message.guild.me, 'clientPermissions')
+          '%PERMISSIONS%': getperms(message.guild.me, 'clientPermissions'),
+          ...parameters
         }}));
       } else
 
