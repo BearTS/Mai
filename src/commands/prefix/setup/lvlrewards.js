@@ -25,7 +25,8 @@ module.exports = {
       const doc         = message.guild.profile;
       const permissions = message.guild.me.permissions.has(FLAGS.MANAGE_ROLES);
       const strmessage  = permissions ? '' : language.get({ '$in': 'COMMANDS', id: 'LVLREWARDS_V_PR' });
-      const parameters  = new language.Parameter({ '%REWARDS%': doc.xp.rewards.map(x => `**Level ${x.level}** - <@&${x.id}>`).join('\n') || '- -' });
+      const rewards     = [...doc.xp.rewards].sort((A,B) => A.level - B.level).map(x => `**Level ${x.level}** - <@&${x.id}>`);
+      const parameters  = new language.Parameter({ '%REWARDS%': rewards.join('\n') || '- -' });
       const embed       = new MessageEmbed()
       .setColor      ( 'GREY' )
       .setAuthor     ( message.guild.name )
@@ -82,9 +83,10 @@ module.exports = {
       };
 
       if (type === 'set'){
-        for (const [level, roleID] of match){
-          if (doc.xp.rewards.some(x => x.level === level)){
-            doc.xp.rewards.splice(doc.xp.rewards.findIndex(y => y.level === level), 1, { level, id: roleID });
+        for (let [level, roleID] of match){
+          level = Number(level);
+          if (doc.xp.rewards.some(x => x.level == level)){
+            doc.xp.rewards.splice(doc.xp.rewards.findIndex(y => y.level == level), 1, { level, id: roleID });
           } else {
             doc.xp.rewards.push({ level, id: roleID });
           };
@@ -92,8 +94,9 @@ module.exports = {
       };
 
       if (type === 'remove'){
-        for (const level of match){
-          if (doc.xp.rewards.some(x => x.level === level)){
+        for (let level of match){
+          level = Number(level);
+          if (doc.xp.rewards.some(x => x.level == level)){
             doc.xp.rewards.splice(doc.xp.rewards.findIndex(y => y.level === level), 1);
           };
         };
