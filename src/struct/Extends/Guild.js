@@ -7,6 +7,8 @@ module.exports = Structures.extend('Guild', Guild => {
 
       this.profile = null;
 
+      this.memes = new Collection();
+
       this.xpcooldowns = new Collection();
     };
 
