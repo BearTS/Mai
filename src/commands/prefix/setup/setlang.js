@@ -1,22 +1,20 @@
 module.exports = {
-  name: 'setlang',
-  aliases: [ 'setlanguage' ],
-  group: 'setup',
+  name            : 'setlang',
+  aliases         : [ 'setlanguage' ],
+  group           : 'setup',
   requiresDatabase: true,
-  rankcommand: false,
-  description: 'Sets your own language',
-  parameters: [ 'language code' ],
-  examples: [
-    'setlang ja-jp'
-  ],
-  run: async (message, language, [ code = '' ]) => {
+  rankcommand     : false,
+  description     : 'Sets your own language',
+  parameters      : [ 'language code' ],
+  examples        : [ 'setlang ja-jp' ],
+  run             : async (message, language, [ code = '' ]) => {
+    
     const AVAILABLELANGS = Object.keys(message.client.services.LANGUAGE.store);
     const parameters = new language.Parameter({
       '%AUTHOR%': message.author.tag,
       '%LANGUAGE_CODES%': message.client.services.UTIL.ARRAY.join(AVAILABLELANGS),
       '%LANGUAGE_CODE%': code
     });
-
 
     if (!AVAILABLELANGS.includes(code.toLowerCase())){
       return message.channel.send( language.get({ '$in': 'COMMANDS', id: 'SETLANG_CODEINV', parameters }));

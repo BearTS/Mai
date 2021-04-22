@@ -3,22 +3,23 @@ const fetch = require('node-fetch');
 const moment = require('moment');
 
 module.exports = {
-  name: 'manga',
-  description: 'Searches for a Manga / Manhwa / Manhua in MyAnimeList.net, or shows Seishun Buta Yarou if no query is provided.',
-  aliases: [],
-  cooldown: null,
-  clientPermissions: [FLAGS.EMBED_LINKS, FLAGS.ADD_REACTIONS, FLAGS.USE_EXTERNAL_EMOJIS],
-  permissions: [ ],
-  group: 'setup',
-  parameters: [],
-  examples: [],
-  guildOnly: true,
-  ownerOnly: false,
-  adminOnly: false,
-  nsfw: false,
-  requiresDatabase: true,
-  rankcommand: false,
-  run: async (message, language, args) => {
+  name             : 'manga',
+  description      : 'Searches for a Manga / Manhwa / Manhua in MyAnimeList.net, or shows Seishun Buta Yarou if no query is provided.',
+  aliases          : [],
+  cooldown         : null,
+  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.ADD_REACTIONS, FLAGS.USE_EXTERNAL_EMOJIS ],
+  permissions      : [ ],
+  group            : 'setup',
+  parameters       : [],
+  examples         : [],
+  guildOnly        : true,
+  ownerOnly        : false,
+  adminOnly        : false,
+  nsfw             : false,
+  requiresDatabase : true,
+  rankcommand      : false,
+  run              : async (message, language, args) => {
+
     const query = args.join(' ') || 'Seishun Buta Yarou';
     const URI = `https://api.jikan.moe/v3/search/manga?q=${encodeURI(query)}&page=1`;
     const parameters = new language.Parameter({

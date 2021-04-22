@@ -17,7 +17,7 @@ module.exports = async (client, type, member) => {
     if (member.guild.profile === null){
       await member.guild.loadProfile();
     };
-    const reward = member.guild.profile.xp.rewards.find(X => x.level === member.level);
+    const reward = member.guild.profile.xp.rewards.find(x => x.level === member.level);
     if (!reward) return;
 
     const role = member.guild.roles.cache.get(reward.id);

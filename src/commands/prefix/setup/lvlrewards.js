@@ -1,22 +1,22 @@
 const { MessageEmbed, Permissions: { FLAGS } } = require('discord.js');
 
 module.exports = {
-  name: 'lvlrewards',
-  description: 'Set/Remove role rewards for specific levels.',
-  aliases: [],
-  cooldown: null,
-  clientPermissions: [ ],
-  permissions: [ ],
-  group: 'setup',
-  parameters: [],
-  examples: [],
-  guildOnly: true,
-  ownerOnly: false,
-  adminOnly: false,
-  nsfw: false,
-  requiresDatabase: true,
-  rankcommand: false,
-  run: async (message, language, args) => {
+  name             : 'lvlrewards',
+  description      : 'Set/Remove role rewards for specific levels.',
+  aliases          : [],
+  cooldown         : null,
+  clientPermissions: [],
+  permissions      : [],
+  group            : 'setup',
+  parameters       : [],
+  examples         : [],
+  guildOnly        : true,
+  ownerOnly        : false,
+  adminOnly        : false,
+  nsfw             : false,
+  requiresDatabase : true,
+  rankcommand      : false,
+  run              : async (message, language, args) => {
 
     if (!args.length){
       if (message.guild.profile === null){
@@ -109,7 +109,6 @@ module.exports = {
         return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'LVLREWARDS_SCSS', parameters: parameters.assign({ '%REWARDS%': rewards || '[ - ]' }) }));
       })
       .catch(err => {
-        console.log(err)
         return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_ONSAVE', parameters: parameters.assign({ '%ERROR%': err.message })}));
       });
     });

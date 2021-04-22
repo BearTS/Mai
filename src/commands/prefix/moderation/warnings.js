@@ -2,22 +2,22 @@ const { MessageEmbed , Permissions: { FLAGS }} = require('discord.js');
 const moment = require('moment');
 
 module.exports = {
-  name: 'warnings',
-  description: 'View warn records for a specific user.',
-  aliases: [],
-  cooldown: null,
+  name             : 'warnings',
+  description      : 'View warn records for a specific user.',
+  aliases          : [],
+  cooldown         : null,
   clientPermissions: [],
-  permissions: [FLAGS.MANAGE_GUILD],
-  group: 'setup',
-  parameters: [],
-  examples: [],
-  guildOnly: true,
-  ownerOnly: false,
-  adminOnly: false,
-  nsfw: false,
-  requiresDatabase: true,
-  rankcommand: false,
-  run: async (message, language, [user]) => {
+  permissions      : [ FLAGS.MANAGE_GUILD ],
+  group            : 'setup',
+  parameters       : [],
+  examples         : [],
+  guildOnly        : true,
+  ownerOnly        : false,
+  adminOnly        : false,
+  nsfw             : false,
+  requiresDatabase : true,
+  rankcommand      : false,
+  run              : async (message, language, [user]) => {
     const parameters = new language.Parameter({
       '%AUTHOR%': message.author.tag,
     });

@@ -1,22 +1,22 @@
 const { Permissions: { FLAGS }} = require('discord.js');
 
 module.exports = {
-  name: 'unwarn',
-  description: 'Remove/clear warning logs from a user.',
-  aliases: [],
-  cooldown: null,
+  name             : 'unwarn',
+  description      : 'Remove/clear warning logs from a user.',
+  aliases          : [],
+  cooldown         : null,
   clientPermissions: [],
-  permissions: [FLAGS.MANAGE_GUILD],
-  group: 'setup',
-  parameters: [],
-  examples: [],
-  guildOnly: true,
-  ownerOnly: false,
-  adminOnly: false,
-  nsfw: false,
-  requiresDatabase: true,
-  rankcommand: false,
-  run: async (message, language, [user, ...ids]) => {
+  permissions      : [ FLAGS.MANAGE_GUILD ],
+  group            : 'setup',
+  parameters       : [],
+  examples         : [],
+  guildOnly        : true,
+  ownerOnly        : false,
+  adminOnly        : false,
+  nsfw             : false,
+  requiresDatabase : true,
+  rankcommand      : false,
+  run              : async (message, language, [user, ...ids]) => {
     const parameters = new language.Parameter({
       '%AUTHOR%': message.author.tag,
     });

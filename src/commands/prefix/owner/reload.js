@@ -1,16 +1,15 @@
 module.exports = {
-  name: 'reload',
-  aliases: [],
-  ownerOnly: true,
-  group: 'owner',
+  name            : 'reload',
+  aliases         : [],
+  ownerOnly       : true,
+  group           : 'owner',
   requiresDatabase: false,
-  rankcommand: false,
-  description: 'Reloads a command',
-  parameters: [ 'command name/alias' ],
-  examples: [
-    'reload anime'
-  ],
-  run: (message, language, [command] ) => {
+  rankcommand     : false,
+  description     : 'Reloads a command',
+  parameters      : [ 'command name/alias' ],
+  examples        : [ 'reload anime' ],
+  run             : (message, language, [command] ) => {
+    
     const parameters = new language.Parameter({
       '%AUTHOR%' : message.author.tag,
       '%COMMAND%': command

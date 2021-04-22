@@ -3,25 +3,18 @@ const { getInfoFromName } = require('mal-scraper');
 const moment = require('moment');
 
 module.exports = {
-  name: 'anime',
-  aliases: [ 'ani', 'as', 'anisearch'],
-  cooldown: {
-    time: 10000,
-    message: 'You are going too fast. Please slow down to avoid getting rate-limited!'
-  },
-  requiresDatabase: false,
-  rankcommand: false,
-  clientPermissions: [FLAGS.EMBED_LINKS],
-  group: 'anime',
-  description: 'Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage"), or shows Mai\'s anime series information if no query is provided.',
-  parameters: [ 'Search Query' ],
-  examples: [
-    'anime',
-    'as seishun buta yarou',
-    'ani aobuta',
-    'anisearch bunnygirl senpai'
-  ],
-  run: async (message, language, args) => {
+  name             : 'anime',
+  aliases          : [ 'ani', 'as', 'anisearch'],
+  cooldown         : { time: 10000 },
+  requiresDatabase : false,
+  rankcommand      : false,
+  clientPermissions: [ FLAGS.EMBED_LINKS ],
+  group            : 'anime',
+  description      : 'Searches for a specific anime in <:mal:767062339177676800> [MyAnimeList](https://myanimelist.net "Homepage"), or shows Mai\'s anime series information if no query is provided.',
+  parameters       : [ 'Search Query' ],
+  examples         : [ 'anime', 'as seishun buta yarou', 'ani aobuta', 'anisearch bunnygirl senpai' ],
+  run              : async (message, language, args) => {
+    
     const query = args.join(' ') || 'Seishun Buta Yarou';
     const parameters = new language.Parameter({
       '%AUTHOR%': message.author.tag,
