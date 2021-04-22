@@ -24,7 +24,7 @@ module.exports = {
 
     const time = Date.now();
 
-    return profile.find({ 'data.xp.id': message.guild.id }, null, { sort: { 'data.xp.xp': -1 }}, async (err, collection) => {
+    return profile.find({ 'data.xp.id': message.guild.id }, async (err, collection) => {
       if (err){
         parameters.append({ '%ERROR%': err.message });
         const response = language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters });
@@ -32,7 +32,10 @@ module.exports = {
       };
 
       const { NUMBER } = message.client.services.UTIL;
-      const _index     = collection.findIndex(x => x._id === member.id);
+      const _findfn   = (A)   => A.id === message.guild.id;
+      const _sortfn   = (A,B) => B.data.xp.find(_findfn).xp - A.data.xp.find(_findfn).xp;
+      collection       = collection.sort(_sortfn).map(x => { return { id: x._id, data: x.data.xp.find(x => x.id === message.guild.id)}});
+      const _index     = collection.findIndex(x => x.id === member.id);
       const document   = collection[_index] || new profile({ _id: member.id });
       const rank       = NUMBER.ordinalize(_index + 1).replace(/(?<![\d]{1,})0th/, 'N/A');
       const lowerlim  = member.getXPCapByLevel(member.level -1 || 1);

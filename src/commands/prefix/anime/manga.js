@@ -51,7 +51,7 @@ module.exports = {
       .setAuthor   (entry.title, entry.image_url, entry.url)
       .setColor    (entry.type !== 'Doujinshi' ? 'GREY' : 'RED')
       .setThumbnail(entry.image_url)
-      .setFooter   (`${language.get({ '$in': 'COMMANDS', id: 'MANGA_EFOOTER'})}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
+      .setFooter   (`${language.get({ '$in': 'COMMANDS', id: 'MANGA_FOOTER'})}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
       .addFields   ([
           { name: DICT.TYPE,          value: entry.type,                                                                                         inline: true  },
           { name: DICT.STATUS,        value: entry.publishing ? DICT.PUBLISHING : DICT.FINISHED,                                                 inline: true  },

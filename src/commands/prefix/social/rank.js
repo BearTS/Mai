@@ -1,6 +1,6 @@
-const { join }                                  = require('path');
-const { Permissions: { FLAGS }}                 = require('discord.js');
-const { createCanvas, loadImage, registerFont } = require('canvas');
+const { join }                    = require('path');
+const { Permissions: { FLAGS }}   = require('discord.js');
+const { createCanvas, loadImage } = require('canvas');
 
 module.exports = {
   name             : 'rank',                 // Name of this command
@@ -30,6 +30,10 @@ module.exports = {
         return message.channel.send(response);
       };
 
+      if (member.user.profile === null){
+        member.user.loadProfile();
+      };
+
       const { NUMBER } = message.client.services.UTIL;
       const _index    = collection.findIndex(x => x._id === member.id);
       const _findfn   = (A)   => A.id === message.guild.id;
@@ -37,7 +41,7 @@ module.exports = {
       const document  = collection[_index] || new profile({ _id: member.id });
       const rank      = NUMBER.ordinalize(collection.sort(_sortfn).findIndex(x => x._id === document._id) + 1).replace(/(?<![\d]{1,})0th/, 'Unranked');
       const lowerlim  = member.getXPCapByLevel(!isNaN(member.level - 1) ? member.level - 1 : 1);
-      const upperlim  = member.getXPCapByLevel(member.level    || 1);
+      const upperlim  = member.getXPCapByLevel(member.level || 1);
       const percent   = (member.xp - lowerlim) / (upperlim - lowerlim);
       const logo      = await loadImage(join(__dirname, '../../../', 'assets/images/161902995375172790.png'));
       const booster   = await loadImage(join(__dirname, '../../../', `assets/images/16190532152403172${member.premiumSince ? '1' : '2'}.png`));
@@ -58,7 +62,7 @@ module.exports = {
       const generateRCT = (x, y, w, h, r)  => {if(w<2*r)r=w/2;if(h<2*r)r=h/2;ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()};
 
       // Generate the background
-      ctx.fillStyle = '262626' || '#363434';
+      ctx.fillStyle = '#000000' || '#363434';
       generateBox(0, 0, 900, 275);
       ctx.fill();
 
@@ -109,7 +113,7 @@ module.exports = {
       ctx.beginPath();
       ctx.arc(145, 275/2, 105, 1.2, 1.2 + (Math.PI * 2))
       ctx.stroke();
-      
+
       // Add xp
       ctx.strokeStyle = document.data.profile.color || '#e620a4';
       ctx.beginPath();
