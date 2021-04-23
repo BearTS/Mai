@@ -38,7 +38,7 @@ module.exports = {
 
     if (errors){
       parameters.assign({ '%QUERY%': 'Random Manga Query', '%SERVICE%': 'AniList', '%ERROR%': errors[0].message });
-      return message.channel.send(language.get({ '$in': 'ERRORS', id: errors[0].status, parameters }));
+      return message.reply(language.get({ '$in': 'ERRORS', id: errors[0].status, parameters }));
     };
 
     const DICT = language.getDictionary(['other titles', 'native', 'romaji', 'english', 'genres', 'started', 'chapters', 'volumes', 'no synopsis', 'read synopsis'])

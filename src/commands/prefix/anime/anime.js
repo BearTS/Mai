@@ -35,10 +35,10 @@ module.exports = {
 
     if (!data){
       const no_data_response = language.get({'$in': 'COMMANDS', id: 'ANIME_NO_DATA', parameters });
-      return message.channel.send(no_data_response).then(() => message.channel.stopTyping());
+      return message.reply(no_data_response).then(() => message.channel.stopTyping());
     } else if (data === 'TIMEOUT'){
       const timeout_response = language.get({'$in': 'ERRORS', id: 408..toString() ,parameters: parameters.assign({'%SERVICE%': 'MyAnimeList'})});
-      return message.channel.send(timeout_response).then(() => message.channel.stopTyping());
+      return message.reply(timeout_response).then(() => message.channel.stopTyping());
     };
 
     message.channel.stopTyping();
@@ -51,7 +51,7 @@ module.exports = {
         '%ANIME_STUDIO%': data.studios?.[0] || 'Unknown Publisher',
         '%NSFW_CHANNELS%': nsfwch.length ? ` such as ${message.client.services.UTIL.ARRAY.join(nsfwch)}` : ''
       })});
-      return message.channel.send(nsfw_response);
+      return message.reply(nsfw_response);
     };
 
     const { NUMBER, STRING, ARRAY } = message.client.services.UTIL;

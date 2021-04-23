@@ -37,7 +37,7 @@ module.exports = {
 
       if (res.errors){
         parameters.assign({ '%QUERY%': 'Discovery Query', '%SERVICE%': 'AniList', '%ERROR%': res.errors[0].message });
-        return message.channel.send(language.get({ '$in': 'ERRORS', id: res.errors[0].status, parameters }));
+        return message.reply(language.get({ '$in': 'ERRORS', id: res.errors[0].status, parameters }));
       };
 
       message.author.anidiscovery = {

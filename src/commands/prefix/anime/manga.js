@@ -36,12 +36,12 @@ module.exports = {
 
     if (!data.results){
       const response = language.get({ '$in': 'ERRORS', id: data.status, parameters });
-      return message.channel.send(response);
+      return message.reply(response);
     };
 
     if (!data.results.length){
       const response = language.get({ '$in': 'COMMANDS', id: 'MANGA_NO_DATA', parameters });
-      return message.channel.send(response);
+      return message.reply(response);
     };
 
     const DICT = language.getDictionary(['type','status','chapters','members','score','volumes','start date','end date','publishing','finished','unknown']);

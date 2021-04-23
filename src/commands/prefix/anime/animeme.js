@@ -37,7 +37,7 @@ module.exports = {
                  message.guild.memes.delete(meme.title);
 
     if (!meme){
-      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'ANIMEME_NOMEME', parameters }));
+      return message.reply(language.get({ '$in': 'COMMANDS', id: 'ANIMEME_NOMEME', parameters }));
     };
 
     return message.channel.send(

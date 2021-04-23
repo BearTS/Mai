@@ -25,7 +25,7 @@ module.exports = {
 
     if (data.error){
       parameters.assign({ '%QUERY%': query, '%SERVICE%': 'MyAnimeList (via Jikan)', '%ERROR%': data.error.message });
-      return message.channel.send(language.get({ '$in': 'ERRORS', id: data.error.status, parameters }));
+      return message.reply(language.get({ '$in': 'ERRORS', id: data.error.status, parameters }));
     };
 
     const uri = `https://api.jikan.moe/v3/character/${data.results[0].mal_id}`
@@ -33,7 +33,7 @@ module.exports = {
 
     if (res.error){
       parameters.assign({ '%QUERY%': query, '%SERVICE%': 'MyAnimeList (via Jikan)', '%ERROR%': res.error.message });
-      return message.channel.send(language.get({ '$in': 'ERRORS', id: res.error.status, parameters }));
+      return message.reply(language.get({ '$in': 'ERRORS', id: res.error.status, parameters }));
     };
 
     const { ARRAY, STRING } = message.client.services.UTIL;

@@ -24,7 +24,7 @@ module.exports = {
 
     if (errors){
       parameters.assign({ '%QUERY%': query, '%SERVICE%': 'AniList', '%ERROR%': errors[0].message });
-      return message.channel.send(language.get({ '$in': 'ERRORS', id: errors[0].status, parameters }));
+      return message.reply(language.get({ '$in': 'ERRORS', id: errors[0].status, parameters }));
     };
 
     const media  = [ data.Media || data.Page.media ].flat();
