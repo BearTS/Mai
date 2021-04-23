@@ -46,7 +46,7 @@ module.exports = {
 
     return message.client.database['Profile'].findById(user.id, (err, doc) => {
       if (err){
-        parameters.append({ '%ERROR%': err.message });
+        parameters.assign({ '%ERROR%': err.message });
         const response = language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters });
         return message.channel.send(response);
       };

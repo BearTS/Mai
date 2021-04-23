@@ -51,7 +51,7 @@ module.exports = {
 
     return message.client.database['Profile'].findById(user.id, (err,doc) => {
       if (err){
-        parameters.append({ '%ERROR%': err.message });
+        parameters.assign({ '%ERROR%': err.message });
         const response = language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters });
         return message.channel.send(response);
       };
@@ -64,7 +64,7 @@ module.exports = {
       const infractions = [...doc.data.infractions.warn.filter(x => x.guild === message.guild.id)];
 
       if (!infractions){
-        parameters.append({ '%USER%': user.tag });
+        parameters.assign({ '%USER%': user.tag });
         const response = language.get({ '$in': 'COMMANDS', id: 'UNWARN_NO_INFRA', parameters });
         return message.channel.send(response);
       };

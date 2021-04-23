@@ -62,6 +62,15 @@ module.exports = class Anischedule{
         'November',
         'December'
       ],
+      weeks: [
+        'sunday',
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday'
+      ],
       defaultgenres: [
         'Action',
         'Adventure',

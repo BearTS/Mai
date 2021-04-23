@@ -1,14 +1,20 @@
-query ($search: String, $status: MediaStatus) {
-  Media(type: ANIME, status: $status, search: $search) {
+query ($search: String) {
+  Media(type: ANIME, search: $search, sort: START_DATE_DESC) {
     title {
       romaji
       english
       native
     }
+    status
     episodes
     nextAiringEpisode {
       episode
       timeUntilAiring
+    }
+    startDate {
+      year
+      month
+      day
     }
     id
     siteUrl

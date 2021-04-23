@@ -2,6 +2,8 @@ const { MessageEmbed, Permissions: { FLAGS }} = require('discord.js');
 const { getInfoFromName } = require('mal-scraper');
 const moment = require('moment');
 
+moment.suppressDeprecationWarnings = true;
+
 module.exports = {
   name             : 'anime',
   aliases          : [ 'ani', 'as', 'anisearch'],
@@ -14,7 +16,7 @@ module.exports = {
   parameters       : [ 'Search Query' ],
   examples         : [ 'anime', 'as seishun buta yarou', 'ani aobuta', 'anisearch bunnygirl senpai' ],
   run              : async (message, language, args) => {
-    
+
     const query = args.join(' ') || 'Seishun Buta Yarou';
     const parameters = new language.Parameter({
       '%AUTHOR%': message.author.tag,

@@ -1,0 +1,35 @@
+query ($id: Int) {
+  Media(id: $id) {
+    siteUrl
+    id
+    idMal
+    synonyms
+    isAdult
+    format
+    startDate {
+      year
+      month
+      day
+    }
+    episodes
+    duration
+    genres
+    studios(isMain:true) {
+      nodes {
+        name
+        siteUrl
+        }
+      }
+    coverImage {
+      large
+      color
+    }
+    description
+    title {
+      romaji
+      english
+      native
+      userPreferred
+      }
+    }
+  }

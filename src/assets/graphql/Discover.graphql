@@ -1,0 +1,1 @@
+query ($ids: [Int]) { Page{ media(id_in: $ids){ siteUrl id idMal type isAdult format startDate { year month day } episodes duration chapters volumes genres studios(isMain:true){ nodes{ name siteUrl } } coverImage{ large color } description title { romaji english native } } } }

@@ -7,12 +7,14 @@
  * @param {options.filter} function the filter function for the collector
  * @param {options.timeout} number The timeout to use in milliseconds
  * @param {options.includeStopBtn} boolean Whether to include a stop button, defaults to true
+ * @param {options.includePrevBtn} boolean Whether to include a previous button, defaults to true
  * @param {options.previousbtn} string The Emoji ID or Emoji Unicode to use as previous button
  * @param {options.nextbtn} string The Emoji ID or Emoji Unicode to use as next button
  * @param {options.stopbtn} string The Emoji ID or Emoji Unicode to use as stop button
  * @param {options.removeUserReactions} boolean Whether to remove user reactions upon pagination
  * @param {options.removeAllReactions} boolean Whether to remove all reactions upon end of pagination
  * @param {options.appendPageInfo} boolean Whether to append the page info on the footer
+ * @param {options.disableLoop} boolean Whether to stop the collector when it reaches the max page, works only if prevbutton is disabled
  * @param {options.editFrom<Message>} Message the Message Object to edit, if none, will send message instead
  */
 
@@ -27,6 +29,7 @@ module.exports = class Paginate {
     this.collector = null;
     this.reactionmessage = null;
     this.btn = {};
+    this.disableLoop = options.disableLoop === true && !options.includePrevBtn ? true : false;
 
     if (options.appendPageInfo === true){
       for (const [index, embed] of this._array.entries()){
@@ -43,7 +46,7 @@ module.exports = class Paginate {
       this.btn[prop] = options[key]?.id || options[key] || def;
     };
 
-    for (const prop of ['removeAllReactions', 'removeUserReactions', 'includeStopBtn', 'appendPageInfo']){
+    for (const prop of ['removeAllReactions', 'removeUserReactions', 'includePrevBtn', 'includeStopBtn', 'appendPageInfo']){
       if (typeof options[prop] === 'boolean'){
         this[prop] = options[prop]
       } else {
@@ -54,7 +57,7 @@ module.exports = class Paginate {
 
   /**
    * Executes this pagination function
-   * @return {Promise<Message|ReactionCollector>}
+   * @return {Promise<ReactionCollector>}
    */
   async exec(){
     const collect = async ({ emoji: { name, id }, users }) => {
@@ -76,17 +79,18 @@ module.exports = class Paginate {
     } else if (this._array.size == 1){
       return Promise.resolve(this.reactionmessage);
     } else {
-      for (const reaction of Object.values(this.btn)){
+      for (const [prop, reaction] of Object.entries(this.btn)){
+        if (prop === 'previous' && !this.includePrevBtn || prop === 'stop' && !this.includeStopBtn) continue;
         await this.reactionmessage.react(reaction);
       };
       this.collector = this.reactionmessage.createReactionCollector(this.filter, { idle: this.timeout, dispose: !this.removeUserReactions })
       .on('collect', async reaction => await collect(reaction))
       .on('remove', async reaction => this.removeUserReactions === false ? await collect(reaction) : null)
       .on('end', async () => {
-        this.removeAllReactions && !this.reactionmessage.deleted ? await this.reactionmessage.reactions.removeAll() : null;
+        this.removeAllReactions && !this.reactionmessage.deleted ? await this.reactionmessage.reactions.removeAll().catch(() => {}) : null;
         return this.destroy();
       });
-      return Promise.resolve(this);
+      return Promise.resolve({ collector: this.collector, message: this.reactionmessage });
     };
   };
 
@@ -101,9 +105,14 @@ module.exports = class Paginate {
     if (!this._array.length){
       return undefined;
     };
-    if (this._index === this._array.length - 1) this._index = -1;
+    if (this._index === this._array.length - 1){
+      this._index = -1;
+    };
     this._index++;
-    return this.reactionmessage.edit(this._array[this._index]);
+    if (this._index === this._array.length - 1 && this.disableLoop){
+        return this.reactionmessage.edit(this._array[this._index]).then(() => this.stop());
+    };
+    return this.reactionmessage.edit(this._array[this._index])
   };
 
   /**

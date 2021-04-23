@@ -25,7 +25,7 @@ module.exports = {
 
     return profile.find({ 'data.xp.id': message.guild.id }, async (err, collection) => {
       if (err){
-        parameters.append({ '%ERROR%': err.message });
+        parameters.assign({ '%ERROR%': err.message });
         const response = language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters });
         return message.channel.send(response);
       };

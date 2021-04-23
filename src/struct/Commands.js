@@ -125,7 +125,29 @@ module.exports = class Commands{
     };
 
     const service = langserv.getCommand(command.name, language);
-    command.run(message, service, args);
+
+    if (command.run.constructor.name === 'AsyncFunction'){
+      command.run(message, service, args).catch(err => {
+        console.log(err)
+        message.channel.stopTyping();
+        const  path       = [ 'ERRORS', 'CMDEXECFL' ];
+        const  parameters = { '%AUTHOR%': message.author.tag, '%ERROR%': err.message, '%COMMAND%': name };
+        const  response   = service.get({ '$in': 'ERRORS', id: 'CMDEXECFL', parameters });
+        return message.reply(response + '\n' + langserv.get({ path: [ 'SYSTEM', 'CMD_ERROR'], language }));
+      });
+    } else {
+      try {
+        command.run(message, service, args)
+      } catch (err) {
+        console.log(err)
+        message.channel.stopTyping();
+        const  path       = [ 'ERRORS', 'CMDEXECFL' ];
+        const  parameters = { '%AUTHOR%': message.author.tag, '%ERROR%': err.message, '%COMMAND%': name };
+        const  response   = service.get({ '$in': 'ERRORS', id: 'CMDEXECFL', parameters });
+        return message.reply(response + '\n' + langserv.get({ path: [ 'SYSTEM', 'CMD_ERROR'], language }));
+      };
+    };
+
     command.used++;
 
     return Promise.resolve({ executed: true });

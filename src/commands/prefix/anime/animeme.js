@@ -4,7 +4,7 @@ const fetch                                   = require('node-fetch');
 module.exports = {
   name             : 'animeme',
   aliases          : [ 'ameme' , 'animememe' , 'animemes' , 'animememes' , 'amemes' ],
-  cooldown         : { time: 10000 },
+  cooldown         : null,
   guildOnly        : true,
   requiresDatabase : false,
   rankcommand      : false,

@@ -5,9 +5,10 @@ module.exports = Structures.extend('User', User => {
     constructor(client, data){
       super(client, data);
 
-      this.profile = null;
-
-      this.cooldown = new Collection();
+      this.profile      = null;
+      this.anidiscovery = null;
+      this.reading      = false;
+      this.cooldown     = new Collection();
     };
 
     async loadProfile(){

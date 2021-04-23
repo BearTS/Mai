@@ -24,15 +24,20 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
+    "animequotes": "^1.1.2",
     "canvas": "^2.7.0",
     "discord-player": "^3.4.0",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
+    "hanime": "^1.1.2",
+    "lodash": "^4.17.21",
     "mal-scraper": "^2.11.3",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.12.5",
+    "nhentai-api": "^3.0.2",
     "node-fetch": "^2.6.1",
+    "node-kitsu": "^1.1.1",
     "require-text": "^0.0.1"
   }
 }

@@ -1,15 +1,21 @@
 {
   Page {
-    media(type: ANIME, status: RELEASING, sort: POPULARITY_DESC) {
+    media(type: ANIME, sort: POPULARITY_DESC, status: RELEASING) {
       title {
         romaji
         english
         native
       }
+      status
       episodes
       nextAiringEpisode {
         episode
         timeUntilAiring
+      }
+      startDate {
+        year
+        month
+        day
       }
       id
       siteUrl
