@@ -58,7 +58,7 @@ module.exports = {
       const [ now_at  , next_at  , later_at  ] = [now, next, later].map(x => Object.values(x.title).filter(Boolean).slice(1).map(x => `*${x}*`).join('\n'));
       const [ now_stu , next_stu , later_stu ] = [now, next, later].map(x => x.studios.edges.length ? `\n${x.studios.edges.map(x => `[${x.node.name}](${x.node.siteUrl})`).join('\u2000|\u2000')}` : '');
       const [ now_time, next_time, later_time] = [now, next, later].map(x => moment.duration(x.nextAiringEpisode.timeUntilAiring, 'seconds').format(`d [${DICT['DAY(S)']}] h [${DICT['HOUR(S)']}] m [${DICT['MINUTE(S)']}]`));
-      const [ now_ep  , next_ep  , later_ep  ] = [now, next, later].map(x => x.nextAiringEpisode.episode === x.episodes ? `${x.episodes} (${DICT['SEASON FINALE']})` : x.episodes);
+      const [ now_ep  , next_ep  , later_ep  ] = [now, next, later].map(x => x.nextAiringEpisode.episode === x.episodes ? `${x.nextAiringEpisode.episode} (${DICT['SEASON FINALE']})` : x.nextAiringEpisode.episode);
 
       return message.channel.send(
         new MessageEmbed()

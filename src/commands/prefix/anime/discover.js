@@ -94,7 +94,7 @@ module.exports = {
     .addFields([
       { name: '\u200b', value: Object.keys(message.author.anidiscovery[category.toLowerCase()].genres).map(g => `\\🟢 ${g}`).join('\n') },
       { name: message.author.anidiscovery[category.toLowerCase()].viewcount > 1 ? viewed : '\u200b', value: '\u200b' },
-      { name: '\u200b', value: 'Start Your Queue by clicking <:next:767062244034084865> below!!' }
+      { name: '\u200b', value: language.get({ '$in': 'COMMANDS', id: 'DISCOVER_DESC2' }) }
     ]);
 
     return new Paginate([firstPage, ...pages], message, {

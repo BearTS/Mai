@@ -20,7 +20,7 @@ module.exports = {
   run              : async (message, language, [type]) => {
 
     const { STRING, ARRAY, Paginate } = message.client.services.UTIL;
-    const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag, '%TYPES%': ARRAY.join(types.map(x => `\`${x}\``)), '%TYPE%': type });
+    const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag, '%TYPES%': ARRAY.join(types.map(x => `\`${x}\``)), '%TYPE%': type?.toUpperCase() });
 
     if (!type || !types.includes(type.toUpperCase())){
       message.author.cooldown.delete('upcoming');
@@ -41,7 +41,7 @@ module.exports = {
 
     return new Paginate(descriptions.map(entry => new MessageEmbed()
       .setColor('GREY')
-      .setAuthor(`Upcoming Anime List\u2000|\u2000Type: ${type.toUpperCase()}`)
+      .setAuthor(header)
       .setDescription(entry.join('\n\n'))
       .setFooter(`${footer}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000©️${new Date().getFullYear()} Mai`)
     ), message, {

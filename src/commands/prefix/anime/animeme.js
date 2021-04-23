@@ -46,8 +46,7 @@ module.exports = {
       .setTitle(meme.title)
       .setURL(meme.link)
       .setImage(meme.image)
-      .setTimestamp(meme.timestamp)
-      .setFooter(`${language.get({ '$in': 'COMMANDS', id: 'ANIMEME_EFOOTER'})}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
+      .setFooter(`${language.get({ '$in': 'COMMANDS', id: 'ANIMEME_EFOOTE'})}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
     );
   }
 };

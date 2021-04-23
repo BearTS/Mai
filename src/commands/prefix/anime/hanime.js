@@ -31,6 +31,7 @@ module.exports = {
     const res = await hanime.search(query);
 
     if (!res.hits){
+      parameters.assign({ '%QUERY%': query })
       return message.reply(language.get({ '$in': 'COMMANDS', id: 'HANIME_NOHITS', parameters }));
     };
 
