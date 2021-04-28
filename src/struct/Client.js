@@ -1,16 +1,16 @@
 'use strict';
 
-const { Client, version, APIMessage } = require('discord.js');
-const { performance } = require('perf_hooks');
-const { readdirSync } = require('fs');
-const { join } = require('path');
+const { Client, version } = require('discord.js');
+const { readdirSync }     = require('fs');
+const { join }            = require('path');
 
 const Anischedule = require('./Anischedule');
-const Mongoose = require('./Mongoose');
-const Commands = require('./Commands');
-const Music = require('./Music');
+const Commands    = require('./Commands');
 const Interaction = require('./Interaction');
-const Services = require('./Services');
+const Mongoose    = require('./Mongoose');
+const Music       = require('./Music');
+const Services    = require('./Services');
+const VoteManager = require('./VoteManager');
 
 module.exports = class MaiClient extends Client{
   constructor(settings){
@@ -19,60 +19,42 @@ module.exports = class MaiClient extends Client{
     if (typeof settings.prefix !== 'string'){
       settings.prefix = 'm!';
     };
-
     if (!this.token && 'TOKEN' in process.env){
       this.token = process.env.TOKEN;
     };
 
-    this.bootTime = null;
+    this.once('ready', () => this.votes = new VoteManager(this));
 
-    this.services = new Services(this);
-
-    this.commands = new Commands(this);
+    this.anischedule = new Anischedule(this);
+    this.commands    = new Commands(this);
+    this.interaction = new Interaction(this);
+    this.music       = new Music(this);
+    this.services    = new Services(this);
 
     if ('MONGO_URI' in process.env){
       this.database = new Mongoose(this, settings.database);
       this.database.init();
+      this.database.db.connection.once('connected', () => {
+        this.anischedule.init();
+        if (!this.readyAt){
+          this.once('ready', () => this.loadProfiles());
+        } else {
+          this.loadProfiles();
+        };
+      });
     } else {
       this.database = null;
     };
 
-    this.anischedule = new Anischedule(this);
+    this.owners      = Array.isArray(settings.owners) ? settings.owners : [];
+    this.prefix      = settings.prefix;
+    this.uploadch    = settings.uploadch;
 
-    this.music = new Music(this);
-
-    this.database?.db.connection.once('connected', () => {
-      this.anischedule.init();
-
-      if (!this.readyAt){
-        this.once('ready', () => this.loadProfiles());
-      } else {
-        this.loadProfiles();
-      };
-    });
-
-    this.once('ready', async () => {
-      // Once a slash command is uploaded to a guild
-      // it will stick there forever even if the bot dies
-      // as long as permissions for bot.commands is enabled.
-      // Do not attempt to load the commands everytime the bot
-      // starts to avoid API ratelimit.
-
-      // Sample only
-      this.guilds.cache.get('590024931916644372')?.loadSlashCommands();
-    });
-
-    this.interaction = new Interaction(this);
-
-    this.services = new Services(this);
-
-    this.owner = settings.owner;
-    this.prefix = settings.prefix;
   };
 
   async loadProfiles(){
     const res = await this.database['GuildProfile'].find({});
-    await this.shard.broadcastEval('this.guilds.cache.each(guild => guild._inherit('+ JSON.stringify(res) +'))');
+    this.guilds.cache.each(guild => guild._inherit(res));
   };
 
   /**
@@ -86,7 +68,7 @@ module.exports = class MaiClient extends Client{
       const file = require(join(eventpath, dir));
       this.on(dir.split('.')[0], file.bind(null, this));
     };
-    console.log(`\x1b[32m[MAI_EVENTS]\x1b[0m: Loaded \x1b[32m${eventdir.length}\x1b[0m event files!`)
+    console.log(`\x1b[33m[SHARD_${this.shard.ids.join(' ')}] \x1b[32m[MAI_EVENTS]\x1b[0m: Loaded \x1b[32m${eventdir.length}\x1b[0m event files!`)
   };
 
   /**

@@ -114,7 +114,7 @@ module.exports = class Command{
     };
 
     for (const prop of ['author', 'guild']){
-      if (message[prop].profile === null){
+      if (message[prop]?.profile === null){
         await message[prop].loadProfile();
       };
     };
@@ -128,7 +128,7 @@ module.exports = class Command{
     // Checking permissions on both DM and Guild
     for (const [prop, compare ] of Object.entries({
       guildOnly: message.channel.type === 'dm',
-      ownerOnly: message.author.id !== this.client.owner,
+      ownerOnly: !this.client.owners.includes(message.author.id),
       nsfw: message.channel.type !== 'dm' && !message.channel.nsfw,
       requiresDatabase: !this.client.database?.connected,
     })){
@@ -140,7 +140,7 @@ module.exports = class Command{
     };
 
     // Checking permissions on Guild
-    if (message.channel.type === 'dm'){
+    if (message.channel.type !== 'dm'){
       const langserv = this.client.services.LANGUAGE;
       // Checking if the message author has administrative permissions
       if (this.adminOnly && message.member.hasPermission(FLAGS.ADMINISTRATOR)){
@@ -167,11 +167,11 @@ module.exports = class Command{
       if (this.rankcommand){
         for (const [ id, condition] of Object.entries({
           GUILDPROF : message.guild.profile === null,
-          GUILDXPRC : message.guild.profile.xp.isActive,
+          GUILDXPRC : !message.guild.profile.xp.isActive,
           CHANNXPRC : message.guild.profile.xp.exceptions.includes(message.guild.id)
         })){
           if (condition){
-            return Promise.resolve(langserv.get({ path: [ 'SYSTEM', `PERM_${id}`], language }));
+            return Promise.resolve(langserv.get({ path: [ 'SYSTEM', `PERM_${id}`], language, parameters }));
           };
         };
       };

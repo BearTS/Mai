@@ -7,7 +7,7 @@ module.exports = {
   cooldown         : null,
   clientPermissions: [],
   permissions      : [ FLAGS.MANAGE_GUILD ],
-  group            : 'setup',
+  group            : 'moderation',
   parameters       : [],
   examples         : [],
   guildOnly        : true,

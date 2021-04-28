@@ -4,6 +4,7 @@ module.exports = Structures.extend('GuildMember', Member => {
   class GuildMember extends Member {
     constructor(client, data, guild){
       super(client, data, guild);
+      this.muteTimeout = null;
     };
 
     // Add xp to this member
@@ -113,6 +114,11 @@ module.exports = Structures.extend('GuildMember', Member => {
     // Get the xp requirement for level promotion
     get levelnext(){
       return this.levelcap - this.xp || null;
+    };
+
+    // Whether this member is muted or not
+    get muted(){
+      return this.roles.cache.has(this.guild.profile?.roles.muted);
     };
 
     get warnings(){

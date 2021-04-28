@@ -4,7 +4,7 @@ module.exports = {
   name             : 'bal',
   description      : 'Check your wallet, how much have you earned?',
   aliases          : [ 'balance', 'credits' ],
-  cooldown         : { time: 8000 },
+  cooldown         : null,
   clientPermissions: [ FLAGS.EMBED_LINKS ],
   guildOnly        : true,
   rankcommand      : false,
@@ -42,8 +42,9 @@ module.exports = {
           '%STREAK%'         : document.data.economy.streak.current,
           '%BEST_STREAK%'    : document.data.economy.streak.alltime,
           '%STREAK_REQUIRED%': 10 - document.data.economy.streak.current % 10,
-          '%BUNNY_METER%'    : left === 0 ? dailyUsed ? active.repeat(10) : inactive.repeat(10) : active.repeat(cur || 10) + inactive.repeat(left)
-        })})}\n${language.get({ '$in': 'COMMANDS', id: `BAL_${dailyUsed ? 'CLAIMED' : 'AVAILABLE'}`})}`
+          '%BUNNY_METER%'    : left === 0 ? dailyUsed ? active.repeat(10) : inactive.repeat(10) : active.repeat(cur || 10) + inactive.repeat(left),
+          '%TOP_GG%'         : `https://top.gg/bot/${message.client.user.id}/vote`
+        })})}\n${language.get({ '$in': 'COMMANDS', id: `BAL_${dailyUsed ? 'CLAIMED' : 'AVAILABLE'}`, parameters })}`
       )
     );
   })

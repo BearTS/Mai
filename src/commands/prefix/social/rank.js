@@ -16,7 +16,7 @@ module.exports = {
   examples         : [ 'profile', 'rank @user', 'lvl 78475628394857374' ],
   run              : async (message, language, [ member = '' ]) => {
 
-    const parameters = new language.Parameter({ '%AUTHOR': message.author.tag });
+    const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag });
     const profile    = message.client.database['Profile'];
 
     member = member.match(/\d{17,18}/)?.[0] || message.member.id;

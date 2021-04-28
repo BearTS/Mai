@@ -7,6 +7,7 @@ module.exports = async (client, message) => {
   // This function everytime the bot receives a message payload from discord
   //*=============================================================*/
 
+  return;
 
   /*==========================IGNORE BOTS=========================*/
   // When the received message payload is authored by a bot, cease the parsing
@@ -30,7 +31,7 @@ module.exports = async (client, message) => {
   // Every message, check if the guild of the message has loaded its profile.
   // If not, load it from the database. Always check if the profile is available
   // when using it on command files to prevent type errors.
-  if (message.guild.profile === null){
+  if (message.guild && message.guild.profile === null){
     await message.guild.loadProfile();
   };
   /*==============================================================*/

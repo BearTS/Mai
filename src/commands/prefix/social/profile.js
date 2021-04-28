@@ -32,18 +32,20 @@ module.exports = {
       };
 
       const { NUMBER } = message.client.services.UTIL;
-      const _findfn   = (A)   => A.id === message.guild.id;
-      const _sortfn   = (A,B) => B.data.xp.find(_findfn).xp - A.data.xp.find(_findfn).xp;
-      collection       = collection.sort(_sortfn).map(x => { return { id: x._id, data: x.data.xp.find(x => x.id === message.guild.id)}});
-      const _index     = collection.findIndex(x => x.id === member.id);
+      const _findfn    = (A)   => A.id === message.guild.id;
+      const _sortfn    = (A,B) => B.data.xp.find(_findfn).xp - A.data.xp.find(_findfn).xp;
+      const _newcoll   = collection.sort(_sortfn).map(x => { return { id: x._id, data: x.data.xp.find(x => x.id === message.guild.id)}});
+      const _index     = _newcoll.findIndex(x => x.id === member.id);
       const document   = collection[_index] || new profile({ _id: member.id });
       const rank       = NUMBER.ordinalize(_index + 1).replace(/(?<![\d]{1,})0th/, 'N/A');
-      const lowerlim  = member.getXPCapByLevel(member.level -1 || 1);
-      const upperlim  = member.getXPCapByLevel(member.level    || 1);
-      const percent   = (member.xp - lowerlim) / (upperlim - lowerlim);
+      const lowerlim   = member.getXPCapByLevel(member.level -1 || 1);
+      const upperlim   = member.getXPCapByLevel(member.level    || 1);
+      const percent    = (member.xp - lowerlim) / (upperlim - lowerlim);
       const canvas     = createCanvas(800, 600);
       const ctx        = canvas.getContext('2d');
-      const color      = document.data.profile.color  || 'rgb(255,182,193)';
+
+      const color      = document.data.profile.color;
+      const secondary  = document.data.profile.color_secondary;
       const hat        = document.data.profile.hat     ? await loadImage(document.data.profile.hat)     : null;
       const emblem     = document.data.profile.emblem  ? await loadImage(document.data.profile.emblem)  : null;
       const wreath     = document.data.profile.wreath  ? await loadImage(document.data.profile.wreath)  : null;
@@ -238,7 +240,7 @@ module.exports = {
 
       // add name
       ctx.font      = 'bold 30px sans-serif'
-      ctx.fillStyle = '#ffffff'
+      ctx.fillStyle = secondary
       ctx.textAlign = 'center'
       ctx.beginPath()
       ctx.fillText(member.displayName, 150, 350, 280)
@@ -251,13 +253,13 @@ module.exports = {
       ctx.arc(60,460,35,0,Math.PI*2);
       ctx.stroke();
 
-      ctx.strokeStyle = '#ffffff'
+      ctx.strokeStyle = secondary
       ctx.beginPath();
       ctx.arc(60,460,35,Math.PI * 1.5,Math.PI * 1.5 + (Math.PI * 2 * percent || 1))
       ctx.stroke();
 
       ctx.font      = 'bold 25px sans-serif'
-      ctx.fillStyle = '#ffffff'
+      ctx.fillStyle = secondary
       ctx.textAlign = 'center'
       ctx.beginPath();
       ctx.fillText(member.level || '1', 60, 460, 35);
@@ -267,7 +269,7 @@ module.exports = {
 
       ctx.beginPath();
       ctx.arc(150,460,40,0,Math.PI * 2);
-      ctx.fillStyle = '#ffffff'
+      ctx.fillStyle = secondary
       ctx.fill();
 
       ctx.font      = 'bold 30px sans-serif';
@@ -281,7 +283,7 @@ module.exports = {
 
       ctx.beginPath();
       ctx.arc(240,460,40,0,Math.PI * 2);
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = secondary;
       ctx.fill();
 
       ctx.font      = 'bold 30px sans-serif';

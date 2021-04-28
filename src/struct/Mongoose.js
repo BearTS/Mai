@@ -61,7 +61,7 @@ module.exports = class Mongoose{
     this.db.Promise = global.Promise;
 
     this.db.connection.on('connected', () => {
-      return console.log(`\x1b[32m[MAI_DATABASE]\x1b[0m: Connected!`)
+      return console.log(`\x1b[33m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[32m[MAI_DATABASE]\x1b[0m: Connected!`)
     });
 
     return this.client;

@@ -25,10 +25,13 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
     "animequotes": "^1.1.2",
+    "bad-words": "^3.0.4",
     "canvas": "^2.7.0",
     "discord-player": "^3.4.0",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "ffmpeg-static": "^4.3.0",
     "hanime": "^1.1.2",
     "lodash": "^4.17.21",
     "mal-scraper": "^2.11.3",
@@ -38,6 +41,10 @@
     "nhentai-api": "^3.0.2",
     "node-fetch": "^2.6.1",
     "node-kitsu": "^1.1.1",
-    "require-text": "^0.0.1"
+    "node-osu": "^2.2.1",
+    "relevant-urban": "^2.0.0",
+    "require-text": "^0.0.1",
+    "topgg-autoposter": "^1.1.10",
+    "wanakana": "^4.0.2"
   }
 }

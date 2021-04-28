@@ -65,47 +65,73 @@ const client = new Client({
     allowedMentions: { parse: [ 'users' ]},
     shards: 'auto',
 
-    prefix: '!m',
-    owner: '545427431662682112'
+    prefix  : 'm!',
+    owners  : ['545427431662682112'],
+    uploadch: '728866550207086642'
 });
 ```
 Valid parameters can be found [here](https://discord.js.org/#/docs/main/stable/typedef/ClientOptions). You can also leave the constructor as it is.
 
 ## Using the Language Services
 Language Services provides string based translated responses for commands. It first identifies the user's predefined language and parses responses. It can be accessed on the command files via the second variable as a `LanguageSelector Class`. When logging this class, it should look like this:
-```js
+```xl
  LanguageSelector {
    default: [ Object ],
-   responses: [ Object ]
+   responses: [ Object ],
+   Parameter: [ class Parameter ]
  }
 ```
-`LanguageSelector#default` contains all the default responses for the command if a response in a specified language is not available. `LanguageSelector#responses` are the translated responses for the command. To be able to use these responses, you can use the class' `get` function, which takes in an object with parameters and id properties like below.
+`LanguageSelector#default` contains all the default responses for the command if ever a response in a specified language is not available. `LanguageSelector#responses` are the translated responses for the command. `Parameter` is a helper for building parameters. To be able to use these responses, you can use the class' `get` function, which takes in an object with parameters and id properties like below.
 
 ```js
-const parameters = { '%AUTHOR%' : message.author.tag, '%PING%': client.ws.ping };
-const id = 'SUCCESS';
-const response = LanguageSelector.get({ parameters, id });
+const parameters = new LanguageSelector.Parameter({ '%AUTHOR%' : message.author.tag, '%PING%': client.ws.ping });
+const response = LanguageSelector.get({ '$in': 'COMMANDS', id: 'PING_SUCCESS', parameters });
 ```
 The parameters variable sets the variable in the language that must be replaced by a changing data. For example, every command can be used by different users, hence, you cannot set the username on the language.json. This is where parameters comes in. Notice that the parameter `%AUTHOR%` is going to replaced with the author tag.
 
 The id variable locates a specific response registered under a command. For example:
 
-```json
+```tcl
+## in a json file
 {
-  "commands": {
-    "ping": {
-      "FAILED": "%AUTHOR%, ping command failed%.",
-      "SUCCESS": "%AUTHOR%, ping is %PING% ms."
-    }...
-  }
+ "COMMANDS": {
+##   ^ Selector for '$in' variable
+   "PING_FAILED" : "%AUTHOR%, ping command failed%.",
+   "PING_SUCCESS": "%AUTHOR%, ping is %PING% ms."
+##     ^ Selector for `id` variable
+ },
+ "ERRORS":{
+   "401": "Some error happened! %ERROR%"
+ }
 }
 ```
 
-The languageSelector returns the responses under the command ping, which is keyed by their id, which is 'FAILED' and 'SUCCESS'. Using the function `get` above with the similar parameter, the LanguageSelector will get a specific response via the id, in previous case, "SUCCESS". Then, it will replace the variables with the entered parameter. Parameters are %AUTHOR% and %PING% which corresponds to the message author and the client ping respectively. The expected output of the function above would be:
-```
+The `$in` option will get the responses from a specific category, in previous case, `$in` is set to `COMMANDS`, so it will look for a value under the `COMMANDS` category using the `id`. `id` is set to `PING_SUCCESS`, so it will get the value for `PING_SUCCESS`. You also notice that the response have some obscure-looking words, which are points for replacement of dynamic data you use in the bot. For example, author and ping is always different whenever a user uses them (ping value changes every minute, and author can be different every message), which is why they are designed to be replaced for every invoke of the command. The results should be similar to below
+```tcl
 Sakurajimai#6742, ping is 255 ms.
+Sakurajimai#6742, ping is 215 ms.
+
+OtherUser#0000, ping is 116 ms.
+AnotherUser#1000, ping is 312 ms.
 ```
-In cases where responses are unavailable for the selected language, the default language will instead be used. If the ID is not present on the default language, the response would be `❌ Error on parse-language: ID_NOT_FOUND`.
+If parameters are not supplied, or incomplete, the class will simply send the raw response over. For example:
+```tcl
+%AUTHOR%, ping is %PING% ms.
+## None of the parameters match with what is needed on the raw response string
+
+%AUTHOR%, ping is 455 ms.
+## %AUTHOR% is missing on the parameters object that was passed
+
+Sakurajimai#6742, ping is %PING% ms.
+## %PING% is missing on the parameters object that was passed
+```
+Malformed parameters will replace only a part of the raw response. For example:
+```tcl
+%Sakurajimai, ping is 455% ms.
+## %AUTHOR% is passed on the parameter object as AUTHOR%, ping was passed on the parameter object as %PING
+```
+
+In cases where responses are unavailable for the selected language, the default language will instead be used. If the ID is not present on the default language, the response would be `❌ Error on parse-language: $in or ID_NOT_FOUND`.
 
 
 ## Editing Language
@@ -119,40 +145,43 @@ You can add custom language on the folder `src/assets/language` and save it as a
 You can create your own command by considering the following properties when exporting the file:
 ```js
 Command {
-  name: 'name',
-  description: 'No description.',
-  aliases: [],
-  cooldown: { time: 1000 },
+  name             : 'name',
+  description      : 'No description.',
+  aliases          : [],
+  cooldown         : { time: 1000 },
   clientPermissions: [],
-  permissions: [],
-  group: 'fancy_group',
-  parameters: [],
-  examples: [],
-  guildOnly: true,
-  ownerOnly: false,
-  adminOnly: false,
-  nsfw: false,
-  requiresDatabase: true,
-  rankcommand: true,
-  run: [Function: _run]
+  permissions      : [],
+  group            : 'fancy_group',
+  parameters       : [],
+  examples         : [],
+  guildOnly        : true,
+  ownerOnly        : false,
+  adminOnly        : false,
+  nsfw             : false,
+  requiresDatabase : true,
+  rankcommand      : true,
+  run              : [Function: _run]
 }
 ```
-* `name` - The name of the command. Do not use whitespaces on the command name to avoid conflict with prefix parsing. Make your command name as short and appealing as possible. Avoid making command names like `runserverstatistics` or `searchanimefromanilist`.
-* `description` - (optional) A short description of your command.
-* `aliases` - (optional) The aliases for your command. Use meaningful aliases, like `latency` for `ping` command. You can add as many aliases as you want. Like name, do not use whitespaces on the aliases. Make sure there are no duplicates over command aliases.
-* `cooldown` - (optional) The cooldown for your command. You can add your command a timer so that a user cannot spam the command (especially if this command heavily relies on accessing external API). The data type is a number which represents time to wait in milliseconds.
-* `clientPermissions` - (optional) The permissions your bot must have in order to execute this command. Use this to avoid Permission errors. View valid permission flags [here](https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS).
-* `permissions` - (optional) The permissions the users must have in order to execute this command. They are primarily useful for moderation commands such as ban and kick where only server moderators with necessary permissions are allowed to use.
-* `group` - (optional) For organization of command. Helpful when accessing commands by group. Not specifying group will automatically register it as 'unspecified'.
-* `parameters` - (optional)
-* `examples` - Visual examples of how a command can be used.
-* `guildOnly` - (defaults to true) Prevent the command from being used on DMs.
-* `ownerOnly` - Prevents non-owner from using the command.
-* `adminOnly` - Shorthand method for `{ permissions: [ 'ADMINISTRATOR' ] }`. Prevents non-admin from using the command.
-* `nsfw` - Whether to disallow running the command on sfw channels.
-* `requiresDatabase` - (defaults to true) Checks the database connection of the bot before proceeding to run the command.
-* `rankcommand` - (defaults to true) Does additional check for rank based commands.
-* `run`- the function to execute. Passed from the command manager with parameters (Message, Language, Args). Message being the Discord Message Object, Language being the LanguageSelector object, and args are the arguments of the message in array.
+|Name|Default value|isOptional|Description|
+|:---:|:---:|:---:|---|
+`name`             |  `none`  | ❌ |The name of the command. Do not use whitespaces on the command name to avoid conflict with prefix parsing. Make your command name as short and appealing as possible. Avoid making command names like `runserverstatistics` or `searchanimefromanilist`.
+`description`      |   `'No description'`    | ✔️ | A short description of your command.
+`aliases`          |   `[]`   | ✔️ | The aliases for your command. Use meaningful aliases, like `latency` for `ping` command. You can add as many aliases as you want. Like name, do not use whitespaces on the aliases. Make sure there are no duplicates over command aliases.
+`cooldown`         |   `{}`   | ✔️ | The cooldown for your command. You can add your command a timer so that a user cannot spam the command (especially if this command heavily relies on accessing external API). The data type is a number which represents time to wait in milliseconds.
+`cooldown.time`    |  `0`    | ✔️ | The time to wait in milliseconds.
+`clientPermissions`|  `[]`   | ✔️ | The permissions your bot must have in order to execute this command. Use this to avoid Permission errors. View valid permission flags [here](https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS).
+`permissions`      |   `[]`   | ✔️ | The permissions the users must have in order to execute this command. They are primarily useful for moderation commands such as ban and kick where only server moderators with necessary permissions are allowed to use.
+`group`            |  `'unspecified'`  | ✔️ | For organization of command. Helpful when accessing commands by group. Not specifying group will automatically register it as 'unspecified'.
+  `parameters`     |   `[]`   | ✔️ |
+  `examples`       |   `[]`   | ✔️ | Visual examples of how a command can be used.
+  `guildOnly`      |  `true`  | ✔️ | Prevent the command from being used on DMs.
+  `ownerOnly`      | `false`  | ✔️ | Prevents non-owner from using the command.
+  `adminOnly`      | `false`  | ✔️ | Shorthand method for `{ permissions: [ 'ADMINISTRATOR' ] }`. Prevents non-admin from using the command.
+  `nsfw`           |  `false`  | ✔️ | Whether to disallow running the command on sfw channels.
+`requiresDatabase` |  `true`  | ✔️ | Checks the database connection of the bot before proceeding to run the command.
+`rankcommand`      |  `true`  | ✔️ | Does additional check for rank based commands.
+`run`              | `_run()` | ❌ | the function to execute. Passed from the command manager with parameters (Message, Language, Args). Message being the Discord Message Object, Language being the LanguageSelector object, and args are the arguments of the message in array.
 
 Commands should be placed on `src/commands/prefix` folder. For consistency, make a subfolder with it as the group name of the command.
 

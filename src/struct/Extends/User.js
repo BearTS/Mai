@@ -9,6 +9,7 @@ module.exports = Structures.extend('User', User => {
       this.anidiscovery = null;
       this.reading      = false;
       this.cooldown     = new Collection();
+      this.socialcmds   = new Collection();
     };
 
     async loadProfile(){

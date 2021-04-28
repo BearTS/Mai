@@ -131,8 +131,8 @@ module.exports = {
       return message.channel.send(
         new MessageEmbed()
         .setFooter(`${e_footer}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000©️${new Date().getFullYear()} Mai`)
-        .attachFiles([{ attachment: canvas.toBuffer(), name: 'lb.png' }])
-        .setImage('attachment://lb.png')
+        .attachFiles([{ attachment: canvas.toBuffer(), name: 'mai_bot_lb.png' }])
+        .setImage('attachment://mai_bot_lb.png')
         .setDescription(e_descript)
         .setAuthor(e_author)
         .setColor('#e620a4')

@@ -77,13 +77,13 @@ module.exports = class Commands{
       return Promise.resolve({ executed: false, reason: 'PERMISSION_SEND' })
     };
 
-    let serverprefix = message.guild.profile?.prefix || message.client.prefix, prefix;
+    let serverprefix = message.guild?.profile?.prefix || message.client.prefix, prefix;
 
     if (message.content.startsWith('mai')){
       prefix = 'mai';
     } else if (message.content.startsWith(message.client.prefix)){
       prefix = message.client.prefix;
-    } else {
+    } else if (message.content.startsWith(serverprefix)){
       prefix = serverprefix;
     };
 
@@ -131,7 +131,7 @@ module.exports = class Commands{
         console.log(err)
         message.channel.stopTyping();
         const  path       = [ 'ERRORS', 'CMDEXECFL' ];
-        const  parameters = { '%AUTHOR%': message.author.tag, '%ERROR%': err.message, '%COMMAND%': name };
+        const  parameters = { '%AUTHOR%': message.author.tag, '%ERROR%': err.toString(), '%COMMAND%': name };
         const  response   = service.get({ '$in': 'ERRORS', id: 'CMDEXECFL', parameters });
         return message.reply(response + '\n' + langserv.get({ path: [ 'SYSTEM', 'CMD_ERROR'], language }));
       });
@@ -142,7 +142,7 @@ module.exports = class Commands{
         console.log(err)
         message.channel.stopTyping();
         const  path       = [ 'ERRORS', 'CMDEXECFL' ];
-        const  parameters = { '%AUTHOR%': message.author.tag, '%ERROR%': err.message, '%COMMAND%': name };
+        const  parameters = { '%AUTHOR%': message.author.tag, '%ERROR%': err.toString(), '%COMMAND%': name };
         const  response   = service.get({ '$in': 'ERRORS', id: 'CMDEXECFL', parameters });
         return message.reply(response + '\n' + langserv.get({ path: [ 'SYSTEM', 'CMD_ERROR'], language }));
       };

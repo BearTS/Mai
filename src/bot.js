@@ -28,12 +28,11 @@ const client = new Client({
     messageSweepInterval: 43200,
     allowedMentions: { parse: [ 'users' ]},
 
-    prefix: 'm!',
-    owner: '545427431662682112'
+    prefix  : 'm!',
+    owners  : ['545427431662682112'],
+    uploadch: '728866550207086642'
 });
 
-
-client.musicPlayer?.init();
 client.commands.load({ includeSlash: true });
 //Only loads the slash commands on client, to load on specific guild, use guild#loadSlashCommands
 client.loadEvents();
