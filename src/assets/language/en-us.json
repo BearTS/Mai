@@ -89,10 +89,12 @@
 	"EMOJI_NOEMOJI"  : "\\❌ **%AUTHOR%**, Please enter a valid custom Discord emoji!",
 	"EMOJI_ST_ONDM"  : "\\⚠ **%AUTHOR%**, The steal parameter is only available on servers!",
 	"EMOJI_ST_PRMS"  : "\\❌ **%AUTHOR%**, You don't have the necessary permimssions to add this emoji!",
+	"FEEDBACK_SEND"  : "For a more reliable support, head over to the support server at <https://support.mai-san.ml>.",
 	"HANIME_NOQUERY" : "\\❌ **%AUTHOR%**, Please include your **hanime** query!",
 	"HANIME_NOHITS"  : "\\❌ **%AUTHOR%**, no results were found for your query **%QUERY%**!",
 	"HANIME_EFOOTER" : "hanime.tv Query",
 	"HANIME_WATCH"   : "[**\\▶ Watch** `%CENSORSHIP%` on **hanime.tv**](https://hanime.tv/videos/hentai/%SLUG%)",
+	"INVITE_SEND"    : "You can invite **Mai** through this link -> <https://invite.mai-san.ml/>.",
 	"JISHO_NOQUERY"  : "\\❌ **%AUTHOR%**, Please provide me a word to get the definition of.",
 	"JISHO_NOHITS"   : "\\❌ **%AUTHOR%**, No results were found for **%QUERY%**!",
 	"JISHO_ETITLE"   : "🇯🇵 • Search Results for %QUERY%",
@@ -209,7 +211,8 @@
 	"UPCOMING_NOTYPE": "\\❌ **%AUTHOR%**, A media type must be supplied and must be one of the following: %TYPES%",
 	"UPCOMING_EFOOTE": "Upcoming Anime Query with MAL",
 	"UPCOMING_HEADER": "Upcoming Anime List\u2000|\u2000Type: %TYPE%",
-	"USERINFO_EFOOTE": "Userinfo"
+	"USERINFO_EFOOTE": "Userinfo",
+	"VOTE_SEND"      : "Vote **%CLIENT%** on **Top.gg** and receive additional rewards (x2 on weekends)\n<%TOP_GG%>\n\nVote **%CLIENT%** on **DiscordBotList** here -> <%DBL%>"
   },
   "ERRORS": {
     "400"       : "\\❌ **%AUTHOR%**, **%SERVICE%** could not understand the request (400).",
