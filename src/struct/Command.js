@@ -122,7 +122,7 @@ module.exports = class Command{
     const language   = message.author.profile?.data.language || 'en-us';
     const parameters = { '%AUTHOR%': message.author.tag };
     const getperms   = (x,y) => Object.entries(message.channel.permissionsFor(x).serialize())
-      .filter( p => this[y].includes(p[0]) && !p[1])
+      .filter (p => this[y].includes(FLAGS[p[0]]) && !p[1])
       .flatMap(c => c[0].split('_').map(x => x.charAt(0) + x.toLowerCase().slice(1)).join(' '));
 
     // Checking permissions on both DM and Guild

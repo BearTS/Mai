@@ -45,7 +45,7 @@ module.exports = {
     return message.channel.send(
       new MessageEmbed()
       .setThumbnail(data.Media.coverImage.large)
-      .setColor(data.Media.coverImage.color || 'GREY')
+      .setColor(data.Media.coverImage.color || 0xe620a4)
       .setDescription(data.Media.studios.nodes?.map(x => `[${x.name}](${x.url})`).join('\u2000|\u2000'))
       .setAuthor(`${Object.values(data.Media.title).filter(Boolean)[0]}\u2000|\u2000${message.client.anischedule.info.mediaFormat[data.Media.format]}`, null, data.Media.siteUrl)
       .setFooter(`${language.get({ '$in': 'COMMANDS', id: 'MANGARANDOM_FOO' })}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)

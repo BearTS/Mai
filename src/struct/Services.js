@@ -116,7 +116,7 @@ class Services{
     };
 
     this.UTIL.STRING.clean = function clean(str){
-      return String(text).replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
+      return String(str).replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
     };
 
     /**

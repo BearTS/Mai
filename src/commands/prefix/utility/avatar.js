@@ -20,7 +20,7 @@ module.exports = {
 
     const id     = user.match(/\d{17,19}/)?.[0] || message.author.id;
     const member = await message.guild?.members.fetch(id).catch(() => {}) || message?.member;
-    let   color  = member?.displayColor || 'GREY';
+    let   color  = member?.displayColor || 0xe620a4;
           user   = member?.user || message.author
     const avatar = user.displayAvatarURL({ size: 1024, dynamic: true, format: 'png' });
 

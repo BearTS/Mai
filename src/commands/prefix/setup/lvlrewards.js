@@ -28,7 +28,7 @@ module.exports = {
       const rewards     = [...doc.xp.rewards].sort((A,B) => A.level - B.level).map(x => `**Level ${x.level}** - <@&${x.id}>`);
       const parameters  = new language.Parameter({ '%REWARDS%': rewards.join('\n') || '- -' });
       const embed       = new MessageEmbed()
-      .setColor      ( 'GREY' )
+      .setColor      ( 0xe620a4 )
       .setAuthor     ( message.guild.name )
       .setDescription( language.get({ '$in': 'COMMANDS', id: 'LVLREWARDS_VIEW', parameters }) )
       .setThumbnail  ( message.guild.iconURL({ format:'png', dynamic: true }) )

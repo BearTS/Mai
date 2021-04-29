@@ -26,7 +26,7 @@ module.exports = {
 
     return message.channel.send(
       new MessageEmbed()
-      .setColor('GREY').setDescription(field).setImage(image).setTimestamp()
+      .setColor(0xe620a4).setDescription(field).setImage(image).setTimestamp()
       .setFooter(`${footer}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
     );
   }

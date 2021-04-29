@@ -19,9 +19,7 @@ module.exports = {
     const { NUMBER } = message.client.services.UTIL;
 
     if (document instanceof Error){
-      parameters.assign({ '%ERROR%': err.message });
-      const response = language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters });
-      return message.reply(response);
+      return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters: parameters.assign({ '%ERROR%': err.message })}));
     };
 
     amount = Number(amount.split('.')[0].replace(',',''));

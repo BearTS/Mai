@@ -44,7 +44,7 @@ module.exports = {
         .setTitle(response.title)
         .setFooter(embed_footer)
         .setDescription('')
-        .setColor('GREY');
+        .setColor(0xe620a4);
     };
 
     const { STRING, Paginate } = message.client.services.UTIL;

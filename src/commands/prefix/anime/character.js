@@ -50,7 +50,7 @@ module.exports = {
       .setDescription(STRING.truncate(res.about.replace(/\\n/g,''),500,`... [${DICT['READ MORE']}](${res.url})`))
       .setAuthor(`${res.name} ${res.name_kanji ? `• ${res.name_kanji}` : ''}`, null, res.url)
       .setThumbnail(res.image_url)
-      .setColor('GREY')
+      .setColor(0xe620a4)
       .addFields(...['Anime', 'Manga'].map(m => { return {
         name: language.get({ '$in': 'COMMANDS', id: 'CHARACTER_APPEA', parameters: { '%MEDIA%': m }}), inline: false,
         value: `${mediastore.g(m)?.text || 'None'} ${mediastore.g(m)?.excess ? `\n...and ${store.excess} more!` : ''}` }}))

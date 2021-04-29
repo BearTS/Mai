@@ -6,6 +6,7 @@ const { join }            = require('path');
 
 const Anischedule = require('./Anischedule');
 const Commands    = require('./Commands');
+const Images      = require('./Images');
 const Interaction = require('./Interaction');
 const Mongoose    = require('./Mongoose');
 const Music       = require('./Music');
@@ -27,6 +28,7 @@ module.exports = class MaiClient extends Client{
 
     this.anischedule = new Anischedule(this);
     this.commands    = new Commands(this);
+    this.images      = new Images();
     this.interaction = new Interaction(this);
     this.music       = new Music(this);
     this.services    = new Services(this);
@@ -35,10 +37,13 @@ module.exports = class MaiClient extends Client{
       this.database = new Mongoose(this, settings.database);
       this.database.init();
       this.database.db.connection.once('connected', () => {
-        this.anischedule.init();
         if (!this.readyAt){
-          this.once('ready', () => this.loadProfiles());
+          this.once('ready', () => {
+            this.anischedule.init();
+            this.loadProfiles()
+          });
         } else {
+          this.anischedule.init();
           this.loadProfiles();
         };
       });
@@ -53,7 +58,7 @@ module.exports = class MaiClient extends Client{
   };
 
   async loadProfiles(){
-    const res = await this.database['GuildProfile'].find({});
+    const res = await this.database['GuildProfile'].find({ _id: { '$in': [...this.guilds.cache.keys()]}});
     this.guilds.cache.each(guild => guild._inherit(res));
   };
 
@@ -68,7 +73,7 @@ module.exports = class MaiClient extends Client{
       const file = require(join(eventpath, dir));
       this.on(dir.split('.')[0], file.bind(null, this));
     };
-    console.log(`\x1b[33m[SHARD_${this.shard.ids.join(' ')}] \x1b[32m[MAI_EVENTS]\x1b[0m: Loaded \x1b[32m${eventdir.length}\x1b[0m event files!`)
+    console.log(`\x1b[35m[SHARD_${this.shard.ids.join(' ')}] \x1b[32m[MAI_EVENTS]\x1b[0m: Loaded \x1b[32m${eventdir.length}\x1b[0m event files!`)
   };
 
   /**

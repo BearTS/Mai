@@ -71,7 +71,7 @@ module.exports = {
       const _format = entry.startDate.year ? 'MMMM Do YYYY' : 'MMMM Do';
       return new MessageEmbed()
       .setThumbnail(entry.coverImage.large)
-      .setColor(entry.coverImage.color || 'GREY')
+      .setColor(entry.coverImage.color || 0xe620a4)
       .setDescription(entry.studios.nodes.slice(0,1).map( x => `[${x.name}](${x.siteUrl})`).join('') || '')
       .setFooter(`${footer}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000©️${new Date().getFullYear()} Mai`)
       .setAuthor(`${genre}\u2000|\u2000${STRING.truncate(Object.values(entry.title).filter(Boolean)[0])}\u2000|\u2000${message.client.anischedule.info.mediaFormat[entry.format]}`)
@@ -86,7 +86,7 @@ module.exports = {
     });
 
     const firstPage = new MessageEmbed()
-    .setColor('GREY')
+    .setColor(0xe620a4)
     .setTitle(language.get({ '$in': 'COMMANDS', id: 'DISCOVER_TITLE', parameters }))
     .setThumbnail(message.author.displayAvatarURL({ format: 'png', dynamic: true }))
     .setDescription(language.get({ '$in': 'COMMANDS', id: 'DISCOVER_DESC', parameters }))

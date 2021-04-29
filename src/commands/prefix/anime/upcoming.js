@@ -40,7 +40,7 @@ module.exports = {
     const header       = language.get({ '$in': 'COMMANDS', id: 'UPCOMING_HEADER', parameters });
 
     return new Paginate(descriptions.map(entry => new MessageEmbed()
-      .setColor('GREY')
+      .setColor(0xe620a4)
       .setAuthor(header)
       .setDescription(entry.join('\n\n'))
       .setFooter(`${footer}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000©️${new Date().getFullYear()} Mai`)

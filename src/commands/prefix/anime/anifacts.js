@@ -43,7 +43,7 @@ module.exports = {
       .setThumbnail('https://thumbs.gfycat.com/ReliableSkeletalCanvasback-size_restricted.gif')
       .setTitle(language.get({ '$in': 'COMMANDS', id: 'ANIFACTS_TITLE' }))
       .setDescription(response.fact)
-      .setColor('GREY')
+      .setColor(0xe620a4)
     );
   }
 };

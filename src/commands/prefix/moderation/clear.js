@@ -54,7 +54,7 @@ module.exports = {
     const response = language.get({ '$in': 'COMMANDS', id: 'CLEAR_SUCCESS', parameters: parameters.assign({ '%COUNT%': size }) });
 
     return message.channel.send(response, res ? new MessageEmbed()
-      .setColor('GREY')
+      .setColor(0xe620a4)
       .setDescription(view + '\u2000\u2000•\u2000\u2000' + download) : {}
     );
   }

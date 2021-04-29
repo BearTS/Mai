@@ -39,7 +39,7 @@ module.exports = {
       const synopsis = STRING.truncate(entry.synopsis, 300, `...[Read More](${entry.url})`);
       const locale   = message.author.profile?.data.language || 'en-us';
       return new MessageEmbed()
-      .setColor('GREY')
+      .setColor(0xe620a4)
       .setTitle(entry.title)
       .setURL(entry.url)
       .setThumbnail(entry.image_url)

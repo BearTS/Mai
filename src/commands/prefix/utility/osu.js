@@ -94,7 +94,7 @@ module.exports = {
 
     return message.channel.send(
       new MessageEmbed()
-      .setColor('GREY')
+      .setColor(0xe620a4)
       .attachFiles([{ name: 'osu_stats_maibot.png', attachment: canvas.toBuffer() }])
       .setImage('attachment://osu_stats_maibot.png')
       .setAuthor(`${res.name}`, `https://a.ppy.sh/${res.id}`, `https://osu.ppy.sh/users/${res.id}`)

@@ -47,7 +47,7 @@ module.exports = {
 
     return message.channel.send(
       new MessageEmbed()
-      .setColor('GREY')
+      .setColor(0xe620a4)
       .setDescription(flag + '\n' + desc)
       .setThumbnail(data.Staff.image.large)
       .setAuthor(Object.values(data.Staff.name).filter(Boolean).join('\u2000•\u2000'), null, data.Staff.siteUrl)

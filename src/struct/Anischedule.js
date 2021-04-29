@@ -133,8 +133,8 @@ module.exports = class Anischedule{
    */
   getAllWatched(){
     return new Promise(async resolve => {
-      const list = await this.client.database['GuildWatchlist'].find({}).catch(err => err);
-      if (!Array.isArray(list)) return reject(list);
+      const list = await this.client.database['GuildWatchlist'].find({ _id: { '$in': [...this.client.guilds.cache.keys()]}}).catch(err => err);
+      if (list instanceof Error) return (console.log(`\x1b[35m[SHARD_${this.client.shard.ids[0]}] \x1b[31m[MAI_ANISCHEDULE]\x1b[0m: ${error.message}`));
       return resolve([...new Set(list.flatMap(guild => guild.data))]);
     });
   };
@@ -161,7 +161,7 @@ module.exports = class Anischedule{
     }).join(' • ') || [];
 
     return new MessageEmbed()
-    .setColor(entry.media.coverImage.color || 'GREY')
+    .setColor(entry.media.coverImage.color || 0xe620a4)
     .setThumbnail(entry.media.coverImage.large)
     .setAuthor('Mai Anischedule')
     .setTimestamp(date)
@@ -217,7 +217,7 @@ module.exports = class Anischedule{
       const entry_t = Object.values(entry.media.title).filter(Boolean)[0];
       const tbefair = duration(entry.timeUntilAiring, 'seconds').format('H [hours and] m [minutes]');
 
-      console.log(`\x1b[33m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[32m[MAI_ANISCHEDULE]\x1b[0m: Episode \x1b[36m${entry.episode}\x1b[0m of \x1b[36m${entry_t}\x1b[0m airs in \x1b[36m${tbefair}\x1b[0m.`);
+      console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[32m[MAI_ANISCHEDULE]\x1b[0m: Episode \x1b[36m${entry.episode}\x1b[0m of \x1b[36m${entry_t}\x1b[0m airs in \x1b[36m${tbefair}\x1b[0m.`);
       setTimeout(() => this.makeAnnouncement(entry, date), entry.timeUntilAiring * 1e3);
 
       this.queuedNotifications.push(entry.id);

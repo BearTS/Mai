@@ -51,7 +51,7 @@ class Dbl{
     const poststats = await fetch(`${baseURI}/bots/${this.client.user.id}/stats`, options);
 
     if (poststats.status !== 200){
-      console.log(`Error on DBL poststats: ${poststats.status}`);
+      console.log(`\x1b[35m[SHARD_${this.client.shard.ids[0]}] \x1b[33m[MAI_VOTEMANAGER]\x1b[0m: Error on DBL poststats: ${poststats.status}`);
     } else {
       const json = await poststats.json().catch(err => err);
       this.client.emit('TOPGGPostStatistics', json);

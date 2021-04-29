@@ -25,7 +25,7 @@ module.exports = {
     const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag });
     const footer     = language.get({ '$in': 'COMMANDS', id: 'EMOJI_EFOOTER' });
     const embed      = new MessageEmbed()
-    .setColor('GREY')
+    .setColor(0xe620a4)
     .setAuthor(name)
     .setImage('https://cdn.discordapp.com/emojis/' + emoji.match(/\d{17,19}/)?.[0])
     .setFooter(`${footer}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`);

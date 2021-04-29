@@ -22,6 +22,10 @@ module.exports = {
     member = await message.guild.members.fetch(member).catch(() => message.member);
     member = member.user.bot ? message.member : member;
 
+    if (member.xp === null){
+      await member.user.loadProfile();
+    };
+
     const time = Date.now();
 
     return profile.find({ 'data.xp.id': message.guild.id }, async (err, collection) => {
@@ -40,7 +44,7 @@ module.exports = {
       const rank       = NUMBER.ordinalize(_index + 1).replace(/(?<![\d]{1,})0th/, 'N/A');
       const lowerlim   = member.getXPCapByLevel(member.level -1 || 1);
       const upperlim   = member.getXPCapByLevel(member.level    || 1);
-      const percent    = (member.xp - lowerlim) / (upperlim - lowerlim);
+      const percent    = Number.isFinite((member.xp - lowerlim) / (upperlim - lowerlim)) ? (member.xp - lowerlim) / (upperlim - lowerlim) : 0;
       const canvas     = createCanvas(800, 600);
       const ctx        = canvas.getContext('2d');
 

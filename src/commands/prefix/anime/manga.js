@@ -49,7 +49,7 @@ module.exports = {
     const pages = data.results.slice(0,10).map(entry =>
       new MessageEmbed()
       .setAuthor   (entry.title, entry.image_url, entry.url)
-      .setColor    (entry.type !== 'Doujinshi' ? 'GREY' : 'RED')
+      .setColor    (entry.type !== 'Doujinshi' ? 0xe620a4 : 'RED')
       .setThumbnail(entry.image_url)
       .setFooter   (`${language.get({ '$in': 'COMMANDS', id: 'MANGA_FOOTER'})}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
       .addFields   ([

@@ -31,7 +31,7 @@ module.exports = {
 
     return message.channel.send(
       new MessageEmbed()
-      .setColor('GREY')
+      .setColor(0xe620a4)
       .setAuthor(language.get({ '$in': 'COMMANDS', id: 'BAL_VIEW', parameters }))
       .setThumbnail(message.author.displayAvatarURL({dynamic: 'true'}))
       .setFooter(`${language.get({ '$in': 'COMMANDS', id: 'BAL_EMBED_FOOT'})} | \©️${new Date().getFullYear()} Mai`)

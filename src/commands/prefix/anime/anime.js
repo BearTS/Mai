@@ -58,7 +58,7 @@ module.exports = {
     const DICT = language.getDictionary(['source','episodes','duration','type','premiered','studio','currently airing','airs on','producers','rating','unknown', 'read synopsis', 'read more on']);
     const response = new MessageEmbed()
     .setURL(data.url)
-    .setColor(isHentai ? 'RED' : 'GREY')
+    .setColor(isHentai ? 'RED' : 0xe620a4)
     .setThumbnail(data.picture || null)
     .setFooter(`${language.get({ '$in': 'COMMANDS', id: 'ANIME_EFOOTER'})}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
     .setTitle(STRING.truncate(data.englishTitle || data.title, 200))

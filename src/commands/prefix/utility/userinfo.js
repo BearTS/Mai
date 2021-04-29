@@ -31,14 +31,14 @@ module.exports = {
 
     const { ARRAY } = message.client.services.UTIL;
     const DICT      = language.getDictionary([ 'username', 'type', 'bot', 'user', 'joined discord', 'joined server', 'roles' ]);
-    const color     = member.displayColor || 'GREY';
+    const color     = member.displayColor || 0xe620a4;
     const flags     = await member.user.fetchFlags().then(f => Object.entries(f.serialize()).filter(([_,v]) => !!v).map(([x,_]) => x.split('_').map(y => y[0] + y.slice(1).toLowerCase()).join(' ')));
     const owner     = message.guild.ownerID === member.user.id;
     const roles     = member.roles.cache.filter(r => r.id !== message.guild.id).map(r => r.toString())
     const footer    = language.get({ '$in': 'COMMANDS', id: 'USERINFO_EFOOTE', parameters });
 
     const embed =  new MessageEmbed()
-     .setColor(member.displayColor || 'GREY')
+     .setColor(member.displayColor || 0xe620a4)
      .setAuthor(`Discord ${DICT.USER} ${member.user.tag}`, null, 'https://discord.com/')
      .setDescription(ARRAY.join([owner ? 'Server Owner' : '', ...flags]))
      .setThumbnail(member.user.displayAvatarURL({format: 'png', dynamic: true}))

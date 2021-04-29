@@ -7,8 +7,6 @@ module.exports = async (client, message) => {
   // This function everytime the bot receives a message payload from discord
   //*=============================================================*/
 
-  return;
-
   /*==========================IGNORE BOTS=========================*/
   // When the received message payload is authored by a bot, cease the parsing
   // immediately.

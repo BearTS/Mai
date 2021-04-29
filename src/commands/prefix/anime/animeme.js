@@ -42,7 +42,7 @@ module.exports = {
 
     return message.channel.send(
       new MessageEmbed()
-      .setColor('GREY')
+      .setColor(0xe620a4)
       .setTitle(meme.title)
       .setURL(meme.link)
       .setImage(meme.image)

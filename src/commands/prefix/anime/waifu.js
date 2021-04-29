@@ -24,7 +24,7 @@ module.exports = {
     const STRING = message.client.services.UTIL.STRING;
 
     const embed = new MessageEmbed()
-    .setColor('GREY')
+    .setColor(0xe620a4)
     .setAuthor(STRING.truncate([ waifu.names.en, waifu.names.jp, waifu.names.alt ].filter(Boolean).join('\n'), 200), waifu.avatar || null)
     .setDescription([ waifu.from.name, waifu.from.type].filter(Boolean).map(x => `*${x}*`).join('\n'))
     .setImage(waifu.images[image])
