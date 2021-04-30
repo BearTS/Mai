@@ -12,7 +12,7 @@ module.exports = {
   guildOnly        : false,
   requiresDatabase : false,
   rankcommand      : false,
-  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.ADD_REACTIONS, FLAGS.USE_EXTERNAL_EMOJIS ],
+  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.USE_EXTERNAL_EMOJIS, FLAGS.ADD_REACTIONS, FLAGS.MANAGE_MESSAGES, FLAGS.READ_MESSAGE_HISTORY ],
   group            : 'anime',
   description      : 'Displays the list of upcoming anime!',
   parameters       : [ 'Anime Media Type' ],

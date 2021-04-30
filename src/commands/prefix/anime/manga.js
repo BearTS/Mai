@@ -7,7 +7,7 @@ module.exports = {
   description      : 'Searches for a Manga / Manhwa / Manhua in MyAnimeList.net, or shows Seishun Buta Yarou if no query is provided.',
   aliases          : [],
   cooldown         : { time: 5000 },
-  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.ADD_REACTIONS, FLAGS.USE_EXTERNAL_EMOJIS, FLAGS.MANAGE_MESSAGES ],
+  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.USE_EXTERNAL_EMOJIS, FLAGS.ADD_REACTIONS, FLAGS.MANAGE_MESSAGES, FLAGS.READ_MESSAGE_HISTORY ],
   permissions      : [ ],
   group            : 'setup',
   parameters       : [],

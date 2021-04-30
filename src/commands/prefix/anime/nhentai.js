@@ -14,7 +14,7 @@ module.exports = {
   nsfw             : true,
   requiresDatabase : false,
   rankcommand      : false,
-  clientPermissions: [ FLAGS.EMBED_LINKS ],
+  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.USE_EXTERNAL_EMOJIS, FLAGS.ADD_REACTIONS, FLAGS.MANAGE_MESSAGES, FLAGS.READ_MESSAGE_HISTORY ],
   group            : 'anime',
   description      : 'Fetch doujin information from <:nhentai:767062351169323039> [nHentai](https://nhentai.net "nHentai Homepage")',
   parameters       : [ 'Media ID' ],

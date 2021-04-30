@@ -12,7 +12,7 @@ module.exports = {
   nsfw             : false,
   requiresDatabase : false,
   rankcommand      : false,
-  parameters       : [ 'Feedback Message' ],
-  examples         : [ 'feedback this command is not working bla bla..' ],
+  parameters       : [],
+  examples         : [],
   run              : async (message, language, args) => message.reply(language.get({ '$in': 'COMMANDS', id: 'INVITE_SEND' }))
 };

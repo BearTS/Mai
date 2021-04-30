@@ -14,7 +14,7 @@ module.exports = {
   guildOnly        : false,
   requiresDatabase : false,
   rankcommand      : false,
-  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.USE_EXTERNAL_EMOJIS, FLAGS.ADD_REACTIONS, FLAGS.MANAGE_MESSAGES ],
+  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.USE_EXTERNAL_EMOJIS, FLAGS.ADD_REACTIONS, FLAGS.MANAGE_MESSAGES, FLAGS.READ_MESSAGE_HISTORY ],
   group            : 'anime',
   description      : 'Generate a set of handpicked <Anime/Manga> recommendations for a user.',
   parameters       : [ 'Manga', 'Anime' ],

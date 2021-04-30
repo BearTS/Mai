@@ -33,6 +33,8 @@ module.exports = class MaiClient extends Client{
     this.music       = new Music(this);
     this.services    = new Services(this);
 
+    this.messages = { sent: 0, received: 0 };
+
     if ('MONGO_URI' in process.env){
       this.database = new Mongoose(this, settings.database);
       this.database.init();

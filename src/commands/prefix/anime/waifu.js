@@ -51,7 +51,7 @@ module.exports = {
       //     message.author.cooldown.set('waifu', Date.now() + 5000)
       //   });
       // };
-      // 
+      //
       // return;
     });
   }

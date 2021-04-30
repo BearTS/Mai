@@ -13,7 +13,7 @@ module.exports = {
   requiresDatabase : false,
   rankcommand      : false,
   nsfw             : true ,
-  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.MANAGE_MESSAGES ],
+  clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.USE_EXTERNAL_EMOJIS, FLAGS.ADD_REACTIONS, FLAGS.MANAGE_MESSAGES, FLAGS.READ_MESSAGE_HISTORY ],
   group            : 'anime',
   description      : 'Queries hanime.tv for a specific hentai. Returns a maximum of 10 results',
   parameters       : [ 'Search Query' ],
