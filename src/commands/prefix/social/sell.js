@@ -2,8 +2,8 @@ const { join } = require('path');
 const market   = require(join(__dirname, '../../../', 'assets/json/market.json'));
 
 module.exports = {
-  name             : 'buy',
-  description      : 'Buy items from the shop.',
+  name             : 'sell',
+  description      : 'Sell some of your items to the shop.',
   aliases          : [],
   cooldown         : null,
   clientPermissions: [],
@@ -13,33 +13,35 @@ module.exports = {
   requiresDatabase : true,
   group            : 'social',
   parameters       : [ 'Item ID', 'Amount' ],
-  examples         : [ 'buy 10', 'buy 18 2' ],
+  examples         : [ 'sell 10', 'sell 18 2' ],
   run              : async (message, language, [id, amount = 1]) => {
 
     const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag, '%PREFIX%': message.client.prefix });
 
     if (!id){
-      return message.reply(language.get({ '$in': 'COMMANDS', id: 'BUY_NO_ID', parameters }));
+      return message.reply(language.get({ '$in': 'COMMANDS', id: 'SELL_NO_ID', parameters }));
     };
 
     const item = market.find(x => x.id == id);
 
     parameters.assign({ '%ID%': id, '%AMOUNT%': amount });
     if (!item){
-      return message.reply(language.get({ '$in': 'COMMANDS', id: 'BUY_INVALID_ID', parameters }));
+      return message.reply(language.get({ '$in': 'COMMANDS', id: 'SELL_INVALID_ID', parameters }));
     };
 
+    parameters.assign({ '%ITEMNAME%': item.name });
+
     if (!amount || isNaN(amount)){
-      return message.reply(language.get({ '$in': 'COMMANDS', id: 'BUY_INVALID_AMT', parameters }));
+      return message.reply(language.get({ '$in': 'COMMANDS', id: 'SELL_INVALID_AM', parameters }));
     };
 
     amount = Math.floor(Math.abs(amount));
 
     if (!item.price && amount > 1){
-      return message.reply(language.get({ '$in': 'COMMANDS', id: 'BUY_MULT_FREE', parameters }));
+      return message.reply(language.get({ '$in': 'COMMANDS', id: 'SELL_MULT_FREE', parameters }));
     };
 
-    const totalPayable  = item.price * amount;
+    const totalprice = Math.floor(Math.abs(item.price) * amount * 0.7);
 
     const profileDB = message.client.database.Profile;
     const document  = message.author.profile || await profileDB.findById(message.author.id).catch(err => err) || new profileDB({ _id: message.author.id });
@@ -49,27 +51,26 @@ module.exports = {
       return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
-    if (document.data.economy.bank < totalPayable){           // NEC => Not Enough Credits
-      const req = totalPayable - document.data.economy.bank;
-      parameters.assign({ '%REQUIRED%': message.client.services.UTIL.NUMBER.separate(req)});
-      return message.reply(language.get({ '$in': 'COMMANDS', id: 'BUY_NEC', parameters }));
+    const itemcount = document.data.profile.inventory.find(x => x.id === item.id)?.amount;
+
+    if (!itemcount || amount > itemcount){
+      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'SELL_INVCOUNT', parameters }));
     };
 
     const index = document.data.profile.inventory.findIndex(x => x.id === item.id);
-    const _item = document.data.profile.inventory.splice(...[index < 0 ? [0,0] : [index,1]].flat())[0];
+    const _item = document.data.profile.inventory.splice(index, 1)[0];
 
-    if (index > 0 && item.price === 0){
-      return message.reply(language.get({ '$in': 'COMMANDS', id: 'BUY_MULT_FREE', parameters }))
-    };
+    _item.amount -= amount;
 
-    document.data.profile.inventory.push({ id: item.id, amount: _item?.amount + amount || amount });
-    document.data.economy.bank -= totalPayable;
+    if (_item.amount > 0) document.data.profile.inventory.push(_item);
+
+    document.data.economy.bank += totalprice;
 
     return document.save()
     .then(document => {
       message.author.profile = document;
-      parameters.assign({ '%ITEM%': item.name });
-      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'BUY_SUCCESSFUL', parameters }));
+      parameters.assign({ '%ITEM%': item.name, '%TOTALPRICE%': totalprice });
+      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'SELL_SUCCESS', parameters }));
     })
     .catch(err => {
       parameters.assign({ '%ERROR%': err.message });

@@ -8,6 +8,7 @@ module.exports = Structures.extend('User', User => {
       this.profile      = null;
       this.anidiscovery = null;
       this.reading      = false;
+      this.playing      = false;
       this.cooldown     = new Collection();
       this.socialcmds   = new Collection();
     };

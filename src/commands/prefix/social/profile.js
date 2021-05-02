@@ -1,5 +1,10 @@
-const { Permissions: { FLAGS }}    = require('discord.js');
-const { createCanvas, loadImage }  = require('canvas');
+const { Permissions: { FLAGS }}                  = require('discord.js');
+const { createCanvas, loadImage, registerFont }  = require('canvas');
+
+const { join } = require('path');
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI.ttf'      ), { family: 'Segoe' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf'), { family: 'Segoe Emoji' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf' ), { family: 'Segoe',  weight: 'bold' });
 
 module.exports = {
   name             : 'profile',
@@ -92,19 +97,46 @@ module.exports = {
     ctx.stroke();
 
       // add bio title
-    ctx.font      = 'bold 20px sans-serif';
+    ctx.font      = 'bold 20px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.fillStyle = txtcolorTI;
     ctx.beginPath();
     ctx.fillText('BIO', 330, 345, 50);
 
       // add bio text to bio carrd
     ctx.beginPath();
-    ctx.font      = '15px sans-serif';
+    ctx.font      = '15px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.textAlign = 'center';
     ctx.fillStyle = txtcolor;
-    ctx.fillText(document.data.profile.bio, 555, 368, 490);
 
-      // add birthday outline
+    // Wrap bio text
+    let fulltxt = '', level = 0, levels = [];
+    for (const text of document.data.profile.bio.split(/ +/)){
+      if (ctx.measureText(fulltxt + text + ' ').width < 460){
+        fulltxt += text + ' ';
+      } else if (!fulltxt.length) {
+        for (const letter of text.split('')){
+          if (ctx.measureText(fulltxt + letter).width < 460){
+            fulltxt += letter;
+          } else {
+            levels.push(fulltxt);
+            fulltxt = ''; level++;
+          };
+        };
+      } else {
+        levels.push(fulltxt);
+        fulltxt = text + ' '; level++;
+      };
+    };
+
+    if (fulltxt.length) levels.push(fulltxt);
+    levels = levels.splice(0,3);
+    for (const [i, measuredText] of levels.entries()){
+      const coord = levels.length === 1 ? 30 : levels.length === 2 ? 19 * (i + 1) : (45 / levels.length) * (i + 1);
+      ctx.fillText(measuredText, 548, 345 + coord, 460);
+    };
+
+
+    // add birthday outline
     ctx.beginPath();
     ctx.moveTo(410, 419);
     ctx.lineTo(520,419);
@@ -116,14 +148,14 @@ module.exports = {
     ctx.stroke();
 
       // add birthday title
-    ctx.font      = 'bold 18px sans-serif';
+    ctx.font      = 'bold 18px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.fillStyle = txtcolorTI;
     ctx.textAlign = 'left';
     ctx.beginPath();
     ctx.fillText('BIRTHDAY', 330, 425, 80);
 
       // add birthday text to birthday card
-    ctx.font      = '15px sans-serif'
+    ctx.font      = '15px sans-serif ,"Segoe", "Segoe Emoji"'
     ctx.fillStyle = txtcolor;
     ctx.beginPath();
     ctx.fillText(document.data.profile.birthday || 'Not Set', 330, 445, 230)
@@ -142,20 +174,20 @@ module.exports = {
     ctx.stroke();
 
       // add balance title
-    ctx.font      = 'bold 18px sans-serif';
+    ctx.font      = 'bold 18px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.fillStyle = txtcolorTI;
     ctx.beginPath();
     ctx.fillText('BALANCE', 330, 485, 80);
 
       // add balance text to balance card
     ctx.beginPath();
-    ctx.font      = '18px sans-serif';
+    ctx.font      = '18px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.fillStyle = txtcolor;
     ctx.fillText(`${NUMBER.separate(document.data.economy.bank || '0')}`, 330, 512, 160);
 
       // add emblem indicator
     if (!emblem){
-      ctx.font      = 'bold 25px sans-serif';
+      ctx.font      = 'bold 25px sans-serif ,"Segoe", "Segoe Emoji"';
       ctx.fillStyle = txtcolorTI;
       ctx.textAlign = 'center'
       ctx.beginPath();
@@ -182,14 +214,14 @@ module.exports = {
     ctx.fill();
 
       // write tip on tip shape
-    ctx.font      = 'bold 30px sans-serif'
+    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji"'
     ctx.fillStyle = txtcolor;
     ctx.textAlign = 'left'
     ctx.beginPath();
     ctx.fillText('TIP',610,50,50);
 
       // write received tips on tip shape
-    ctx.font      = 'bold 30px sans-serif'
+    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji"'
     ctx.textAlign = 'right'
     ctx.beginPath();
     ctx.fillText(document.data.tips.received, canvas.width - 30, 50, 120)
@@ -242,12 +274,12 @@ module.exports = {
     ctx.shadowBlur = 0;
 
       // add name
-    ctx.font      = 'bold 30px sans-serif'
+    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji"'
     ctx.fillStyle = secondary
     ctx.textAlign = 'center'
     ctx.beginPath()
     ctx.fillText(member.displayName, 150, 350, 280)
-    ctx.font = '20px sans-serif'
+    ctx.font = '20px sans-serif ,"Segoe", "Segoe Emoji"'
     ctx.fillText(member.user.tag, 150, 375, 280)
 
       // add xp
@@ -261,12 +293,12 @@ module.exports = {
     ctx.arc(60,460,35,Math.PI * 1.5,Math.PI * 1.5 + (Math.PI * 2 * percent || 1))
     ctx.stroke();
 
-    ctx.font      = 'bold 25px sans-serif'
+    ctx.font      = 'bold 25px sans-serif ,"Segoe", "Segoe Emoji"'
     ctx.fillStyle = secondary
     ctx.textAlign = 'center'
     ctx.beginPath();
     ctx.fillText(member.level || '1', 60, 460, 35);
-    ctx.font      = 'bold 15px sans-serif'
+    ctx.font      = 'bold 15px sans-serif ,"Segoe", "Segoe Emoji"'
     ctx.textAlign = 'center'
     ctx.fillText('LEVEL', 60, 480, 35)
 
@@ -275,12 +307,12 @@ module.exports = {
     ctx.fillStyle = secondary
     ctx.fill();
 
-    ctx.font      = 'bold 30px sans-serif';
+    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.fillStyle = color;
     ctx.textAlign = 'center';
     ctx.beginPath();
     ctx.fillText(rank, 150,460,50);
-    ctx.font      = 'bold 15px sans-serif';
+    ctx.font      = 'bold 15px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.textAlign = 'center';
     ctx.fillText('SERVER', 150, 480, 50);
 
@@ -289,12 +321,12 @@ module.exports = {
     ctx.fillStyle = secondary;
     ctx.fill();
 
-    ctx.font      = 'bold 30px sans-serif';
+    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.fillStyle = color;
     ctx.textAlign = 'center';
     ctx.beginPath();
     ctx.fillText('N/A', 240,460,50);
-    ctx.font      = 'bold 15px sans-serif';
+    ctx.font      = 'bold 15px sans-serif ,"Segoe", "Segoe Emoji"';
     ctx.textAlign = 'center';
     ctx.fillText('GLOBAL', 240, 480, 50);
 

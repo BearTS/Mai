@@ -1,14 +1,14 @@
 module.exports = {
   name            : 'setlang',
   aliases         : [ 'setlanguage' ],
-  group           : 'setup',
+  group           : 'social',
   requiresDatabase: true,
   rankcommand     : false,
   description     : 'Sets your own language',
   parameters      : [ 'language code' ],
   examples        : [ 'setlang ja-jp' ],
   run             : async (message, language, [ code = '' ]) => {
-    
+
     const AVAILABLELANGS = Object.keys(message.client.services.LANGUAGE.store);
     const parameters = new language.Parameter({
       '%AUTHOR%': message.author.tag,

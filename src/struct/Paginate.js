@@ -33,6 +33,7 @@ module.exports = class Paginate {
 
     if (options.appendPageInfo === true){
       for (const [index, embed] of this._array.entries()){
+        if (!embed.footer) embed.footer = {};
         const footertext = embed.footer.text ? `\u2000|\u2000${embed.footer.text}` : '';
         embed.footer.text = `Page ${index+1} of ${this._array.length}${footertext}`;
       };
@@ -76,7 +77,7 @@ module.exports = class Paginate {
 
     if (this.reactionmessage.error){
       return Promise.reject(this.reactionmessage.error);
-    } else if (this._array.size == 1){
+    } else if (this._array.length == 1){
       return Promise.resolve(this.reactionmessage);
     } else {
       for (const [prop, reaction] of Object.entries(this.btn)){

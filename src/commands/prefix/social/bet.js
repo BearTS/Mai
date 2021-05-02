@@ -6,7 +6,7 @@ module.exports = {
   clientPermissions: [],
   permissions      : [],
   guildOnly        : false,
-  rankcommand      : false,
+  rankcommand      : true,
   requiresDatabase : true,
   group            : 'social',
   parameters       : [ 'Amount' ],
@@ -20,7 +20,7 @@ module.exports = {
 
     if (document instanceof Error){
       parameters.assign({ '%ERROR%': document.message });
-      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
+      return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
     amount = Number(amount.split('.')[0].replace(',',''));

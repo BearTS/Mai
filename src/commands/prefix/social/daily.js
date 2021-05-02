@@ -1,5 +1,3 @@
-const { Permissions: { FLAGS }} = require('discord.js');
-
 const moment   = require('moment');
 const { join } = require('path');
 const market   = require(join(__dirname, '../../../', 'assets/json/market.json'));
@@ -12,7 +10,7 @@ module.exports = {
   clientPermissions: [],
   permissions      : [],
   guildOnly        : false,
-  rankcommand      : false,
+  rankcommand      : true,
   requiresDatabase : true,
   group            : 'social',
   parameters       : [],
@@ -29,7 +27,7 @@ module.exports = {
 
     if (document instanceof Error){
       parameters.assign({ '%ERROR%': document.message });
-      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
+      return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
     const hasvoted   = await new Promise((res,rej) => {

@@ -6,8 +6,8 @@ module.exports = {
   aliases          : [ 'balance', 'credits' ],
   cooldown         : null,
   clientPermissions: [ FLAGS.EMBED_LINKS ],
-  guildOnly        : true,
-  rankcommand      : false,
+  guildOnly        : false,
+  rankcommand      : true,
   requiresDatabase : true,
   group            : 'social',
   parameters       : [ 'User Mention/ID' ],
@@ -19,7 +19,7 @@ module.exports = {
 
     if (document instanceof Error){
       parameters.assign({ '%ERROR%': document.message });
-      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
+      return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
     const dailyUsed = document.data.economy.streak.timestamp !== 0 && document.data.economy.streak.timestamp - Date.now() > 0;

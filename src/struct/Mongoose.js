@@ -54,14 +54,14 @@ module.exports = class Mongoose{
   init(){
 
     this.db.connect(this.connector, this.settings).catch(e => {
-      return console.log(`\x1b[31m[MAI_DATABASE]\x1b[0m: ${e.message}`);
+      return console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[31m[MAI_MONGOOSE_DB]\x1b[0m: ${e.message}`);
     });
 
     this.db.set('useFindAndModify', false);
     this.db.Promise = global.Promise;
 
     this.db.connection.on('connected', () => {
-      return console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[32m[MAI_DATABASE]\x1b[0m: Connected!`)
+      return console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[32m[MAI_MONGOOSE_DB]\x1b[0m: Connected!`)
     });
 
     return this.client;
