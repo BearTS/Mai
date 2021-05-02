@@ -12,17 +12,16 @@ module.exports = {
   group            : 'social',
   parameters       : [ 'User Mention/ID' ],
   examples         : [ 'bal', 'balance', 'credits' ],
-  run              : (message, language) => message.client.database['Profile'].findById(message.author.id, (err, document) => {
+  run              : async (message, language) => {
 
     const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag });
+    const document   = message.author.profile || await profile.findById(message.author.id) || new profile({ _id: message.author.id });
 
-    if (err){
-      parameters.assign({ '%ERROR%': err.message });
-      const response = language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters });
-      return message.channel.send(response);
+    if (document instanceof Error){
+      parameters.assign({ '%ERROR%': document.message });
+      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
-    document        = document ? document : new message.client.database['Profile']({ _id: message.author.id });
     const dailyUsed = document.data.economy.streak.timestamp !== 0 && document.data.economy.streak.timestamp - Date.now() > 0;
     const cur       = document.data.economy.streak.current % 10;
     const left      = 10 - cur === 10 ? 0 : 10 - cur ;
@@ -47,5 +46,5 @@ module.exports = {
         })})}\n${language.get({ '$in': 'COMMANDS', id: `BAL_${dailyUsed ? 'CLAIMED' : 'AVAILABLE'}`, parameters })}`
       )
     );
-  })
+  }
 };

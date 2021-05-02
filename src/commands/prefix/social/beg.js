@@ -17,14 +17,13 @@ module.exports = {
 
     const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag });
     const profileDB  = message.client.database.Profile;
-    const document   = await profileDB.findById(message.author.id).catch(err => err) || new profileDB({ _id: message.author.id });
+    const document   = message.author.profile || await profileDB.findById(message.author.id).catch(err => err) || new profileDB({ _id: message.author.id });
     const DICT       = language.getDictionary([ 'hour(s)', 'minute(s)', 'second(s)']);
     const { NUMBER } = message.client.services.UTIL;
 
     if (document instanceof Error){
-      parameters.assign({ '%ERROR%': err.message });
-      const response = language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters });
-      return message.reply(response);
+      parameters.assign({ '%ERROR%': document.message });
+      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
     if (message.author.socialcmds.get('beg') > Date.now()){
@@ -38,12 +37,13 @@ module.exports = {
     message.author.socialcmds.set('beg', Date.now() + 18e5);
 
     return document.save()
-    .then(()   => {
+    .then(document => {
+      message.author.profile = document;
       parameters.assign({ '%AMOUNT%': NUMBER.separate(amount) });
       return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'BEG_SUCCESS', parameters }));
     })
-    .catch(err => {
-      parameters.assign({ '%ERROR%': err.message });
+    .catch(error   => {
+      parameters.assign({ '%ERROR%': error.message });
       return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_ONSAVE', parameters }));
     });
   }

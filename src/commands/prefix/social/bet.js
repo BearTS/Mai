@@ -15,11 +15,12 @@ module.exports = {
 
     const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag });
     const profileDB  = message.client.database.Profile;
-    const document   = await profileDB.findById(message.author.id).catch(err => err) || new profileDB({ _id: message.author.id });
+    const document   = message.author.profile || await profileDB.findById(message.author.id).catch(err => err) || new profileDB({ _id: message.author.id });
     const { NUMBER } = message.client.services.UTIL;
 
     if (document instanceof Error){
-      return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters: parameters.assign({ '%ERROR%': err.message })}));
+      parameters.assign({ '%ERROR%': document.message });
+      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
     amount = Number(amount.split('.')[0].replace(',',''));
@@ -57,12 +58,14 @@ module.exports = {
     parameters.assign({ '%WINNINGS%': NUMBER.separate(prize), '%MULTIPLIER%': multiplier });
 
     return document.save()
-    .then(() => {                                         // BET_WON => Won
-      return message.reply(language.get({ '$in': 'COMMANDS', id: 'BET_WON', parameters }));
+    .then(document => {
+      message.author.profile = document;
+      parameters.assign({ '%AMOUNT%': NUMBER.separate(amount) });
+      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'BEG_SUCCESS', parameters }));
     })
-    .catch(err => {
-      parameters.assign({ '%ERROR%': err.message });
-      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_ONSAVE', parameters }));
+    .catch(error   => {
+      parameters.assign({ '%ERROR%': error.message });
+      return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_ONSAVE', parameters }));
     });
   }
 };

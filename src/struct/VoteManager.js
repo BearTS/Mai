@@ -6,13 +6,13 @@ class TopGG{
   constructor(client){
     Object.defineProperty(this, 'client', { value: client });
 
+    this.api     = new Api(process.env.TOP_GG_AUTH);
+    this.webhook = new Webhook('MaiBestWaifu');
+
     // This only need to be run once, run only on shard 0
     if (!this.client.shard.ids[0] !== 0){
       return;
     };
-
-    this.api     = new Api(process.env.TOP_GG_AUTH);
-    this.webhook = new Webhook('MaiBestWaifu');
 
     const application  = require('express')();
     const middleware   = this.webhook.middleware;

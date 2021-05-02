@@ -15,7 +15,7 @@ module.exports = {
   requiresDatabase : true,
   group            : 'social',
   parameters       : [ 'Item ID', 'Amount' ],
-  examples         : [  'buy 10', 'buy 18 2' ],
+  examples         : [ 'buy 10', 'buy 18 2' ],
   run              : async (message, language, [id, amount = 1]) => {
 
     const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag, '%PREFIX%': message.client.prefix });
@@ -44,15 +44,11 @@ module.exports = {
     const totalPayable  = item.price * amount;
 
     const profileDB = message.client.database.Profile;
-    const document  = await profileDB.findById(message.author.id).catch(err => err);
+    const document  = message.author.profile || await profileDB.findById(message.author.id).catch(err => err) || new profileDB({ _id: message.author.id });
 
     if (document instanceof Error){
-      parameters.assign({ '%ERROR%': err.message });
-      return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
-    };
-
-    if (document === null){
-      document = new profileDB({ _id: message.author.id });
+      parameters.assign({ '%ERROR%': document.message });
+      return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
     if (document.data.economy.bank < totalPayable){           // NEC => Not Enough Credits
@@ -72,7 +68,8 @@ module.exports = {
     document.data.economy.bank -= totalPayable;
 
     return document.save()
-    .then(() => {
+    .then(document => {
+      message.author.profile = document;
       parameters.assign({ '%ITEM%': item.name });
       return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'BUY_SUCCESSFUL', parameters }));
     })
