@@ -39,6 +39,8 @@ client.listentoProcessEvents([
   'uncaughtException'
 ], { ignore: false });
 
+application.use(bodyparser.json());
+
 application.post('/guilds', (req, res) => {
   if (!Array.isArray(req.body.ids)){
       return res.status(400).send({ status: '400' });
