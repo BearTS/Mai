@@ -42,7 +42,7 @@ client.listentoProcessEvents([
 application.use(bodyparser.json());
 
 application.use((req, res, next) => 
-req.header("Authorization")?.trim() !== process.env.API_TOKEN.trim() ? req.status(403).json({ status: 403 }) : next());
+req.header("Authorization")?.trim() !== process.env.API_TOKEN.trim() ? res.status(403).json({ status: 403 }) : next());
 application.post('/guilds', (req, res) => {
   if (!Array.isArray(req.body.ids)){
       return res.status(400).send({ status: '400' });
