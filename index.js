@@ -5,8 +5,11 @@ const fs = require('fs');
 
 const Client = require(`${process.cwd()}/struct/Client`);
 const config = require(`${process.cwd()}/config`);
-
 const client = new Client(config);
+
+const express     = require('express');
+const application = express();
+const bodyparser  = require('body-parser');
 
 const options = {
   bypass: true,
@@ -36,4 +39,15 @@ client.listentoProcessEvents([
   'uncaughtException'
 ], { ignore: false });
 
+application.post('/guilds', (req, res) => {
+  if (!Array.isArray(req.body.ids)){
+      return res.status(400).send({ status: '400' });
+  } else if (req.body.ids.some(x => typeof x !== 'string')){
+      return res.status(400).send({ status: '400' });
+  };
+  const response = req.body.ids.map(x => [x, client.guilds.cache.has(x) ]);
+  return res.status(200).send(response);
+});
+
+application.listen(1600);
 client.login();
