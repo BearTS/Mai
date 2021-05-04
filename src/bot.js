@@ -29,7 +29,7 @@ const client = new Client({
     allowedMentions: { parse: [ 'users' ]},
 
     prefix  : 'm!',
-    owners  : ['545427431662682112'],
+    owners  : ['545427431662682112', '506498700332236810', '397338324328775680'],
     uploadch: '728866550207086642'
 });
 
