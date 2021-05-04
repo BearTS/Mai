@@ -9,7 +9,7 @@ module.exports = {
   cooldown         : { time: 5000 },
   clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.USE_EXTERNAL_EMOJIS, FLAGS.ADD_REACTIONS, FLAGS.MANAGE_MESSAGES, FLAGS.READ_MESSAGE_HISTORY ],
   permissions      : [ ],
-  group            : 'setup',
+  group            : 'anime',
   parameters       : [],
   examples         : [],
   guildOnly        : true,

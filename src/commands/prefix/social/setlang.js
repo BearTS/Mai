@@ -39,7 +39,7 @@ module.exports = {
       language = message.client.services.LANGUAGE.getCommand('setlang', code);
       return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'SETLANG_SUCCESS', parameters }));
     })
-    .catch(() => {
+    .catch(err => {
       parameters.assign({ '%ERROR%': err.message });
       return message.channel.send(language.get({ '$in': 'ERRORS', id: 'DB_ONSAVE', parameters }));
     });

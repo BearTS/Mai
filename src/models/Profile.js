@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-module.exports = model('user_profiles', Schema({
+module.exports = model('user_profiles_sample', Schema({
   _id: String,
   data: {
     global_xp   : { type: Number, default: 0       },
@@ -28,7 +28,7 @@ module.exports = model('user_profiles', Schema({
         current  : { type: Number, default: 0 },
         timestamp: { type: Number, default: 0 }
       },
-      shard: {type: Number, default: null}
+      shard : { type: Number, default: null   }
     },
     tips: {
       given    : {type: Number, default: 0 },

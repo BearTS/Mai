@@ -55,7 +55,7 @@ module.exports = async (options) => {
     await execute();
   } while (hasNotEnded);
 
-  document.data.economy.bank += basecredits;
+  document.data.economy.bank = Number(document.data.economy.bank) + basecredits;
 
   return document.save()
   .then(document => {

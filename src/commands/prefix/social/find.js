@@ -33,7 +33,7 @@ module.exports = {
     };
 
     const amount = Math.floor(Math.random() * 200) + 100;
-    document.data.economy.bank += amount;
+    document.data.economy.bank = Number(document.data.economy.bank) + amount;
     message.author.socialcmds.set('find', Date.now() + 18e5);
 
     return document.save()

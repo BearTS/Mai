@@ -62,7 +62,7 @@ module.exports = {
     document.data.economy.streak.timestamp = Date.now() + 72e6;
     const amount = 500 + 30 * document.data.economy.streak.current;
     const bonus  = supporter ? amount * 0.2 : 0
-    document.data.economy.bank += amount + bonus;
+    document.data.economy.bank = Number(document.data.economy.bank) + amount + bonus;
 
     return document.save()
     .then(async document => {

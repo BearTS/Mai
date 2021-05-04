@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-module.exports = model('server_profiles', Schema({
+module.exports = model('server_profiles_sample', Schema({
   _id     : String,
   prefix  : { type: String, default: null   },
   language: { type: String, default: 'en-us'},

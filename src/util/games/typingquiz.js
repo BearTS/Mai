@@ -54,7 +54,8 @@ module.exports = async (options) => {
   };
 
   const win = !response.err, amount = win ? 500 : 250;
-  document.data.economy.bank += amount;
+  
+  document.data.economy.bank = Number(document.data.economy.bank) + amount;
 
   return document.save()
   .then(document => {
