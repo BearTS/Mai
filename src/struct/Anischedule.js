@@ -200,7 +200,7 @@ module.exports = class Anischedule{
 
     if (!watched || !watched.length){  //Retry in 1 minute if database fetching fails due to some error.
       if (watched === null) setTimeout(() => this.handleSchedules(nextDay, page), 6e4);
-      return console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}]\x1b[33m[MAI_ANISCHEDULE]\x1b[0m: Missing Data from Database.\nNo lists were found on the database. Please ignore this message if this is the first time setting the bot.`);
+      return console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[33m[MAI_ANISCHEDULE]\x1b[0m: Missing Data from Database.\nNo lists were found on the database. Please ignore this message if this is the first time setting the bot.`);
     };
 
     const res = await this.fetch(schedule, { page, watched, nextDay });
@@ -255,13 +255,13 @@ module.exports = class Anischedule{
       const freason = isValCh ? 'of \x1b[31mmissing\x1b[0m \'SEND_MESSAGES\' and/or \'EMBED_LINKS\' permissions.' : 'such channel \x1b[31mdoes not exist\x1b[0m.';
 
       if (!isValCh || !channel.permissionsFor(channel.guild.me).has(reqperm)){
-        console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}]\x1b[31m[MAI_ANISCHEDULE]\x1b[0m: Announcement for ${entry_t} has \x1b[31mfailed\x1b[0m in ${dstintn} because ${freason}`);
+        console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[31m[MAI_ANISCHEDULE]\x1b[0m: Announcement for ${entry_t} has \x1b[31mfailed\x1b[0m in ${dstintn} because ${freason}`);
         continue;
       };
 
       await channel.send(embed)
-      .then(message => console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}]\x1b[32m[MAI_ANISCHEDULE]\x1b[0m: Announcing new episode for \x1b[36m${entry_t}\x1b[0m to \x1b[36m${message.guild.name}\x1b[0m`))
-      .catch(error => console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}]\x1b[31m[MAI_ANISCHEDULE]x1b[0m: Announcement for \x1b[36m${entry_t} \x1b[31mfailed\x1b[0m: ${error.name}`));
+      .then(message => console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[32m[MAI_ANISCHEDULE]\x1b[0m: Announcing new episode for \x1b[36m${entry_t}\x1b[0m to \x1b[36m${message.guild.name}\x1b[0m`))
+      .catch(error => console.log(`\x1b[35m[SHARD_${this.client.shard.ids.join(' ')}] \x1b[31m[MAI_ANISCHEDULE]x1b[0m: Announcement for \x1b[36m${entry_t} \x1b[31mfailed\x1b[0m: ${error.name}`));
     };
 
     return;
