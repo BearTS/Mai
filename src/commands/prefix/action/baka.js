@@ -7,7 +7,7 @@ module.exports = {
   cooldown         : null,
   clientPermissions: [ FLAGS.EMBED_LINKS, FLAGS.ADD_REACTIONS ],
   permissions      : [],
-  group            : 'utility',
+  group            : 'action',
   guildOnly        : true,
   ownerOnly        : false,
   adminOnly        : false,

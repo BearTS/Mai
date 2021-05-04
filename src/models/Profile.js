@@ -13,7 +13,7 @@ module.exports = model('user_profiles_sample', Schema({
       emblem    : {type: String, default: null              },
       hat       : {type: String, default: null              },
       wreath    : {type: String, default: null              },
-      color          : {type: String, default: '#FFCCCC'    },
+      color          : {type: String, default: '#E620A4'    },
       color_secondary: {type: String, default: '#FFFFFF'    },
       birthday  : {type: String, default: null              },
       inventory : {type: Array , default: []                },

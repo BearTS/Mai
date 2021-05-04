@@ -150,7 +150,7 @@ module.exports = class Command{
       // Checking if the message author has the required permissions
       if (this.permissions.length && !message.channel.permissionsFor(message.member).has(this.permissions)){
         return Promise.resolve(langserv.get({ language, path: ['SYSTEM', 'PERM_DISCOUSER'], parameters: {
-          '%PERMISSIONS%': getperms(message.member, 'permissions'),
+          '%PERMISSIONS%': getperms(message.member, 'permissions').join(', '),
           ...parameters
         }}));
       } else
@@ -158,7 +158,7 @@ module.exports = class Command{
       // Checking if the client has the required permissions
       if (this.clientPermissions.length && !message.channel.permissionsFor(message.guild.me).has(this.clientPermissions)){
         return Promise.resolve(langserv.get({ language, path: ['SYSTEM', 'PERM_DISCLIENT'], parameters: {
-          '%PERMISSIONS%': getperms(message.guild.me, 'clientPermissions'),
+          '%PERMISSIONS%': getperms(message.guild.me, 'clientPermissions').join(', '),
           ...parameters
         }}));
       } else

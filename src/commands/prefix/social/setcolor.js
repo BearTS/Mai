@@ -33,7 +33,7 @@ module.exports = {
     return document.save()
     .then(document => {
       message.author.profile = document;
-      return message.reply(language.get({ '$in': 'COMMANDS', id: 'SETCOLOR_SUCCESS', parameters: parameters.assign({ '%HEX%': hex }) }));
+      return message.reply(language.get({ '$in': 'COMMANDS', id: 'SETCOLOR_SCS', parameters: parameters.assign({ '%HEX%': hex }) }));
     })
     .catch(err => {
       parameters.assign({ '%ERROR%': err.message });

@@ -103,7 +103,7 @@ module.exports = class Commands{
     const testfailed = await command.testPermissions(message);
 
     if (testfailed){
-      message.channel.send(testfailed).catch(console.error);
+      message.reply(testfailed).catch(console.error);
       return Promise.resolve({ executed: false, reason: 'PERMISSION' });
     };
 
