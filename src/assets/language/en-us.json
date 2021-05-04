@@ -21,8 +21,8 @@
 	"ADDROLE_FAILED" : "\\❌ **%AUTHOR%**, Unable to add roles to **%MEMBER%**: %ERROR%",
 	"ANIFACTS_EFOOTE": "Anifacts Query with animu.ml",
 	"ANIFACTS_TITLE" : "Did you know?",
-    "ANIME_NO_DATA"  : "\\❌ **%AUTHOR%**, No results were found for **%QUERY%**.\nIf you believe this anime exists, try the following methods:\n\u2000•\u2000Try the alternative names (e.g. English, Native, Romanized)\n\u2000•\u2000Include the season number (if applicable)\n\u2000•\u2000Include the type (e.g. OVA, ONA, TV Shorts).",
-    "ANIME_NONNSFW"  : "\\❌ **%AUTHOR%**, you've searched for `Hentai` on a sfw channel!\n\nYour query, **%QUERY%**, returned a hentai title from **%ANIME_STUDIO%**. Please try to query hentai entries on nsfw channels%NSFW_CHANNELS%. While you're at it, you can query these on **Hanime** instead using `hanime` command aswell.",
+  "ANIME_NO_DATA"  : "\\❌ **%AUTHOR%**, No results were found for **%QUERY%**.\nIf you believe this anime exists, try the following methods:\n\u2000•\u2000Try the alternative names (e.g. English, Native, Romanized)\n\u2000•\u2000Include the season number (if applicable)\n\u2000•\u2000Include the type (e.g. OVA, ONA, TV Shorts).",
+  "ANIME_NONNSFW"  : "\\❌ **%AUTHOR%**, you've searched for `Hentai` on a sfw channel!\n\nYour query, **%QUERY%**, returned a hentai title from **%ANIME_STUDIO%**. Please try to query hentai entries on nsfw channels%NSFW_CHANNELS%. While you're at it, you can query these on **Hanime** instead using `hanime` command aswell.",
 	"ANIME_EFOOTER"  : "Anime Query with MAL",
 	"ANIMEME_NOMEME" : "\\❌ **%AUTHOR%**, Could not fetch memes from reddit! Please report this to the bot owner. The API might be down or there might be changes on the API itself.",
 	"ANIMEME_EFOOTE" : "Anime Memes",
@@ -30,7 +30,9 @@
 	"ANIQUOTE_EFOOT" : "Anime Quotes",
 	"ANIRANDOM_FOOT" : "Random Anime Recommendations",
 	"AVATAR_EFOOTER" : "Avatar",
-	"AVATAR_EDESCRP" : "[**Avatar for %USER%**](%AVATAR%)",
+  "AVATAR_EDESCRP" : "[**Avatar for %USER%**](%AVATAR%)",
+  "BAKA_EDESCRP"   : "%USER% Baka~",
+	"BAKA_NOT"       : "\\❌ No **%AUTHOR%**, you're not Baka",
 	"BAL_VIEW"       : "%AUTHOR%'s wallet",
 	"BAL_EMBED_FOOT" : "Profile Balance",
 	"BAL_EMBED_DESC" : "\u200b\n%EMOJI% **%BAL%**\n━━━━━━━━━━━━━━\nDaily Streak: **%STREAK%** (All time best **%BEST_STREAK%**)\n%STREAK_REQUIRED% streak(s) left for **Item Reward**\\✨\n\n%BUNNY_METER%\n━━━━━━━━━━━━━━",
@@ -230,7 +232,7 @@
 	"CMDEXECFL" : "\\❌ **%AUTHOR%**, An error occured while processing the command: __*%COMMAND%*__\n`%ERROR%`"
   },
   "DISCORD":{
-    
+
   },
   "SYSTEM": {
     "CMD_ERROR"     : "You shouldn't get this message. Contact `Sakurajimai#6742` to get it fixed or join the support at <https://support.mai-san.ml/>",
