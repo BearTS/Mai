@@ -18,7 +18,7 @@ module.exports = Structures.extend('Guild', Guild => {
       };
 
       const profile = this.client.database['GuildProfile'];
-      const document = await profile.findById(this.id);
+      let   document = await profile.findById(this.id);
 
       if (!(document instanceof profile)){
         document = await new profile({ _id: this.id }).save().catch(() => {});
