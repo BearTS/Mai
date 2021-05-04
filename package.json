@@ -44,6 +44,7 @@
     "node-osu": "^2.2.1",
     "relevant-urban": "^2.0.0",
     "require-text": "^0.0.1",
+    "tamako-api": "^1.5.1",
     "topgg-autoposter": "^1.1.10",
     "wanakana": "^4.0.2"
   }
