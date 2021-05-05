@@ -46,8 +46,8 @@ module.exports = {
     await new Promise(resolve => setTimeout(() => resolve(0), 6e4));
 
     const won        = Math.floor(Math.random() * 3) === 2;
-    const multiplier = Math.floor(Math.random() * 9) * 2;
-    const prize      = amount + multiplier;
+    const multiplier = Math.floor(Math.random() * 9) + 2;
+    const prize      = amount * multiplier;
 
     if (!won){                                             // BET_LOST => Lost
       return message.reply(language.get({ '$in': 'COMMANDS', id: 'BET_LOST', parameters }));
