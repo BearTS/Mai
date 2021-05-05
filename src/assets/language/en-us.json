@@ -175,6 +175,7 @@
 	"HOROSCOPE_NVARG": "\\❌ **%AUTHOR%**, **%SIGN%** is not a valid sign!",
 	"HOROSCOPE_EFTR" : "Horoscope",
 	"INVENTORY_ETITL": "%AUTHOR%'s Inventory",
+	"INVENTORY_NOINV": "\\❌ **%AUTHOR%**, Your inventory is empty.",
 	"INVITE_SEND"    : "You can invite **Mai** through this link -> <https://invite.mai-san.ml/>.",
 	"JISHO_NOQUERY"  : "\\❌ **%AUTHOR%**, Please provide me a word to get the definition of.",
 	"JISHO_NOHITS"   : "\\❌ **%AUTHOR%**, No results were found for **%QUERY%**!",

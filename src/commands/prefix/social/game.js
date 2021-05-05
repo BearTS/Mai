@@ -31,7 +31,7 @@ module.exports = {
     };
 
     // message.author.profile was removed from document selection as it causes conflicts when saving the same instance with xp.
-
+    const profile    = message.client.database.Profile;
     const categories = jsfiles.map(x => x.split('.')[0]).join(', ');
     const parameters = new language.Parameter({ '%AUTHOR%': message.author.tag, '%PREFIX%': message.client.prefix, '%CATEGORIES%': categories });
     const document   = /*message.author.profile ||*/ await profile.findById(message.author.id) || new profile({ _id: message.author.id });

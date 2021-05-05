@@ -175,6 +175,7 @@
 	"HOROSCOPE_NVARG": "\\❌ **%AUTHOR%**, **%SIGN%** не является допустимым знаком!",
 	"HOROSCOPE_EFTR" : "Гороскоп",
 	"INVENTORY_ETITL": "%AUTHOR% Инвентарь",
+	"INVENTORY_NOINV": "\\❌ **%AUTHOR%**, Your inventory is empty.",
 	"INVITE_SEND"    : "Вы можете пригласить **Mai** по этой ссылке -> <https://invite.mai-san.ml/>.",
 	"JISHO_NOQUERY"  : "\\❌ **%AUTHOR%**, Пожалуйста, дайте мне слово, чтобы получить определение.",
 	"JISHO_NOHITS"   : "\\❌ **%AUTHOR%**, По запросу **%QUERY%** результатов не найдено!",

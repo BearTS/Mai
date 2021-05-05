@@ -27,6 +27,10 @@ module.exports = {
       return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
 
+    if (!document.data.profile.inventory.length){
+      return message.reply(language.get({ '$in': 'COMMANDS', id: 'INVENTORY_NOINV', parameters}));
+    };
+
     const title   = language.get({ '$in': 'COMMANDS', id: 'INVENTORY_ETITL', parameters });
     const DICT    = language.getDictionary([ 'inventory', 'type', 'selling price', 'use', 'sell', 'amount' ]);
     const getDict = (name) => language.getDictionary([name])[name.toUpperCase()];

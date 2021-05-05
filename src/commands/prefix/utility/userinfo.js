@@ -40,7 +40,7 @@ module.exports = {
     const embed =  new MessageEmbed()
      .setColor(member.displayColor || 0xe620a4)
      .setAuthor(`Discord ${DICT.USER} ${member.user.tag}`, null, 'https://discord.com/')
-     .setDescription(ARRAY.join([owner ? 'Server Owner' : '', ...flags]))
+     .setDescription(ARRAY.join([owner ? 'Server Owner' : '', ...flags].filter(Boolean)))
      .setThumbnail(member.user.displayAvatarURL({format: 'png', dynamic: true}))
      .setFooter(`${footer}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000©️${new Date().getFullYear()} Mai`)
      .addFields([

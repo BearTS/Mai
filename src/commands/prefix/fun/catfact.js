@@ -3,9 +3,9 @@ const { Permissions: { FLAGS }, MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = {
-  name             : 'catfacts',
+  name             : 'catfact',
   description      : 'Generate a random useless cat facts.',
-  aliases          : [ 'birdfact', 'tori', 'bird' ],
+  aliases          : [ 'catfacts', 'neko', 'cat' ],
   cooldown         : { time: 3e3 },
   clientPermissions: [ FLAGS.EMBED_LINKS ],
   permissions      : [],

@@ -27,7 +27,6 @@ module.exports = {
     };
 
     if (!channel){
-      parameters.assign({ '%CHANNEL%': channel.toString() });
       return message.reply(language.get({ '$in': 'COMMANDS', id: 'SUGGEST_NOCHAN', parameters }));
     };
 

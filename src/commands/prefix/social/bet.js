@@ -61,7 +61,7 @@ module.exports = {
     .then(document => {
       message.author.profile = document;
       parameters.assign({ '%AMOUNT%': NUMBER.separate(amount) });
-      return message.channel.send(language.get({ '$in': 'COMMANDS', id: 'BEG_SUCCESS', parameters }));
+      return message.reply(language.get({ '$in': 'COMMANDS', id: 'BET_WON', parameters }));
     })
     .catch(error   => {
       parameters.assign({ '%ERROR%': error.message });
