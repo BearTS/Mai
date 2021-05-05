@@ -29,7 +29,7 @@ module.exports = {
     const DICT        = language.getDictionary([ 'mai\'s market', 'market', 'type', 'price', 'check preview', 'purchase', 'amount' ]);
     const description = language.get({ '$in': 'COMMANDS', id: 'MARKET_DESC', parameters: parameters.assign({ '%WEBSITE%': 'https://market.mai-san.ml/' })});
 
-    return new message.client.services.UTIL.Paginate(_.chunk(selected, 24).map((chunk, i, o) => {
+    return new message.client.services.UTIL.Paginate(_.chunk(selected, 9).map((chunk, i, o) => {
       return new MessageEmbed()
       .setColor(0xe620a4)
       .setDescription(description)

@@ -25,7 +25,7 @@ module.exports = {
 
     amount = Number(amount.split('.')[0].replace(',',''));
 
-    if (amount === NaN){                                   // BET_NAN => Not A Number
+    if (isNaN(amount)){                                   // BET_NAN => Not A Number
       return message.reply(language.get({ '$in': 'COMMANDS', id: 'BET_NAN', parameters }));
     };
 

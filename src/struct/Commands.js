@@ -81,10 +81,18 @@ module.exports = class Commands{
 
     if (message.content.startsWith('mai')){
       prefix = 'mai';
-    } else if (message.content.startsWith(message.client.prefix)){
-      prefix = message.client.prefix;
     } else if (message.content.startsWith(serverprefix)){
       prefix = serverprefix;
+    } else if (message.content.startsWith(message.client.prefix)){
+      prefix = message.client.prefix;
+    };
+
+    /*
+    When the server enables the prefixdisabledefault, the bot will only use the custom prefix and disable the default prefix
+    Added by: Sakurajimai#6742 on 5/5/2021
+     */
+    if (prefix === message.client.prefix && message.guild?.profile?.prefixdisabledefault === true){
+      return Promise.resolve({ executed: false, reason: 'PREFIX' });
     };
 
     if (!prefix){

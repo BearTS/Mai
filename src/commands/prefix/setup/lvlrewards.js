@@ -4,7 +4,7 @@ module.exports = {
   name             : 'lvlrewards',
   description      : 'Set/Remove role rewards for specific levels.',
   aliases          : [],
-  cooldown         : null,
+  cooldown         : { time: 1e3 },
   clientPermissions: [],
   permissions      : [],
   group            : 'setup',
