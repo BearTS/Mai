@@ -22,10 +22,11 @@ module.exports = {
       if (message.guild.profile === null){
         await message.guild.loadProfile()
       };
+      const DICT        = language.getDictionary(['level']);
       const doc         = message.guild.profile;
       const permissions = message.guild.me.permissions.has(FLAGS.MANAGE_ROLES);
       const strmessage  = permissions ? '' : language.get({ '$in': 'COMMANDS', id: 'LVLREWARDS_V_PR' });
-      const rewards     = [...doc.xp.rewards].sort((A,B) => A.level - B.level).map(x => `**Level ${x.level}** - <@&${x.id}>`);
+      const rewards     = [...doc.xp.rewards].sort((A,B) => A.level - B.level).map(x => `**${DICT.LEVEL} ${x.level}** - <@&${x.id}>`);
       const parameters  = new language.Parameter({ '%REWARDS%': rewards.join('\n') || '- -' });
       const embed       = new MessageEmbed()
       .setColor      ( 0xe620a4 )
