@@ -28,10 +28,11 @@ module.exports = {
     if (document === null){
       document = new message.client.database.Profile({ _id: user.id });
     };
-    document.data.economy.bank += Number(amount);
+    document.data.economy.bank = Number(document.data.economy.bank) + Number(amount);
     parameters.assign({ '%AMOUNT%': message.client.services.UTIL.NUMBER.separate(amount), '%USER%': user.tag });
     return document.save()
-    .then(() => {
+    .then(document => {
+      user.profile = document;
       return message.reply(language.get({ '$in': 'COMMANDS', id: 'ADDCREDITS_SCCS', parameters }));
     })
     .catch(err => {
