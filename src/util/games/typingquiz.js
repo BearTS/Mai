@@ -7,7 +7,7 @@ registerFont(join(__dirname, '../../assets/fonts/handwriting.ttf'), { family: 'H
 
 module.exports = async (options) => {
   let quote;
-  do { quote = randomQuote().quote } while (quote.split(/ +/).length > 30 || quote.split(/ +/).length < 200);
+  do { quote = randomQuote()?.quote } while (!quote || quote.split(/ +/).length > 30 || quote.split(/ +/).length < 200);
 
   const array       = quote.split(/ +/);
   const description = _.chunk(array, 6);
@@ -54,7 +54,7 @@ module.exports = async (options) => {
   };
 
   const win = !response.err, amount = win ? 500 : 250;
-  
+
   document.data.economy.bank = Number(document.data.economy.bank) + amount;
 
   return document.save()
