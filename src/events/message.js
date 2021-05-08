@@ -97,16 +97,16 @@ module.exports = async (client, message) => {
   // console.log({ xpAdded, xpReason, msg });
 
   /* Possible XP REASONS when xpAdded is false
-  'COMMAND_EXECUTED' => The command was executed successfully
-  'COMMAND_TERMINATED' => The command was fetched but was terminated
-  'DM_CHANNEL' => The message was sent on a dm
-  'DATABASE_NOT_FOUND' => Database was disabled
+  'COMMAND_EXECUTED'    => The command was executed successfully
+  'COMMAND_TERMINATED'  => The command was fetched but was terminated
+  'DM_CHANNEL'          => The message was sent on a dm
+  'DATABASE_NOT_FOUND'  => Database was disabled
   'DATABASE_DISCONNECT' => The Database is not connected
-  'DISABLED_ON_GUILD' => The message was disabled on guild (xp inactive)
+  'DISABLED_ON_GUILD'   => The message was disabled on guild (xp inactive)
   'DISABLED_ON_CHANNEL' => The message was sent on a blacklisted channel
-  'PROFILE_NOT_FOUND' => The guild profile could not be loaded
-  'RECENTLY_TALKED' => The message author recently talked
-  'XPFUNC_ERROR' => An Error occured while processing the xp, check the 'msg' var
+  'PROFILE_NOT_FOUND'   => The guild profile could not be loaded
+  'RECENTLY_TALKED'     => The message author recently talked
+  'XPFUNC_ERROR'        => An Error occured while processing the xp, check the 'msg' var
    */
 
 };

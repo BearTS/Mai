@@ -55,7 +55,7 @@ module.exports = {
       return message.reply(language.get({ '$in': 'COMMANDS', id: 'TRANSFER_NOAMT', parameters }));
     };
     // The amount is not a Number
-    if (isNaN(amount)){
+    if (isNaN(amount) || amount < 100){
       message.author.cooldown.delete('transfer');
       parameters.assign({ '%AMOUNT%': amount });
       return message.reply(language.get({ '$in': 'COMMANDS', id: 'TRANSFER_INAMT', parameters }));
@@ -72,7 +72,7 @@ module.exports = {
       return message.reply(language.get({ '$in': 'ERRORS', id: 'DB_DEFAULT', parameters }));
     };
     sender.data.economy.bank -= Math.ceil(amount * 1.1);
-    receiver.data.economy.bank = Number(receiver.data.economy.bank) + amount;
+    receiver.data.economy.bank = Number(receiver.data.economy.bank) + Number(amount);
     return Promise.all([sender.save(), receiver.save()])
     .then(() => {
       message.author.profile = sender;

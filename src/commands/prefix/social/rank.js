@@ -1,10 +1,14 @@
-const { join }                    = require('path');
-const { Permissions: { FLAGS }}   = require('discord.js');
-const { createCanvas, loadImage } = require('canvas');
+const { join }                                  = require('path');
+const { Permissions: { FLAGS }}                 = require('discord.js');
+const { createCanvas, loadImage, registerFont } = require('canvas');
+
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI.ttf'      ), { family: 'Segoe' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf'), { family: 'Segoe Emoji' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf' ), { family: 'Segoe',  weight: 'bold' });
 
 module.exports = {
   name             : 'rank',                 // Name of this command
-  aliases          : [ 'lvl', 'xp', 'level' ],              // This command can be invoked using these aliases as well
+  aliases          : [ 'lvl', 'xp', 'level' ],// This command can be invoked using these aliases as well
   guildOnly        : true,                   // Don't let this command run on DMs or it'll break
   rankcommand      : true,                   // This is a rank-based command, so it wont run in the server if the owner disables it
   cooldown         : { time: 5000 },         // This method cannot be spammed
@@ -140,12 +144,12 @@ module.exports = {
     ctx.stroke();
 
       // Add the name
-    ctx.font      = '40px sans-serif';
+    ctx.font      = '40px Segoe, "Segoe Emoji"';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(member.displayName, 290, 275/2 - 10, 500);
 
       // Add the tag
-    ctx.font      = '30px sans-serif';
+    ctx.font      = '30px Segoe, "Segoe Emoji"';
     ctx.fillStyle = '#63625f'
     ctx.fillText(member.user.tag, 290, 275/2 + 30, 500);
 
@@ -159,24 +163,24 @@ module.exports = {
     ctx.stroke();
 
       // Add the XP
-    ctx.font      = '25px Sans';
+    ctx.font      = '25px Segoe, "Segoe Emoji"';
     ctx.fillStyle = '#63625f';
     ctx.fillText('XP:', 290, 240);
 
-    ctx.font      = '35px Sans';
+    ctx.font      = '35px Segoe, "Segoe Emoji"';
     ctx.fillStyle = document.data.profile.color || '#e620a4';
     const lengthA = ctx.measureText(message.client.services.UTIL.NUMBER.separate(member.xp - lowerlim)).width;
     ctx.fillText(message.client.services.UTIL.NUMBER.separate(member.xp - lowerlim), 340, 240);
-    ctx.font      = '40px Sans';
+    ctx.font      = '40px Segoe, "Segoe Emoji"';
     ctx.textAlign = 'right';
     const lengthB = ctx.measureText(member.level || 1).width;
     ctx.fillText(member.level || 1, 875, 240);
-    ctx.font      = '40px Sans';
+    ctx.font      = '40px Segoe, "Segoe Emoji"';
     ctx.fillStyle = document.data.profile.color || '#e620a4';
     const lengthC = ctx.measureText(rank).width;
     ctx.fillText(rank, 875, 60);
 
-    ctx.font      = '25px Sans';
+    ctx.font      = '25px Segoe, "Segoe Emoji"';
     ctx.fillStyle = '#63625f';
     ctx.textAlign = 'left';
     ctx.fillText(`/${message.client.services.UTIL.NUMBER.separate(upperlim - lowerlim)}`, 345 + lengthA, 240);
