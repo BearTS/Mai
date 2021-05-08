@@ -37,7 +37,7 @@ module.exports = {
 
     amount = Math.floor(Math.abs(amount));
 
-    if (!item.price && amount > 1){
+    if (!item.price){
       return message.reply(language.get({ '$in': 'COMMANDS', id: 'SELL_MULT_FREE', parameters }));
     };
 
