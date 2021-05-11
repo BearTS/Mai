@@ -11,7 +11,7 @@ registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), {
 registerFont(join(__dirname, '../../../', 'assets/fonts/hiragino-kaku-gothic-pro-w6.otf'), { family: 'Hiragino Kaku'});
 
 // Font style fallback is [Unicode BMP Fallback SIL Font]
-registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf', { family: 'Unifont' }));
+registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf'), { family: 'Unifont' });
 
 
 module.exports = {

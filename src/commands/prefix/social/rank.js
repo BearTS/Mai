@@ -11,8 +11,7 @@ registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), {
 registerFont(join(__dirname, '../../../', 'assets/fonts/hiragino-kaku-gothic-pro-w6.otf'), { family: 'Hiragino Kaku'});
 
 // Font style fallback is [Unicode BMP Fallback SIL Font]
-registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf', { family: 'Unifont' }));
-
+registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf'), { family: 'Unifont' });
 module.exports = {
   name             : 'rank',                 // Name of this command
   aliases          : [ 'lvl', 'xp', 'level' ],// This command can be invoked using these aliases as well
