@@ -11,8 +11,8 @@ registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), {
 registerFont(join(__dirname, '../../../', 'assets/fonts/hiragino-kaku-gothic-pro-w6.otf'), { family: 'Hiragino Kaku'});
 
 // Font style fallback is [Unicode BMP Fallback SIL Font]
-registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf'), { family: 'Unifont' });
-
+registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf'      ), { family: 'Code2003' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/GnuUnifontFull-Pm9P.ttf'), { family: 'Unifont'  });
 
 module.exports = {
   name             : 'profile',
@@ -112,7 +112,7 @@ module.exports = {
 
       // add bio text to bio carrd
     ctx.beginPath();
-    ctx.font      = '15px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Unifont"';
+    ctx.font      = '15px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Code2003", "Unifont"';
     ctx.textAlign = 'center';
     ctx.fillStyle = txtcolor;
 
@@ -282,12 +282,12 @@ module.exports = {
     ctx.shadowBlur = 0;
 
       // add name
-    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Unifont"'
+    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku" ,"Code2003", "Unifont"'
     ctx.fillStyle = secondary
     ctx.textAlign = 'center'
     ctx.beginPath()
     ctx.fillText(member.displayName, 150, 350, 280)
-    ctx.font = '20px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Unifont"'
+    ctx.font = '20px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Code2003", "Unifont"'
     ctx.fillText(member.user.tag, 150, 375, 280)
 
       // add xp

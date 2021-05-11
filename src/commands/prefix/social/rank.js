@@ -11,7 +11,9 @@ registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), {
 registerFont(join(__dirname, '../../../', 'assets/fonts/hiragino-kaku-gothic-pro-w6.otf'), { family: 'Hiragino Kaku'});
 
 // Font style fallback is [Unicode BMP Fallback SIL Font]
-registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf'), { family: 'Unifont' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf'      ), { family: 'Code2003' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/GnuUnifontFull-Pm9P.ttf'), { family: 'Unifont'  });
+
 module.exports = {
   name             : 'rank',                 // Name of this command
   aliases          : [ 'lvl', 'xp', 'level' ],// This command can be invoked using these aliases as well
@@ -150,12 +152,12 @@ module.exports = {
     ctx.stroke();
 
       // Add the name
-    ctx.font      = 'bold 40px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Unifont"';
+    ctx.font      = 'bold 40px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Code2003", "Unifont"';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(member.displayName, 290, 275/2 - 10, 500);
 
       // Add the tag
-    ctx.font      = '30px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Unifont"';
+    ctx.font      = '30px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Code2003", "Unifont"';
     ctx.fillStyle = '#63625f'
     ctx.fillText(member.user.tag, 290, 275/2 + 30, 500);
 
