@@ -26,7 +26,7 @@ module.exports = {
       '%SERVER%': message.guild.name
     })
 
-    let collection = await profile.find({ 'data.xp.id': message.guild.id });
+    let collection = await profile.find({ 'data.xp.id': message.guild.id }, { 'data.xp.$': 1, '_id': 1 }, { sort: { 'data.xp.xp': -1 }});
 
     if (collection instanceof Error){
       parameters.assign({ '%ERROR%': collection.message });
@@ -34,12 +34,8 @@ module.exports = {
     };
 
     const { NUMBER } = message.client.services.UTIL;
-    const _findfn   = (A)   => A.id === message.guild.id;
-    const _sortfn   = (A,B) => B.data.xp.find(_findfn).xp - A.data.xp.find(_findfn).xp;
-    collection       = collection.sort(_sortfn).map(x => { return { id: x._id, data: x.data.xp.find(x => x.id === message.guild.id)}});
-    const _index     = collection.findIndex(x => x.id === message.member.id);
-    const rank       = NUMBER.ordinalize(_index + 1).replace(/(?<![\d]{1,})0th/, 'N/A');
-    const document   = collection[_index] || new profile({ _id: message.member.id });
+    const rank       = NUMBER.ordinalize(collection.findIndex(x => x.id === message.member.id) + 1).replace(/(?<![\d]{1,})0th/, 'N/A');
+    const document   = collection.find(x => x.id === message.member.id) || { _id: member.id, data:{ xp: [{ id: message.guild.id, xp: 0, level: 1 }]}};
     const members    = await message.guild.members.fetch({ limit: 20, user: collection.map(x => x.id) }).catch(() => null);
     const canvas     = createCanvas(700,660);
     const ctx        = canvas.getContext('2d');
