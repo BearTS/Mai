@@ -298,7 +298,7 @@ module.exports = {
 
     ctx.strokeStyle = secondary
     ctx.beginPath();
-    ctx.arc(60,460,35,Math.PI * 1.5,Math.PI * 1.5 + (Math.PI * 2 * percent || 1))
+    ctx.arc(60,460,35,Math.PI * 1.5,Math.PI * 1.5 + (Math.PI * 2 * percent || 0))
     ctx.stroke();
 
     ctx.font      = 'bold 25px sans-serif ,"Segoe", "Segoe Emoji"'
