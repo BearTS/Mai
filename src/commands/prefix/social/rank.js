@@ -35,7 +35,7 @@ module.exports = {
     member = await message.guild.members.fetch(member).catch(() => message.member);
     member = member.user.bot ? message.member : member;
 
-    let collection = await profile.find({ 'data.xp.id': message.guild.id });
+    let collection = await profile.find({ 'data.xp.id': message.guild.id }, { 'data.xp.$': 1, '_id': 1, 'data.profile.color' }, { sort: { 'data.xp.xp': -1 }});
 
     if (collection instanceof Error){
       parameters.assign({ '%ERROR%': collection.message });
@@ -47,21 +47,18 @@ module.exports = {
     };
 
     const { NUMBER } = message.client.services.UTIL;
-    const _index    = collection.findIndex(x => x._id === member.id);
-    const _findfn   = (A)   => A.id === message.guild.id;
-    const _sortfn   = (A,B) => B.data.xp.find(_findfn).xp - A.data.xp.find(_findfn).xp;
-    const document  = collection[_index] || new profile({ _id: member.id });
-    const rank      = NUMBER.ordinalize(collection.sort(_sortfn).findIndex(x => x._id === document._id) + 1).replace(/(?<![\d]{1,})0th/, 'Unranked');
-    const lowerlim  = member.getXPCapByLevel(!isNaN(member.level - 1) ? member.level - 1 : 1);
-    const upperlim  = member.getXPCapByLevel(member.level || 1);
-    const percent   = (member.xp - lowerlim) / (upperlim - lowerlim);
-    const logo      = await loadImage(join(__dirname, '../../../', 'assets/images/161902995375172790.png'));
-    const booster   = await loadImage(join(__dirname, '../../../', `assets/images/16190532152403172${member.premiumSince ? '1' : '2'}.png`));
-    const avatar    = await loadImage(member.user.displayAvatarURL({ format: 'png', size: 256 }));
-    const canvas    = createCanvas(900, 275);
-    const seccanvas = createCanvas(900, 275);
-    const ctx       = canvas.getContext('2d');
-    const secctx    = seccanvas.getContext('2d');
+    const document   = collection.find(x => x._id === member.id) || { _id: member.id, data:{ profile:{ color:'#e620a4'}, xp: [{ id: message.guild.id, xp: 0, level: 1 }]}};
+    const rank       = NUMBER.ordinalize(collection.findIndex(x => x._id === document._id) + 1).replace(/(?<![\d]{1,})0th/, 'Unranked');
+    const lowerlim   = member.getXPCapByLevel(!isNaN(member.level - 1) ? member.level - 1 : 1);
+    const upperlim   = member.getXPCapByLevel(member.level || 1);
+    const percent    = (member.xp - lowerlim) / (upperlim - lowerlim);
+    const logo       = await loadImage(join(__dirname, '../../../', 'assets/images/161902995375172790.png'));
+    const booster    = await loadImage(join(__dirname, '../../../', `assets/images/16190532152403172${member.premiumSince ? '1' : '2'}.png`));
+    const avatar     = await loadImage(member.user.displayAvatarURL({ format: 'png', size: 256 }));
+    const canvas     = createCanvas(900, 275);
+    const seccanvas  = createCanvas(900, 275);
+    const ctx        = canvas.getContext('2d');
+    const secctx     = seccanvas.getContext('2d');
 
       // draw color
     secctx.fillStyle = document.data.profile.color || '#e620a4';
@@ -177,8 +174,8 @@ module.exports = {
 
     ctx.font      = '35px Segoe, "Segoe Emoji"';
     ctx.fillStyle = document.data.profile.color || '#e620a4';
-    const lengthA = ctx.measureText(message.client.services.UTIL.NUMBER.separate(member.xp - lowerlim)).width;
-    ctx.fillText(message.client.services.UTIL.NUMBER.separate(member.xp - lowerlim), 340, 240);
+    const lengthA = ctx.measureText(NUMBER.separate(member.xp - lowerlim)).width;
+    ctx.fillText(NUMBER.separate(member.xp - lowerlim), 340, 240);
     ctx.font      = '40px Segoe, "Segoe Emoji"';
     ctx.textAlign = 'right';
     const lengthB = ctx.measureText(member.level || 1).width;
@@ -191,7 +188,7 @@ module.exports = {
     ctx.font      = '25px Segoe, "Segoe Emoji", "Segoe Symbol"';
     ctx.fillStyle = '#63625f';
     ctx.textAlign = 'left';
-    ctx.fillText(`/${message.client.services.UTIL.NUMBER.separate(upperlim - lowerlim)}`, 345 + lengthA, 240);
+    ctx.fillText(`/${NUMBER.separate(upperlim - lowerlim)}`, 345 + lengthA, 240);
     ctx.textAlign = 'right';
     ctx.fillText('LEVEL: ', 875 - lengthB, 240);
     ctx.fillText('RANK: ',  875 - lengthC, 60);
