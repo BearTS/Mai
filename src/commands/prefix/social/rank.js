@@ -10,8 +10,8 @@ registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), {
 // Support for Japanese Characters
 registerFont(join(__dirname, '../../../', 'assets/fonts/hiragino-kaku-gothic-pro-w6.otf'), { family: 'Hiragino Kaku'});
 
-// Default for non-supported unicode
-registerFont(join(__dirname, '../../../', 'assets/fonts/OUTLOOK.TTF'), { family: 'DEFAULT'});
+// Font style fallback is [Unicode BMP Fallback SIL Font]
+registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf', { family: 'Unifont' }));
 
 module.exports = {
   name             : 'rank',                 // Name of this command
@@ -151,12 +151,12 @@ module.exports = {
     ctx.stroke();
 
       // Add the name
-    ctx.font      = 'bold 40px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "DEFAULT"';
+    ctx.font      = 'bold 40px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Unifont"';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(member.displayName, 290, 275/2 - 10, 500);
 
       // Add the tag
-    ctx.font      = '30px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "DEFAULT"';
+    ctx.font      = '30px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Unifont"';
     ctx.fillStyle = '#63625f'
     ctx.fillText(member.user.tag, 290, 275/2 + 30, 500);
 
