@@ -66,15 +66,15 @@ module.exports = {
       .setTitle(`${message.client.user.username} v${_version}`)
       .setFooter(`${language.get({ '$in': 'COMMANDS', id: 'STATS_EFOOTER'})}\u2000|\u2000${message.client.user.username} Bot\u2000|\u2000\©️${new Date().getFullYear()} Mai`)
       .addFields([
-        { name: FIELD                          , inline: false, value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'                                                                                                                      },
-        { name: `📧\u2000${DICT.MESSAGES     }`, inline: true, value: `${DICT.SENT }:\u2000\u2000**${msgssent}**\n${DICT.RECEIVED         }:\u2000\u2000**${msgsrcvd}**\n${DICT.CACHED      }:\u2000\u2000**${msgscach}**` },
-        { name: `👥\u2000${DICT.USERS        }`, inline: true, value: `${DICT.TOTAL}:\u2000\u2000**${usrtotal}**\n${DICT.CACHED           }:\u2000\u2000**${usrcachd}**\n${DICT.HERE        }:\u2000\u2000**${userhere}**` },
-        { name: `\u200b`                        , inline: false, value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'                                                                                                                      },
-        { name: `⭐\u2000${DICT.COMMANDS     }`, inline: true, value: `${DICT.TOTAL}:\u2000\u2000**${cmdtotal}**\n${DICT['TIMES ACCESSED']}:\u2000\u2000**${cmdxaccs}**\n${DICT['MOST USED']}:\u2000\u2000**${cmdmused}**` },
-        { name: `🧠\u2000${DICT.MEMORY       }`, inline: true, value: `${DICT.TOTAL}:\u2000\u2000**${memtotal}**\n${DICT.USED             }:\u2000\u2000**${memoused}**\n${DICT.SHARD       }:\u2000\u2000**${curshard}**` },
-        { name: `\u200b`                        , inline: false, value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'                                                                                                                      },
-        { name: `⚙️\u2000${DICT.SYSTEM       }`, inline: false, value: `OS:\u2000\u2000${systemos}\nDISCORDJS:\u2000\u2000${discordv}\nNODE:\u2000\u2000${nodevers}\nCPU:\u2000\u2000${systmcpu}`                          },
-        { name: `${DICT.UPTIME}:\u2000${uptime}`, inline: false, value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'                                                                                                                      }
+        { name: FIELD                                   , inline: false, value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'                                                                                                                      },
+        { name: `📧\u2000${DICT.MESSAGES.toUpperCase()}`, inline: true, value: `${DICT.SENT }:\u2000\u2000**${msgssent}**\n${DICT.RECEIVED         }:\u2000\u2000**${msgsrcvd}**\n${DICT.CACHED      }:\u2000\u2000**${msgscach}**` },
+        { name: `👥\u2000${DICT.USERS.toUpperCase()   }`, inline: true, value: `${DICT.TOTAL}:\u2000\u2000**${usrtotal}**\n${DICT.CACHED           }:\u2000\u2000**${usrcachd}**\n${DICT.HERE        }:\u2000\u2000**${userhere}**` },
+        { name: `\u200b`                                , inline: false, value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'                                                                                                                      },
+        { name: `⭐\u2000${DICT.COMMANDS.toUpperCase()}`, inline: true, value: `${DICT.TOTAL}:\u2000\u2000**${cmdtotal}**\n${DICT['TIMES ACCESSED']}:\u2000\u2000**${cmdxaccs}**\n${DICT['MOST USED']}:\u2000\u2000**${cmdmused}**` },
+        { name: `🧠\u2000${DICT.MEMORY.toUpperCase()  }`, inline: true, value: `${DICT.TOTAL}:\u2000\u2000**${memtotal}**\n${DICT.USED             }:\u2000\u2000**${memoused}**\n${DICT.SHARD       }:\u2000\u2000**${curshard}**` },
+        { name: `\u200b`                                , inline: false, value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'                                                                                                                      },
+        { name: `⚙️\u2000${DICT.SYSTEM.toUpperCase()  }`, inline: false, value: `OS:\u2000\u2000${systemos}\nDISCORDJS:\u2000\u2000${discordv}\nNODE:\u2000\u2000${nodevers}\nCPU:\u2000\u2000${systmcpu}`                          },
+        { name: `${DICT.UPTIME}:\u2000${uptime}`, inline: false, value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'                                                                                                                               }
       ])
     );
   }
