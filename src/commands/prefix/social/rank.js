@@ -35,7 +35,7 @@ module.exports = {
     member = await message.guild.members.fetch(member).catch(() => message.member);
     member = member.user.bot ? message.member : member;
 
-    let collection = await profile.find({ 'data.xp.id': message.guild.id }, { 'data.xp.$': 1, '_id': 1, 'data.profile.color' }, { sort: { 'data.xp.xp': -1 }});
+    let collection = await profile.find({ 'data.xp.id': message.guild.id }, { 'data.xp.$': 1, '_id': 1, 'data.profile.color': 1 }, { sort: { 'data.xp.xp': -1 }});
 
     if (collection instanceof Error){
       parameters.assign({ '%ERROR%': collection.message });
