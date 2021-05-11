@@ -19,7 +19,7 @@ module.exports = {
   aliases          : [ 'lvl', 'xp', 'level' ],// This command can be invoked using these aliases as well
   guildOnly        : true,                   // Don't let this command run on DMs or it'll break
   rankcommand      : true,                   // This is a rank-based command, so it wont run in the server if the owner disables it
-  cooldown         : { time: 5000 },         // This method cannot be spammed
+  cooldown         : { time: 3e3 },         // This method cannot be spammed
   clientPermissions: [ FLAGS.ATTACH_FILES ], // The bot needs the 'ATTACH_FILES' permissions
   group            : 'social',               // The group for this command
   description      : 'Shows the current xp, level, rank, and other details of a user',
