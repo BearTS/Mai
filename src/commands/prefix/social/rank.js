@@ -2,9 +2,10 @@ const { join }                                  = require('path');
 const { Permissions: { FLAGS }}                 = require('discord.js');
 const { createCanvas, loadImage, registerFont } = require('canvas');
 
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI.ttf'      ), { family: 'Segoe' });
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf'), { family: 'Segoe Emoji' });
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf' ), { family: 'Segoe',  weight: 'bold' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI.ttf'       ), { family: 'Segoe'       });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf' ), { family: 'Segoe Emoji' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Symbol.ttf'), { family: 'Segoe Symbol'});
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), { family: 'Segoe',  weight: 'bold' });
 
 module.exports = {
   name             : 'rank',                 // Name of this command
@@ -144,12 +145,12 @@ module.exports = {
     ctx.stroke();
 
       // Add the name
-    ctx.font      = '40px Segoe, "Segoe Emoji"';
+    ctx.font      = 'bold 40px Segoe, "Segoe Emoji", "Segoe Symbol"';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(member.displayName, 290, 275/2 - 10, 500);
 
       // Add the tag
-    ctx.font      = '30px Segoe, "Segoe Emoji"';
+    ctx.font      = '30px Segoe, "Segoe Emoji", "Segoe Symbol"';
     ctx.fillStyle = '#63625f'
     ctx.fillText(member.user.tag, 290, 275/2 + 30, 500);
 
@@ -163,7 +164,7 @@ module.exports = {
     ctx.stroke();
 
       // Add the XP
-    ctx.font      = '25px Segoe, "Segoe Emoji"';
+    ctx.font      = '25px Segoe, "Segoe Emoji", "Segoe Symbol"';
     ctx.fillStyle = '#63625f';
     ctx.fillText('XP:', 290, 240);
 
@@ -180,7 +181,7 @@ module.exports = {
     const lengthC = ctx.measureText(rank).width;
     ctx.fillText(rank, 875, 60);
 
-    ctx.font      = '25px Segoe, "Segoe Emoji"';
+    ctx.font      = '25px Segoe, "Segoe Emoji", "Segoe Symbol"';
     ctx.fillStyle = '#63625f';
     ctx.textAlign = 'left';
     ctx.fillText(`/${message.client.services.UTIL.NUMBER.separate(upperlim - lowerlim)}`, 345 + lengthA, 240);

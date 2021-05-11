@@ -2,9 +2,10 @@ const { Permissions: { FLAGS }}                  = require('discord.js');
 const { createCanvas, loadImage, registerFont }  = require('canvas');
 
 const { join } = require('path');
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI.ttf'      ), { family: 'Segoe' });
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf'), { family: 'Segoe Emoji' });
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf' ), { family: 'Segoe',  weight: 'bold' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI.ttf'       ), { family: 'Segoe'       });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf' ), { family: 'Segoe Emoji' });
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Symbol.ttf'), { family: 'Segoe Symbol'});
+registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), { family: 'Segoe',  weight: 'bold' });
 
 module.exports = {
   name             : 'profile',
@@ -97,14 +98,14 @@ module.exports = {
     ctx.stroke();
 
       // add bio title
-    ctx.font      = 'bold 20px sans-serif ,"Segoe", "Segoe Emoji"';
+    ctx.font      = 'bold 20px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol"';
     ctx.fillStyle = txtcolorTI;
     ctx.beginPath();
     ctx.fillText('BIO', 330, 345, 50);
 
       // add bio text to bio carrd
     ctx.beginPath();
-    ctx.font      = '15px sans-serif ,"Segoe", "Segoe Emoji"';
+    ctx.font      = '15px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol"';
     ctx.textAlign = 'center';
     ctx.fillStyle = txtcolor;
 
@@ -181,7 +182,7 @@ module.exports = {
 
       // add balance text to balance card
     ctx.beginPath();
-    ctx.font      = '18px sans-serif ,"Segoe", "Segoe Emoji"';
+    ctx.font      = '18px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol"';
     ctx.fillStyle = txtcolor;
     ctx.fillText(`${NUMBER.separate(document.data.economy.bank || '0')}`, 330, 512, 160);
 
@@ -274,12 +275,12 @@ module.exports = {
     ctx.shadowBlur = 0;
 
       // add name
-    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji"'
+    ctx.font      = 'bold 30px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol"'
     ctx.fillStyle = secondary
     ctx.textAlign = 'center'
     ctx.beginPath()
     ctx.fillText(member.displayName, 150, 350, 280)
-    ctx.font = '20px sans-serif ,"Segoe", "Segoe Emoji"'
+    ctx.font = '20px sans-serif ,"Segoe", "Segoe Emoji", "Segoe Symbol"'
     ctx.fillText(member.user.tag, 150, 375, 280)
 
       // add xp
