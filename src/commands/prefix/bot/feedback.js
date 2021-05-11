@@ -14,5 +14,5 @@ module.exports = {
   rankcommand      : false,
   parameters       : [ 'Feedback Message' ],
   examples         : [ 'feedback this command is not working bla bla..' ],
-  run              : async (message, language, args) => message.reply(language.get({ '$in': 'COMMANDS', id: 'FEEDBACK_SEND' }))
+  run              : async (message, language, args) => message.reply(language.get({ '$in': 'COMMANDS', id: 'FEEDBACK_SEND', parameters: { '%AUTHOR%': message.author.tag }}))
 };

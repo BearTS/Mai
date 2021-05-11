@@ -144,7 +144,7 @@ module.exports = class Command{
       const langserv = this.client.services.LANGUAGE;
       // Checking if the message author has administrative permissions
       if (this.adminOnly && message.member.hasPermission(FLAGS.ADMINISTRATOR)){
-        return Promise.resolve(langserv.get({ path: ['SYSTEM', 'PERM_ADMINONLY'], language }));
+        return Promise.resolve(langserv.get({ path: ['SYSTEM', 'PERM_ADMINONLY'], language, parameters }));
       } else
 
       // Checking if the message author has the required permissions

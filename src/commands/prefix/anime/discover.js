@@ -81,7 +81,7 @@ module.exports = {
         { name: DICT.STARTED                                                      , inline: true , value: moment(...Object.entries(entry.startDate).filter(_filter).sort(_sort).reduce(_reduce, ['','']).reverse()).locale(_locale).format(_format)                                                                             },
         { name: DICT[category.toLowerCase() === 'anime' ? 'EPISODES' : 'CHAPTERS'], inline: true , value: entry.episodes                                     || entry.chapters || DICT.UNKNOWN                                                                                                                                  },
         { name: DICT[category.toLowerCase() === 'anime' ? 'DURATION' : 'VOLUMES'] , inline: true , value: entry.duration ? `${entry.duration} ${DICT.MINUTES}`: entry.volumes  || DICT.UNKNOWN                                                                                                                                  },
-        { name: '━━━━━━━━━━━━━━━━━━━━━━━━━━'                                      , inline: false, value: (STRING.truncate(entry.description.replace(_html, '') || DICT['NO SYNOPSIS'], 500, `...\n[**${DICT['READ SYNOPSIS']}**](https://myanimelist.net/anime/${entry.idMal})`) || '\u200b') + '\n━━━━━━━━━━━━━━━━━━━━━━━━━━' }
+        { name: '━━━━━━━━━━━━━━━━━━━━━━━━━━'                                      , inline: false, value: (STRING.truncate(entry.description?.replace(_html, '') || DICT['NO SYNOPSIS'], 500, `...\n[**${DICT['READ SYNOPSIS']}**](https://myanimelist.net/anime/${entry.idMal})`) || '\u200b') + '\n━━━━━━━━━━━━━━━━━━━━━━━━━━' }
       ]);
     });
 
