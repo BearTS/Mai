@@ -7,6 +7,12 @@ registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf' ), {
 registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Symbol.ttf'), { family: 'Segoe Symbol'});
 registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), { family: 'Segoe',  weight: 'bold' });
 
+// Support for Japanese Characters
+registerFont(join(__dirname, '../../../', 'assets/fonts/hiragino-kaku-gothic-pro-w6.otf'), { family: 'Hiragino Kaku'});
+
+// Default for non-supported unicode
+registerFont(join(__dirname, '../../../', 'assets/fonts/OUTLOOK.TTF'), { family: 'DEFAULT'});
+
 module.exports = {
   name             : 'rank',                 // Name of this command
   aliases          : [ 'lvl', 'xp', 'level' ],// This command can be invoked using these aliases as well
@@ -145,12 +151,12 @@ module.exports = {
     ctx.stroke();
 
       // Add the name
-    ctx.font      = 'bold 40px Segoe, "Segoe Emoji", "Segoe Symbol"';
+    ctx.font      = 'bold 40px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "DEFAULT"';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(member.displayName, 290, 275/2 - 10, 500);
 
       // Add the tag
-    ctx.font      = '30px Segoe, "Segoe Emoji", "Segoe Symbol"';
+    ctx.font      = '30px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "DEFAULT"';
     ctx.fillStyle = '#63625f'
     ctx.fillText(member.user.tag, 290, 275/2 + 30, 500);
 
