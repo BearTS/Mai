@@ -1,10 +1,13 @@
 const { readdirSync } = require('fs');
 const { join } = require('path');
 
+/*REQUIRE FONTS*/
+require('./fonts');
+/*REQUIRE EXTENDED STRUCTURES*/
 for (const file of readdirSync(join(__dirname, 'struct/Extends'))){
-  require(join(__dirname, 'struct/Extends', file))
+  require(join(__dirname, 'struct/Extends', file));
 };
-
+/*REQUIRE CLIENT*/
 const Client = require('./struct/Client');
 
 const activity = {

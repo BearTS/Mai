@@ -1,13 +1,9 @@
 const _ = require('lodash');
-const { randomQuote } = require('animequotes');
-const { createCanvas, registerFont } = require('canvas');
-
-const { join } = require('path');
-registerFont(join(__dirname, '../../assets/fonts/handwriting.ttf'), { family: 'Handwriting'});
+const { randomQuote  } = require('animequotes');
+const { createCanvas } = require('canvas');
 
 module.exports = async (options) => {
-  let quote;
-  do { quote = randomQuote()?.quote } while (!quote || quote.split(/ +/).length > 30 || quote.split(/ +/).length < 200);
+  do { quote = randomQuote()?.quote.substr(0,200) } while (!quote);
 
   const array       = quote.split(/ +/);
   const description = _.chunk(array, 6);
@@ -20,7 +16,7 @@ module.exports = async (options) => {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.textAlign = 'center';
-  ctx.font = '20px Handwriting';
+  ctx.font = '20px Handwriting, "Code2003", "Unifont"';
   ctx.fillStyle = 'rgba(255,255,255,0.4)';
 
   description.forEach((item, i) => {

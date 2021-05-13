@@ -1,18 +1,6 @@
-const { join }                                  = require('path');
-const { Permissions: { FLAGS }}                 = require('discord.js');
-const { createCanvas, loadImage, registerFont } = require('canvas');
-
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI.ttf'       ), { family: 'Segoe'       });
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf' ), { family: 'Segoe Emoji' });
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Symbol.ttf'), { family: 'Segoe Symbol'});
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf'  ), { family: 'Segoe',  weight: 'bold' });
-
-// Support for Japanese Characters
-registerFont(join(__dirname, '../../../', 'assets/fonts/hiragino-kaku-gothic-pro-w6.otf'), { family: 'Hiragino Kaku'});
-
-// Font style fallback is [Unicode BMP Fallback SIL Font]
-registerFont(join(__dirname, '../../../', 'assets/fonts/Code2003-egdm.ttf'      ), { family: 'Code2003' });
-registerFont(join(__dirname, '../../../', 'assets/fonts/GnuUnifontFull-Pm9P.ttf'), { family: 'Unifont'  });
+const { Permissions: { FLAGS }  } = require('discord.js');
+const { createCanvas, loadImage } = require('canvas');
+const { join } = require('path');
 
 module.exports = {
   name             : 'rank',                 // Name of this command
@@ -149,12 +137,12 @@ module.exports = {
     ctx.stroke();
 
       // Add the name
-    ctx.font      = 'bold 40px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Code2003", "Unifont"';
+    ctx.font      = 'bold 40px Segoe UI, "Segoe UI Emoji", "Segoe UI Symbol", "Hiragino Kaku", "Code2003", "Unifont"';
     ctx.fillStyle = '#ffffff';
     ctx.fillText(member.displayName, 290, 275/2 - 10, 500);
 
       // Add the tag
-    ctx.font      = '30px Segoe, "Segoe Emoji", "Segoe Symbol", "Hiragino Kaku", "Code2003", "Unifont"';
+    ctx.font      = '30px Segoe UI, "Segoe UI Emoji", "Segoe UI Symbol", "Hiragino Kaku", "Code2003", "Unifont"';
     ctx.fillStyle = '#63625f'
     ctx.fillText(member.user.tag, 290, 275/2 + 30, 500);
 
@@ -168,24 +156,24 @@ module.exports = {
     ctx.stroke();
 
       // Add the XP
-    ctx.font      = '25px Segoe, "Segoe Emoji", "Segoe Symbol"';
+    ctx.font      = '25px Segoe UI';
     ctx.fillStyle = '#63625f';
     ctx.fillText('XP:', 290, 240);
 
-    ctx.font      = '35px Segoe, "Segoe Emoji"';
+    ctx.font      = '35px Segoe UI';
     ctx.fillStyle = document.data.profile.color || '#e620a4';
     const lengthA = ctx.measureText(NUMBER.separate(member.xp - lowerlim)).width;
     ctx.fillText(NUMBER.separate(member.xp - lowerlim), 340, 240);
-    ctx.font      = '40px Segoe, "Segoe Emoji"';
+    ctx.font      = '40px Segoe UI';
     ctx.textAlign = 'right';
     const lengthB = ctx.measureText(member.level || 1).width;
     ctx.fillText(member.level || 1, 875, 240);
-    ctx.font      = '40px Segoe, "Segoe Emoji"';
+    ctx.font      = '40px Segoe UI';
     ctx.fillStyle = document.data.profile.color || '#e620a4';
     const lengthC = ctx.measureText(rank).width;
     ctx.fillText(rank, 875, 60);
 
-    ctx.font      = '25px Segoe, "Segoe Emoji", "Segoe Symbol"';
+    ctx.font      = '25px Segoe UI';
     ctx.fillStyle = '#63625f';
     ctx.textAlign = 'left';
     ctx.fillText(`/${NUMBER.separate(upperlim - lowerlim)}`, 345 + lengthA, 240);

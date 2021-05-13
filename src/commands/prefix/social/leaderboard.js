@@ -1,10 +1,5 @@
-const { createCanvas, loadImage, registerFont } = require('canvas');
-const { Permissions: { FLAGS }, MessageEmbed}   = require('discord.js');
-
-const { join } = require('path');
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI.ttf'      ), { family: 'Segoe' });
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Emoji.ttf'), { family: 'Segoe Emoji' });
-registerFont(join(__dirname, '../../../', 'assets/fonts/Segoe UI Bold.ttf' ), { family: 'Segoe',  weight: 'bold' });
+const { createCanvas, loadImage } = require('canvas');
+const { Permissions: { FLAGS }  } = require('discord.js');
 
 module.exports = {
   name             : 'leaderboard',
@@ -74,11 +69,11 @@ module.exports = {
       generateRCT(10, 10 * (index + 1) + index * 55, canvas.width - 20, 55, 10);
       ctx.fill()
 
-      ctx.font        = '20px Segoe UI, "Segoe Emoji"';
+      ctx.font        = '20px Segoe UI';
       ctx.fillStyle   = '#63625f';
       ctx.fillText(`#`      , 13, 10 * (index + 1) - 10 + (index + 1) * 55);
       const textwidth = ctx.measureText('#').width;
-      ctx.font        = '40px Segoe UI, "Segoe Emoji"';
+      ctx.font        = '40px Segoe UI';
       ctx.fillStyle   = [ '#D4AF37', '#c0c0c0', '#cd7f32' ][index] || '#ffffff';
       ctx.fillText(index + 1, 13 + textwidth, 10 * (index + 1) - 10 + (index + 1) * 55);
 
@@ -103,23 +98,23 @@ module.exports = {
       ctx.drawImage(avatar, 84.5, 10 * (index + 1) + index * 55 + 3, 50, 50);
       ctx.restore();
 
-      ctx.font      = '30px Segoe UI, "Segoe Emoji"';
+      ctx.font      = '30px Segoe UI, "Segoe UI Emoji", "Segoe UI Symbol", "Hiragino Kaku", "Code2003", "Unifont"';
       const flength = ctx.measureText(member.user.username).width < 280 ? ctx.measureText(member.user.username).width : 280;
       ctx.fillText(member.user.username, 160 ,10 * (index + 1) - 10 + (index + 1) * 55, 280);
-      ctx.font      = '20px Segoe UI, "Segoe Emoji"';
+      ctx.font      = '20px Segoe UI';
       ctx.fillStyle = '#63625f';
       ctx.fillText(`#${member.user.discriminator}`, 160 + flength, 10 * (index + 1) - 10 + (index + 1) * 55)
 
-      ctx.font      = '30px Segoe UI, "Segoe Emoji"';
+      ctx.font      = '30px Segoe UI';
       ctx.textAlign = 'right';
       ctx.fillStyle = '#e620a4';
       const tlength = ctx.measureText(member.level || 0).width;
       ctx.fillText(member.level || 0, canvas.width - 15, 10 * (index + 1) - 10 + (index + 1) * 55);
-      ctx.font      = '20px Segoe UI, "Segoe Emoji"';
+      ctx.font      = '20px Segoe UI';
       ctx.fillStyle = '#63625f';
       ctx.fillText('LVL:', canvas.width - 15 - tlength, 10 * (index + 1) - 10 + (index + 1) * 55);
 
-      ctx.font      = '20px Segoe UI, "Segoe Emoji"';
+      ctx.font      = '20px Segoe UI';
       ctx.fillStyle = '#e620a4';
       const ylength = ctx.measureText(NUMBER.compact(member.xp || 0)).width;
       ctx.fillText(NUMBER.compact(member.xp || 0), canvas.width - 15 - tlength - 60, 10 * (index + 1) - 10 + (index + 1) * 55);

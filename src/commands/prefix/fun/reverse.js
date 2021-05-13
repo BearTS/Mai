@@ -14,5 +14,5 @@ module.exports = {
   rankcommand      : false,
   parameters       : [ 'Text to reverse' ],
   examples         : [ 'reverse This text will be reversed.' ],
-  run              : (message, language, args) => message.channel.send(args.join(' ').split('').reverse().join(' ') || language.get({ '$in': 'COMMANDS', id: 'REVERSE_NOTEXT' }))
+  run              : (message, language, args) => message.channel.send([...args.join(' ')[Symbol.iterator]()].reverse().join(' ') || language.get({ '$in': 'COMMANDS', id: 'REVERSE_NOTEXT' }))
 };

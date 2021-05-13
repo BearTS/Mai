@@ -1,8 +1,5 @@
-const { createCanvas, registerFont } = require('canvas');
+const { createCanvas } = require('canvas');
 const _ = require('lodash');
-
-const { join } = require('path');
-registerFont(join(__dirname, '../../assets/fonts/captcha.ttf'), { family: 'Captcha'});
 
 module.exports = async (options) => {
 
@@ -29,7 +26,7 @@ module.exports = async (options) => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.textAlign = 'center';
-    ctx.font      = 'bold 20px Captcha';
+    ctx.font      = 'bold 20px Old Typewriter';
     ctx.fillStyle = 'rgba(255,255,255,0.4)';
     ctx.fillText(codetext, 75, 35, 140);
 
