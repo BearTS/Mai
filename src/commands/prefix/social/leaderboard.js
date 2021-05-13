@@ -1,5 +1,5 @@
 const { createCanvas, loadImage } = require('canvas');
-const { Permissions: { FLAGS }  } = require('discord.js');
+const { Permissions: { FLAGS }, MessageEmbed } = require('discord.js');
 
 module.exports = {
   name             : 'leaderboard',
