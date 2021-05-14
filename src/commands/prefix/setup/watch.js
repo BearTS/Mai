@@ -7,7 +7,7 @@ module.exports = {
   description      : 'Adds a new anime to watch for new episodes of. You may provide an Anilist/MAL entry link.  Supports multiple ids/links.',
   aliases          : [ 'anischedadd', 'anischedwatch' ],
   cooldown         : { time: 5e3 },
-  clientPermissions: [ FLAGS.MANAGE_GUILD ],
+  clientPermissions: [ /*FLAGS.MANAGE_GUILD*/ ],
   permissions      : [],
   group            : 'setup',
   guildOnly        : true,
