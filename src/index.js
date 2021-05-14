@@ -43,6 +43,6 @@ application.post('/guilds', (req, res) => {
   }).catch(console.error);
 });
 
-application.listen(1600, () => {
-  console.log(`Server is running on port 1600!`);
+application.listen(1300, () => {
+  console.log(`Server is running on port 1300!`);
 });
