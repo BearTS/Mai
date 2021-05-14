@@ -1,0 +1,26 @@
+query ($page: Int, $id_not_in: [Int], $id: [Int], $idMal: [Int], $status: MediaStatus, $seasonYear: Int) {
+  Page(page: $page) {
+    pageInfo {
+      currentPage
+      hasNextPage
+    }
+    media(id_not_in: $id_not_in, id_in: $id, idMal_in: $idMal, status: $status, sort: ID, type: ANIME, isAdult: false, seasonYear: $seasonYear) {
+      id
+      status
+      title {
+        english
+        romaji
+        native
+      }
+      coverImage {
+        large
+        color
+      }
+      siteUrl
+      nextAiringEpisode{
+        episode
+        timeUntilAiring
+      }
+    }
+  }
+}

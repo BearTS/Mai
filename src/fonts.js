@@ -1,4 +1,13 @@
 // This file needs to be loaded for canvas-based commands to work.
+//
+// [AVAILABILITY]  All fonts on the assets/fonts directory will be stored on the canvas module (truetype and opentype fonts only)
+// [ACCESSIBILITY] They are accessible via the font family indicated in their file fontFileName
+// [FORMAT]        Segoe-UI Bold -> Segoe UI is the font-family name, Bold is the font weight.
+/**
+ * [EXAMPLE]
+ * @example ctx.font = 'bold 20px Segoe UI, "Code2003", "Unifont"';
+ */
+
 const { readdirSync  } = require('fs');
 const { registerFont } = require('canvas');
 const {     join     } = require('path');
