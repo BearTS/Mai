@@ -392,7 +392,6 @@
 	"WATCH_NOARGS"   : "\\❌ **%AUTHOR%**, Please provide a valid anime link [MyAnimeList or Anilist] or add `releasing` or `not-yet-released` as a parameter to add all releasing or not yet released anime to your subscriptions.",
 	"WATCH_SALLADDED": "\\❌ **%AUTHOR%**, This server has already added all `%MEDIASTATUS%` anime!",
 	"WATCH_EMPTYRES" : "\\❌ **%AUTHOR%**, None of the provided links/ids matches anime from AniList!",
-	"WATCH_ALREADYOL": "\\❌ **%AUTHOR%**, The links you provided are already on your subscription list. To view all subscription, use the command `%PREFIX%watching`",
 	"WATCH_EMBED_TPS": "- \\✔️ Indicates that the anime has successfully been added.\n- \\⚠️ Indicates that the anime is already added.\n- \\❌ Indicates that the anime could not be added.\nUse `[%PREFIX%watching]` to view all current subscription.\nUse `[%PREFIX%unwatch <url> ...<url>]` to remove subscriptions.",
 	"WATCH_EMBED_TTL": "%COUNT% anime has successfully been processed.",
 	"WATCH_EMBED_ASC": "%EMOJI% Successfully added %ENTRY_TITLE%",
