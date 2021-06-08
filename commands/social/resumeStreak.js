@@ -1,3 +1,5 @@
+const profile = require('../../models/Profile');
+const commandEnabled = true;
 module.exports = {
   name: "resumestreak",
   aliases: ["rs"],
