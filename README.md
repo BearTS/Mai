@@ -1,3 +1,10 @@
+<h1 align="center"> ~~ Notice! ~~ </h1>
+
+I will do a rewrite for this bot some time after the discord.js v13 release. Also, [**Mai**](https://top.gg/bot/702074452317307061) no longer uses the code shown here. Mai-bot will now be moving to an [organization](https://github.com/mai-bot/) (which is private, but is planned to be released publicly) that is capable of supporting the increasing amount of users interested on it. This means that this code will no longer reflect the actual features as seen on the bot, however, I'll keep on referencing and updating this repository for those who wanted a free-custom Mai bot.
+
+---
+
+
 <h1 align="center"> <img src='https://cdn.discordapp.com/emojis/757869043117064223.png?v=1' height='50'> Mai</h1>
 
 <p align="center"> A Discord Bot Based Around Anime, and Mai </p>
@@ -5,12 +12,6 @@
 <p align="center">
   <a href="http://forthebadge.com/">
     <img src="http://forthebadge.com/images/badges/built-with-love.svg"/>
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://standardjs.com/">
-    <img src="https://cdn.rawgit.com/feross/standard/master/badge.svg" />
   </a>
 </p>
 
