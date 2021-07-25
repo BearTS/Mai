@@ -25,7 +25,7 @@ module.exports = {
     
     let messageID, channelID;
 
-    if(isNaN(Number(streakMessage)) {
+    if(isNaN(Number(streakMessage))) {
         messageID = streakMessage;
         channelID = message.channel.id;
     } else if (streakMessage.split("-").length === 2)  {
