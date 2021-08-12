@@ -11,7 +11,27 @@ module.exports = async (client, message) => {
   if (message.author.bot){
     return;
   };
-
+  
+  /*=============RECEIVE MESSAGES SENT TO THE BOT ON A CHANNEL===============*/
+  // Set the text channel id to receive the DMs in config.js
+  // ID of the channel used by the bot to send direct messages to a specific channel. 
+  if (message.channel.type === "dm") { 
+    const { MessageEmbed } = require('discord.js');
+    const config = require(`${process.cwd()}/config`);
+    var args = message.content.split(" ").slice(0)
+    var args = args.slice(0).join(" ")
+    if (message.author.bot) return;
+    message.channel.send("This message has been send to the staff! :incoming_envelope:")
+    var dmEmbed = new MessageEmbed()
+        .setColor('RANDOM')
+        .setFooter(`Direct Message | \©️${new Date().getFullYear()} Mai`)
+        .setAuthor(`New Message by: ${message.author.username}`, `https://cdn.discordapp.com/attachments/502649544622735362/520740243133956138/receive.png`)
+        .setTitle(`ID: ${message.author.id}`)
+        .setDescription(`Message: \n${args}`);
+    client.channels.cache.get(config.channels.directmessage).send(dmEmbed)
+  };
+  /*==============================================================*/
+  
   /*=============SHOW PREFIX WHEN USER TYPES PREFIX===============*/
   // When a user types prefix on Discord where this bot has permissions to view
   // channel and send message to, reply with the usable prefix for this bot.
