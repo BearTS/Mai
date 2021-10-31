@@ -16,8 +16,8 @@ class BaseHandler {
     /** [READ]
      * Fetches multiple document from the database (or all if no ids were provided)
      * Always check if the database is available for fetching before using this function
-     * @param  {[String]} ids An array of Data ids to fetch
-     * @return {Promise<Collection<>}   Collection of the fetched data]
+     * @param  {[Snowflake]} ids        An array of Data ids to fetch
+     * @return {Promise<Collection<*>>}   Collection of the fetched data
      * @private
      */
     _fetch(ids = []){
@@ -28,9 +28,10 @@ class BaseHandler {
 
     /** [UPDATE]
      * Patches multiple documents with common update entry.
-     * @param  {Array}    [ids=[]]    [description]
-     * @param  {Object}   [update={}] [description]
-     * @return {[object]}             [description]
+     * @param  {[Snowflake]} ids    Array of Discord Snowflakes that holds the identifier the patch is applied to.
+     * @param  {Object} [update={}] The update entry
+     * @param  {Object} options     UpdateMany Options. See https://mongoosejs.com/docs/api.html#model_Model.updateMany
+     * @return {Object} UpdateMany return object
      * @private
      */
     _patch(ids = [], update = {}, options){
@@ -39,9 +40,9 @@ class BaseHandler {
     };
 
     /**
-     * Stores an interable to the cache
-     * @param  {[type]} iterable [description]
-     * @return {[type]}          [description]
+     * Stores an iterable to the cache
+     * @param  {[*]} iterable
+     * @return {void}
      * @private
      */
     _store(iterable){
@@ -58,6 +59,10 @@ class BaseHandler {
         this._cache = new Collection();
     };
 
+    /**
+     * The cache for this handler
+     * @return {Collection}
+     */
     get cache(){
         return this._cache;
     };
