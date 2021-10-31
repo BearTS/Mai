@@ -4,6 +4,8 @@ const GuildProfile = require('./GuildProfile');
 const model = require('./models/GuildProfile');
 const { Collection, Guild, GuildChannel, Role, GuildEmoji, GuildMember } = require('discord.js');
 
+class DatabasePatchError extends Error {};
+
 class GuildProfileHandler extends BaseHandler {
     constructor(client, data){
         super(client, GuildProfile, model);
@@ -132,16 +134,13 @@ class GuildProfileHandler extends BaseHandler {
       if (this.client.guilds.resolve(id) instanceof Guild)
           ids = [ this.client.guilds.resolveId(ids) ];
       if (Array.isArray(ids))
-          throw new Error(
-            'Fetch parameter must be of type string or Array. Received ' + typeof ids,
-            'DatabasePatchError'
-          );
+          throw new DatabasePatchError('Fetch parameter must be of type string or Array. Received ' + typeof ids);
 
       ids = ids.map(x => this.client.guilds.resolveId(x));
       try {
           await this._patch(ids, update);
       } catch (e){
-          throw new Error(e, 'DatabasePatchError');
+          throw new DatabasePatchError(e.message);
       };
         return this.fetch(ids, { force: true, ...options });
     };
