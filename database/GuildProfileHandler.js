@@ -85,7 +85,7 @@ class GuildProfileHandler extends BaseHandler {
        */
       if (ids.length && ids.filter(id => !!data.map(x => x._id).includes(id).length && options.upsert === true){
           try {
-              await this._patch(
+              await super.patch(
                   ids.filter(id => !data.map(x => x._id).includes(id)),
                   new model().toJSON(),
                   { upsert: true }
@@ -138,7 +138,7 @@ class GuildProfileHandler extends BaseHandler {
 
       ids = ids.map(x => this.client.guilds.resolveId(x));
       try {
-          await this._patch(ids, update);
+          await super.patch(ids, update);
       } catch (e){
           throw new DatabasePatchError(e.message);
       };
