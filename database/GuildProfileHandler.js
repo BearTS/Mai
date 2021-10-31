@@ -2,7 +2,7 @@
 
 const GuildProfile = require('./GuildProfile');
 const model = require('./models/GuildProfile');
-const { Guild } = require('discord.js');
+const { Collection, Guild, GuildChannel, Role, GuildEmoji, GuildMember } = require('discord.js');
 
 class GuildProfileHandler extends BaseHandler {
     constructor(client, data){
@@ -30,14 +30,12 @@ class GuildProfileHandler extends BaseHandler {
      * @return {Promise<Collection<GuildProfile>|GuildProfile>} GuildProfile
      */
     async fetch(ids = [], options){
-      if (typeof ids === 'string')
+      if ((typeof ids === 'string') || (this.client.guilds.resolve(id) instanceof Guild))
           ids = [ ids ];
-      if (this.client.guilds.resolve(id) instanceof Guild)
-          ids = [ this.client.guilds.resolveId(ids) ];
       if (ids instanceof Collection)
           ids = ids.toJSON();
-      if (Array.isArray(ids))
-          throw new Error('Fetch parameter must be a (type, collection, or an array of) GuildResolvables. Received ' + typeof ids);
+      if (!Array.isArray(ids))
+          throw new Error('GuildProfileHandler#fetch parameter must be a (type, collection, or an array of) GuildResolvables. Received ' + typeof ids);
 
       const cachedCollection = new Collection();
 
@@ -50,6 +48,16 @@ class GuildProfileHandler extends BaseHandler {
           ids = ids.map(id => this.client.guilds.resolveId(id)).filter(Boolean);
           if (!ids.length)
               return cachedCollection;
+      } else {
+          ids = ids.map(el =>
+              el instanceof GuildChannel ||
+              el instanceof GuildMember ||
+              el instanceof GuildEmoji ||
+              el instanceof Role ||
+              (el instanceof Invite && el.guild)
+                  ? el.guild.id
+                  : el
+          );
       };
 
       /**
@@ -69,13 +77,6 @@ class GuildProfileHandler extends BaseHandler {
       const data = await this.super._fetch(ids);
 
       /**
-       * Whether to update the cache with the result
-       * @name {cache}
-       */
-      if (ids.length && options.cache !== false)
-          this.super._store(data);
-
-      /**
        * Whether to upsert new document to the database for missing documents from the query
        * @param  {[type]} ids [description]
        * @return {[type]}     [description]
@@ -83,15 +84,28 @@ class GuildProfileHandler extends BaseHandler {
       if (ids.length && ids.filter(id => !!data.map(x => x._id).includes(id).length && options.upsert === true){
           try {
               await this._patch(
-                  ids.filter(id => !data.map(x => x._id).includes(id).length),
+                  ids.filter(id => !data.map(x => x._id).includes(id)),
                   new model().toJSON(),
                   { upsert: true }
               );
+              data.concat(
+                  await this.super._fetch(
+                      ids.filter(id => !!data.map(x => x._id).includes(id))
+                  )
+              );
           } catch (e) {
-                  throw new Error(e.message);
+              throw new Error(e.message);
               );
           }
       };
+
+      /**
+       * Whether to update the cache with the result
+       * @name {cache}
+       */
+      if (ids.length && options.cache !== false)
+          this.super._store(data);
+
 
         return data.concat(cachedCollection);
     };
