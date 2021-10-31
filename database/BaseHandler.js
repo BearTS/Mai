@@ -33,8 +33,8 @@ class BaseHandler {
      * @return {[object]}             [description]
      * @private
      */
-    _patch(ids = [], update = {}){
-        const data = await this._model.updateMany({ _id: { '$in': ids }}, update);
+    _patch(ids = [], update = {}, options){
+        const data = await this._model.updateMany({ _id: { '$in': ids }}, update, options);
         return data;
     };
 
