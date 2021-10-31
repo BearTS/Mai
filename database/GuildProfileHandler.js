@@ -2,7 +2,7 @@
 
 const GuildProfile = require('./GuildProfile');
 const model = require('./models/GuildProfile');
-const { Guild, GuildChannel, Role, GuildEmoji, GuildMember } = require('discord.js');
+const { Collection, Guild, GuildChannel, Role, GuildEmoji, GuildMember } = require('discord.js');
 
 class GuildProfileHandler extends BaseHandler {
     constructor(client, data){
