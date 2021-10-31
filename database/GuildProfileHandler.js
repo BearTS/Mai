@@ -76,7 +76,7 @@ class GuildProfileHandler extends BaseHandler {
           if (!ids.length) return cachedCollection;
       };
 
-      const data = await this.super._fetch(ids);
+      const data = await super.fetch(ids);
 
       /**
        * Whether to upsert new document to the database for missing documents from the query
@@ -91,7 +91,7 @@ class GuildProfileHandler extends BaseHandler {
                   { upsert: true }
               );
               data.concat(
-                  await this.super._fetch(
+                  await super.fetch(
                       ids.filter(id => !!data.map(x => x._id).includes(id))
                   )
               );
@@ -106,7 +106,7 @@ class GuildProfileHandler extends BaseHandler {
        * @name {cache}
        */
       if (ids.length && options.cache !== false)
-          this.super._store(data);
+          this._store(data);
 
 
         return data.concat(cachedCollection);

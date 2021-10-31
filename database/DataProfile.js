@@ -81,7 +81,7 @@ class DataProfile extends BaseProfile {
      * @return {Promise<GuildProfile>}
      */
     async fetch(options = {}){
-        return await this.super._handler.fetch(this.id, options);
+        return await this._handler.fetch(this.id, options);
     };
 
     /**
@@ -96,7 +96,7 @@ class DataProfile extends BaseProfile {
             throw new GuildProfilePatchError(e.message);
         };
         this._handler._store([ data ]);
-        return this.super._handler.cache.get(data.id);
+        return this._handler.cache.get(data.id);
     };
 
     /**
@@ -112,7 +112,7 @@ class DataProfile extends BaseProfile {
      * @return {[type]} [description]
      */
     toModel(){
-        return new this.super._handler._model({ _id: this.id, ...this });
+        return new this._handler._model({ _id: this.id, ...this });
     };
 };
 

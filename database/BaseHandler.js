@@ -20,7 +20,7 @@ class BaseHandler {
      * @return {Promise<Collection<*>>}   Collection of the fetched data
      * @private
      */
-    _fetch(ids = []){
+    fetch(ids = []){
         const options = ids.length ? { _id: { '$in': ids }} : {};
         const data = await this._model.find(options);
         return data.reduce((coll, document) => coll.set(document._id, new this._holds(this.client, this, document)), new Collection());
@@ -34,7 +34,7 @@ class BaseHandler {
      * @return {Object} UpdateMany return object
      * @private
      */
-    _patch(ids = [], update = {}, options){
+    patch(ids = [], update = {}, options){
         const data = await this._model.updateMany({ _id: { '$in': ids }}, update, options);
         return data;
     };

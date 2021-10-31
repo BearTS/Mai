@@ -37,10 +37,10 @@ class GuildProfile extends DataProfile {
      * @param {String} [language] The language code to use
      * @return {GuildProfile} this instance
      */
-    setLanguage(language = this.super.getValue('language')){
-        this.super.modify(
+    setLanguage(language = this.getValue('language')){
+        this.modify(
             'language',
-            typeof language === 'string' ? language : this.super.getValue('language')
+            typeof language === 'string' ? language : this.getValue('language')
         );
         return this;
     };
@@ -52,9 +52,9 @@ class GuildProfile extends DataProfile {
      */
     setWelcomeChannel(channel){
         const path = 'greeter.welcome.channel';
-        this.super.modify(
+        this.modify(
             path,
-            this.discordGuild.channels.resolveId(channel) || this.super.getValue(path),
+            this.discordGuild.channels.resolveId(channel) || this.getValue(path),
         );
         return this;
     };
@@ -66,9 +66,9 @@ class GuildProfile extends DataProfile {
      */
     setWelcomeMessage(message)){
         const path = 'greeter.welcome.message';
-        this.super.modify(
+        this.modify(
             path,
-            typeof message === 'string' ? message : this.super.getValue(path)
+            typeof message === 'string' ? message : this.getValue(path)
         );
         return this;
     };
@@ -83,9 +83,9 @@ class GuildProfile extends DataProfile {
         try {
             embed = new MessageEmbed(embed);
         } catch {
-            embed = this.super.getValue(path);
+            embed = this.getValue(path);
         }
-        this.super.modify(path, embed);
+        this.modify(path, embed);
         return this;
     };
 
@@ -96,9 +96,9 @@ class GuildProfile extends DataProfile {
      */
     setWelcomeType(type){
         const path = 'greeter.welcome.type';
-        this.super.modify(
+        this.modify(
             path,
-            typeof path === 'string' ? path : this.super.getValue(path);
+            typeof path === 'string' ? path : this.getValue(path);
         );
         return this;
     };
@@ -110,9 +110,9 @@ class GuildProfile extends DataProfile {
      */
     setLeavingChannel(channel)){
         const path = 'greeter.leaving.channel';
-        this.super.modify(
+        this.modify(
             path,
-            this.discordGuild.channels.resolveId(channel) || this.super.getValue(path)
+            this.discordGuild.channels.resolveId(channel) || this.getValue(path)
         );
         return this;
     };
@@ -124,9 +124,9 @@ class GuildProfile extends DataProfile {
      */
     setLeavingMessage(message)){
         const path = 'greeter.leaving.message';
-        this.super.modify(
+        this.modify(
             path,
-            typeof message === 'string' ? message : this.super.getValue(path)
+            typeof message === 'string' ? message : this.getValue(path)
         );
         return this;
     };
@@ -141,9 +141,9 @@ class GuildProfile extends DataProfile {
         try {
             embed = new MessageEmbed(embed);
         } catch {
-            embed = this.super.getValue(path);
+            embed = this.getValue(path);
         }
-        this.super.modify(path, embed);
+        this.modify(path, embed);
         return this;
     };
 
@@ -154,9 +154,9 @@ class GuildProfile extends DataProfile {
      */
     setLeavingType(type){
         const path = 'greeter.leaving.type';
-        this.super.modify(
+        this.modify(
             path,
-            typeof path === 'string' ? path : this.super.getValue(path);
+            typeof path === 'string' ? path : this.getValue(path);
         );
         return this;
     };
@@ -167,9 +167,9 @@ class GuildProfile extends DataProfile {
      * @return {GuildProfile} this instance
      */
     toggleXP(boolean){
-      this.super.modify('xp.isActive', typeof boolean === 'boolean'
+      this.modify('xp.isActive', typeof boolean === 'boolean'
         ? boolean
-        : !this.super.getValue('xp.isActive')
+        : !this.getValue('xp.isActive')
       );
       return this;
     };
@@ -187,9 +187,9 @@ class GuildProfile extends DataProfile {
         } else {
             channels = [this.discordGuild.channels.resolveId(channels)];
         };
-        this.super.modify(
+        this.modify(
             path,
-            this.constructor.addItemsToArray(channels, this.super.getValue(path));
+            this.constructor.addItemsToArray(channels, this.getValue(path));
         );
         return this;
     };
@@ -209,9 +209,9 @@ class GuildProfile extends DataProfile {
             items = [this.discordGuild.channels.resolveId(channels)]
                 .filter(x => typeof x === 'string');
         };
-        this.super.modify(
+        this.modify(
             path,
-            this.constructor.removeItemsFromArray(channels, this.super.getValue(path))
+            this.constructor.removeItemsFromArray(channels, this.getValue(path))
         );
         return this;
     };
@@ -229,9 +229,9 @@ class GuildProfile extends DataProfile {
         } else {
             roles = [this.discordGuild.roles.resolveId(roles)];
         };
-        this.super.modify(
+        this.modify(
             path,
-            this.constructor.addItemsToArray(roles, this.super.getValue(path))
+            this.constructor.addItemsToArray(roles, this.getValue(path))
         );
         return this;
     };
@@ -251,9 +251,9 @@ class GuildProfile extends DataProfile {
             items = [this.discordGuild.roles.resolveId(roles)]
                 .filter(x => typeof x === 'string');
         };
-        this.super.modify(
+        this.modify(
             path,
-            this.constructor.removeItemsFromArray(roles, this.super.getValue(path))
+            this.constructor.removeItemsFromArray(roles, this.getValue(path))
         );
         return this;
     };
@@ -261,18 +261,18 @@ class GuildProfile extends DataProfile {
 
     setMutedRole(role){
       const path = 'roles.muted';
-      this.super.modify(
+      this.modify(
           path,
-          this.discordGuild.roles.resolveId(role) || this.super.getValue(path)
+          this.discordGuild.roles.resolveId(role) || this.getValue(path)
       );
       return this;
     };
 
     setSuggestChannel(channel){
         const path = 'channels.suggest';
-        this.super.modify(
+        this.modify(
             path,
-            this.discordGuild.channels.resolveId(channel) || this.super.getValue(path)
+            this.discordGuild.channels.resolveId(channel) || this.getValue(path)
         );
         return this;
     };
@@ -284,9 +284,9 @@ class GuildProfile extends DataProfile {
      */
     setWatchlistChannel(channel){
         const path = 'watchlist.channelID';
-        this.super.modify(
+        this.modify(
             path,
-            this.discordGuild.channels.resolveId(channel) || this.super.getValue(path)
+            this.discordGuild.channels.resolveId(channel) || this.getValue(path)
         );
         return this;
     };
@@ -298,9 +298,9 @@ class GuildProfile extends DataProfile {
      */
     addWatchlistIds(ids = []){
         const path = 'watchlist.data';
-        this.super.modify(
+        this.modify(
             path,
-            this.constructor.addItemsToArray(ids, this.super.getValue(path))
+            this.constructor.addItemsToArray(ids, this.getValue(path))
         );
         return this;
     };
@@ -312,9 +312,9 @@ class GuildProfile extends DataProfile {
      */
     removeWatchlistIds(ids = []){
         const path = 'watchlist.data';
-        this.super.modify(
+        this.modify(
             path,
-            this.constructor.removeItemsFromArray(ids, this.super.getValue(path))
+            this.constructor.removeItemsFromArray(ids, this.getValue(path))
         );
         return this;
     };
