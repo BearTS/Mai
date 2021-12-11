@@ -1,0 +1,15 @@
+version: "4.0"
+services:
+  redbot:
+    container_name: mai
+    image: bearts/mai:v4.0
+    restart: unless-stopped
+    volumes:
+      - ./mai:/data
+    environment:
+      - DISCORD_TOKEN=your_bot_token
+      - MONGO_URI=
+      - DBL_AUTH=
+      - TOP_GG_AUTH=
+      - chatbot_id=
+      - chatbot_key=

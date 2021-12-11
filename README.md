@@ -50,8 +50,17 @@ This repository will be updated with the code for the rewritten bot following th
 <br />
 
 Check the docs on https://mai-san.ml/
+### Hosting
+#### Deploy Using Docker
+We have docker images available so Just Do This: 
+```
+docker run -v /mai:/data -e DISCORD_TOKEN=bot_token bearts/mai:v4.0
+```
+Optional environment variables
+- `MONGO_URI`: The Mongo URI, if you want to use the database-reliant features
+- `chatbot_id` `chatbot_key`: Chatbot id and key, if you want to use the chatbot feature
 
-### Host
+#### Deploying (Without Using Docker)
 Create Env file:
 
 *Refer to .env_example file for other usable environment variables*
