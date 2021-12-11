@@ -54,7 +54,7 @@ Check the docs on https://mai-san.ml/
 #### Deploy Using Docker
 We have docker images available so Just Do This: 
 ```
-docker run -v /mai:/data -e DISCORD_TOKEN=bot_token bearts/mai
+docker run -v /mai:/data -e DISCORD_TOKEN=bot_token bearts/mai:v4.0
 ```
 Optional environment variables
 - `MONGO_URI`: The Mongo URI, if you want to use the database-reliant features
