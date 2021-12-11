@@ -50,7 +50,7 @@ This repository will be updated with the code for the rewritten bot following th
 <br />
 
 Check the docs on https://mai-san.ml/
-
+### Hosting
 #### Deploy Using Docker
 We have docker images available so Just Do This: 
 ```
